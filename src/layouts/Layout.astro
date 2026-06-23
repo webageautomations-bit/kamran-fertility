@@ -33,6 +33,30 @@ const {
     </main>
     <Footer />
 
+    <!-- SAFETY NET (inline, NOT bundled): runs even if the motion module below
+         fails to load/parse. Marks JS alive (enables the CSS reveal start-state)
+         and, if the module never signals readiness, force-reveals everything so
+         the page can never present blank. -->
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        var reduce =
+          window.matchMedia &&
+          window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        // Only opt into the hidden start-state when motion is allowed.
+        if (!reduce) root.classList.add("motion-js");
+        // Fallback: if the motion module hasn't taken over shortly, reveal all.
+        window.setTimeout(function () {
+          if (window.__motionReady) return;
+          var els = document.querySelectorAll("[data-reveal]");
+          for (var i = 0; i < els.length; i++) {
+            els[i].style.opacity = "1";
+            els[i].style.transform = "none";
+          }
+        }, 2000);
+      })();
+    </script>
+
     <script>
       // ── Site motion engine: Lenis smooth scroll + GSAP ScrollTrigger ──────
       import Lenis from "lenis";
@@ -44,44 +68,56 @@ const {
       gsap.registerPlugin(ScrollTrigger, SplitText);
 
       const reveals = gsap.utils.toArray<HTMLElement>("[data-reveal]");
-
-      if (prefersReducedMotion()) {
-        // REDUCED MOTION: native scroll, no Lenis, no animation.
-        // Force every reveal element to its visible end-state and stop.
+      const revealAll = () =>
         reveals.forEach((el) => gsap.set(el, { opacity: 1, y: 0 }));
-      } else {
-        // Smooth scroll (gentle ~1.1s ease), bridged to GSAP's ticker.
-        const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
-        lenis.on("scroll", ScrollTrigger.update);
-        gsap.ticker.add((t) => lenis.raf(t * 1000));
-        gsap.ticker.lagSmoothing(0);
 
-        // Expose for component scripts (hero parallax, magnetic, etc.).
-        (window as any).__lenis = lenis;
+      // ── Content reveal FIRST, and isolated from everything else. Un-hiding
+      //    the page is the priority; nothing below may prevent it. ──
+      try {
+        if (prefersReducedMotion()) {
+          revealAll();
+        } else {
+          gsap.set(reveals, { opacity: 0, y: 26 });
+          ScrollTrigger.batch("[data-reveal]", {
+            start: "top 85%",
+            onEnter: (batch) =>
+              gsap.to(batch, {
+                opacity: 1,
+                y: 0,
+                duration: DURATION,
+                ease: EASE,
+                stagger: STAGGER,
+                overwrite: true,
+              }),
+          });
+          ScrollTrigger.refresh();
+          window.addEventListener("load", () => ScrollTrigger.refresh());
+          let rt: number;
+          window.addEventListener("resize", () => {
+            window.clearTimeout(rt);
+            rt = window.setTimeout(() => ScrollTrigger.refresh(), 200);
+          });
+        }
+      } catch (err) {
+        console.error("[motion] reveal init failed — revealing all content", err);
+        revealAll();
+      } finally {
+        // Tell the inline safety net the module took over (success or handled).
+        (window as any).__motionReady = true;
+      }
 
-        // Base reveal — ONE batched ScrollTrigger for all [data-reveal].
-        gsap.set(reveals, { opacity: 0, y: 26 });
-        ScrollTrigger.batch("[data-reveal]", {
-          start: "top 85%",
-          onEnter: (batch) =>
-            gsap.to(batch, {
-              opacity: 1,
-              y: 0,
-              duration: DURATION,
-              ease: EASE,
-              stagger: STAGGER,
-              overwrite: true,
-            }),
-        });
-
-        // Recompute trigger positions after fonts/layout settle and on resize.
-        window.addEventListener("load", () => ScrollTrigger.refresh());
-        let rt: number;
-        window.addEventListener("resize", () => {
-          window.clearTimeout(rt);
-          rt = window.setTimeout(() => ScrollTrigger.refresh(), 200);
-        });
-        ScrollTrigger.refresh();
+      // ── Smooth scroll is a separate enhancement. If Lenis throws, the page
+      //    is already revealed above; we just fall back to native scroll. ──
+      if (!prefersReducedMotion()) {
+        try {
+          const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+          lenis.on("scroll", ScrollTrigger.update);
+          gsap.ticker.add((t) => lenis.raf(t * 1000));
+          gsap.ticker.lagSmoothing(0);
+          (window as any).__lenis = lenis;
+        } catch (err) {
+          console.error("[motion] Lenis init failed — using native scroll", err);
+        }
       }
     </script>
   </body>

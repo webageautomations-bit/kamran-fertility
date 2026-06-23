@@ -22,7 +22,7 @@ const whatsappHref = "https://wa.me/923148432789";
         id="hero-heading"
         class="mt-5 t-display text-ink"
       >
-        Care that meets you
+        <span class="block">Care that meets you</span>
         <span class="relative inline-block whitespace-nowrap text-azure">
           where you are.
           <!-- Animated hand-drawn underline -->
@@ -214,6 +214,13 @@ const whatsappHref = "https://wa.me/923148432789";
   }
 
   /* Entrance now handled by the site-wide [data-reveal] system (global.css). */
+
+  /* SplitText word wrapper — a word is the unwrappable unit, so character
+     splitting can never break a word ("you") across two lines. */
+  .hero-word {
+    display: inline-block;
+    white-space: nowrap;
+  }
 
   /* Hand-drawn underline — sits below the glyphs, never over them */
   .hero-underline {
@@ -620,32 +627,56 @@ const whatsappHref = "https://wa.me/923148432789";
   gsap.registerPlugin(ScrollTrigger, SplitText);
 
   const h1 = document.getElementById("hero-heading");
-  const underline = document.querySelector<SVGPathElement>(".hero-underline path");
 
   if (prefersReducedMotion()) {
-    // Headline fully visible & sharp; underline already drawn; no parallax.
+    // Plain, correct two-line markup, fully visible & sharp. No SplitText.
+    const underline = document.querySelector<SVGPathElement>(".hero-underline path");
     if (underline) underline.style.strokeDashoffset = "0";
   } else if (h1) {
     let split: SplitText | null = null;
 
+    const drawUnderline = () => {
+      // Safe even if the headline animation was skipped: ensure it's visible.
+      const u = h1.querySelector<SVGPathElement>(".hero-underline path");
+      if (u) u.style.strokeDashoffset = "0";
+    };
+
     const playIn = () => {
-      split?.revert();
-      split = new SplitText(h1, { type: "chars" });
-      const tl = gsap.timeline();
-      tl.from(split.chars, {
-        opacity: 0,
-        filter: "blur(16px)",
-        duration: DURATION,
-        ease: EASE,
-        stagger: 0.045, // ~2–3 letters mid-transition at once
-      });
-      // Underline draws in only AFTER the letters resolve.
-      if (underline) {
-        tl.to(
-          underline,
-          { strokeDashoffset: 0, duration: 0.9, ease: EASE },
-          ">-0.1",
-        );
+      // Fully guarded: a failure here is a lost flourish, never a broken page.
+      try {
+        // Revert before (re)splitting so spans never duplicate or compound.
+        if (split) {
+          split.revert();
+          split = null;
+        }
+        // Split into WORDS and CHARS: words are the inline-block, nowrap wrap
+        // unit (a word can never break across lines); chars drive the blur.
+        split = new SplitText(h1, { type: "words,chars", wordsClass: "hero-word" });
+        const chars = split?.chars ?? [];
+        if (!chars.length) {
+          drawUnderline();
+          return;
+        }
+
+        // Re-query after split — revert recreated the underline node.
+        const underline = h1.querySelector<SVGPathElement>(".hero-underline path");
+
+        const tl = gsap.timeline();
+        tl.from(chars, {
+          opacity: 0,
+          filter: "blur(16px)",
+          duration: DURATION,
+          ease: EASE,
+          stagger: 0.045, // ~2–3 letters mid-transition at once
+        });
+        // Underline draws in only AFTER the letters resolve.
+        if (underline) {
+          tl.to(underline, { strokeDashoffset: 0, duration: 0.9, ease: EASE }, ">-0.1");
+        }
+      } catch (err) {
+        console.error("[hero] headline animation failed — showing static headline", err);
+        // Leave the (already visible) headline as-is; just ensure the underline shows.
+        drawUnderline();
       }
     };
 
@@ -656,14 +687,11 @@ const whatsappHref = "https://wa.me/923148432789";
       playIn();
     }
 
-    // Re-split on resize to avoid broken line wrapping.
+    // Re-split on resize (revert first) to keep the two-line break clean.
     let rt: number;
     window.addEventListener("resize", () => {
       window.clearTimeout(rt);
-      rt = window.setTimeout(() => {
-        split?.revert();
-        split = null;
-      }, 150);
+      rt = window.setTimeout(playIn, 200);
     });
 
     // Ambient parallax: the gradient + particle layer drifts slower than the

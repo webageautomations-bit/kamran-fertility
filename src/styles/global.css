@@ -131,8 +131,12 @@ body {
    to the end state via ScrollTrigger.batch — no CSS transition needed.
    ────────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: no-preference) {
-  /* Reveal-on-scroll start state (GSAP tweens these to opacity:1, y:0). */
-  [data-reveal] {
+  /* Reveal-on-scroll start state (GSAP tweens these to opacity:1, y:0).
+     Gated on html.motion-js — added by an inline script ONLY once we know JS
+     is alive. If the motion module fails to load/parse (e.g. a Vite 504, a
+     CDN failure, a throw), the class+safety-net guarantee content stays
+     visible instead of the page rendering blank. */
+  html.motion-js [data-reveal] {
     opacity: 0;
   }
 
