@@ -65,7 +65,7 @@ const {
         // Fallback: if the motion module hasn't taken over shortly, reveal all.
         window.setTimeout(function () {
           if (window.__motionReady) return;
-          var els = document.querySelectorAll("[data-reveal]");
+          var els = document.querySelectorAll("[data-reveal], [data-reveal-onload]");
           for (var i = 0; i < els.length; i++) {
             els[i].style.opacity = "1";
             els[i].style.transform = "none";
@@ -85,18 +85,22 @@ const {
       gsap.registerPlugin(ScrollTrigger, SplitText);
 
       const reveals = gsap.utils.toArray<HTMLElement>("[data-reveal]");
-      const revealAll = () =>
-        reveals.forEach((el) => gsap.set(el, { opacity: 1, y: 0 }));
+      const onloads = gsap.utils.toArray<HTMLElement>("[data-reveal-onload]");
+      const showAll = () =>
+        [...reveals, ...onloads].forEach((el) => gsap.set(el, { opacity: 1, y: 0 }));
 
       // ── Content reveal FIRST, and isolated from everything else. Un-hiding
       //    the page is the priority; nothing below may prevent it. ──
       try {
         if (prefersReducedMotion()) {
-          revealAll();
+          showAll();
         } else {
-          gsap.set(reveals, { opacity: 0, y: 26 });
+          gsap.set([...reveals, ...onloads], { opacity: 0, y: 26 });
+
+          // Scroll-reveal for below-the-fold content. start "top 90%" → a
+          // section animates as its top edge enters the viewport, not after.
           ScrollTrigger.batch("[data-reveal]", {
-            start: "top 85%",
+            start: "top 90%",
             onEnter: (batch) =>
               gsap.to(batch, {
                 opacity: 1,
@@ -107,17 +111,38 @@ const {
                 overwrite: true,
               }),
           });
-          ScrollTrigger.refresh();
-          window.addEventListener("load", () => ScrollTrigger.refresh());
+
+          // Above-the-fold hero entrance: reveal on LOAD, never scroll-gated.
+          if (onloads.length) {
+            gsap.to(onloads, {
+              opacity: 1,
+              y: 0,
+              duration: DURATION,
+              ease: EASE,
+              stagger: STAGGER,
+              delay: 0.05,
+              overwrite: true,
+            });
+          }
+
+          // Keep trigger positions accurate on mobile: recompute after the
+          // initial layout, after fonts swap, on resize, and on rotate.
+          const refresh = () => ScrollTrigger.refresh();
+          refresh();
+          window.addEventListener("load", refresh);
+          window.addEventListener("orientationchange", () =>
+            window.setTimeout(refresh, 250),
+          );
+          if (document.fonts?.ready) document.fonts.ready.then(refresh);
           let rt: number;
           window.addEventListener("resize", () => {
             window.clearTimeout(rt);
-            rt = window.setTimeout(() => ScrollTrigger.refresh(), 200);
+            rt = window.setTimeout(refresh, 200);
           });
         }
       } catch (err) {
         console.error("[motion] reveal init failed — revealing all content", err);
-        revealAll();
+        showAll();
       } finally {
         // Tell the inline safety net the module took over (success or handled).
         (window as any).__motionReady = true;

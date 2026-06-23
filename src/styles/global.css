@@ -52,6 +52,9 @@
 
 html {
   scroll-behavior: smooth;
+  /* Backstop against horizontal overflow (clip, not hidden → sticky still works).
+     The real fix is clipping ambient layers at their sections; this is belt-and-braces. */
+  overflow-x: clip;
 }
 
 body {
@@ -155,7 +158,8 @@ html.no-js .fouc {
      is alive. If the motion module fails to load/parse (e.g. a Vite 504, a
      CDN failure, a throw), the class+safety-net guarantee content stays
      visible instead of the page rendering blank. */
-  html.motion-js [data-reveal] {
+  html.motion-js [data-reveal],
+  html.motion-js [data-reveal-onload] {
     opacity: 0;
   }
 

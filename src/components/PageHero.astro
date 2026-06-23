@@ -85,9 +85,10 @@ const {
 <style>
   .page-hero {
     position: relative;
-    /* No clipping: the ambient layer bleeds ~260px past the hero and dissolves
-       into the next section (matches the homepage continuous-background). */
-    overflow: visible;
+    /* Clip ambient blobs/canvas horizontally (stops mobile sideways-overflow);
+       keep the vertical bleed into the next section. */
+    overflow-x: clip;
+    overflow-y: visible;
     isolation: isolate;
   }
   .page-hero-bg {
@@ -247,10 +248,19 @@ const {
         else playIn();
       };
       start();
+      // Re-layout only on real WIDTH change; never replay the entrance, and
+      // ignore mobile URL-bar height-only resizes fired during scroll.
+      let lastW = window.innerWidth;
       let rt: number;
       window.addEventListener("resize", () => {
+        if (window.innerWidth === lastW) return;
+        lastW = window.innerWidth;
         window.clearTimeout(rt);
-        rt = window.setTimeout(() => { if (started) playIn(); }, 200);
+        rt = window.setTimeout(() => {
+          if (!started) return;
+          if (split) { split.revert(); split = null; }
+          h1.style.opacity = "1";
+        }, 200);
       });
     }
   } catch (err) {

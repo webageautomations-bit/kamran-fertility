@@ -12,6 +12,12 @@ const links = [
 ];
 
 const whatsappHref = "https://wa.me/923148432789";
+
+// Active-state detection (normalise trailing slash).
+const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const isCurrent = (href: string) =>
+  (href.replace(/\/+$/, "") || "/") === currentPath;
+const servicesOpen = currentPath.startsWith("/services");
 ---
 
 <header
@@ -124,29 +130,52 @@ const whatsappHref = "https://wa.me/923148432789";
   <!-- Mobile menu -->
   <div id="mobile-menu" class="hidden border-t border-line bg-white lg:hidden" data-mobile-menu>
     <div class="space-y-1 px-5 py-4">
-      <a href="/" class="block rounded-lg px-3 py-2.5 font-medium text-ink hover:bg-ice">Home</a>
+      <a href="/" class="m-item" data-menu-link aria-current={isCurrent("/") ? "page" : undefined}>
+        <span>Home</span>
+      </a>
 
-      <div class="px-3 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-body/70">
-        Services
+      <!-- Services: same styling as other items; toggles an inline accordion. -->
+      <button
+        type="button"
+        class="m-item"
+        aria-expanded={servicesOpen ? "true" : "false"}
+        aria-controls="m-services"
+        data-services-toggle
+      >
+        <span>Services</span>
+        <svg class="m-chevron h-4 w-4 text-body" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 9l6 6l6 -6" />
+        </svg>
+      </button>
+      <div id="m-services" class={`m-sub ${servicesOpen ? "open" : ""}`} data-services-panel>
+        <div class="m-sub-inner">
+          {
+            services.map((s) => (
+              <a
+                href={s.href}
+                class="m-sublink"
+                data-menu-link
+                aria-current={isCurrent(s.href) ? "page" : undefined}
+              >
+                {s.label}
+              </a>
+            ))
+          }
+        </div>
       </div>
-      {
-        services.map((s) => (
-          <a
-            href={s.href}
-            class="block rounded-lg px-3 py-2.5 pl-5 text-sm font-medium text-ink hover:bg-ice hover:text-azure"
-          >
-            {s.label}
-          </a>
-        ))
-      }
 
-      <a href="/resources" class="mt-1 block rounded-lg px-3 py-2.5 font-medium text-ink hover:bg-ice">Resources</a>
-      <a href="/contact" class="block rounded-lg px-3 py-2.5 font-medium text-ink hover:bg-ice">Contact</a>
+      <a href="/resources" class="m-item" data-menu-link aria-current={isCurrent("/resources") ? "page" : undefined}>
+        <span>Resources</span>
+      </a>
+      <a href="/contact" class="m-item" data-menu-link aria-current={isCurrent("/contact") ? "page" : undefined}>
+        <span>Contact</span>
+      </a>
 
       <a
         href={whatsappHref}
         target="_blank"
         rel="noopener"
+        data-menu-link
         class="mt-3 block rounded-full bg-gradient-to-r from-azure to-navy px-5 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-azure/20"
       >
         Book consultation
@@ -182,6 +211,98 @@ const whatsappHref = "https://wa.me/923148432789";
   .nav-link:hover::after {
     transform: scaleX(1);
   }
+
+  /* ── Mobile menu ─────────────────────────────────────────── */
+  /* Uniform top-level item (Home, Services, Resources, Contact). */
+  .m-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: 100%;
+    min-height: 44px;
+    border-radius: 0.5rem;
+    padding: 0.625rem 0.75rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--ink);
+    text-align: left;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+  .m-item:hover {
+    background: var(--ice);
+  }
+  /* Tap feedback + current page */
+  .m-item:active {
+    background: var(--ice);
+    color: var(--azure);
+  }
+  .m-item[aria-current="page"] {
+    background: var(--ice);
+    color: var(--azure);
+  }
+  /* Services parent reads as active when on a /services/* page */
+  .m-item[aria-expanded="true"] .m-chevron {
+    transform: rotate(180deg);
+  }
+  .m-chevron {
+    transition: transform 0.3s ease;
+    flex: none;
+  }
+
+  /* Accordion: smooth height via grid-template-rows (0fr ↔ 1fr). */
+  .m-sub {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+  }
+  .m-sub.open {
+    grid-template-rows: 1fr;
+  }
+  .m-sub-inner {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  /* Indented sub-links */
+  .m-sublink {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem 0.5rem 2rem;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--body-text);
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+  .m-sublink:hover {
+    background: var(--ice);
+  }
+  .m-sublink:active {
+    background: var(--ice);
+    color: var(--azure);
+  }
+  .m-sublink[aria-current="page"] {
+    background: var(--ice);
+    color: var(--azure);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .m-sub {
+      transition: none;
+    }
+    .m-chevron {
+      transition: none;
+    }
+  }
 </style>
 
 <script>
@@ -189,11 +310,36 @@ const whatsappHref = "https://wa.me/923148432789";
   const menu = document.querySelector<HTMLElement>("[data-mobile-menu]");
   const openIcon = toggle?.querySelector<SVGElement>(".menu-open");
   const closeIcon = toggle?.querySelector<SVGElement>(".menu-close");
+  const servicesToggle = document.querySelector<HTMLButtonElement>("[data-services-toggle]");
+  const servicesPanel = document.querySelector<HTMLElement>("[data-services-panel]");
 
-  toggle?.addEventListener("click", () => {
-    const isOpen = menu?.classList.toggle("hidden") === false;
-    toggle.setAttribute("aria-expanded", String(isOpen));
-    openIcon?.classList.toggle("hidden", isOpen);
-    closeIcon?.classList.toggle("hidden", !isOpen);
+  const collapseServices = () => {
+    servicesPanel?.classList.remove("open");
+    servicesToggle?.setAttribute("aria-expanded", "false");
+  };
+
+  const setMenu = (open: boolean) => {
+    menu?.classList.toggle("hidden", !open);
+    toggle?.setAttribute("aria-expanded", String(open));
+    openIcon?.classList.toggle("hidden", open);
+    closeIcon?.classList.toggle("hidden", !open);
+    // Closing the menu resets the Services accordion to collapsed.
+    if (!open) collapseServices();
+  };
+
+  toggle?.addEventListener("click", () =>
+    setMenu(menu?.classList.contains("hidden") ?? true),
+  );
+
+  // Services row expands/collapses inline — it never navigates.
+  servicesToggle?.addEventListener("click", () => {
+    const open = servicesToggle.getAttribute("aria-expanded") === "true";
+    servicesToggle.setAttribute("aria-expanded", String(!open));
+    servicesPanel?.classList.toggle("open", !open);
   });
+
+  // Any navigating link (top items, sub-links, CTA) closes the menu.
+  document.querySelectorAll<HTMLAnchorElement>("[data-menu-link]").forEach((l) =>
+    l.addEventListener("click", () => setMenu(false)),
+  );
 </script>

@@ -13,7 +13,7 @@ const whatsappHref = "https://wa.me/923148432789";
   <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 sm:px-8 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
     <!-- ── Left column ───────────────────────────────────────── -->
     <div class="relative z-10">
-      <p class="flex items-center gap-3 eyebrow" data-reveal style="--d:0ms">
+      <p class="flex items-center gap-3 eyebrow" data-reveal-onload style="--d:0ms">
         <span class="h-px w-8 bg-azure"></span>
         Doctor-led · Evidence-based · Lahore
       </p>
@@ -43,13 +43,13 @@ const whatsappHref = "https://wa.me/923148432789";
         </span>
       </h1>
 
-      <p class="mt-6 measure text-lg text-body" data-reveal style="--d:160ms">
+      <p class="mt-6 measure text-lg text-body" data-reveal-onload style="--d:160ms">
         Unhurried fertility consultations with Dr. Kamran Saleem — honest
         answers, clear options, and a plan built around your timeline and your
         values. No pressure. No judgement.
       </p>
 
-      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center" data-reveal style="--d:240ms">
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center" data-reveal-onload style="--d:240ms">
         <a
           href={whatsappHref}
           target="_blank"
@@ -73,11 +73,11 @@ const whatsappHref = "https://wa.me/923148432789";
         </a>
       </div>
 
-      <p class="mt-3 text-sm text-body" data-reveal style="--d:280ms">
+      <p class="mt-3 text-sm text-body" data-reveal-onload style="--d:280ms">
         Message us on WhatsApp — we usually reply the same day, with no obligation.
       </p>
 
-      <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium text-body" data-reveal style="--d:320ms">
+      <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium text-body" data-reveal-onload style="--d:320ms">
         <span class="inline-flex items-center gap-2">
           <span class="h-1.5 w-1.5 rounded-full bg-azure"></span>
           MBBS · Dip GUM &amp; Ven (UK)
@@ -90,7 +90,7 @@ const whatsappHref = "https://wa.me/923148432789";
     </div>
 
     <!-- ── Right column: doctor stage ───────────────────────── -->
-    <div class="relative z-10 mx-auto w-full max-w-md" data-reveal style="--d:200ms">
+    <div class="relative z-10 mx-auto w-full max-w-md" data-reveal-onload style="--d:200ms">
       <div class="stage">
         <!-- Rings + glow -->
         <span class="ring ring--outer" aria-hidden="true"></span>
@@ -133,10 +133,11 @@ const whatsappHref = "https://wa.me/923148432789";
 <style>
   .hero {
     position: relative;
-    /* No clipping: the ambient layer below intentionally bleeds past the
-       hero's bottom edge into the next section. Horizontal overflow is
-       clipped globally on <body>. */
-    overflow: visible;
+    /* Clip the ambient blobs/canvas horizontally at the section edge (stops
+       mobile sideways-overflow) while still letting the gradient + particles
+       bleed DOWN into the next section. */
+    overflow-x: clip;
+    overflow-y: visible;
     isolation: isolate;
   }
 
@@ -696,15 +697,27 @@ const whatsappHref = "https://wa.me/923148432789";
       else playIn();
     };
 
-    // Run the reveal directly on load (no intro overlay to wait for).
+    // Run the blur-to-focus reveal EXACTLY ONCE, on load. It is not tied to
+    // scroll, so scrolling back to the top never replays it.
     startReveal();
 
-    // Re-split on resize (revert first) to keep the two-line break clean.
+    // On resize, never replay the entrance. Only re-lay-out on a real WIDTH
+    // change (orientation) — ignore height-only changes from the mobile URL bar
+    // (which fire 'resize' during scroll and previously re-triggered the anim).
+    let lastW = window.innerWidth;
     let rt: number;
     window.addEventListener("resize", () => {
+      if (window.innerWidth === lastW) return;
+      lastW = window.innerWidth;
       window.clearTimeout(rt);
       rt = window.setTimeout(() => {
-        if (started) playIn();
+        if (!started) return;
+        if (split) {
+          split.revert();
+          split = null;
+        }
+        h1.style.opacity = "1";
+        drawUnderline();
       }, 200);
     });
 
