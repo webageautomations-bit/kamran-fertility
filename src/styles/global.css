@@ -123,6 +123,25 @@ body {
 }
 
 /* ──────────────────────────────────────────────────────────────
+   FOUC-safe on-load animated text (hero headlines).
+   Hidden on first paint so the finished text never flashes before its
+   blur-to-focus animation. The animation reveals it (sets inline opacity).
+   Safety: JS-off (.no-js) and reduced-motion both show it immediately, and an
+   inline head-script timeout force-reveals it if the animation never runs.
+   ────────────────────────────────────────────────────────────── */
+.fouc {
+  opacity: 0;
+}
+html.no-js .fouc {
+  opacity: 1 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fouc {
+    opacity: 1 !important;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
    ONE site-wide motion system.
    Lenis smooth scroll + GSAP ScrollTrigger drive everything (see
    Layout.astro + src/scripts/motion.ts for the shared EASE/DURATION).

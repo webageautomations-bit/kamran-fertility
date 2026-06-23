@@ -1,7 +1,7 @@
 ---
 // Reusable alternating two-column service block (template for service pages).
-// Icon is provided via the `icon` named slot. Optional `image` sets a calm
-// photographic texture behind a dominant brand overlay.
+// Panel is a DESIGNED GRAPHIC (no photography): gradient field + glow + rings +
+// frosted icon disc + faint cross-mark motif. Icon comes via the `icon` slot.
 interface Props {
   title: string;
   intro: string;
@@ -9,21 +9,22 @@ interface Props {
   whatToExpect: string[];
   reversed?: boolean;
   id?: string;
-  image?: string;
 }
-const { title, intro, relevantIf, whatToExpect, reversed = false, id, image } = Astro.props;
+const { title, intro, relevantIf, whatToExpect, reversed = false, id } = Astro.props;
 ---
 
 <div class="service-block" data-slide={reversed ? "right" : "left"} id={id}>
   <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
-    <!-- Photo-backed panel: image as subtle depth, brand overlay dominates. -->
-    <div class={`sb-panel relative ${reversed ? "lg:order-last" : ""}`} aria-hidden="true">
-      {image && <img class="sb-photo" src={image} alt="" loading="lazy" decoding="async" width="1200" height="900" />}
-      <span class="sb-overlay"></span>
+    <!-- Designed graphic panel -->
+    <div class={`sb-panel ${reversed ? "lg:order-last" : ""}`} data-reveal aria-hidden="true">
+      <img class="sb-motif" src="/favicon.png" alt="" />
+      <span class="sb-glow"></span>
       <span class="sb-ring sb-ring--outer"></span>
       <span class="sb-ring sb-ring--inner"></span>
-      <span class="sb-icon text-azure">
-        <slot name="icon" />
+      <span class="sb-disc">
+        <span class="sb-icon text-azure">
+          <slot name="icon" />
+        </span>
       </span>
     </div>
 
@@ -35,17 +36,17 @@ const { title, intro, relevantIf, whatToExpect, reversed = false, id, image } = 
       >
         {title}
       </h2>
-      <p class="mt-4 measure-tight text-base leading-relaxed text-body" data-reveal data-reveal-delay="1">
+      <p class="mt-4 measure-tight text-base leading-relaxed text-body" data-reveal>
         {intro}
       </p>
 
       <div class="mt-7 grid gap-7 sm:grid-cols-2">
-        <div data-reveal data-reveal-delay="2">
-          <h3 class="eyebrow">This may be relevant if</h3>
+        <div>
+          <h3 class="eyebrow" data-reveal>This may be relevant if</h3>
           <ul class="mt-4 space-y-2.5">
             {
               relevantIf.map((item) => (
-                <li class="flex items-start gap-2.5">
+                <li class="flex items-start gap-2.5" data-reveal>
                   <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-azure/12 text-azure">
                     <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                       <path d="M5 12l5 5l9 -9" />
@@ -58,12 +59,12 @@ const { title, intro, relevantIf, whatToExpect, reversed = false, id, image } = 
           </ul>
         </div>
 
-        <div data-reveal data-reveal-delay="3">
-          <h3 class="eyebrow">What to expect</h3>
+        <div>
+          <h3 class="eyebrow" data-reveal>What to expect</h3>
           <ul class="mt-4 space-y-2.5">
             {
               whatToExpect.map((item) => (
-                <li class="flex items-start gap-2.5">
+                <li class="flex items-start gap-2.5" data-reveal>
                   <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-sky/20 text-navy">
                     <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                       <path d="M5 12l5 5l9 -9" />
@@ -88,70 +89,124 @@ const { title, intro, relevantIf, whatToExpect, reversed = false, id, image } = 
     justify-content: center;
     aspect-ratio: 4 / 3;
     border-radius: var(--r-lg);
-    background: linear-gradient(150deg, var(--ice), #dbeafe);
+    background: linear-gradient(150deg, #ffffff 0%, var(--ice) 45%, #e2effd 100%);
     border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
     overflow: hidden;
     transition:
       transform 0.4s ease,
       box-shadow 0.4s ease;
   }
-  .sb-photo {
+
+  /* Faint cross-mark motif, fully composed within the panel. */
+  .sb-motif {
     position: absolute;
     inset: 0;
+    margin: auto;
+    width: 76%;
+    height: 76%;
+    object-fit: contain;
+    opacity: 0.045;
     z-index: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
   }
-  /* Dominant on-brand overlay: design clearly leads, photo reads as depth. */
-  .sb-overlay {
+
+  .sb-glow {
     position: absolute;
-    inset: 0;
+    top: 50%;
+    left: 50%;
+    width: 56%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 9999px;
     z-index: 1;
-    background:
-      linear-gradient(150deg, rgba(74, 133, 235, 0.34), rgba(3, 57, 179, 0.22)),
-      linear-gradient(150deg, rgba(244, 249, 254, 0.88), rgba(219, 234, 254, 0.82));
-    transition: opacity 0.4s ease;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--sky) 60%, transparent) 0%,
+      transparent 68%
+    );
+    filter: blur(22px);
+    opacity: 0.55;
+    transition: opacity 0.45s ease;
+    animation: sb-pulse 7s ease-in-out infinite;
   }
+  @keyframes sb-pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.68; }
+  }
+
   .sb-ring {
     position: absolute;
-    z-index: 2;
+    top: 50%;
+    left: 50%;
     border-radius: 9999px;
-    border: 1px solid color-mix(in srgb, var(--azure) 22%, transparent);
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    transition: transform 0.45s ease;
   }
-  .sb-ring--outer { width: 62%; aspect-ratio: 1; }
-  .sb-ring--inner {
-    width: 42%;
+  .sb-ring--outer {
+    width: 64%;
     aspect-ratio: 1;
-    border-color: color-mix(in srgb, var(--sky) 45%, transparent);
+    border: 1px solid color-mix(in srgb, var(--azure) 24%, transparent);
   }
-  .sb-icon {
+  .sb-ring--inner {
+    width: 46%;
+    aspect-ratio: 1;
+    border: 1px solid color-mix(in srgb, var(--sky) 50%, transparent);
+  }
+
+  .sb-disc {
     position: relative;
     z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34%;
+    aspect-ratio: 1;
+    border-radius: 9999px;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.92), rgba(228, 240, 253, 0.78));
+    border: 1px solid color-mix(in srgb, var(--azure) 18%, transparent);
+    box-shadow: 0 10px 24px -14px color-mix(in srgb, var(--navy) 40%, transparent);
+    backdrop-filter: blur(4px);
+  }
+  .sb-icon {
+    display: flex;
+    transition: transform 0.45s ease;
   }
   .sb-icon :global(svg) {
-    width: 4.5rem;
-    height: 4.5rem;
+    width: 46%;
+    min-width: 2.6rem;
+    height: auto;
+    aspect-ratio: 1;
     stroke-width: 1.5;
   }
 
-  /* Premium hover — desktop / fine-pointer / motion-OK only. The card lifts
-     with the tinted shadow while the overlay eases back to reveal the photo. */
+  /* Premium hover — desktop / fine-pointer / motion-OK only. */
   @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
     .sb-panel:hover {
       transform: translateY(-6px);
       box-shadow: var(--shadow-lift);
     }
-    .sb-panel:hover .sb-overlay {
-      opacity: 0.82;
+    .sb-panel:hover .sb-glow {
+      opacity: 0.85;
+    }
+    .sb-panel:hover .sb-icon {
+      transform: scale(1.05);
+    }
+    .sb-panel:hover .sb-ring--outer {
+      transform: translate(-50%, -50%) scale(1.06);
+    }
+    .sb-panel:hover .sb-ring--inner {
+      transform: translate(-50%, -50%) scale(1.09);
     }
   }
 </style>
 
 <script>
   // Subtle side-slide for each block as it enters (x only — never opacity —
-  // so a failure can't hide content; inner items reveal via the global batch).
-  // Runs once per page; isolated in try/catch.
+  // so a failure can't hide content; the panel + items reveal via the global
+  // [data-reveal] batch). Runs once per page; isolated in try/catch.
   import { gsap } from "gsap";
   import { ScrollTrigger } from "gsap/ScrollTrigger";
   import { EASE, prefersReducedMotion } from "../scripts/motion";

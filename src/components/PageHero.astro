@@ -57,7 +57,7 @@ const {
     {breadcrumbs.length === 0 && <p class="eyebrow" data-reveal>{eyebrow}</p>}
     <h1
       id="page-hero-heading"
-      class={`${breadcrumbs.length > 0 ? "mt-5" : "mt-3"} t-display text-ink`}
+      class={`fouc ${breadcrumbs.length > 0 ? "mt-5" : "mt-3"} t-display text-ink`}
     >
       {title}
     </h1>
@@ -216,9 +216,11 @@ const {
     console.error("[page-hero] particles failed (non-fatal)", err);
   }
 
-  // ── Blur-to-focus headline (word-safe split) ──
+  // ── Blur-to-focus headline (word-safe split, FOUC-safe) ──
   try {
     const h1 = document.getElementById("page-hero-heading");
+    // JS + GSAP are live → stand down the FOUC safety-net timeout.
+    (window as any).__fouc = true;
     if (h1 && !reduce) {
       gsap.registerPlugin(SplitText);
       let split: SplitText | null = null;
@@ -227,16 +229,29 @@ const {
           if (split) { split.revert(); split = null; }
           split = new SplitText(h1, { type: "words,chars", wordsClass: "hero-word" });
           const chars = split?.chars ?? [];
-          if (!chars.length) return;
-          gsap.from(chars, { opacity: 0, filter: "blur(16px)", duration: DURATION, ease: EASE, stagger: 0.04 });
+          if (!chars.length) { h1.style.opacity = "1"; return; }
+          // Flash-free: hide chars, reveal the CSS-hidden container, animate in.
+          gsap.set(chars, { opacity: 0, filter: "blur(16px)" });
+          h1.style.opacity = "1";
+          gsap.to(chars, { opacity: 1, filter: "blur(0px)", duration: DURATION, ease: EASE, stagger: 0.04 });
         } catch (e) {
           console.error("[page-hero] headline animation failed", e);
+          h1.style.opacity = "1";
         }
       };
-      if (document.fonts?.ready) document.fonts.ready.then(playIn);
-      else playIn();
+      let started = false;
+      const start = () => {
+        if (started) return;
+        started = true;
+        if (document.fonts?.ready) document.fonts.ready.then(playIn);
+        else playIn();
+      };
+      start();
       let rt: number;
-      window.addEventListener("resize", () => { window.clearTimeout(rt); rt = window.setTimeout(playIn, 200); });
+      window.addEventListener("resize", () => {
+        window.clearTimeout(rt);
+        rt = window.setTimeout(() => { if (started) playIn(); }, 200);
+      });
     }
   } catch (err) {
     console.error("[page-hero] headline init failed (non-fatal)", err);

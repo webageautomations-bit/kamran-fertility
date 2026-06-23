@@ -20,7 +20,7 @@ const whatsappHref = "https://wa.me/923148432789";
 
       <h1
         id="hero-heading"
-        class="mt-5 t-display text-ink"
+        class="fouc mt-5 t-display text-ink"
       >
         <span class="block">Care that meets you</span>
         <span class="relative inline-block whitespace-nowrap text-azure">
@@ -372,7 +372,9 @@ const whatsappHref = "https://wa.me/923148432789";
     color: var(--body-text);
   }
   .glass-card--top {
-    top: 8%;
+    /* Lowered from 8% so it rides the shoulder/upper-coat, clear of his face
+       (face ends ~29% of the fixed-aspect stage; this % holds at every size). */
+    top: 32%;
     left: -2%;
     animation: bob 7s ease-in-out infinite;
   }
@@ -644,54 +646,66 @@ const whatsappHref = "https://wa.me/923148432789";
     const playIn = () => {
       // Fully guarded: a failure here is a lost flourish, never a broken page.
       try {
-        // Revert before (re)splitting so spans never duplicate or compound.
         if (split) {
           split.revert();
           split = null;
         }
-        // Split into WORDS and CHARS: words are the inline-block, nowrap wrap
-        // unit (a word can never break across lines); chars drive the blur.
         split = new SplitText(h1, { type: "words,chars", wordsClass: "hero-word" });
         const chars = split?.chars ?? [];
         if (!chars.length) {
+          h1.style.opacity = "1";
           drawUnderline();
           return;
         }
 
-        // Re-query after split — revert recreated the underline node.
         const underline = h1.querySelector<SVGPathElement>(".hero-underline path");
 
+        // FOUC-safe & flash-free: hide the chars FIRST, then reveal the
+        // CSS-hidden container, then animate the chars in — the finished text
+        // is never shown before the animation.
+        gsap.set(chars, { opacity: 0, filter: "blur(16px)" });
+        h1.style.opacity = "1";
+
         const tl = gsap.timeline();
-        tl.from(chars, {
-          opacity: 0,
-          filter: "blur(16px)",
+        tl.to(chars, {
+          opacity: 1,
+          filter: "blur(0px)",
           duration: DURATION,
           ease: EASE,
           stagger: 0.045, // ~2–3 letters mid-transition at once
         });
-        // Underline draws in only AFTER the letters resolve.
         if (underline) {
           tl.to(underline, { strokeDashoffset: 0, duration: 0.9, ease: EASE }, ">-0.1");
         }
       } catch (err) {
         console.error("[hero] headline animation failed — showing static headline", err);
-        // Leave the (already visible) headline as-is; just ensure the underline shows.
+        h1.style.opacity = "1";
         drawUnderline();
       }
     };
 
-    // Wait for the variable font so SplitText measures glyphs correctly.
-    if (document.fonts?.ready) {
-      document.fonts.ready.then(playIn);
-    } else {
-      playIn();
-    }
+    // JS + GSAP are live → stand down the FOUC safety-net timeout.
+    (window as any).__fouc = true;
+
+    let started = false;
+    const startReveal = () => {
+      if (started) return;
+      started = true;
+      // Wait for the variable font so SplitText measures glyphs correctly.
+      if (document.fonts?.ready) document.fonts.ready.then(playIn);
+      else playIn();
+    };
+
+    // Run the reveal directly on load (no intro overlay to wait for).
+    startReveal();
 
     // Re-split on resize (revert first) to keep the two-line break clean.
     let rt: number;
     window.addEventListener("resize", () => {
       window.clearTimeout(rt);
-      rt = window.setTimeout(playIn, 200);
+      rt = window.setTimeout(() => {
+        if (started) playIn();
+      }, 200);
     });
 
     // Ambient parallax: the gradient + particle layer drifts slower than the

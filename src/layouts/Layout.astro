@@ -22,9 +22,26 @@ const {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
   <head>
     <BaseHead title={title} description={description} image={image} />
+    <!-- FOUC guard (runs before first paint): drop .no-js so .fouc headlines
+         start hidden when JS is on; if the headline animation never starts,
+         force-reveal them so the headline can never stay blank. -->
+    <script is:inline>
+      (function () {
+        var d = document.documentElement;
+        d.classList.remove("no-js");
+        d.classList.add("js");
+
+        // FOUC safety net: if the headline animation never starts, reveal it.
+        window.setTimeout(function () {
+          if (window.__fouc) return;
+          var els = document.querySelectorAll(".fouc");
+          for (var i = 0; i < els.length; i++) els[i].style.opacity = "1";
+        }, 1200);
+      })();
+    </script>
   </head>
   <body class="min-h-screen bg-white text-body antialiased">
     <Nav />
