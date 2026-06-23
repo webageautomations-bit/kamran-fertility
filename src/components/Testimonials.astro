@@ -1,0 +1,98 @@
+---
+const quotes = [
+  {
+    lead: "I felt heard and supported.",
+    body: "From the first consultation, everything was explained clearly and without pressure. Dr. Kamran took the time to listen and helped us understand our options calmly.",
+  },
+  {
+    lead: "Professional, honest, and reassuring.",
+    body: "We came in confused after previous treatment elsewhere. The consultation helped us make sense of our situation and what steps actually made sense for us.",
+  },
+  {
+    lead: "Clear guidance without unnecessary treatment.",
+    body: "What stood out was the honesty. No rush into tests or procedures — clear explanations and time to decide what felt right.",
+  },
+  {
+    lead: "A respectful, thoughtful experience.",
+    body: "The consultation was calm and unhurried. Our questions were answered patiently and we felt respected throughout.",
+  },
+];
+---
+
+<!-- Gradient bleed: begins at the Process base (#F4F9FE) -->
+<section
+  class="relative py-20 md:py-28"
+  data-testimonials
+  style="background: linear-gradient(to bottom, #F4F9FE 0, #FFFFFF 280px);"
+>
+  <div class="mx-auto max-w-6xl px-5 sm:px-8">
+    <!-- Header -->
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="eyebrow" data-reveal>Testimonials</p>
+      <h2 class="mt-3 t-h2 text-ink" data-reveal data-reveal-delay="1">
+        What our patients share
+      </h2>
+    </div>
+
+    <!-- Static 2x2 grid (deliberately not a slider) -->
+    <div class="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2">
+      {
+        quotes.map((q, i) => (
+          <figure
+            class="hover-lift relative overflow-hidden rounded-[var(--r-md)] border border-line bg-ice p-7 shadow-[var(--shadow-soft)] sm:p-8"
+            data-reveal
+            data-reveal-delay={i + 1}
+            data-tcard={i}
+          >
+            {/* Large faded quotation glyph behind the text */}
+            <span
+              class="pointer-events-none absolute -top-4 left-3 z-0 select-none font-heading text-[8rem] leading-none text-azure/10"
+              aria-hidden="true"
+            >
+              &ldquo;
+            </span>
+            <blockquote class="relative z-10">
+              <p class="font-heading text-lg font-bold text-ink">{q.lead}</p>
+              <p class="mt-3 text-sm leading-relaxed text-body">{q.body}</p>
+            </blockquote>
+            <figcaption class="relative z-10 mt-5 text-xs font-semibold uppercase tracking-wide text-body/70">
+              — Patient
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  // Gentle scrub parallax — cards drift at slightly different vertical rates
+  // as the section scrolls (organic, small offsets). Reduced motion: skip.
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { prefersReducedMotion } from "../scripts/motion";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector<HTMLElement>("[data-testimonials]");
+  if (section && !prefersReducedMotion()) {
+    const cards = gsap.utils.toArray<HTMLElement>(
+      section.querySelectorAll("[data-tcard]"),
+    );
+    // Different (small) rates per card; uses yPercent so it composes with the
+    // reveal tween's y (px) without overwriting it.
+    const rates = [-5, 4, -3, 6];
+    cards.forEach((card, i) => {
+      gsap.to(card, {
+        yPercent: rates[i % rates.length],
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    });
+  }
+</script>

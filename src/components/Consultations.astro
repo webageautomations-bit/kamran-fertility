@@ -1,0 +1,114 @@
+---
+const tiers = [
+  {
+    duration: "45–60 min",
+    title: "New patient fertility consult",
+    body: "Comprehensive history, review of any previous tests, discussion of your goals and concerns, and a written plan with recommended investigations or treatment options.",
+  },
+  {
+    duration: "30–45 min",
+    title: "Follow-up consultation",
+    body: "Review of new results, adjustment of your plan, and time to address new questions as you move through testing or treatment.",
+  },
+  {
+    duration: null,
+    title: "Preconception & second opinion",
+    body: "For those considering future fertility, complex medical histories, or wanting an independent specialist view on previous treatment plans.",
+  },
+];
+---
+
+<!-- Gradient bleed: begins at the Doctor base (#F4F9FE) -->
+<section
+  class="relative py-20 md:py-28"
+  style="background: linear-gradient(to bottom, #F4F9FE 0, #FFFFFF 280px);"
+>
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <!-- Header -->
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="eyebrow" data-reveal>
+        Consultation services
+      </p>
+      <h2 class="mt-3 t-h2 text-ink" data-reveal data-reveal-delay="1">
+        Structured, transparent consultations
+      </h2>
+      <p class="mx-auto mt-5 max-w-xl text-base leading-relaxed text-body" data-reveal data-reveal-delay="2">
+        All appointments are paid medical consultations. Fees are shown in the
+        booking calendar before you confirm — no hidden charges, no pressure to
+        pursue treatment that doesn't feel right.
+      </p>
+    </div>
+
+    <!-- Tier cards -->
+    <div class="mt-14 grid grid-cols-1 gap-6 [perspective:1100px] lg:grid-cols-3">
+      {
+        tiers.map((tier, i) => (
+          <article
+            class="hover-lift group relative flex flex-col overflow-hidden rounded-[var(--r-md)] border border-line bg-white p-7 shadow-[var(--shadow-soft)] [transform-style:preserve-3d]"
+            data-reveal
+            data-reveal-delay={i + 1}
+            data-tilt-card
+          >
+            <span class="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-sky to-azure transition-transform duration-300 group-hover:scale-x-100" />
+
+            {tier.duration && (
+              <span class="inline-flex w-fit items-center rounded-full bg-azure/10 px-3 py-1 text-xs font-semibold text-azure">
+                {tier.duration}
+              </span>
+            )}
+
+            <h3 class="mt-4 font-heading text-lg font-bold text-ink">
+              {tier.title}
+            </h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-body">
+              {tier.body}
+            </p>
+
+            <p class="mt-5 text-sm font-semibold text-azure">
+              Fee shown before you confirm
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  // Magnetic tilt on tier cards — desktop, fine-pointer, motion-OK only.
+  import { gsap } from "gsap";
+  import { EASE, prefersReducedMotion } from "../scripts/motion";
+
+  if (!prefersReducedMotion()) {
+    const mm = gsap.matchMedia();
+    mm.add("(min-width: 1024px) and (hover: hover) and (pointer: fine)", () => {
+      const cards = gsap.utils.toArray<HTMLElement>("[data-tilt-card]");
+      const cleanups = cards.map((card) => {
+        const rxTo = gsap.quickTo(card, "rotationX", { duration: 0.5, ease: EASE });
+        const ryTo = gsap.quickTo(card, "rotationY", { duration: 0.5, ease: EASE });
+        const yTo = gsap.quickTo(card, "y", { duration: 0.5, ease: EASE });
+        const onMove = (e: PointerEvent) => {
+          const r = card.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width - 0.5;
+          const py = (e.clientY - r.top) / r.height - 0.5;
+          ryTo(px * 7);
+          rxTo(-py * 7);
+          yTo(-6);
+        };
+        const onLeave = () => {
+          rxTo(0);
+          ryTo(0);
+          yTo(0);
+        };
+        card.addEventListener("pointermove", onMove);
+        card.addEventListener("pointerleave", onLeave);
+        return () => {
+          card.removeEventListener("pointermove", onMove);
+          card.removeEventListener("pointerleave", onLeave);
+          gsap.set(card, { rotationX: 0, rotationY: 0, y: 0 });
+        };
+      });
+      return () => cleanups.forEach((fn) => fn());
+    });
+  }
+</script>

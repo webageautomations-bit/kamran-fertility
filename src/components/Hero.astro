@@ -1,0 +1,686 @@
+---
+const whatsappHref = "https://wa.me/923148432789";
+---
+
+<section class="hero" aria-labelledby="hero-heading">
+  <!-- Background gradient + drifting blobs + particle canvas -->
+  <div class="hero-bg" aria-hidden="true">
+    <span class="blob blob--sky"></span>
+    <span class="blob blob--azure"></span>
+    <canvas data-hero-canvas class="hero-canvas"></canvas>
+  </div>
+
+  <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 py-16 sm:px-8 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8">
+    <!-- ── Left column ───────────────────────────────────────── -->
+    <div class="relative z-10">
+      <p class="flex items-center gap-3 eyebrow" data-reveal style="--d:0ms">
+        <span class="h-px w-8 bg-azure"></span>
+        Doctor-led · Evidence-based · Lahore
+      </p>
+
+      <h1
+        id="hero-heading"
+        class="mt-5 t-display text-ink"
+      >
+        Care that meets you
+        <span class="relative inline-block whitespace-nowrap text-azure">
+          where you are.
+          <!-- Animated hand-drawn underline -->
+          <svg
+            class="hero-underline"
+            viewBox="0 0 300 10"
+            fill="none"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M3 6 C 78 2, 222 2, 297 5"
+              stroke="currentColor"
+              stroke-width="5"
+              stroke-linecap="round"
+            ></path>
+          </svg>
+        </span>
+      </h1>
+
+      <p class="mt-6 measure text-lg text-body" data-reveal style="--d:160ms">
+        Unhurried fertility consultations with Dr. Kamran Saleem — honest
+        answers, clear options, and a plan built around your timeline and your
+        values. No pressure. No judgement.
+      </p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center" data-reveal style="--d:240ms">
+        <a
+          href={whatsappHref}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-azure to-navy px-7 py-3.5 text-base font-semibold text-white shadow-lg shadow-azure/25 transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-azure/40"
+        >
+          Book a consultation
+        </a>
+        <a
+          href={whatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-2 rounded-full border border-line bg-white px-7 py-3.5 text-base font-semibold text-ink transition-colors duration-200 hover:border-azure hover:text-azure"
+        >
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.099zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
+            ></path>
+          </svg>
+          Speak to us first
+        </a>
+      </div>
+
+      <p class="mt-3 text-sm text-body" data-reveal style="--d:280ms">
+        Message us on WhatsApp — we usually reply the same day, with no obligation.
+      </p>
+
+      <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium text-body" data-reveal style="--d:320ms">
+        <span class="inline-flex items-center gap-2">
+          <span class="h-1.5 w-1.5 rounded-full bg-azure"></span>
+          MBBS · Dip GUM &amp; Ven (UK)
+        </span>
+        <span class="inline-flex items-center gap-2">
+          <span class="h-1.5 w-1.5 rounded-full bg-sky"></span>
+          3 Lahore locations
+        </span>
+      </div>
+    </div>
+
+    <!-- ── Right column: doctor stage ───────────────────────── -->
+    <div class="relative z-10 mx-auto w-full max-w-md" data-reveal style="--d:200ms">
+      <div class="stage">
+        <!-- Rings + glow -->
+        <span class="ring ring--outer" aria-hidden="true"></span>
+        <span class="ring ring--dashed" aria-hidden="true"></span>
+        <span class="ring ring--inner" aria-hidden="true"></span>
+        <span class="glow" aria-hidden="true"></span>
+
+        <!-- Pedestal: soft ground disc + contact shadow so the coat resolves
+             into a designed edge rather than a raw crop. -->
+        <span class="pedestal" aria-hidden="true"></span>
+
+        <!-- Doctor photo: transparent cutout; bottom dissolves via mask-fade -->
+        <img
+          src="/assets/dr-kamran.webp"
+          alt="Dr. Kamran Saleem"
+          width="800"
+          height="1104"
+          class="doctor"
+          loading="eager"
+        />
+
+        <!-- Floating glass cards -->
+        <figure class="glass-card glass-card--top" aria-hidden="true">
+          <figcaption>
+            <strong>MBBS · Dip GUM &amp; Ven (UK)</strong>
+            <span>Reproductive health specialist</span>
+          </figcaption>
+        </figure>
+        <figure class="glass-card glass-card--bottom" aria-hidden="true">
+          <figcaption>
+            <strong>Confidential &amp; ethical</strong>
+            <span>Aligned to intl. guidelines</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    /* No clipping: the ambient layer below intentionally bleeds past the
+       hero's bottom edge into the next section. Horizontal overflow is
+       clipped globally on <body>. */
+    overflow: visible;
+    isolation: isolate;
+  }
+
+  /* Ambient background layer — extends ~300px past the hero and fades to
+     transparent, so the gradient wash + particle field dissolve smoothly
+     into the Concerns section instead of stopping at a hard edge. */
+  .hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: calc(100% + 300px);
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      170deg,
+      #ffffff 0%,
+      #eff6fe 40%,
+      #dfeefd 68%,
+      #dfeefd 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      #000 0,
+      #000 calc(100% - 320px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      #000 0,
+      #000 calc(100% - 320px),
+      transparent 100%
+    );
+  }
+  .hero-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    pointer-events: none;
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(70px);
+    opacity: 0.5;
+    will-change: transform;
+  }
+  .blob--sky {
+    width: 32rem;
+    height: 32rem;
+    top: -8rem;
+    right: -6rem;
+    background: radial-gradient(circle, var(--sky), transparent 70%);
+    animation: drift-a 22s ease-in-out infinite;
+  }
+  .blob--azure {
+    width: 28rem;
+    height: 28rem;
+    bottom: -10rem;
+    left: -8rem;
+    background: radial-gradient(circle, var(--azure), transparent 70%);
+    opacity: 0.35;
+    animation: drift-b 28s ease-in-out infinite;
+  }
+  @keyframes drift-a {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-40px, 30px) scale(1.08); }
+  }
+  @keyframes drift-b {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(50px, -30px) scale(1.05); }
+  }
+
+  /* Entrance now handled by the site-wide [data-reveal] system (global.css). */
+
+  /* Hand-drawn underline — sits below the glyphs, never over them */
+  .hero-underline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    margin-top: 0.04em;
+    width: 100%;
+    height: 0.2em;
+    overflow: visible;
+    pointer-events: none;
+    color: var(--sky);
+  }
+  .hero-underline path {
+    stroke-dasharray: 320;
+    stroke-dashoffset: 320; /* drawn in by GSAP after the headline resolves */
+  }
+
+  /* ── Doctor stage ──────────────────────────────────────── */
+  .stage {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 9999px;
+    transform: translate(-50%, -50%);
+  }
+  .ring--outer {
+    width: 96%;
+    aspect-ratio: 1;
+    border: 1px solid color-mix(in srgb, var(--azure) 22%, transparent);
+  }
+  .ring--inner {
+    width: 70%;
+    aspect-ratio: 1;
+    border: 1px solid color-mix(in srgb, var(--sky) 45%, transparent);
+  }
+  .ring--dashed {
+    width: 84%;
+    aspect-ratio: 1;
+    border: 1.5px dashed color-mix(in srgb, var(--azure) 35%, transparent);
+    animation: spin 40s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+
+  .glow {
+    position: absolute;
+    top: 46%;
+    left: 50%;
+    width: 78%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--sky) 55%, transparent) 0%,
+      transparent 65%
+    );
+    filter: blur(18px);
+    animation: pulse 6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.45; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 0.75; transform: translate(-50%, -50%) scale(1.06); }
+  }
+
+  /* Pedestal — soft sky→ice ground disc with a tighter contact shadow. */
+  .pedestal {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 88%;
+    height: 42%;
+    z-index: 1;
+    border-radius: 9999px;
+    background: radial-gradient(
+      ellipse at center 60%,
+      color-mix(in srgb, var(--sky) 38%, transparent),
+      transparent 70%
+    );
+    filter: blur(10px);
+  }
+  .pedestal::after {
+    /* contact shadow — grounds him so he doesn't float */
+    content: "";
+    position: absolute;
+    bottom: 7%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 58%;
+    height: 16%;
+    border-radius: 9999px;
+    background: radial-gradient(
+      ellipse at center,
+      color-mix(in srgb, var(--navy) 24%, transparent),
+      transparent 72%
+    );
+    filter: blur(7px);
+  }
+
+  .doctor {
+    position: relative;
+    z-index: 2;
+    width: 92%;
+    height: auto;
+    object-fit: contain;
+    /* Bottom-edge dissolve: keeps head/torso fully sharp (opaque to 80%),
+       softly fades only the coat hem so there is no straight crop line. */
+    -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
+  }
+
+  /* Floating glass cards */
+  .glass-card {
+    position: absolute;
+    z-index: 3;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 12px 30px -12px color-mix(in srgb, var(--navy) 30%, transparent);
+    will-change: transform;
+  }
+  .glass-card figcaption {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+  .glass-card strong {
+    font-family: var(--font-heading);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .glass-card span {
+    font-size: 0.75rem;
+    color: var(--body-text);
+  }
+  .glass-card--top {
+    top: 8%;
+    left: -2%;
+    animation: bob 7s ease-in-out infinite;
+  }
+  .glass-card--bottom {
+    bottom: 9%;
+    right: -3%;
+    animation: bob 8s ease-in-out infinite 1s;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Reduced motion: ensure the draw-in underline lands visible. */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-underline path {
+      stroke-dashoffset: 0;
+    }
+  }
+</style>
+
+<script>
+  type P = {
+    x: number;
+    y: number;
+    r: number;
+    c: string;
+    sp: number;
+    sw: number;
+    ph: number;
+    vx: number; // interactive velocity (decays back to drift)
+    vy: number;
+  };
+  type Ripple = { x: number; y: number; start: number };
+
+  const canvas = document.querySelector<HTMLCanvasElement>("[data-hero-canvas]");
+  const ctx = canvas?.getContext("2d");
+
+  if (canvas && ctx) {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const colors = ["#66ddff", "#4a85eb", "#9fd0ff"];
+
+    // Interaction tuning
+    const HOVER_RADIUS = 110;
+    const CLICK_RADIUS = 160;
+    const MAX_SPEED = 2.4; // velocity cap — keeps it calm
+    const FRICTION = 0.9; // eases velocity back toward drift
+    const RIPPLE_MS = 600;
+
+    let particles: P[] = [];
+    let ripples: Ripple[] = [];
+    let w = 0;
+    let h = 0;
+    let dpr = 1;
+
+    // Pointer state (in canvas coordinates)
+    let pointerX = 0;
+    let pointerY = 0;
+    let pointerActive = false;
+
+    function seed() {
+      const count = Math.max(14, Math.round(w / 24));
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 1 + Math.random() * 2.6,
+        c: colors[Math.floor(Math.random() * colors.length)],
+        sp: 0.12 + Math.random() * 0.35, // upward speed
+        sw: 8 + Math.random() * 22, // sway amplitude
+        ph: Math.random() * Math.PI * 2, // sway phase
+        vx: 0,
+        vy: 0,
+      }));
+    }
+
+    function resize() {
+      const rect = canvas!.getBoundingClientRect();
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = rect.width;
+      h = rect.height;
+      canvas!.width = Math.round(w * dpr);
+      canvas!.height = Math.round(h * dpr);
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+      seed();
+    }
+
+    // Render x includes the gentle sine sway
+    function renderX(p: P, t: number) {
+      return p.x + Math.sin(t * 0.0006 + p.ph) * p.sw;
+    }
+
+    function dotAt(x: number, y: number, p: P) {
+      ctx!.beginPath();
+      ctx!.arc(x, y, p.r, 0, Math.PI * 2);
+      ctx!.fillStyle = p.c;
+      ctx!.fill();
+    }
+
+    function clampSpeed(p: P) {
+      const sp = Math.hypot(p.vx, p.vy);
+      if (sp > MAX_SPEED) {
+        p.vx = (p.vx / sp) * MAX_SPEED;
+        p.vy = (p.vy / sp) * MAX_SPEED;
+      }
+    }
+
+    function applyClick(cx: number, cy: number, t: number) {
+      for (const p of particles) {
+        const rx = renderX(p, t);
+        const dx = rx - cx;
+        const dy = p.y - cy;
+        const dist = Math.hypot(dx, dy) || 0.0001;
+        if (dist < CLICK_RADIUS) {
+          const force = (1 - dist / CLICK_RADIUS) * 7;
+          p.vx += (dx / dist) * force;
+          p.vy += (dy / dist) * force;
+          clampSpeed(p);
+        }
+      }
+      ripples.push({ x: cx, y: cy, start: t });
+    }
+
+    function frame(t: number) {
+      ctx!.clearRect(0, 0, w, h);
+
+      // Particles
+      ctx!.globalAlpha = 0.5;
+      for (const p of particles) {
+        // Hover repel — gentle push away, proportional to proximity
+        if (pointerActive) {
+          const rx = renderX(p, t);
+          const dx = rx - pointerX;
+          const dy = p.y - pointerY;
+          const dist = Math.hypot(dx, dy) || 0.0001;
+          if (dist < HOVER_RADIUS) {
+            const force = (1 - dist / HOVER_RADIUS) * 0.6;
+            p.vx += (dx / dist) * force;
+            p.vy += (dy / dist) * force;
+          }
+        }
+
+        clampSpeed(p);
+
+        // Integrate interactive velocity, then ease it back toward drift
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vx *= FRICTION;
+        p.vy *= FRICTION;
+
+        // Base upward drift
+        p.y -= p.sp;
+
+        // Wrap at edges
+        if (p.y < -p.r) {
+          p.y = h + p.r;
+          p.x = Math.random() * w;
+        } else if (p.y > h + p.r) {
+          p.y = -p.r;
+        }
+        if (p.x < -p.r) p.x = w + p.r;
+        else if (p.x > w + p.r) p.x = -p.r;
+
+        dotAt(renderX(p, t), p.y, p);
+      }
+      ctx!.globalAlpha = 1;
+
+      // Click ripples — soft expanding rings fading over RIPPLE_MS
+      if (ripples.length) {
+        ripples = ripples.filter((rp) => t - rp.start < RIPPLE_MS);
+        for (const rp of ripples) {
+          const prog = (t - rp.start) / RIPPLE_MS;
+          const radius = 12 + prog * CLICK_RADIUS;
+          ctx!.beginPath();
+          ctx!.arc(rp.x, rp.y, radius, 0, Math.PI * 2);
+          ctx!.strokeStyle = "#4a85eb";
+          ctx!.globalAlpha = (1 - prog) * 0.45;
+          ctx!.lineWidth = 2;
+          ctx!.stroke();
+        }
+        ctx!.globalAlpha = 1;
+      }
+
+      raf = requestAnimationFrame(frame);
+    }
+
+    function staticFrame() {
+      ctx!.clearRect(0, 0, w, h);
+      ctx!.globalAlpha = 0.5;
+      for (const p of particles) dotAt(renderX(p, 0), p.y, p);
+      ctx!.globalAlpha = 1;
+    }
+
+    let raf = 0;
+    resize();
+
+    if (reduce) {
+      // Static single frame, no animation loop, no interactivity.
+      staticFrame();
+    } else {
+      raf = requestAnimationFrame(frame);
+
+      // Listen on the SECTION so events fire over text/buttons too.
+      // Never preventDefault — links and buttons must keep working.
+      const section = canvas.closest<HTMLElement>(".hero") ?? canvas;
+
+      const toCanvas = (clientX: number, clientY: number) => {
+        const rect = canvas.getBoundingClientRect();
+        return { x: clientX - rect.left, y: clientY - rect.top };
+      };
+
+      section.addEventListener(
+        "pointermove",
+        (e) => {
+          const pt = toCanvas(e.clientX, e.clientY);
+          pointerX = pt.x;
+          pointerY = pt.y;
+          pointerActive = true;
+        },
+        { passive: true },
+      );
+      section.addEventListener("pointerleave", () => {
+        pointerActive = false;
+      });
+      section.addEventListener(
+        "click",
+        (e) => {
+          const pt = toCanvas(e.clientX, e.clientY);
+          applyClick(pt.x, pt.y, performance.now());
+        },
+        { passive: true },
+      );
+    }
+
+    let resizeTimer = 0;
+    window.addEventListener("resize", () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        resize();
+        if (reduce) staticFrame();
+      }, 150);
+    });
+  }
+</script>
+
+<script>
+  // ── Hero headline (blur-to-focus) + ambient parallax — GSAP foundation ──
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { SplitText } from "gsap/SplitText";
+  import { EASE, DURATION, prefersReducedMotion } from "../scripts/motion";
+
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  const h1 = document.getElementById("hero-heading");
+  const underline = document.querySelector<SVGPathElement>(".hero-underline path");
+
+  if (prefersReducedMotion()) {
+    // Headline fully visible & sharp; underline already drawn; no parallax.
+    if (underline) underline.style.strokeDashoffset = "0";
+  } else if (h1) {
+    let split: SplitText | null = null;
+
+    const playIn = () => {
+      split?.revert();
+      split = new SplitText(h1, { type: "chars" });
+      const tl = gsap.timeline();
+      tl.from(split.chars, {
+        opacity: 0,
+        filter: "blur(16px)",
+        duration: DURATION,
+        ease: EASE,
+        stagger: 0.045, // ~2–3 letters mid-transition at once
+      });
+      // Underline draws in only AFTER the letters resolve.
+      if (underline) {
+        tl.to(
+          underline,
+          { strokeDashoffset: 0, duration: 0.9, ease: EASE },
+          ">-0.1",
+        );
+      }
+    };
+
+    // Wait for the variable font so SplitText measures glyphs correctly.
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(playIn);
+    } else {
+      playIn();
+    }
+
+    // Re-split on resize to avoid broken line wrapping.
+    let rt: number;
+    window.addEventListener("resize", () => {
+      window.clearTimeout(rt);
+      rt = window.setTimeout(() => {
+        split?.revert();
+        split = null;
+      }, 150);
+    });
+
+    // Ambient parallax: the gradient + particle layer drifts slower than the
+    // foreground as the hero scrolls away (scrub, no pin).
+    const heroEl = document.querySelector<HTMLElement>(".hero");
+    const bg = document.querySelector<HTMLElement>(".hero-bg");
+    if (heroEl && bg) {
+      gsap.to(bg, {
+        yPercent: 20, // ~20% of scroll distance
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroEl,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }
+  }
+</script>

@@ -1,0 +1,199 @@
+---
+const services = [
+  { label: "Assessment & Diagnosis", href: "/services/assessment" },
+  { label: "Fertility Treatments", href: "/services/treatments" },
+  { label: "Support & Second Opinions", href: "/services/support" },
+];
+
+const links = [
+  { label: "Home", href: "/" },
+  { label: "Resources", href: "/resources" },
+  { label: "Contact", href: "/contact" },
+];
+
+const whatsappHref = "https://wa.me/923148432789";
+---
+
+<header
+  class="sticky top-0 z-50 w-full border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80"
+>
+  <nav
+    class="mx-auto flex h-[68px] max-w-7xl items-center justify-between gap-4 px-5 sm:px-8"
+    aria-label="Primary"
+  >
+    <!-- Logo -->
+    <a href="/" class="flex shrink-0 items-center" aria-label="Dr. Kamran Saleem — home">
+      <img
+        src="/assets/logo.webp"
+        alt="Dr. Kamran Saleem fertility clinic"
+        width="640"
+        height="215"
+        class="h-[50px] w-auto"
+        loading="eager"
+      />
+    </a>
+
+    <!-- Desktop links -->
+    <ul class="hidden items-center gap-8 lg:flex">
+      <li>
+        <a href="/" class="nav-link">Home</a>
+      </li>
+
+      <!-- Services dropdown -->
+      <li class="group relative">
+        <button
+          type="button"
+          class="nav-link inline-flex items-center gap-1"
+          aria-haspopup="true"
+          aria-expanded="false"
+          data-services-trigger
+        >
+          Services
+          <svg
+            class="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180"
+            viewBox="0 0 12 12"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M3 4.5 6 7.5 9 4.5"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <div
+          class="invisible absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 translate-y-1 pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
+        >
+          <div
+            class="overflow-hidden rounded-[var(--r-md)] border border-line bg-white p-2 shadow-[var(--shadow-soft)]"
+          >
+            {
+              services.map((s) => (
+                <a
+                  href={s.href}
+                  class="block rounded-[var(--r-sm)] px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-ice hover:text-azure"
+                >
+                  {s.label}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </li>
+
+      <li>
+        <a href="/resources" class="nav-link">Resources</a>
+      </li>
+      <li>
+        <a href="/contact" class="nav-link">Contact</a>
+      </li>
+    </ul>
+
+    <!-- Right: CTA + mobile toggle -->
+    <div class="flex items-center gap-3">
+      <a
+        href={whatsappHref}
+        target="_blank"
+        rel="noopener"
+        class="hidden rounded-full bg-gradient-to-r from-azure to-navy px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-azure/20 transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-azure/30 sm:inline-flex"
+      >
+        Book consultation
+      </a>
+
+      <!-- Mobile hamburger -->
+      <button
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-ink transition-colors hover:bg-ice lg:hidden"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-menu-toggle
+      >
+        <svg class="menu-open h-6 w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+        </svg>
+        <svg class="menu-close hidden h-6 w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden border-t border-line bg-white lg:hidden" data-mobile-menu>
+    <div class="space-y-1 px-5 py-4">
+      <a href="/" class="block rounded-lg px-3 py-2.5 font-medium text-ink hover:bg-ice">Home</a>
+
+      <div class="px-3 pb-1 pt-3 text-xs font-semibold uppercase tracking-wide text-body/70">
+        Services
+      </div>
+      {
+        services.map((s) => (
+          <a
+            href={s.href}
+            class="block rounded-lg px-3 py-2.5 pl-5 text-sm font-medium text-ink hover:bg-ice hover:text-azure"
+          >
+            {s.label}
+          </a>
+        ))
+      }
+
+      <a href="/resources" class="mt-1 block rounded-lg px-3 py-2.5 font-medium text-ink hover:bg-ice">Resources</a>
+      <a href="/contact" class="block rounded-lg px-3 py-2.5 font-medium text-ink hover:bg-ice">Contact</a>
+
+      <a
+        href={whatsappHref}
+        target="_blank"
+        rel="noopener"
+        class="mt-3 block rounded-full bg-gradient-to-r from-azure to-navy px-5 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-azure/20"
+      >
+        Book consultation
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav-link {
+    position: relative;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--ink);
+    transition: color 0.2s ease;
+  }
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    height: 2px;
+    width: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--azure), var(--navy));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .nav-link:hover {
+    color: var(--azure);
+  }
+  .nav-link:hover::after {
+    transform: scaleX(1);
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const menu = document.querySelector<HTMLElement>("[data-mobile-menu]");
+  const openIcon = toggle?.querySelector<SVGElement>(".menu-open");
+  const closeIcon = toggle?.querySelector<SVGElement>(".menu-close");
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = menu?.classList.toggle("hidden") === false;
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    openIcon?.classList.toggle("hidden", isOpen);
+    closeIcon?.classList.toggle("hidden", !isOpen);
+  });
+</script>

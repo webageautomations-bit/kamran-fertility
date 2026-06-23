@@ -1,0 +1,130 @@
+---
+const phoneDisplay = "+92 314 8432789";
+const phoneHref = "tel:+923148432789";
+const whatsappHref = "https://wa.me/923148432789";
+
+const locations = [
+  {
+    name: "Rasheed Hospital",
+    address: "Main Boulevard, Defence, Lahore",
+  },
+  {
+    name: "TAMC",
+    address: "M.M. Alam Road, Lahore",
+  },
+  {
+    name: "Shahnaz Hospital",
+    address: "Shalamar Link Road, Lahore",
+  },
+];
+
+const year = new Date().getFullYear();
+
+const services = [
+  { label: "Assessment & Diagnosis", href: "/services/assessment" },
+  { label: "Fertility Treatments", href: "/services/treatments" },
+  { label: "Support & Second Opinions", href: "/services/support" },
+];
+---
+
+<footer class="border-t border-line bg-ice">
+  <div class="mx-auto max-w-7xl px-5 py-14 sm:px-8">
+    <div class="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr]">
+      <!-- Brand + contact -->
+      <div>
+        <img
+          src="/assets/logo.webp"
+          alt="Dr. Kamran Saleem fertility clinic"
+          width="640"
+          height="215"
+          class="h-14 w-auto"
+          loading="lazy"
+        />
+        <p class="mt-4 max-w-sm text-sm leading-relaxed text-body">
+          Doctor-led, evidence-based fertility care in Lahore — honest answers,
+          clear options, and a plan built around your timeline and your values.
+        </p>
+
+        <dl class="mt-6 space-y-2 text-sm">
+          <div class="flex items-center gap-2">
+            <dt class="font-semibold text-ink">Phone</dt>
+            <dd>
+              <a href={phoneHref} class="text-azure hover:underline">{phoneDisplay}</a>
+            </dd>
+          </div>
+          <div class="flex items-center gap-2">
+            <dt class="font-semibold text-ink">WhatsApp</dt>
+            <dd>
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-azure hover:underline">{phoneDisplay}</a
+              >
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Locations -->
+      <div>
+        <h2 class="text-sm font-bold uppercase tracking-wide text-ink">
+          Locations
+        </h2>
+        <ul class="mt-4 space-y-4 text-sm">
+          {
+            locations.map((loc) => (
+              <li>
+                <p class="font-semibold text-ink">{loc.name}</p>
+                <p class="text-body">{loc.address}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Hours + services -->
+      <div>
+        <h2 class="text-sm font-bold uppercase tracking-wide text-ink">Hours</h2>
+        <ul class="mt-4 space-y-1 text-sm text-body">
+          <li>
+            <span class="font-medium text-ink">Mon–Sat:</span> 11:00am – 9:00pm
+          </li>
+          <li>
+            <span class="font-medium text-ink">Sun &amp; holidays:</span> Closed
+          </li>
+        </ul>
+
+        <h2 class="mt-8 text-sm font-bold uppercase tracking-wide text-ink">
+          Services
+        </h2>
+        <ul class="mt-4 space-y-2 text-sm">
+          {
+            services.map((s) => (
+              <li>
+                <a href={s.href} class="link-underline inline-block text-body transition-colors hover:text-azure">
+                  {s.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <!-- Disclaimer + copyright -->
+    <div class="mt-12 border-t border-line pt-8">
+      <p class="max-w-3xl text-xs leading-relaxed text-body/80">
+        <span class="font-semibold text-ink">Medical disclaimer:</span> The
+        information on this website is provided for general educational purposes
+        only and is not a substitute for professional medical advice, diagnosis,
+        or treatment. Always seek the guidance of a qualified healthcare provider
+        with any questions regarding a medical condition. Outcomes vary between
+        individuals; no result is guaranteed.
+      </p>
+      <p class="mt-6 text-xs text-body/70">
+        © {year} Dr. Kamran Saleem. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>

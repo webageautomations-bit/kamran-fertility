@@ -1,0 +1,88 @@
+---
+// Self-hosted variable fonts (Fontsource)
+import "@fontsource-variable/plus-jakarta-sans";
+import "@fontsource-variable/inter";
+import "../styles/global.css";
+
+import BaseHead from "../components/BaseHead.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = "Dr. Kamran Saleem — Doctor-led fertility care in Lahore",
+  description = "Unhurried, evidence-based fertility consultations with Dr. Kamran Saleem in Lahore. Honest answers, clear options, and a plan built around your timeline and your values.",
+  image,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} image={image} />
+  </head>
+  <body class="min-h-screen bg-white text-body antialiased">
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      // ── Site motion engine: Lenis smooth scroll + GSAP ScrollTrigger ──────
+      import Lenis from "lenis";
+      import { gsap } from "gsap";
+      import { ScrollTrigger } from "gsap/ScrollTrigger";
+      import { SplitText } from "gsap/SplitText";
+      import { EASE, DURATION, STAGGER, prefersReducedMotion } from "../scripts/motion";
+
+      gsap.registerPlugin(ScrollTrigger, SplitText);
+
+      const reveals = gsap.utils.toArray<HTMLElement>("[data-reveal]");
+
+      if (prefersReducedMotion()) {
+        // REDUCED MOTION: native scroll, no Lenis, no animation.
+        // Force every reveal element to its visible end-state and stop.
+        reveals.forEach((el) => gsap.set(el, { opacity: 1, y: 0 }));
+      } else {
+        // Smooth scroll (gentle ~1.1s ease), bridged to GSAP's ticker.
+        const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+        lenis.on("scroll", ScrollTrigger.update);
+        gsap.ticker.add((t) => lenis.raf(t * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        // Expose for component scripts (hero parallax, magnetic, etc.).
+        (window as any).__lenis = lenis;
+
+        // Base reveal — ONE batched ScrollTrigger for all [data-reveal].
+        gsap.set(reveals, { opacity: 0, y: 26 });
+        ScrollTrigger.batch("[data-reveal]", {
+          start: "top 85%",
+          onEnter: (batch) =>
+            gsap.to(batch, {
+              opacity: 1,
+              y: 0,
+              duration: DURATION,
+              ease: EASE,
+              stagger: STAGGER,
+              overwrite: true,
+            }),
+        });
+
+        // Recompute trigger positions after fonts/layout settle and on resize.
+        window.addEventListener("load", () => ScrollTrigger.refresh());
+        let rt: number;
+        window.addEventListener("resize", () => {
+          window.clearTimeout(rt);
+          rt = window.setTimeout(() => ScrollTrigger.refresh(), 200);
+        });
+        ScrollTrigger.refresh();
+      }
+    </script>
+  </body>
+</html>

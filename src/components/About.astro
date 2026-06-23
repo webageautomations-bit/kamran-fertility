@@ -1,0 +1,201 @@
+---
+const principles = [
+  "Respectful, non-judgemental care for all individuals and couples",
+  "Clear explanations of benefits, limitations, and risks of each option",
+  "Investigations used only when they are likely to inform decisions",
+  "Care aligned with national and international guidelines",
+];
+---
+
+<!-- Gradient bleed: begins at the Concerns base (#F4F9FE) -->
+<section
+  class="about relative overflow-hidden py-20 md:py-28"
+  data-about
+  style="background: linear-gradient(to bottom, #F4F9FE 0, #FFFFFF 280px);"
+>
+  <!-- Ambient drift (very faint) -->
+  <span class="about-blob about-blob--a" aria-hidden="true"></span>
+  <span class="about-blob about-blob--b" aria-hidden="true"></span>
+
+  <!-- Cross-mark watermark (one of only two on the page). -->
+  <img
+    src="/favicon.png"
+    alt=""
+    aria-hidden="true"
+    class="pointer-events-none absolute -left-12 top-24 z-0 w-72 select-none opacity-[0.05] sm:w-[26rem]"
+  />
+
+  <!-- Editorial / asymmetric: header left-aligns with its column; columns are
+       deliberately unequal (≈58/42) with a wide gutter. -->
+  <div class="relative z-10 mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[58fr_42fr] lg:items-start lg:gap-20">
+    <!-- LEFT — about -->
+    <div>
+      <p class="eyebrow" data-reveal>About the clinic</p>
+      <h2 class="mt-3 t-h2 text-ink" data-reveal data-reveal-delay="1">
+        About Kamran Fertility Clinic
+      </h2>
+      <div class="mt-6 space-y-5 text-base text-body">
+        <p class="measure" data-reveal data-reveal-delay="2">
+          Kamran Fertility Clinic is a doctor-led service focused on ethical,
+          evidence-based fertility care. We are committed to explaining options
+          clearly, avoiding unnecessary interventions, and supporting decisions
+          that are right for you and your family.
+        </p>
+        <p class="measure" data-reveal data-reveal-delay="3">
+          Our consultations are designed to be unhurried. We listen carefully to
+          your history, review any prior tests, and offer a structured plan that
+          balances medical science with your values, timeframe, and personal
+          circumstances.
+        </p>
+        <p class="measure" data-reveal data-reveal-delay="4">
+          We regularly collaborate with trusted laboratories, imaging services,
+          and fertility centres, and we remain transparent about what can be done
+          in-clinic, and what may be better managed through referral.
+        </p>
+      </div>
+    </div>
+
+    <!-- RIGHT — principles card -->
+    <div
+      class="hover-lift rounded-[var(--r-lg)] border border-azure/20 bg-ice p-7 shadow-[var(--shadow-soft)] sm:p-9"
+      data-reveal
+      data-reveal-delay="1"
+    >
+      <h3 class="font-heading text-xl font-bold text-ink">
+        Our clinical principles
+      </h3>
+
+      <ul class="mt-6 space-y-4">
+        {
+          principles.map((item) => (
+            <li class="principle flex items-start gap-3">
+              <span class="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-azure text-white">
+                <svg
+                  class="h-3.5 w-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path class="check-path" d="M5 12l5 5l9 -9" />
+                </svg>
+              </span>
+              <span class="text-sm leading-relaxed text-body">{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <!-- Callout -->
+      <div class="mt-7 flex items-start gap-3 rounded-[var(--r-sm)] border border-amber-200 bg-amber-50 p-4" data-reveal data-reveal-delay="5">
+        <svg
+          class="mt-0.5 h-5 w-5 shrink-0 text-amber-500"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 9v4" />
+          <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" />
+          <path d="M12 16h.01" />
+        </svg>
+        <p class="text-xs leading-relaxed text-amber-900/80">
+          We do not provide emergency care. If you have severe pain, heavy
+          bleeding, fever, or feel unwell, seek urgent medical attention rather
+          than booking an online consultation.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Faint ambient blobs — extends the hero's living atmosphere downward */
+  .about-blob {
+    position: absolute;
+    z-index: 0;
+    border-radius: 9999px;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .about-blob--a {
+    width: 28rem;
+    height: 28rem;
+    top: -7rem;
+    left: -8rem;
+    background: radial-gradient(circle, var(--sky), transparent 70%);
+    opacity: 0.16;
+    animation: about-drift-a 32s ease-in-out infinite;
+  }
+  .about-blob--b {
+    width: 24rem;
+    height: 24rem;
+    bottom: -6rem;
+    right: -7rem;
+    background: radial-gradient(circle, var(--azure), transparent 70%);
+    opacity: 0.1;
+    animation: about-drift-b 38s ease-in-out infinite;
+  }
+  @keyframes about-drift-a {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(34px, 28px) scale(1.05); }
+  }
+  @keyframes about-drift-b {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-30px, -22px) scale(1.04); }
+  }
+
+  /* Check-marks: default drawn (no-JS / reduced motion shows them complete). */
+  .check-path {
+    stroke-dasharray: 24;
+    stroke-dashoffset: 0;
+  }
+</style>
+
+<script>
+  // "Self-completing" checklist: each check draws in sequence as the section
+  // scrolls into view (scrub), so the list visibly completes as you read it.
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { EASE, prefersReducedMotion } from "../scripts/motion";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector<HTMLElement>("[data-about]");
+  if (section && !prefersReducedMotion()) {
+    const checks = gsap.utils.toArray<SVGPathElement>(
+      section.querySelectorAll(".check-path"),
+    );
+    const items = gsap.utils.toArray<HTMLElement>(
+      section.querySelectorAll(".principle"),
+    );
+
+    gsap.set(checks, { strokeDashoffset: 24 });
+    gsap.set(items, { opacity: 0.35 });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top 65%",
+        end: "center 60%",
+        scrub: true,
+      },
+    });
+
+    items.forEach((item, i) => {
+      const at = i * 0.22;
+      tl.to(item, { opacity: 1, duration: 0.2, ease: EASE }, at);
+      tl.to(
+        checks[i],
+        { strokeDashoffset: 0, duration: 0.25, ease: EASE },
+        at,
+      );
+    });
+  }
+</script>
