@@ -1,0 +1,102 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import ServiceBlock from "../../components/ServiceBlock.astro";
+import CloseContact from "../../components/CloseContact.astro";
+
+// ⚠️ PLACEHOLDER COPY — on-voice, NOT the client's verbatim source content.
+// Replace before launch. The pregnancy-loss block is written with deliberate
+// sensitivity; please have the clinician review the exact wording.
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Services" },
+  { label: "Support & Second Opinions" },
+];
+---
+
+<Layout
+  title="Support & Second Opinions — Dr. Kamran Saleem, Lahore"
+  description="Independent second opinions on previous fertility treatment, and calm, compassionate support after pregnancy loss or ectopic pregnancy — at your pace, without judgement."
+>
+  <PageHero
+    eyebrow="Support & Second Opinions"
+    title="A second perspective, and a steady one"
+    sub="Whether you're questioning a previous recommendation or finding your way through a painful experience, you'll be met with patience, clarity, and no judgement."
+    breadcrumbs={breadcrumbs}
+  />
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 text-center sm:px-8">
+      <p class="mx-auto measure text-lg leading-relaxed text-body [margin-inline:auto]" data-reveal>
+        Sometimes what helps most is an unhurried second look — at a previous
+        treatment plan, or at a difficult experience. We review prior care
+        honestly and offer support with sensitivity, never coldness.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white pb-20 md:pb-28">
+    <div class="mx-auto max-w-6xl space-y-20 px-5 sm:px-8 md:space-y-28">
+      <ServiceBlock
+        id="second-opinions"
+        title="Past Treatment Review & Second Opinions"
+        intro="If previous treatment hasn't worked, or you're unsure about a recommendation, an independent review can bring clarity. We look at what's been done, explain it plainly, and help you decide what makes sense next — without judgement of you or your previous care."
+        relevantIf={[
+          "A previous IVF, IUI or other treatment was unsuccessful",
+          "You've been given a recommendation you'd like a second perspective on",
+          "You feel rushed or unsure, and want options explained more clearly",
+          "You're moving between clinics and want continuity of understanding",
+        ]}
+        whatToExpect={[
+          "A careful review of your history, reports and previous treatment",
+          "A plain-language explanation of what happened, and why",
+          "An honest view of reasonable next options — including doing nothing for now",
+          "A written summary you can keep and take with you",
+        ]}
+      >
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+          <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+          <path d="M9 14l2 2l4 -4" />
+        </svg>
+      </ServiceBlock>
+
+      <ServiceBlock
+        id="loss-support"
+        title="Pregnancy Loss & Ectopic Pregnancy Support"
+        intro="Losing a pregnancy, or coming through an ectopic pregnancy, can be painful in ways that aren't only physical. There's no timeline you have to follow here. When you're ready — and only then — we offer a calm space to understand what happened and to think gently about what might come next."
+        relevantIf={[
+          "You've experienced one or more miscarriages",
+          "You're recovering from an ectopic pregnancy",
+          "You'd like to understand whether anything can be investigated",
+          "You're considering trying again and want unhurried guidance",
+        ]}
+        whatToExpect={[
+          "An unhurried, compassionate conversation — entirely at your pace",
+          "Sensitive review of what happened, where that's helpful to you",
+          "Discussion of any appropriate investigations, without pressure",
+          "Support in thinking about the future only when, and if, you feel ready",
+        ]}
+        reversed
+      >
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+          <path d="M12 6l-3.293 3.293a1 1 0 0 0 0 1.414l.543 .543c.69 .69 1.81 .69 2.5 0l1 -1a3.182 3.182 0 0 1 4.5 0l2.25 2.25" />
+          <path d="M12.5 15.5l2 2" />
+          <path d="M15 13l2 2" />
+        </svg>
+      </ServiceBlock>
+    </div>
+  </section>
+
+  <section class="bg-ice py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 text-center sm:px-8" data-reveal>
+      <p class="mx-auto measure font-heading text-xl font-bold leading-snug text-ink [margin-inline:auto] sm:text-2xl">
+        There's no pressure here, and no timeline you have to keep — only support,
+        whenever you're ready for it.
+      </p>
+    </div>
+  </section>
+
+  <CloseContact />
+</Layout>

@@ -1,0 +1,125 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import ServiceBlock from "../../components/ServiceBlock.astro";
+import CloseContact from "../../components/CloseContact.astro";
+
+// ⚠️ PLACEHOLDER COPY — on-voice, NOT the client's verbatim source content.
+// Replace before launch. Gender/sex-selection topics are written factually and
+// non-promotionally ("where permitted and appropriate"); confirm against local
+// regulations and the clinic's own wording.
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Services" },
+  { label: "Fertility Treatments" },
+];
+---
+
+<Layout
+  title="Fertility Treatments — Dr. Kamran Saleem, Lahore"
+  description="Doctor-led fertility treatment in Lahore explained before it's decided: IVF/ICSI with PGT, IUI, and fertility preservation — discussed only when medically appropriate."
+>
+  <PageHero
+    eyebrow="Fertility Treatments"
+    title="Treatment, explained before it's decided"
+    sub="Treatment is one option, not the default. When it's appropriate, we explain what's involved and the realistic chances — clearly, and never under pressure."
+    breadcrumbs={breadcrumbs}
+  />
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 text-center sm:px-8">
+      <p class="mx-auto measure text-lg leading-relaxed text-body [margin-inline:auto]" data-reveal>
+        Treatment is discussed only when it's medically appropriate for your
+        situation — never rushed, and never as a first resort. Below is what we
+        can help plan and coordinate, with the benefits and limits of each laid
+        out honestly.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white pb-20 md:pb-28">
+    <div class="mx-auto max-w-6xl space-y-20 px-5 sm:px-8 md:space-y-28">
+      <ServiceBlock
+        id="ivf-icsi"
+        title="IVF & ICSI, with PGT (incl. gender selection)"
+        intro="IVF and ICSI bring egg and sperm together in the laboratory; preimplantation genetic testing (PGT) can screen embryos before transfer. Where permitted and appropriate, PGT can also identify embryo sex. We explain the process and realistic chances honestly — it's discussed only when it fits your situation."
+        relevantIf={[
+          "Previous treatments such as IUI have not been successful",
+          "Sperm-related factors make natural conception unlikely",
+          "Blocked or damaged fallopian tubes, or significant ovulation problems",
+          "A known genetic condition you'd like to understand before pregnancy",
+        ]}
+        whatToExpect={[
+          "A clear explanation of IVF, ICSI and PGT — what each does and doesn't do",
+          "An honest discussion of success rates for your age and circumstances",
+          "Transparent information on what's involved, including time and cost, before you decide",
+          "Coordination with trusted laboratories and fertility centres for the treatment itself",
+        ]}
+      >
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 3l6 0" />
+          <path d="M10 9l4 0" />
+          <path d="M10 3v6l-4 11a.7 .7 0 0 0 .5 1h11a.7 .7 0 0 0 .5 -1l-4 -11v-6" />
+        </svg>
+      </ServiceBlock>
+
+      <ServiceBlock
+        id="iui"
+        title="IUI, with or without gender selection"
+        intro="Intrauterine insemination (IUI) places prepared sperm directly into the uterus around ovulation — a simpler, less invasive option than IVF for suitable couples. Where lawful and appropriate, sex selection may be discussed; it is never presented as routine."
+        relevantIf={[
+          "Mild male-factor concerns, or unexplained difficulty conceiving",
+          "Ovulation can be predicted or supported with medication",
+          "At least one healthy, open fallopian tube",
+          "You'd prefer a less invasive option before considering IVF",
+        ]}
+        whatToExpect={[
+          "Assessment of whether IUI is medically suitable for you",
+          "Cycle monitoring and careful timing around ovulation",
+          "A straightforward explanation of the steps and realistic expectations",
+          "Clear guidance on when IVF might be the better path instead",
+        ]}
+        reversed
+      >
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6.8 11a6 6 0 1 0 10.396 0l-5.197 -8l-5.199 8z" />
+        </svg>
+      </ServiceBlock>
+
+      <ServiceBlock
+        id="preservation"
+        title="Fertility Preservation (egg & sperm freezing)"
+        intro="Freezing eggs or sperm preserves future options — whether for medical reasons or personal timing. We explain what preservation can and cannot promise, clearly and without pressure."
+        relevantIf={[
+          "You're facing medical treatment that may affect fertility",
+          "You'd like to preserve options while you're not yet ready to conceive",
+          "Declining sperm parameters where storage may be sensible",
+          "You simply want to understand the option clearly",
+        ]}
+        whatToExpect={[
+          "An honest conversation about what freezing does and doesn't guarantee",
+          "The assessments involved before storage",
+          "Transparent information on process, timeframes and cost",
+          "Coordination with accredited laboratories for storage",
+        ]}
+      >
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3v18" />
+          <path d="M5.5 6.5l13 11" />
+          <path d="M18.5 6.5l-13 11" />
+        </svg>
+      </ServiceBlock>
+    </div>
+  </section>
+
+  <section class="bg-ice py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 text-center sm:px-8" data-reveal>
+      <p class="mx-auto measure font-heading text-xl font-bold leading-snug text-ink [margin-inline:auto] sm:text-2xl">
+        We recommend treatment only when it's the right step for you — and we'll
+        say so plainly when it isn't.
+      </p>
+    </div>
+  </section>
+
+  <CloseContact />
+</Layout>

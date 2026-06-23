@@ -1,0 +1,134 @@
+---
+// Reusable alternating two-column service block (template for service pages).
+// Icon is provided via the `icon` named slot so each page supplies its own.
+interface Props {
+  title: string;
+  intro: string;
+  relevantIf: string[];
+  whatToExpect: string[];
+  reversed?: boolean;
+  id?: string;
+}
+const { title, intro, relevantIf, whatToExpect, reversed = false, id } = Astro.props;
+---
+
+<div class="service-block" data-slide={reversed ? "right" : "left"} id={id}>
+  <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
+    <!-- Icon / illustration panel -->
+    <div class={`sb-panel relative ${reversed ? "lg:order-last" : ""}`} aria-hidden="true">
+      <span class="sb-ring sb-ring--outer"></span>
+      <span class="sb-ring sb-ring--inner"></span>
+      <span class="sb-icon text-azure">
+        <slot name="icon" />
+      </span>
+    </div>
+
+    <!-- Content -->
+    <div>
+      <h2
+        class="font-heading text-2xl font-extrabold tracking-tight text-ink sm:text-3xl"
+        data-reveal
+      >
+        {title}
+      </h2>
+      <p class="mt-4 measure-tight text-base leading-relaxed text-body" data-reveal data-reveal-delay="1">
+        {intro}
+      </p>
+
+      <div class="mt-7 grid gap-7 sm:grid-cols-2">
+        <div data-reveal data-reveal-delay="2">
+          <h3 class="eyebrow">This may be relevant if</h3>
+          <ul class="mt-4 space-y-2.5">
+            {
+              relevantIf.map((item) => (
+                <li class="flex items-start gap-2.5">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-azure/12 text-azure">
+                    <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M5 12l5 5l9 -9" />
+                    </svg>
+                  </span>
+                  <span class="text-sm leading-relaxed text-body">{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div data-reveal data-reveal-delay="3">
+          <h3 class="eyebrow">What to expect</h3>
+          <ul class="mt-4 space-y-2.5">
+            {
+              whatToExpect.map((item) => (
+                <li class="flex items-start gap-2.5">
+                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-sky/20 text-navy">
+                    <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M5 12l5 5l9 -9" />
+                    </svg>
+                  </span>
+                  <span class="text-sm leading-relaxed text-body">{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .sb-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--r-lg);
+    background: linear-gradient(150deg, var(--ice), #dbeafe);
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .sb-ring {
+    position: absolute;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in srgb, var(--azure) 22%, transparent);
+  }
+  .sb-ring--outer { width: 62%; aspect-ratio: 1; }
+  .sb-ring--inner {
+    width: 42%;
+    aspect-ratio: 1;
+    border-color: color-mix(in srgb, var(--sky) 45%, transparent);
+  }
+  .sb-icon :global(svg) {
+    position: relative;
+    width: 4.5rem;
+    height: 4.5rem;
+    stroke-width: 1.5;
+  }
+</style>
+
+<script>
+  // Subtle side-slide for each block as it enters (x only — never opacity —
+  // so a failure can't hide content; inner items reveal via the global batch).
+  // Runs once per page; isolated in try/catch.
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { EASE, prefersReducedMotion } from "../scripts/motion";
+
+  try {
+    gsap.registerPlugin(ScrollTrigger);
+    if (!prefersReducedMotion()) {
+      const blocks = gsap.utils.toArray<HTMLElement>("[data-slide]");
+      blocks.forEach((b) => {
+        const dir = b.getAttribute("data-slide") === "right" ? 1 : -1;
+        gsap.from(b, {
+          xPercent: dir * 5,
+          duration: 0.7,
+          ease: EASE,
+          scrollTrigger: { trigger: b, start: "top 80%" },
+        });
+      });
+    }
+  } catch (err) {
+    console.error("[service-block] slide-in failed (non-fatal)", err);
+  }
+</script>

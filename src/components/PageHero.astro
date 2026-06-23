@@ -1,0 +1,214 @@
+---
+// Reusable, lighter page hero for inner pages (no doctor photo).
+// Calmer echo of the home hero: ambient gradient + drifting particles +
+// blur-to-focus headline. Used as the template for all service pages.
+const whatsappHref = "https://wa.me/923148432789";
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+interface Props {
+  eyebrow: string;
+  title: string;
+  sub: string;
+  breadcrumbs?: Crumb[];
+  cta?: string;
+}
+const {
+  eyebrow,
+  title,
+  sub,
+  breadcrumbs = [],
+  cta = "Message us on WhatsApp",
+} = Astro.props;
+---
+
+<section class="page-hero relative overflow-hidden" aria-labelledby="page-hero-heading">
+  <div class="page-hero-bg" aria-hidden="true">
+    <span class="ph-blob ph-blob--sky"></span>
+    <span class="ph-blob ph-blob--azure"></span>
+    <canvas data-pagehero-canvas class="ph-canvas"></canvas>
+  </div>
+
+  <div class="relative z-10 mx-auto max-w-4xl px-5 py-20 sm:px-8 md:py-28">
+    {
+      breadcrumbs.length > 0 && (
+        <nav aria-label="Breadcrumb" class="text-sm text-body" data-reveal>
+          <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+            {breadcrumbs.map((c, i) => (
+              <li class="flex items-center gap-2">
+                {c.href ? (
+                  <a href={c.href} class="transition-colors hover:text-azure">
+                    {c.label}
+                  </a>
+                ) : (
+                  <span class="text-ink/70">{c.label}</span>
+                )}
+                {i < breadcrumbs.length - 1 && <span class="text-line">/</span>}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )
+    }
+
+    <p class="eyebrow mt-6" data-reveal>{eyebrow}</p>
+    <h1 id="page-hero-heading" class="mt-3 t-display text-ink">{title}</h1>
+    <p class="mt-6 measure text-lg text-body" data-reveal data-reveal-delay="1">
+      {sub}
+    </p>
+    <div class="mt-8" data-reveal data-reveal-delay="2">
+      <a
+        href={whatsappHref}
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-azure to-navy px-7 py-3.5 text-base font-semibold text-white shadow-[var(--shadow-soft)] transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
+      >
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path
+            d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.978-1.099zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
+          ></path>
+        </svg>
+        {cta}
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    isolation: isolate;
+  }
+  .page-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(170deg, #ffffff 0%, #eff6fe 60%, #dfeefd 100%);
+  }
+  .ph-canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  .ph-blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(72px);
+    opacity: 0.4;
+  }
+  .ph-blob--sky {
+    width: 26rem;
+    height: 26rem;
+    top: -7rem;
+    right: -5rem;
+    background: radial-gradient(circle, var(--sky), transparent 70%);
+    animation: ph-drift-a 26s ease-in-out infinite;
+  }
+  .ph-blob--azure {
+    width: 22rem;
+    height: 22rem;
+    bottom: -8rem;
+    left: -6rem;
+    opacity: 0.28;
+    background: radial-gradient(circle, var(--azure), transparent 70%);
+    animation: ph-drift-b 32s ease-in-out infinite;
+  }
+  @keyframes ph-drift-a {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-28px, 22px) scale(1.05); }
+  }
+  @keyframes ph-drift-b {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(32px, -20px) scale(1.04); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ph-blob { animation: none; }
+  }
+</style>
+
+<script>
+  // Calm particle field + blur-to-focus headline. Isolated in try/catch so a
+  // failure here can never block the global [data-reveal] reveal system.
+  import { gsap } from "gsap";
+  import { SplitText } from "gsap/SplitText";
+  import { EASE, DURATION, prefersReducedMotion } from "../scripts/motion";
+
+  const reduce = prefersReducedMotion();
+
+  // ── Particles (calmer than the home hero; no pointer interaction) ──
+  try {
+    const canvas = document.querySelector<HTMLCanvasElement>("[data-pagehero-canvas]");
+    const ctx = canvas?.getContext("2d");
+    if (canvas && ctx) {
+      const colors = ["#66ddff", "#4a85eb", "#9fd0ff"];
+      let ps: { x: number; y: number; r: number; c: string; sp: number; sw: number; ph: number }[] = [];
+      let w = 0, h = 0, dpr = 1, raf = 0;
+      const seed = () => {
+        const n = Math.max(10, Math.round(w / 40));
+        ps = Array.from({ length: n }, () => ({
+          x: Math.random() * w, y: Math.random() * h,
+          r: 1 + Math.random() * 2.2, c: colors[Math.floor(Math.random() * colors.length)],
+          sp: 0.08 + Math.random() * 0.22, sw: 6 + Math.random() * 16, ph: Math.random() * Math.PI * 2,
+        }));
+      };
+      const resize = () => {
+        const rect = canvas.getBoundingClientRect();
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        w = rect.width; h = rect.height;
+        canvas.width = Math.round(w * dpr); canvas.height = Math.round(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0); seed();
+      };
+      const dot = (p: typeof ps[number], t: number) => {
+        const x = p.x + Math.sin(t * 0.0005 + p.ph) * p.sw;
+        ctx.beginPath(); ctx.arc(x, p.y, p.r, 0, Math.PI * 2); ctx.fillStyle = p.c; ctx.fill();
+      };
+      const frame = (t: number) => {
+        ctx.clearRect(0, 0, w, h); ctx.globalAlpha = 0.45;
+        for (const p of ps) { p.y -= p.sp; if (p.y < -p.r) { p.y = h + p.r; p.x = Math.random() * w; } dot(p, t); }
+        ctx.globalAlpha = 1; raf = requestAnimationFrame(frame);
+      };
+      resize();
+      if (reduce) { ctx.globalAlpha = 0.45; for (const p of ps) dot(p, 0); ctx.globalAlpha = 1; }
+      else raf = requestAnimationFrame(frame);
+      let rz: number;
+      window.addEventListener("resize", () => {
+        window.clearTimeout(rz);
+        rz = window.setTimeout(() => { resize(); if (reduce) { ctx.clearRect(0,0,w,h); ctx.globalAlpha = 0.45; for (const p of ps) dot(p, 0); ctx.globalAlpha = 1; } }, 150);
+      });
+      void raf;
+    }
+  } catch (err) {
+    console.error("[page-hero] particles failed (non-fatal)", err);
+  }
+
+  // ── Blur-to-focus headline (word-safe split) ──
+  try {
+    const h1 = document.getElementById("page-hero-heading");
+    if (h1 && !reduce) {
+      gsap.registerPlugin(SplitText);
+      let split: SplitText | null = null;
+      const playIn = () => {
+        try {
+          if (split) { split.revert(); split = null; }
+          split = new SplitText(h1, { type: "words,chars", wordsClass: "hero-word" });
+          const chars = split?.chars ?? [];
+          if (!chars.length) return;
+          gsap.from(chars, { opacity: 0, filter: "blur(16px)", duration: DURATION, ease: EASE, stagger: 0.04 });
+        } catch (e) {
+          console.error("[page-hero] headline animation failed", e);
+        }
+      };
+      if (document.fonts?.ready) document.fonts.ready.then(playIn);
+      else playIn();
+      let rt: number;
+      window.addEventListener("resize", () => { window.clearTimeout(rt); rt = window.setTimeout(playIn, 200); });
+    }
+  } catch (err) {
+    console.error("[page-hero] headline init failed (non-fatal)", err);
+  }
+</script>

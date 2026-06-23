@@ -1,0 +1,127 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import ServiceBlock from "../../components/ServiceBlock.astro";
+import CloseContact from "../../components/CloseContact.astro";
+
+// ⚠️ PLACEHOLDER COPY — on-voice, but NOT the client's verbatim source content
+// (which was not provided). Replace each block's intro / relevantIf /
+// whatToExpect with the real service copy before launch.
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Services" },
+  { label: "Assessment & Diagnosis" },
+];
+---
+
+<Layout
+  title="Assessment & Diagnosis — Dr. Kamran Saleem, Lahore"
+  description="Doctor-led fertility assessment in Lahore: fertility diagnosis, men's reproductive health, and cycle, hormonal & ovulation concerns — investigated only when it's likely to help."
+>
+  <PageHero
+    eyebrow="Assessment & Diagnosis"
+    title="Understanding your fertility, clearly"
+    sub="A calm, evidence-based first look at what may be affecting conception — so you understand where you stand before deciding on any next step."
+    breadcrumbs={breadcrumbs}
+  />
+
+  <!-- Page intro -->
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 text-center sm:px-8">
+      <p class="mx-auto measure text-lg leading-relaxed text-body [margin-inline:auto]" data-reveal>
+        Fertility care is not one-size-fits-all. Below are the areas we commonly
+        assess — your consultation determines what's appropriate for you. Not
+        every patient needs every test.
+      </p>
+    </div>
+  </section>
+
+  <!-- Service blocks -->
+  <section class="bg-white pb-20 md:pb-28">
+    <div class="mx-auto max-w-6xl space-y-20 px-5 sm:px-8 md:space-y-28">
+      <ServiceBlock
+        id="fertility-assessment"
+        title="Fertility Assessment & Diagnosis"
+        intro="A structured first look at your fertility — reviewing your history, any previous results, and the factors that may be affecting conception, so you understand where you stand before any next step."
+        relevantIf={[
+          "You've been trying to conceive for 12 months — or 6 months if you're over 35",
+          "You have irregular periods, a known gynaecological condition, or previous pelvic surgery",
+          "A previous pregnancy ended in miscarriage or complications",
+          "You simply want to understand your fertility before trying",
+        ]}
+        whatToExpect={[
+          "An unhurried conversation about your medical, menstrual and lifestyle history",
+          "Review of any prior investigations or imaging you already have",
+          "Guidance on appropriate tests — hormone profiles, ultrasound, or semen analysis where relevant",
+          "A clear written summary and recommended next steps",
+        ]}
+      >
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 4h-1a1 1 0 0 0 -1 1v3.5a5.5 5.5 0 0 0 11 0v-3.5a1 1 0 0 0 -1 -1h-1" />
+          <path d="M8 15a6 6 0 1 0 12 0v-3" />
+          <path d="M20 9m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+        </svg>
+      </ServiceBlock>
+
+      <ServiceBlock
+        id="mens-fertility"
+        title="Men's Fertility & Reproductive Health"
+        intro="Male factors contribute to roughly half of fertility difficulties, yet are often overlooked. We assess sperm health, hormones, and reproductive concerns confidentially and without stigma."
+        relevantIf={[
+          "You and your partner have been trying to conceive without success",
+          "You have concerns about sperm count or motility, or a previous abnormal semen analysis",
+          "You've noticed changes in libido, erectile function, or testicular discomfort",
+          "You have a history of infection, injury, or undescended testes",
+        ]}
+        whatToExpect={[
+          "A confidential discussion of your history and concerns",
+          "Semen analysis and hormone testing where appropriate",
+          "Assessment of lifestyle and other modifiable factors",
+          "A clear explanation of results and options, including referral if needed",
+        ]}
+        reversed
+      >
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+          <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+          <path d="M15 19l2 2l4 -4" />
+        </svg>
+      </ServiceBlock>
+
+      <ServiceBlock
+        id="cycle-hormonal"
+        title="Cycle, Hormonal & Ovulation Concerns"
+        intro="Irregular cycles and hormonal imbalances can affect both fertility and wellbeing. We assess ovulation, hormone levels, and conditions such as PCOS or thyroid dysfunction."
+        relevantIf={[
+          "Your periods are irregular, absent, or unusually heavy",
+          "You have signs that may suggest PCOS — irregular cycles, acne, or excess hair growth",
+          "You suspect a thyroid or other hormonal imbalance",
+          "You're unsure whether, or when, you're ovulating",
+        ]}
+        whatToExpect={[
+          "Review of your cycle history and symptoms",
+          "Targeted hormone testing and pelvic ultrasound where indicated",
+          "Assessment for PCOS, thyroid, and ovulation disorders",
+          "A plan to address findings — lifestyle, monitoring, or treatment as appropriate",
+        ]}
+      >
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19.5 13.572l-7.5 7.428l-2.896 -2.868m-6.117 -8.104a5 5 0 0 1 9.013 -3.022a5 5 0 1 1 7.5 6.572" />
+          <path d="M3 13h2l2 3l2 -6l1 3h3" />
+        </svg>
+      </ServiceBlock>
+    </div>
+  </section>
+
+  <!-- Reassurance band (ice, so the CloseContact wave blends) -->
+  <section class="bg-ice py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 text-center sm:px-8" data-reveal>
+      <p class="mx-auto measure font-heading text-xl font-bold leading-snug text-ink [margin-inline:auto] sm:text-2xl">
+        Investigations are recommended only when they're likely to help — never
+        as routine.
+      </p>
+    </div>
+  </section>
+
+  <CloseContact />
+</Layout>
