@@ -4,6 +4,7 @@ description: "Two treatments that are often mentioned together but suit differen
 publishDate: 2026-05-20
 category: "Treatments"
 readingTime: "5 min read"
+cover: "/assets/resources/ivf-vs-iui.jpg"
 ---
 
 IVF and IUI are often mentioned together, but they're quite different in what they involve, who they suit, and what they cost.

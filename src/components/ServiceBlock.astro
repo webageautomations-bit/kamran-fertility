@@ -1,6 +1,7 @@
 ---
 // Reusable alternating two-column service block (template for service pages).
-// Icon is provided via the `icon` named slot so each page supplies its own.
+// Icon is provided via the `icon` named slot. Optional `image` sets a calm
+// photographic texture behind a dominant brand overlay.
 interface Props {
   title: string;
   intro: string;
@@ -8,14 +9,17 @@ interface Props {
   whatToExpect: string[];
   reversed?: boolean;
   id?: string;
+  image?: string;
 }
-const { title, intro, relevantIf, whatToExpect, reversed = false, id } = Astro.props;
+const { title, intro, relevantIf, whatToExpect, reversed = false, id, image } = Astro.props;
 ---
 
 <div class="service-block" data-slide={reversed ? "right" : "left"} id={id}>
   <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
-    <!-- Icon / illustration panel -->
+    <!-- Photo-backed panel: image as subtle depth, brand overlay dominates. -->
     <div class={`sb-panel relative ${reversed ? "lg:order-last" : ""}`} aria-hidden="true">
+      {image && <img class="sb-photo" src={image} alt="" loading="lazy" decoding="async" width="1200" height="900" />}
+      <span class="sb-overlay"></span>
       <span class="sb-ring sb-ring--outer"></span>
       <span class="sb-ring sb-ring--inner"></span>
       <span class="sb-icon text-azure">
@@ -78,6 +82,7 @@ const { title, intro, relevantIf, whatToExpect, reversed = false, id } = Astro.p
 
 <style>
   .sb-panel {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -86,9 +91,31 @@ const { title, intro, relevantIf, whatToExpect, reversed = false, id } = Astro.p
     background: linear-gradient(150deg, var(--ice), #dbeafe);
     border: 1px solid var(--line);
     overflow: hidden;
+    transition:
+      transform 0.4s ease,
+      box-shadow 0.4s ease;
+  }
+  .sb-photo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* Dominant on-brand overlay: design clearly leads, photo reads as depth. */
+  .sb-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      linear-gradient(150deg, rgba(74, 133, 235, 0.34), rgba(3, 57, 179, 0.22)),
+      linear-gradient(150deg, rgba(244, 249, 254, 0.88), rgba(219, 234, 254, 0.82));
+    transition: opacity 0.4s ease;
   }
   .sb-ring {
     position: absolute;
+    z-index: 2;
     border-radius: 9999px;
     border: 1px solid color-mix(in srgb, var(--azure) 22%, transparent);
   }
@@ -98,11 +125,26 @@ const { title, intro, relevantIf, whatToExpect, reversed = false, id } = Astro.p
     aspect-ratio: 1;
     border-color: color-mix(in srgb, var(--sky) 45%, transparent);
   }
-  .sb-icon :global(svg) {
+  .sb-icon {
     position: relative;
+    z-index: 3;
+  }
+  .sb-icon :global(svg) {
     width: 4.5rem;
     height: 4.5rem;
     stroke-width: 1.5;
+  }
+
+  /* Premium hover — desktop / fine-pointer / motion-OK only. The card lifts
+     with the tinted shadow while the overlay eases back to reveal the photo. */
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .sb-panel:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lift);
+    }
+    .sb-panel:hover .sb-overlay {
+      opacity: 0.82;
+    }
   }
 </style>
 

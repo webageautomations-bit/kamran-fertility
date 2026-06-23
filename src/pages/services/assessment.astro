@@ -25,13 +25,14 @@ const breadcrumbs = [
     breadcrumbs={breadcrumbs}
   />
 
-  <!-- Page intro -->
+  <!-- Page intro (relative z-10 keeps it above the hero's ambient bleed) -->
   <section class="bg-white py-16 md:py-20">
-    <div class="mx-auto max-w-3xl px-5 text-center sm:px-8">
+    <div class="relative z-10 mx-auto max-w-3xl px-5 text-center sm:px-8">
       <p class="mx-auto measure text-lg leading-relaxed text-body [margin-inline:auto]" data-reveal>
-        Fertility care is not one-size-fits-all. Below are the areas we commonly
-        assess — your consultation determines what's appropriate for you. Not
-        every patient needs every test.
+        No two fertility stories are the same. Some people need reassurance and a
+        few tests; others need a deeper look. This first step is about
+        understanding yours — clearly, and without assuming you need treatment
+        you may not.
       </p>
     </div>
   </section>
@@ -41,6 +42,7 @@ const breadcrumbs = [
     <div class="mx-auto max-w-6xl space-y-20 px-5 sm:px-8 md:space-y-28">
       <ServiceBlock
         id="fertility-assessment"
+        image="/assets/services/assessment.jpg"
         title="Fertility Assessment & Diagnosis"
         intro="A structured first look at your fertility — reviewing your history, any previous results, and the factors that may be affecting conception, so you understand where you stand before any next step."
         relevantIf={[
@@ -65,6 +67,7 @@ const breadcrumbs = [
 
       <ServiceBlock
         id="mens-fertility"
+        image="/assets/services/mens.jpg"
         title="Men's Fertility & Reproductive Health"
         intro="Male factors contribute to roughly half of fertility difficulties, yet are often overlooked. We assess sperm health, hormones, and reproductive concerns confidentially and without stigma."
         relevantIf={[
@@ -90,6 +93,7 @@ const breadcrumbs = [
 
       <ServiceBlock
         id="cycle-hormonal"
+        image="/assets/services/cycle.jpg"
         title="Cycle, Hormonal & Ovulation Concerns"
         intro="Irregular cycles and hormonal imbalances can affect both fertility and wellbeing. We assess ovulation, hormone levels, and conditions such as PCOS or thyroid dysfunction."
         relevantIf={[

@@ -4,6 +4,7 @@ description: "One of the most useful early fertility tests — and one of the mo
 publishDate: 2026-04-28
 category: "Diagnosis"
 readingTime: "4 min read"
+cover: "/assets/resources/understanding-a-semen-analysis.jpg"
 ---
 
 A semen analysis is one of the most useful early tests in fertility, and one of the most misunderstood. A single result is a snapshot, not a verdict.

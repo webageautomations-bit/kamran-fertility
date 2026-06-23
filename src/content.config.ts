@@ -9,6 +9,7 @@ const resources = defineCollection({
     publishDate: z.coerce.date(),
     category: z.string(),
     readingTime: z.string().optional(),
+    cover: z.string(),
   }),
 });
 

@@ -4,6 +4,7 @@ description: "There's rarely one obvious moment. A calm guide to when it's reaso
 publishDate: 2026-06-10
 category: "Getting started"
 readingTime: "4 min read"
+cover: "/assets/resources/when-to-seek-fertility-advice.jpg"
 ---
 
 Deciding when to ask for help with fertility can feel uncertain — there's rarely a single moment that makes it obvious. As a general guide, it's reasonable to seek advice after 12 months of trying to conceive, or after 6 months if you are over 35.

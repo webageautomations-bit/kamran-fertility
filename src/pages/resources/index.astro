@@ -1,67 +1,210 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import PageHero from "../../components/PageHero.astro";
 import CloseContact from "../../components/CloseContact.astro";
 import { getCollection } from "astro:content";
 
 const posts = (await getCollection("resources")).sort(
   (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
 );
+const featured = posts[0];
+const rest = posts.slice(1);
 
 const fmtDate = (d: Date) =>
   d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
-
-const breadcrumbs = [
-  { label: "Home", href: "/" },
-  { label: "Resources" },
-];
 ---
 
 <Layout
   title="Resources — Dr. Kamran Saleem, Lahore"
   description="Clear, honest fertility education from Dr. Kamran Saleem's clinic in Lahore — plain-language answers on assessment, treatment options, and what to expect."
 >
-  <PageHero
-    eyebrow="Resources"
-    title="Clear answers, honestly explained"
-    sub="Plain-language fertility education — no jargon, no hard sell. Just the things patients most often want to understand, explained calmly."
-    breadcrumbs={breadcrumbs}
-    cta="Ask a question on WhatsApp"
-  />
-
-  <section class="bg-white py-16 md:py-24">
+  <!-- Editorial masthead (deliberately NOT the particle page-hero) -->
+  <section class="bg-white pb-10 pt-16 md:pt-24">
     <div class="mx-auto max-w-6xl px-5 sm:px-8">
-      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          posts.map((post, i) => (
-            <a
-              href={`/resources/${post.id}`}
-              class="hover-lift group flex flex-col rounded-[var(--r-md)] border border-line bg-white p-6 shadow-[var(--shadow-soft)]"
-              data-reveal
-              data-reveal-delay={Math.min(i + 1, 8)}
-            >
-              <span class="inline-flex w-fit items-center rounded-full bg-azure/10 px-3 py-1 text-xs font-semibold text-azure">
-                {post.data.category}
-              </span>
-              <h2 class="mt-4 font-heading text-lg font-bold text-ink transition-colors group-hover:text-azure">
-                {post.data.title}
-              </h2>
-              <p class="mt-2 flex-1 text-sm leading-relaxed text-body">
-                {post.data.description}
-              </p>
-              <div class="mt-5 flex items-center gap-2 text-xs text-body/70">
-                {post.data.readingTime && <span>{post.data.readingTime}</span>}
-                {post.data.readingTime && <span aria-hidden="true">·</span>}
-                <time datetime={post.data.publishDate.toISOString()}>
-                  {fmtDate(post.data.publishDate)}
-                </time>
-              </div>
-            </a>
-          ))
-        }
-      </div>
+      <p class="eyebrow" data-reveal>Resources</p>
+      <p
+        class="mt-3 max-w-2xl font-heading text-2xl font-extrabold leading-snug tracking-tight text-ink sm:text-3xl"
+        data-reveal
+        data-reveal-delay="1"
+      >
+        Clear, honest answers from Dr. Kamran's clinic — no jargon, no pressure.
+      </p>
+      <hr class="mt-8 border-t border-line" />
     </div>
   </section>
 
+  <!-- Featured (latest) article — asymmetric, editorial -->
+  {
+    featured && (
+      <section class="bg-white pb-16">
+        <div class="mx-auto max-w-6xl px-5 sm:px-8">
+          <a
+            href={`/resources/${featured.id}`}
+            class="r-featured group grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12"
+            data-reveal
+          >
+            <div class="r-cover relative overflow-hidden rounded-[var(--r-lg)] border border-line shadow-[var(--shadow-soft)]">
+              <div class="aspect-[16/11]">
+                <img
+                  class="r-cover-img h-full w-full object-cover"
+                  src={featured.data.cover}
+                  alt=""
+                  loading="eager"
+                  width="1200"
+                  height="825"
+                />
+              </div>
+              <span class="r-cover-tint" />
+            </div>
+
+            <div>
+              <div class="flex flex-wrap items-center gap-3 text-xs text-body/70">
+                <span class="inline-flex items-center rounded-full bg-azure/10 px-3 py-1 font-semibold text-azure">
+                  {featured.data.category}
+                </span>
+                {featured.data.readingTime && <span>{featured.data.readingTime}</span>}
+                <span aria-hidden="true">·</span>
+                <time datetime={featured.data.publishDate.toISOString()}>
+                  {fmtDate(featured.data.publishDate)}
+                </time>
+              </div>
+              <h2 class="mt-4 font-heading text-3xl font-extrabold leading-[1.1] tracking-tight text-ink transition-colors group-hover:text-azure sm:text-4xl">
+                {featured.data.title}
+              </h2>
+              <p class="mt-4 measure text-base leading-relaxed text-body">
+                {featured.data.description}
+              </p>
+              <span class="mt-6 inline-flex items-center gap-2 font-semibold text-azure">
+                Read
+                <svg class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="M13 6l6 6l-6 6" />
+                </svg>
+              </span>
+            </div>
+          </a>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Grid of remaining posts -->
+  {
+    rest.length > 0 && (
+      <section class="bg-white pb-24">
+        <div class="mx-auto max-w-6xl px-5 sm:px-8">
+          <h2 class="eyebrow mb-6">More reading</h2>
+          <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {rest.map((post, i) => (
+              <a
+                href={`/resources/${post.id}`}
+                class="r-card group flex flex-col overflow-hidden rounded-[var(--r-md)] border border-line bg-white shadow-[var(--shadow-soft)]"
+                data-reveal
+                data-reveal-delay={Math.min(i + 1, 8)}
+              >
+                <div class="r-cover relative aspect-[16/10] overflow-hidden">
+                  <img
+                    class="r-cover-img h-full w-full object-cover"
+                    src={post.data.cover}
+                    alt=""
+                    loading="lazy"
+                    width="1200"
+                    height="750"
+                  />
+                  <span class="r-cover-tint" />
+                </div>
+                <div class="flex flex-1 flex-col p-5">
+                  <span class="inline-flex w-fit items-center rounded-full bg-azure/10 px-3 py-1 text-xs font-semibold text-azure">
+                    {post.data.category}
+                  </span>
+                  <h3 class="mt-3 font-heading text-lg font-bold text-ink transition-colors group-hover:text-azure">
+                    {post.data.title}
+                  </h3>
+                  <p class="mt-2 flex-1 text-sm leading-relaxed text-body">
+                    {post.data.description}
+                  </p>
+                  <div class="mt-4 flex items-center gap-2 text-xs text-body/70">
+                    {post.data.readingTime && <span>{post.data.readingTime}</span>}
+                    {post.data.readingTime && <span aria-hidden="true">·</span>}
+                    <time datetime={post.data.publishDate.toISOString()}>
+                      {fmtDate(post.data.publishDate)}
+                    </time>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   <CloseContact />
 </Layout>
+
+<style>
+  /* Consistent on-brand blue tint over every cover so they read as one set. */
+  .r-cover-tint {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      155deg,
+      rgba(74, 133, 235, 0.2),
+      rgba(3, 57, 179, 0.14) 60%,
+      rgba(10, 31, 77, 0.22)
+    );
+    pointer-events: none;
+  }
+  .r-cover-img {
+    transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .r-card,
+  .r-featured .r-cover {
+    transition:
+      transform 0.4s ease,
+      box-shadow 0.4s ease;
+  }
+
+  /* Hover — desktop / fine-pointer / motion-OK only: lift + cover zoom. */
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .r-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lift);
+    }
+    .r-card:hover .r-cover-img {
+      transform: scale(1.05);
+    }
+    .r-featured:hover .r-cover {
+      box-shadow: var(--shadow-lift);
+    }
+  }
+</style>
+
+<script>
+  // Featured cover subtle parallax on scroll. Isolated; never blocks reveals.
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  import { prefersReducedMotion } from "../../scripts/motion";
+
+  try {
+    if (!prefersReducedMotion()) {
+      gsap.registerPlugin(ScrollTrigger);
+      const img = document.querySelector<HTMLElement>(".r-featured .r-cover-img");
+      const frame = document.querySelector<HTMLElement>(".r-featured .r-cover");
+      if (img && frame) {
+        // Pre-scale so the parallax translate never reveals an edge gap.
+        gsap.set(img, { scale: 1.12, transformOrigin: "center" });
+        gsap.fromTo(
+          img,
+          { yPercent: -5 },
+          {
+            yPercent: 5,
+            ease: "none",
+            scrollTrigger: { trigger: frame, start: "top bottom", end: "bottom top", scrub: true },
+          },
+        );
+      }
+    }
+  } catch (err) {
+    console.error("[resources] featured parallax failed (non-fatal)", err);
+  }
+</script>
