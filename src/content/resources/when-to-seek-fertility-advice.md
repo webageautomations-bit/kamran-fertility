@@ -1,28 +1,38 @@
 ---
 title: "When should you seek fertility advice?"
-description: "There's rarely one obvious moment. A calm guide to when it's reasonable to ask for help — and why seeking advice isn't a commitment to treatment."
+description: "There's rarely one obvious moment. A calm guide to the decision to ask for help — and why seeking advice isn't a commitment to treatment."
 publishDate: 2026-06-10
 category: "Getting started"
-readingTime: "4 min read"
+readingTime: "3 min read"
 cover: "/assets/resources/when-to-seek-fertility-advice.jpg"
 ---
 
-Deciding when to ask for help with fertility can feel uncertain — there's rarely a single moment that makes it obvious. As a general guide, it's reasonable to seek advice after 12 months of trying to conceive, or after 6 months if you are over 35.
+Deciding when to ask for help with fertility can feel surprisingly hard. There is rarely an obvious signal, and many people quietly wonder whether their situation "counts" before they feel allowed to ask. The reassuring truth is that seeking advice is simply a way to understand your own body — and it is never too early to ask a question.
 
-## Reasons to seek advice sooner
+## What "trying" usually means
 
-Some situations are worth discussing earlier rather than waiting:
+A common general guide is that many couples are advised to seek assessment after about a year of trying to conceive, and sometimes sooner if there are particular reasons. But guidance like this is broad. "Trying" looks different for everyone, and there is no need to measure yourself against a strict rule before reaching out.
 
-- Irregular or absent periods
-- A known condition such as PCOS, endometriosis, or thyroid disease
-- Previous pelvic surgery, infection, or a sexually transmitted infection
-- Concerns about sperm count or quality
-- Two or more miscarriages
+## You don't need to wait for something to be wrong
 
-## What a first conversation involves
+Many people imagine they should only see a doctor once there is a clear problem. In practice, plenty of people seek advice simply for understanding — to learn how their cycle works, to ask about timing, or to feel more prepared. Curiosity and peace of mind are perfectly good reasons.
 
-A first consultation is mostly listening. We talk through your history, any tests you've already had, and what matters to you — then agree what, if anything, is worth investigating. Not everyone needs tests, and nothing is decided for you.
+## Reasons people often consider asking sooner
 
-The earlier you understand your situation, the more options you tend to have. Seeking advice is not a commitment to treatment — it's simply information.
+Only a doctor can advise on your own situation, but people sometimes choose not to wait when, broadly, there are irregular or absent periods, a known condition that can affect fertility, previous pelvic surgery or infection, more than one pregnancy loss, or concerns about a partner's fertility. These are general points, not a checklist of problems — just reasons a conversation may help.
 
-> _Draft placeholder content for client review._
+## Asking is not a commitment
+
+Seeking advice does not commit you to tests or treatment. A first conversation is mostly listening: your history, what matters to you, and what, if anything, might be worth exploring. You can stop at reassurance, or agree on a few gentle next steps. Nothing moves faster than you want it to.
+
+## The value of clarity
+
+Often the hardest part is simply the not knowing. Whatever the outcome, understanding your situation tends to feel better than wondering about it — and it usually means you have more options, not fewer.
+
+There is no perfect moment, and no minimum amount of worry required before you are allowed to ask. If questions about fertility are on your mind, that is reason enough — calmly, and at your own pace.
+
+> This article is general information and not a substitute for a consultation with a qualified doctor. For advice about your own situation, please get in touch.
+>
+> [Message us on WhatsApp](https://wa.me/923148432789)
+
+_Draft — placeholder educational content, pending Dr. Kamran Saleem's review before it is treated as the clinic's official guidance._
