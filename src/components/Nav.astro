@@ -8,7 +8,7 @@ const services = [
 const links = [
   { label: "Home", href: "/" },
   { label: "Resources", href: "/resources" },
-  { label: "Contact", href: "/contact" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 const whatsappHref = "https://wa.me/923148432789";
@@ -93,7 +93,7 @@ const servicesOpen = currentPath.startsWith("/services");
         <a href="/resources" class="nav-link">Resources</a>
       </li>
       <li>
-        <a href="/contact" class="nav-link">Contact</a>
+        <a href="/#contact" class="nav-link" data-contact-link>Contact</a>
       </li>
     </ul>
 
@@ -167,7 +167,7 @@ const servicesOpen = currentPath.startsWith("/services");
       <a href="/resources" class="m-item" data-menu-link aria-current={isCurrent("/resources") ? "page" : undefined}>
         <span>Resources</span>
       </a>
-      <a href="/contact" class="m-item" data-menu-link aria-current={isCurrent("/contact") ? "page" : undefined}>
+      <a href="/#contact" class="m-item" data-menu-link data-contact-link>
         <span>Contact</span>
       </a>
 
@@ -342,4 +342,39 @@ const servicesOpen = currentPath.startsWith("/services");
   document.querySelectorAll<HTMLAnchorElement>("[data-menu-link]").forEach((l) =>
     l.addEventListener("click", () => setMenu(false)),
   );
+
+  // ── Contact → the CloseContact section (#contact lives on every page) ──
+  // Smooth-scroll on the current page (via Lenis when available); fall back to
+  // the /#contact homepage anchor only if this page has no contact section.
+  const scrollToContact = () => {
+    const target = document.getElementById("contact");
+    if (!target) return false;
+    const lenis = (window as any).__lenis;
+    if (lenis && typeof lenis.scrollTo === "function") {
+      lenis.scrollTo(target, { offset: -72, duration: 1.1 });
+    } else {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    return true;
+  };
+
+  document.querySelectorAll<HTMLAnchorElement>("[data-contact-link]").forEach((l) =>
+    l.addEventListener("click", (e) => {
+      // Only intercept when this page actually has the section; otherwise let
+      // the href="/#contact" navigate to the homepage section.
+      if (document.getElementById("contact")) {
+        e.preventDefault();
+        setMenu(false);
+        scrollToContact();
+      } else {
+        setMenu(false);
+      }
+    }),
+  );
+
+  // Arriving via /#contact (e.g. from an inner page): smooth-scroll on load.
+  if (window.location.hash === "#contact") {
+    window.addEventListener("load", () => window.setTimeout(scrollToContact, 300));
+  }
 </script>
+
