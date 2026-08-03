@@ -4,13 +4,25 @@
 // frosted icon disc + faint cross-mark motif. Icon comes via the `icon` slot.
 interface Props {
   title: string;
-  intro: string;
-  relevantIf: string[];
-  whatToExpect: string[];
+  /** One paragraph, or several — pass an array for a multi-para prose body. */
+  intro: string | string[];
+  /** Optional: sections whose copy is pure prose render without the lists. */
+  relevantIf?: string[];
+  whatToExpect?: string[];
   reversed?: boolean;
   id?: string;
 }
-const { title, intro, relevantIf, whatToExpect, reversed = false, id } = Astro.props;
+const {
+  title,
+  intro,
+  relevantIf = [],
+  whatToExpect = [],
+  reversed = false,
+  id,
+} = Astro.props;
+
+const paragraphs = Array.isArray(intro) ? intro : [intro];
+const hasLists = relevantIf.length > 0 || whatToExpect.length > 0;
 ---
 
 <div class="service-block" data-slide={reversed ? "right" : "left"} id={id}>
@@ -36,47 +48,59 @@ const { title, intro, relevantIf, whatToExpect, reversed = false, id } = Astro.p
       >
         {title}
       </h2>
-      <p class="mt-4 measure-tight text-base leading-relaxed text-body" data-reveal>
-        {intro}
-      </p>
+      {
+        paragraphs.map((p) => (
+          <p class="mt-4 measure-tight text-base leading-relaxed text-body" data-reveal>
+            {p}
+          </p>
+        ))
+      }
 
-      <div class="mt-7 grid gap-7 sm:grid-cols-2">
-        <div>
-          <h3 class="eyebrow" data-reveal>This may be relevant if</h3>
-          <ul class="mt-4 space-y-2.5">
-            {
-              relevantIf.map((item) => (
-                <li class="flex items-start gap-2.5" data-reveal>
-                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-azure/12 text-azure">
-                    <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <path d="M5 12l5 5l9 -9" />
-                    </svg>
-                  </span>
-                  <span class="text-sm leading-relaxed text-body">{item}</span>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
+      {
+        hasLists && (
+          <div class="mt-7 grid gap-7 sm:grid-cols-2">
+            {relevantIf.length > 0 && (
+              <div>
+                <h3 class="eyebrow" data-reveal>
+                  This may be relevant if
+                </h3>
+                <ul class="mt-4 space-y-2.5">
+                  {relevantIf.map((item) => (
+                    <li class="flex items-start gap-2.5" data-reveal>
+                      <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-azure/12 text-azure">
+                        <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <path d="M5 12l5 5l9 -9" />
+                        </svg>
+                      </span>
+                      <span class="text-sm leading-relaxed text-body">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-        <div>
-          <h3 class="eyebrow" data-reveal>What to expect</h3>
-          <ul class="mt-4 space-y-2.5">
-            {
-              whatToExpect.map((item) => (
-                <li class="flex items-start gap-2.5" data-reveal>
-                  <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-sky/20 text-navy">
-                    <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <path d="M5 12l5 5l9 -9" />
-                    </svg>
-                  </span>
-                  <span class="text-sm leading-relaxed text-body">{item}</span>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-      </div>
+            {whatToExpect.length > 0 && (
+              <div>
+                <h3 class="eyebrow" data-reveal>
+                  What to expect
+                </h3>
+                <ul class="mt-4 space-y-2.5">
+                  {whatToExpect.map((item) => (
+                    <li class="flex items-start gap-2.5" data-reveal>
+                      <span class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-sky/20 text-navy">
+                        <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <path d="M5 12l5 5l9 -9" />
+                        </svg>
+                      </span>
+                      <span class="text-sm leading-relaxed text-body">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )
+      }
     </div>
   </div>
 </div>

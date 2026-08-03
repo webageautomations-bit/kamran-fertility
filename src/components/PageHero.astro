@@ -11,7 +11,8 @@ interface Crumb {
 interface Props {
   eyebrow: string;
   title: string;
-  sub: string;
+  /** One paragraph, or several — pass an array to render a multi-para intro. */
+  sub?: string | string[];
   breadcrumbs?: Crumb[];
   cta?: string;
 }
@@ -22,6 +23,8 @@ const {
   breadcrumbs = [],
   cta = "Message us on WhatsApp",
 } = Astro.props;
+
+const subParagraphs = sub ? (Array.isArray(sub) ? sub : [sub]) : [];
 ---
 
 <section class="page-hero relative overflow-hidden" aria-labelledby="page-hero-heading">
@@ -61,9 +64,17 @@ const {
     >
       {title}
     </h1>
-    <p class="mt-6 measure text-lg text-body" data-reveal data-reveal-delay="1">
-      {sub}
-    </p>
+    {
+      subParagraphs.map((p, i) => (
+        <p
+          class={`${i === 0 ? "mt-6" : "mt-4"} measure text-lg text-body`}
+          data-reveal
+          data-reveal-delay="1"
+        >
+          {p}
+        </p>
+      ))
+    }
     <div class="mt-8" data-reveal data-reveal-delay="2">
       <a
         href={whatsappHref}

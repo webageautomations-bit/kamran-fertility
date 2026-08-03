@@ -4,35 +4,43 @@ import PageHero from "../../components/PageHero.astro";
 import ServiceBlock from "../../components/ServiceBlock.astro";
 import CloseContact from "../../components/CloseContact.astro";
 
-// ⚠️ PLACEHOLDER COPY — on-voice, but NOT the client's verbatim source content
-// (which was not provided). Replace each block's intro / relevantIf /
-// whatToExpect with the real service copy before launch.
+// Client-approved, SEO-written copy — reproduced verbatim. Do not reword,
+// shorten, or add keywords without sign-off from the client's SEO team.
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Services" },
   { label: "Assessment & Diagnosis" },
 ];
+
+const heroBody = [
+  "Every fertility journey begins with understanding the cause before choosing a treatment. At Kamran Fertility Clinic, our experienced fertility specialist in Lahore provides a personalised Fertility Assessment for both men and women to identify the medical, hormonal, and lifestyle factors that may affect conception. Whether you have been trying to conceive naturally, experienced recurrent miscarriage, or simply want reassurance before starting your family, our evidence-based assessment helps you make informed decisions with confidence.",
+  "As a trusted fertility clinic in Lahore, we provide comprehensive female fertility test, male fertility test in Lahore, hormone test for fertility, ovulation test, pelvic ultrasound, and semen analysis services. Every investigation is recommended only when clinically appropriate, ensuring you receive accurate diagnosis and a personalised treatment plan that may include IVF, ICSI, IUI, PGD, or PGT when required. Our goal is to explain every result clearly and guide you towards the most appropriate next step.",
+];
 ---
 
 <Layout
-  title="Assessment & Diagnosis — Dr. Kamran Saleem, Lahore"
-  description="Doctor-led fertility assessment in Lahore: fertility diagnosis, men's reproductive health, and cycle, hormonal & ovulation concerns — investigated only when it's likely to help."
+  title="Fertility Assessment & Diagnosis in Lahore | Dr. Kamran Saleem"
+  description="Fertility assessment and diagnosis with an experienced fertility specialist in Lahore — female and male fertility tests, hormone testing, ultrasound and semen analysis."
 >
   <PageHero
     eyebrow="Assessment & Diagnosis"
-    title="Understanding your fertility, clearly"
-    sub="A calm, evidence-based first look at what may be affecting conception — so you understand where you stand before deciding on any next step."
+    title="Fertility Assessment & Diagnosis by a Fertility Specialist in Lahore"
+    sub={heroBody}
     breadcrumbs={breadcrumbs}
+    cta="Message us on WhatsApp"
   />
 
   <!-- Page intro (relative z-10 keeps it above the hero's ambient bleed) -->
   <section class="bg-white py-16 md:py-20">
     <div class="relative z-10 mx-auto max-w-3xl px-5 text-center sm:px-8">
       <p class="mx-auto measure text-lg leading-relaxed text-body [margin-inline:auto]" data-reveal>
-        No two fertility stories are the same. Some people need reassurance and a
-        few tests; others need a deeper look. This first step is about
-        understanding yours — clearly, and without assuming you need treatment
-        you may not.
+        No two fertility journeys are the same. Some patients only require
+        reassurance through a few simple investigations, while others benefit
+        from a more comprehensive evaluation. Our Fertility Assessment focuses on
+        identifying the underlying cause of infertility without recommending
+        unnecessary tests, allowing you to understand your reproductive health
+        with confidence under the guidance of an experienced infertility
+        specialist in Lahore.
       </p>
     </div>
   </section>
@@ -43,18 +51,19 @@ const breadcrumbs = [
       <ServiceBlock
         id="fertility-assessment"
         title="Fertility Assessment & Diagnosis"
-        intro="A structured first look at your fertility — reviewing your history, any previous results, and the factors that may be affecting conception, so you understand where you stand before any next step."
+        intro="A comprehensive Fertility Assessment is the first step towards understanding why pregnancy has not occurred or identifying potential fertility concerns before treatment begins. Our specialists review your medical history, menstrual cycle, lifestyle, previous pregnancies, and any earlier fertility investigations before recommending appropriate diagnostic tests. Depending on your individual circumstances, your evaluation may include a female fertility test, male fertility test, hormone test for fertility, pelvic ultrasound, ovulation test, semen analysis, blood investigations, and screening for STIs/STDs where clinically indicated. A WHO-standard semen analysis test evaluates sperm count, motility, and morphology, helping us build a complete picture of reproductive health."
         relevantIf={[
-          "You've been trying to conceive for 12 months — or 6 months if you're over 35",
-          "You have irregular periods, a known gynaecological condition, or previous pelvic surgery",
-          "A previous pregnancy ended in miscarriage or complications",
-          "You simply want to understand your fertility before trying",
+          "You've been trying to conceive for 12 months, or 6 months if you're over 35.",
+          "You have irregular periods or a known gynaecological condition.",
+          "You have experienced miscarriage or previous pregnancy complications.",
+          "You or your partner have had an abnormal semen analysis.",
+          "You want to understand your fertility before planning pregnancy.",
         ]}
         whatToExpect={[
-          "An unhurried conversation about your medical, menstrual and lifestyle history",
-          "Review of any prior investigations or imaging you already have",
-          "Guidance on appropriate tests — hormone profiles, ultrasound, or semen analysis where relevant",
-          "A clear written summary and recommended next steps",
+          "Consultation with a fertility specialist in Lahore",
+          "Review of previous investigations and imaging",
+          "Personalised hormone test for fertility, ovulation test, ultrasound, or semen analysis where appropriate",
+          "A written explanation of your results and recommended next steps, including IVF, ICSI, or IUI only when clinically indicated",
         ]}
       >
         <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -67,18 +76,20 @@ const breadcrumbs = [
       <ServiceBlock
         id="mens-fertility"
         title="Men's Fertility & Reproductive Health"
-        intro="Male factors contribute to roughly half of fertility difficulties, yet are often overlooked. We assess sperm health, hormones, and reproductive concerns confidentially and without stigma."
+        intro="Male fertility contributes to almost half of infertility cases, making early evaluation an essential part of every fertility journey. Our male infertility specialist in Lahore provides confidential assessment of sperm health, hormone levels, reproductive history, and overall Men's Health. A comprehensive male fertility test in Lahore includes a WHO-standard semen analysis, hormone testing, and lifestyle assessment to identify factors affecting sperm quality, count, and motility. When necessary, advanced fertility options such as IUI, ICSI, or IVF are discussed based on your diagnosis rather than offered routinely."
         relevantIf={[
-          "You and your partner have been trying to conceive without success",
-          "You have concerns about sperm count or motility, or a previous abnormal semen analysis",
-          "You've noticed changes in libido, erectile function, or testicular discomfort",
-          "You have a history of infection, injury, or undescended testes",
+          "You have concerns about sperm count or motility.",
+          "Previous semen analysis test results were abnormal.",
+          "You have experienced infection, injury, or testicular surgery.",
+          "You have noticed reduced libido or erectile dysfunction.",
+          "You would like confidential STIs/STDs screening as part of your fertility assessment.",
         ]}
         whatToExpect={[
-          "A confidential discussion of your history and concerns",
-          "Semen analysis and hormone testing where appropriate",
-          "Assessment of lifestyle and other modifiable factors",
-          "A clear explanation of results and options, including referral if needed",
+          "Confidential consultation with a male infertility specialist in Lahore",
+          "Male fertility test",
+          "WHO-standard semen analysis",
+          "Hormone testing where clinically indicated",
+          "Lifestyle recommendations and personalised treatment planning",
         ]}
         reversed
       >
@@ -92,18 +103,21 @@ const breadcrumbs = [
       <ServiceBlock
         id="cycle-hormonal"
         title="Cycle, Hormonal & Ovulation Concerns"
-        intro="Irregular cycles and hormonal imbalances can affect both fertility and wellbeing. We assess ovulation, hormone levels, and conditions such as PCOS or thyroid dysfunction."
+        intro="Hormonal imbalance and irregular ovulation are among the most common causes of female infertility. Our comprehensive female fertility test evaluates menstrual health, ovarian reserve, ovulation, and reproductive hormones to identify conditions such as PCOS or thyroid disorders. Your assessment may include a hormone test for fertility, PCOS fertility test, ovulation test, pelvic ultrasound, and blood tests including AMH, FSH, and LH where appropriate. If fertility treatment becomes necessary, options such as IUI, IVF, ICSI, PGD, or PGT are discussed according to your individual diagnosis and treatment goals."
         relevantIf={[
-          "Your periods are irregular, absent, or unusually heavy",
-          "You have signs that may suggest PCOS — irregular cycles, acne, or excess hair growth",
-          "You suspect a thyroid or other hormonal imbalance",
-          "You're unsure whether, or when, you're ovulating",
+          "Your periods are irregular or absent.",
+          "You have symptoms of PCOS.",
+          "You suspect hormonal imbalance.",
+          "You're unsure whether you're ovulating.",
+          "You have experienced recurrent miscarriage.",
         ]}
         whatToExpect={[
-          "Review of your cycle history and symptoms",
-          "Targeted hormone testing and pelvic ultrasound where indicated",
-          "Assessment for PCOS, thyroid, and ovulation disorders",
-          "A plan to address findings — lifestyle, monitoring, or treatment as appropriate",
+          "Review of menstrual and reproductive history",
+          "Hormone test for fertility",
+          "PCOS fertility test",
+          "Ovulation test",
+          "Pelvic ultrasound",
+          "Personalised treatment recommendations",
         ]}
       >
         <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -118,11 +132,15 @@ const breadcrumbs = [
   <section class="bg-ice py-16 md:py-20">
     <div class="mx-auto max-w-3xl px-5 text-center sm:px-8" data-reveal>
       <p class="mx-auto measure font-heading text-xl font-bold leading-snug text-ink [margin-inline:auto] sm:text-2xl">
-        Investigations are recommended only when they're likely to help — never
-        as routine.
+        Investigations are recommended only when they're clinically appropriate
+        and likely to help — never as routine.
       </p>
     </div>
   </section>
 
-  <CloseContact />
+  <CloseContact
+    heading="Whatever stage you're at, you won't be rushed or judged."
+    body="Speak with an experienced fertility specialist in Lahore to understand your fertility with confidence. Our team will explain every investigation, answer your questions, and recommend a personalised treatment plan based on your individual needs."
+    cta="Book Consultation"
+  />
 </Layout>

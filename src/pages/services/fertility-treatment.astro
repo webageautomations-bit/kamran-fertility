@@ -1,0 +1,94 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import ServiceBlock from "../../components/ServiceBlock.astro";
+import CloseContact from "../../components/CloseContact.astro";
+
+// Client-approved, SEO-written copy — reproduced verbatim. Do not reword,
+// shorten, or add keywords without sign-off from the client's SEO team.
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Services" },
+  { label: "Fertility Treatment" },
+];
+
+// Sections whose approved copy is pure prose render without the
+// "relevant if / what to expect" lists — the block component handles both.
+const ivfIcsiPgt = [
+  "IVF treatment may be recommended when pregnancy is difficult to achieve naturally due to blocked fallopian tubes, ovulation disorders, or unexplained infertility. During IVF, eggs are collected, fertilised with sperm in a specialised laboratory, and the healthiest embryo is transferred to the uterus. Many people know this as test tube baby treatment, although the fertilisation takes place in a laboratory rather than a test tube.",
+  "ICSI treatment is an advanced form of IVF used mainly for moderate to severe male infertility. During the procedure, a single healthy sperm is carefully injected into an egg to improve the chances of fertilisation when sperm count or movement is low.",
+  "For some couples with inherited genetic conditions, repeated IVF failure, or advanced maternal age, PGT treatment may be recommended to check embryos for certain chromosome or genetic conditions before embryo transfer. It is only advised when it is medically appropriate for your individual situation.",
+  "IVF treatment cost and ICSI treatment cost depend on your diagnosis, the medicines required, and whether PGT is included in your treatment plan. After your fertility assessment, we explain every step and provide a clear treatment plan before you make any decision.",
+];
+---
+
+<Layout
+  title="Fertility Treatment in Lahore | Dr. Kamran Saleem"
+  description="Fertility treatment in Lahore, explained honestly before it's decided. IVF, ICSI, PGT, IUI & fertility preservation with Dr. Kamran Saleem."
+>
+  <PageHero
+    eyebrow="Fertility Treatment"
+    title="Fertility Treatment in Lahore"
+    sub="Every fertility journey is different, and the right treatment starts with finding the real cause of infertility—not making assumptions. At Kamran Fertility Clinic, fertility treatment in Lahore always begins with a detailed fertility assessment. We carefully review your hormone levels, ultrasound results, and semen analysis before recommending any treatment. This is the same approach we follow for couples seeking fertility treatment in Pakistan—every treatment plan is personalised and recommended only after understanding what is affecting your ability to conceive."
+    breadcrumbs={breadcrumbs}
+  />
+
+  <section class="bg-white py-20 md:py-28">
+    <div class="relative z-10 mx-auto max-w-6xl space-y-20 px-5 sm:px-8 md:space-y-28">
+      <ServiceBlock
+        id="ivf-icsi-pgt"
+        title="IVF & ICSI, with PGT Treatment"
+        intro={ivfIcsiPgt}
+      >
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 3l6 0" />
+          <path d="M10 9l4 0" />
+          <path d="M10 3v6l-4 11a.7 .7 0 0 0 .5 1h11a.7 .7 0 0 0 .5 -1l-4 -11v-6" />
+        </svg>
+      </ServiceBlock>
+
+      <ServiceBlock
+        id="male-fertility-treatment"
+        title="Male Fertility Treatment in Lahore"
+        intro="Male infertility contributes to many fertility problems, but it is often overlooked. Male fertility treatment in Lahore starts with a detailed semen analysis and hormone testing to identify the underlying cause. Depending on the results, treatment may include medication, a minor procedure, or ICSI. Every recommendation is based on your diagnosis, helping you receive the treatment that is most suitable for your condition."
+        reversed
+      >
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+          <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+          <path d="M15 19l2 2l4 -4" />
+        </svg>
+      </ServiceBlock>
+
+      <ServiceBlock
+        id="iui"
+        title="IUI Treatment"
+        intro="IUI treatment is a simple and less invasive fertility option that places specially prepared sperm directly into the uterus at the right time during ovulation. It may be suitable for couples with mild male infertility, unexplained infertility, or certain ovulation-related conditions. Whether IUI is the right choice depends on your fertility assessment, and IUI treatment cost is explained after your personalised treatment plan has been prepared. If another treatment offers a better chance of success, our specialists will discuss that with you honestly."
+      >
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6.8 11a6 6 0 1 0 10.396 0l-5.197 -8l-5.199 8z" />
+        </svg>
+      </ServiceBlock>
+
+      <ServiceBlock
+        id="preservation"
+        title="Fertility Preservation"
+        intro="Fertility preservation helps protect your future ability to have children through egg or sperm freezing. It may be recommended if you plan to delay parenthood or are preparing for medical treatments that could affect fertility. Your fertility specialist will explain the most suitable option based on your age, health, and future family plans, while helping you understand what fertility preservation can realistically achieve."
+        reversed
+      >
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3v18" />
+          <path d="M5.5 6.5l13 11" />
+          <path d="M18.5 6.5l-13 11" />
+        </svg>
+      </ServiceBlock>
+    </div>
+  </section>
+
+  <CloseContact
+    eyebrow="Take the next step"
+    heading="Ready to Begin?"
+    body="If you're looking for a trusted fertility specialist in Lahore, schedule a consultation at Kamran Fertility Clinic. We'll explain your options clearly, answer your questions honestly, and recommend the treatment that best suits your needs—without unnecessary procedures or pressure. Begin your journey with personalised, compassionate fertility care."
+    cta="Book Your Consultation Today"
+  />
+</Layout>

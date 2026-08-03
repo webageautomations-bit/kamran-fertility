@@ -11,7 +11,13 @@ const {
   image = "/assets/logo.webp",
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
+// Self-referencing canonical: the current path resolved against the configured
+// `site` origin (astro.config.mjs), so every page points at its own absolute
+// https://www.kamranfertility.com URL. Falls back to the request origin only if
+// `site` is ever unset.
+const origin = Astro.site ?? new URL(Astro.url.origin);
+const canonicalURL = new URL(Astro.url.pathname, origin);
+const imageURL = new URL(image, origin);
 ---
 
 <meta charset="utf-8" />
@@ -33,14 +39,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url);
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content={imageURL} />
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:url" content={canonicalURL} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={new URL(image, Astro.url)} />
+<meta name="twitter:image" content={imageURL} />
 
 <!--
   GA4 slot — uncomment and set the Measurement ID when ready.
