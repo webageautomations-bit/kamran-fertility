@@ -1,9 +1,10 @@
 ---
 title: "Fertility Consultation: When Should You Seek Advice?"
 description: "Learn when to seek a fertility consultation, when to see an infertility specialist, what to expect, and when fertility testing may be recommended."
+publishDate: 2026-06-18
 category: "Getting started"
-pubDate: 2026-06-18
 readingTime: "3 min read"
+cover: "/assets/resources/fertility-consultation.jpg"
 ---
 
 # When Should You Seek a Fertility Consultation?
