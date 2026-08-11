@@ -5,7 +5,6 @@
 | category | Fertility Assessment |
 | readingTime | 5 min read |
 | cover | /assets/resources/fertility-assessment-in-lahore.jpg |
-| focusKeyword | fertility assessment in Lahore |
 | url | /resources/fertility-assessment-in-lahore/ |
 
 ## Where Can You Get a Fertility Assessment in Lahore?
