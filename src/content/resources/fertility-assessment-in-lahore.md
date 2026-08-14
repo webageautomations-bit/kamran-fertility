@@ -1,10 +1,11 @@
-| title | Where Can You Get a Fertility Assessment in Lahore? |
-|---|---|
-| description | Looking for a fertility assessment in Lahore? Learn where to start, what fertility tests may be recommended, when to see a specialist, and what to expect. |
-| publishDate | 2026-08-11 |
-| category | Fertility Treatment |
-| readingTime | 5 min read |
-| cover | /assets/resources/fertility-assessment-in-lahore.jpeg |
+---
+title: Where Can You Get a Fertility Assessment in Lahore?
+description: Looking for a fertility assessment in Lahore? Learn where to start, what fertility tests may be recommended, when to see a specialist, and what to expect.
+publishDate: 2026-08-11
+category: Fertility Treatment
+readingTime: 5 min read
+cover: /assets/resources/fertility-assessment-in-lahore.jpeg
+---
 
 ## Where Can You Get a Fertility Assessment in Lahore?
 
