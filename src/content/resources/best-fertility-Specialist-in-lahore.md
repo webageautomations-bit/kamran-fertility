@@ -1,10 +1,11 @@
-| title | Best Fertility Specialist in Lahore: How to Choose the Right Doctor |
-|---|---|
-| description | Looking for the best fertility specialist in Lahore? Learn how to compare doctors, testing, IVF, IUI, clinic care, and fertility treatment options. |
-| publishDate | 2026-08-17 |
-| category | Fertility Treatment |
-| readingTime | 6 min read |
-| cover | /assets/resources/best-fertility-specialist-in-lahore.jpeg |
+---
+title: "Best Fertility Specialist in Lahore: How to Choose the Right Doctor"
+description: "Looking for the best fertility specialist in Lahore? Learn how to compare doctors, testing, IVF, IUI, clinic care, and fertility treatment options."
+publishDate: 2026-08-17
+category: "Fertility Treatment"
+readingTime: "6 min read"
+cover: "/assets/resources/best-fertility-specialist-in-lahore.jpeg"
+---
 
 ## Best Fertility Specialist in Lahore: How to Choose the Right Doctor
 
