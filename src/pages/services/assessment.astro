@@ -16,12 +16,73 @@ const heroBody = [
   "Every fertility journey begins with understanding the cause before choosing a treatment. At Kamran Fertility Clinic, our experienced fertility specialist in Lahore provides a personalised Fertility Assessment for both men and women to identify the medical, hormonal, and lifestyle factors that may affect conception. Whether you have been trying to conceive naturally, experienced recurrent miscarriage, or simply want reassurance before starting your family, our evidence-based assessment helps you make informed decisions with confidence.",
   "As a trusted fertility clinic in Lahore, we provide comprehensive female fertility test, male fertility test in Lahore, hormone test for fertility, ovulation test, pelvic ultrasound, and semen analysis services. Every investigation is recommended only when clinically appropriate, ensuring you receive accurate diagnosis and a personalised treatment plan that may include IVF, ICSI, IUI, PGD, or PGT when required. Our goal is to explain every result clearly and guide you towards the most appropriate next step.",
 ];
+
+// FAQ content — kept in one place so the visible accordion and the
+// FAQPage schema below always stay in sync.
+const faqs = [
+  {
+    q: "How much does a fertility assessment cost in Lahore?",
+    a: "The consultation fee is shown upfront before you confirm your booking. Any recommended tests (hormone panel, ultrasound, semen analysis) are priced separately and only ordered when clinically appropriate — never as a routine package.",
+  },
+  {
+    q: "Do I need a referral to book a fertility assessment?",
+    a: "No referral is needed. You can message the clinic directly on WhatsApp to book a consultation with Dr. Kamran Saleem, whether or not you have previous test results.",
+  },
+  {
+    q: "How soon will I get my test results?",
+    a: "Most hormone and semen analysis results are ready within a few days. Your results are explained to you in plain language during a follow-up consultation, along with a written next-steps plan.",
+  },
+  {
+    q: "Is a fertility assessment only for women, or should men be tested too?",
+    a: "Both partners should ideally be assessed together, since male factors contribute to close to half of all infertility cases. A male fertility test (semen analysis and hormone testing) is a standard part of a complete evaluation.",
+  },
+];
 ---
 
 <Layout
-  title="Fertility Assessment & Diagnosis in Lahore | Dr. Kamran Saleem"
-  description="Fertility assessment and diagnosis with an experienced fertility specialist in Lahore — female and male fertility tests, hormone testing, ultrasound and semen analysis."
+  title="Fertility Assessment in Lahore | Tests & Diagnosis – Dr. Kamran Saleem"
+  description="Personalised fertility assessment in Lahore with Dr. Kamran Saleem — fertility tests, hormone testing, ultrasound & semen analysis, explained clearly."
 >
+  <!-- Structured data: helps Google and AI answer engines understand this
+       as a medical service page with genuine FAQ content. Purely additive —
+       does not touch any visible copy. -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MedicalWebPage",
+        "@id": "https://www.kamranfertility.com/services/assessment#webpage",
+        "url": "https://www.kamranfertility.com/services/assessment",
+        "name": "Fertility Assessment & Diagnosis by a Fertility Specialist in Lahore",
+        "description": "Personalised fertility assessment in Lahore with Dr. Kamran Saleem — fertility tests, hormone testing, ultrasound & semen analysis, explained clearly.",
+        "specialty": "Reproductive Medicine",
+        "isPartOf": { "@id": "https://www.kamranfertility.com/#website" },
+        "about": {
+          "@type": "MedicalClinic",
+          "name": "Kamran Fertility Clinic",
+          "url": "https://www.kamranfertility.com/",
+          "telephone": "+923148432789"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.kamranfertility.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.kamranfertility.com/#services" },
+          { "@type": "ListItem", "position": 3, "name": "Assessment & Diagnosis", "item": "https://www.kamranfertility.com/services/assessment" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": faqs.map((item) => ({
+          "@type": "Question",
+          "name": item.q,
+          "acceptedAnswer": { "@type": "Answer", "text": item.a }
+        }))
+      }
+    ]
+  })} />
+
   <PageHero
     eyebrow="Assessment & Diagnosis"
     title="Fertility Assessment & Diagnosis by a Fertility Specialist in Lahore"
@@ -135,6 +196,90 @@ const heroBody = [
         Investigations are recommended only when they're clinically appropriate
         and likely to help — never as routine.
       </p>
+    </div>
+  </section>
+
+  <!-- Related services — new, additive internal linking block -->
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">
+        Where an assessment can lead
+      </h2>
+      <p class="mx-auto measure mt-3 text-center text-body [margin-inline:auto]">
+        Once your results are in, we'll walk you through what they mean and what,
+        if anything, makes sense next.
+      </p>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2">
+        <a href="/services/fertility-treatment" class="block rounded-2xl border border-black/5 bg-ice p-6 transition hover:shadow-md">
+          <h3 class="font-heading text-lg font-bold text-ink">Fertility Treatment</h3>
+          <p class="mt-2 text-body">
+            If your assessment points to a specific cause, explore IUI, IVF,
+            ICSI, PGD and PGT options — recommended only when clinically indicated.
+          </p>
+        </a>
+        <a href="/services/support" class="block rounded-2xl border border-black/5 bg-ice p-6 transition hover:shadow-md">
+          <h3 class="font-heading text-lg font-bold text-ink">Support & Second Opinions</h3>
+          <p class="mt-2 text-body">
+            Already have test results or a previous treatment plan from
+            elsewhere? Get an independent specialist review before deciding
+            what's next.
+          </p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs — new, additive; mirrors the FAQPage schema above -->
+  <section class="bg-ice py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8">
+      <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">
+        Fertility assessment: frequently asked questions
+      </h2>
+      <div class="mt-10 space-y-4">
+        {faqs.map((item) => (
+          <details class="group rounded-xl bg-white p-5 shadow-sm">
+            <summary class="cursor-pointer list-none font-heading font-bold text-ink">
+              {item.q}
+            </summary>
+            <p class="mt-3 text-body leading-relaxed">{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related reading — new, additive internal linking to the blog -->
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">
+        Related reading
+      </h2>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <a href="/resources/fertility-assessment-in-lahore" class="block rounded-2xl border border-black/5 p-5 transition hover:shadow-md">
+          <p class="text-sm font-semibold text-primary">Fertility Treatment</p>
+          <h3 class="mt-1 font-heading font-bold text-ink">Where Can You Get a Fertility Assessment in Lahore?</h3>
+        </a>
+        <a href="/resources/male-fertility-test" class="block rounded-2xl border border-black/5 p-5 transition hover:shadow-md">
+          <p class="text-sm font-semibold text-primary">Diagnosis</p>
+          <h3 class="mt-1 font-heading font-bold text-ink">Male fertility test: what it involves and what the results mean</h3>
+        </a>
+        <a href="/resources/understanding-a-semen-analysis" class="block rounded-2xl border border-black/5 p-5 transition hover:shadow-md">
+          <p class="text-sm font-semibold text-primary">Diagnosis</p>
+          <h3 class="mt-1 font-heading font-bold text-ink">Understanding a semen analysis</h3>
+        </a>
+        <a href="/resources/hormone-test--for-fertility" class="block rounded-2xl border border-black/5 p-5 transition hover:shadow-md">
+          <p class="text-sm font-semibold text-primary">Fertility Treatment</p>
+          <h3 class="mt-1 font-heading font-bold text-ink">Hormone Test for Fertility: Which Tests Do Women Need?</h3>
+        </a>
+        <a href="/resources/pcos-and-fertility" class="block rounded-2xl border border-black/5 p-5 transition hover:shadow-md">
+          <p class="text-sm font-semibold text-primary">Women's health</p>
+          <h3 class="mt-1 font-heading font-bold text-ink">PCOS and Fertility: Can You Get Pregnant with PCOS?</h3>
+        </a>
+        <a href="/resources/when-to-seek-fertility-consultation" class="block rounded-2xl border border-black/5 p-5 transition hover:shadow-md">
+          <p class="text-sm font-semibold text-primary">Getting started</p>
+          <h3 class="mt-1 font-heading font-bold text-ink">Fertility Consultation: When Should You Seek Advice?</h3>
+        </a>
+      </div>
     </div>
   </section>
 
