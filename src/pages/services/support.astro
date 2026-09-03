@@ -4,20 +4,91 @@ import PageHero from "../../components/PageHero.astro";
 import ServiceBlock from "../../components/ServiceBlock.astro";
 import CloseContact from "../../components/CloseContact.astro";
 
-// ⚠️ PLACEHOLDER COPY — on-voice, NOT the client's verbatim source content.
-// Replace before launch. The pregnancy-loss block is written with deliberate
-// sensitivity; please have the clinician review the exact wording.
+// Optimized draft — plain language, on-voice. Still needs clinician
+// sign-off before launch, especially the pregnancy-loss block and the
+// miscarriage/ectopic timing answers below: those are general medical
+// ranges from published sources, not personalized advice, and should
+// be checked by Dr. Kamran before this goes live.
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Services" },
   { label: "Support & Second Opinions" },
 ];
+
+// Kept together so the visible list and the FAQPage schema below
+// never drift out of sync. Questions are drawn from what people
+// actually search — fertility second-opinion forums and patient
+// education sites, plus miscarriage/ectopic pregnancy support resources.
+const commonQuestions = [
+  {
+    q: "Is there a fee for a second-opinion consultation?",
+    a: "Yes — it's a paid consultation like any other, and the fee is shown before you confirm. There's no extra charge for being honest about what we think, even if that means agreeing with your current plan.",
+  },
+  {
+    q: "Will my current doctor know I've come for a second opinion?",
+    a: "No. Nothing is shared with your current clinic unless you ask us to. Getting a second opinion is a normal, private step — it doesn't mean you're leaving your doctor, and most specialists expect patients to want one at some point.",
+  },
+  {
+    q: "How many failed cycles before a second opinion makes sense?",
+    a: "There's no fixed number. Many people seek one after a single unsuccessful cycle just to understand what happened; others wait until after two or three. If something in your plan doesn't feel fully explained, that's reason enough on its own.",
+  },
+  {
+    q: "How long should we wait to try again after a miscarriage?",
+    a: "For an uncomplicated early loss, there's no strict medical reason to delay once bleeding has settled and a pregnancy test is negative — though many people take longer for emotional reasons, and that's just as valid. We'll talk through what applies to your specific situation.",
+  },
+  {
+    q: "How long after an ectopic pregnancy is it safe to try again?",
+    a: "Guidance is usually to wait around two to three months, or about three months if you were treated with methotrexate, so your body and hormone levels have time to recover. Your specific timeline is confirmed with you directly, based on how you were treated.",
+  },
+  {
+    q: "Does a miscarriage or ectopic pregnancy mean something is wrong with me?",
+    a: "Not usually. Most single losses happen for reasons unrelated to any ongoing fertility problem. Investigation is generally only suggested after recurrent loss, and even then, a clear cause isn't always found — which itself is common, not unusual.",
+  },
+];
 ---
 
 <Layout
-  title="Support & Second Opinions — Dr. Kamran Saleem, Lahore"
-  description="Independent second opinions on previous fertility treatment, and calm, compassionate support after pregnancy loss or ectopic pregnancy — at your pace, without judgement."
+  title="Second Opinion & Pregnancy Loss Support in Lahore | Dr. Kamran Saleem"
+  description="Independent second opinions on fertility treatment, plus gentle support after miscarriage or ectopic pregnancy — at your pace, in Lahore."
 >
+  <!-- Structured data: purely additive, doesn't touch the visible copy. -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MedicalWebPage",
+        "@id": "https://www.kamranfertility.com/services/support#webpage",
+        "url": "https://www.kamranfertility.com/services/support",
+        "name": "Support & Second Opinions",
+        "description": "Independent second opinions on fertility treatment, plus gentle support after miscarriage or ectopic pregnancy — at your pace, in Lahore.",
+        "specialty": "Reproductive Medicine",
+        "isPartOf": { "@id": "https://www.kamranfertility.com/#website" },
+        "about": {
+          "@type": "MedicalClinic",
+          "name": "Kamran Fertility Clinic",
+          "url": "https://www.kamranfertility.com/",
+          "telephone": "+923148432789"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.kamranfertility.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.kamranfertility.com/#services" },
+          { "@type": "ListItem", "position": 3, "name": "Support & Second Opinions", "item": "https://www.kamranfertility.com/services/support" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": commonQuestions.map((item) => ({
+          "@type": "Question",
+          "name": item.q,
+          "acceptedAnswer": { "@type": "Answer", "text": item.a }
+        }))
+      }
+    ]
+  })} />
+
   <PageHero
     eyebrow="Support & Second Opinions"
     title="A second perspective, and a steady one"
@@ -30,7 +101,11 @@ const breadcrumbs = [
       <p class="mx-auto measure text-lg leading-relaxed text-body [margin-inline:auto]" data-reveal>
         Sometimes what helps most is an unhurried second look — at a previous
         treatment plan, or at a difficult experience. We review prior care
-        honestly and offer support with sensitivity, never coldness.
+        honestly and offer support with sensitivity, never coldness. It's the
+        same unhurried approach behind everything at
+        <a href="/" class="underline underline-offset-2 hover:text-primary">Kamran Fertility Clinic</a>,
+        whether this is your first conversation with us or your fifth opinion
+        from a specialist.
       </p>
     </div>
   </section>
@@ -98,5 +173,47 @@ const breadcrumbs = [
     </div>
   </section>
 
-  <CloseContact />
+  <!-- Natural-language internal linking, not a repeated card grid -->
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8 text-center">
+      <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl">
+        Not sure this is the right starting point?
+      </h2>
+      <p class="mx-auto measure mt-4 text-body leading-relaxed [margin-inline:auto]">
+        If you haven't had a recent workup, it may make more sense to start
+        with a fresh <a href="/services/assessment" class="underline underline-offset-2 hover:text-primary">fertility assessment</a>
+        rather than a review of old results. And if a second opinion here
+        confirms that treatment is the right next step, we can walk you
+        through <a href="/services/fertility-treatment" class="underline underline-offset-2 hover:text-primary">fertility treatment options</a> —
+        IVF, ICSI, IUI or preservation — without starting the whole process
+        over from scratch. If you're only just weighing up whether to seek
+        help at all, our guide on <a href="/resources/when-to-seek-fertility-consultation" class="underline underline-offset-2 hover:text-primary">when to seek a fertility consultation</a> may
+        answer that first.
+      </p>
+    </div>
+  </section>
+
+  <!-- Common questions, presented as a plain list rather than an accordion -->
+  <section class="bg-ice py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8">
+      <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">
+        What people usually want to know first
+      </h2>
+      <dl class="mt-10 space-y-8">
+        {commonQuestions.map((item) => (
+          <div>
+            <dt class="font-heading font-bold text-ink">{item.q}</dt>
+            <dd class="mt-2 text-body leading-relaxed">{item.a}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <CloseContact
+    eyebrow="Ready when you are"
+    heading="There's no wrong way to reach out"
+    body="Message Dr. Kamran's clinic on WhatsApp to arrange a second opinion or a support conversation. You'll never be pushed toward treatment, and you're welcome to just ask questions first. You can also read more about our approach to care on our homepage."
+    cta="Message us on WhatsApp"
+  />
 </Layout>
