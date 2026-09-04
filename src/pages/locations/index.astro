@@ -1,0 +1,69 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import CloseContact from "../../components/CloseContact.astro";
+
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Locations" },
+];
+
+const locations = [
+  {
+    name: "Rasheed Hospital",
+    area: "DHA Lahore",
+    address: "Main Boulevard, Defence, Lahore",
+    href: "/locations/dha-lahore",
+  },
+  {
+    name: "TAMC",
+    area: "M.M. Alam Road, Lahore",
+    address: "M.M. Alam Road, Lahore",
+    href: "/locations/mm-alam-road-lahore",
+  },
+  {
+    name: "Shahnaz Hospital",
+    area: "Shalamar Link Road, Lahore",
+    address: "Shalamar Link Road, Lahore",
+    href: "/locations/shalamar-lahore",
+  },
+];
+---
+
+<Layout
+  title="Kamran Fertility Clinic Locations in Lahore | Dr. Kamran Saleem"
+  description="Dr. Kamran Saleem holds fertility consultations across three Lahore locations — DHA, M.M. Alam Road, and Shalamar Link Road. Find your nearest clinic."
+>
+  <PageHero
+    eyebrow="Locations"
+    title="Kamran Fertility Clinic Locations in Lahore"
+    sub={["Dr. Kamran Saleem holds fertility consultations at three locations across Lahore, so patients can choose whichever is most convenient for assessment, treatment, and follow-up care."]}
+    breadcrumbs={breadcrumbs}
+    cta="Message us on WhatsApp"
+  />
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto grid max-w-6xl gap-8 px-5 sm:px-8 md:grid-cols-3">
+      {
+        locations.map((loc) => (
+          <a
+            href={loc.href}
+            class="block rounded-[var(--r-lg)] border border-line bg-white p-7 shadow-[var(--shadow-soft)] transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
+            data-reveal
+          >
+            <p class="eyebrow">{loc.area}</p>
+            <h2 class="mt-2 font-heading text-xl font-bold text-ink">{loc.name}</h2>
+            <p class="mt-2 text-sm leading-relaxed text-body">{loc.address}</p>
+            <span class="mt-4 inline-block font-semibold text-azure">View clinic details →</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <CloseContact
+    heading="Not sure which location works best for you?"
+    body="Message us on WhatsApp and our team will help you book at the location that's easiest for you to reach."
+    cta="Book Consultation"
+  />
+</Layout>
