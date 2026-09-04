@@ -1,0 +1,82 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import CloseContact from "../../components/CloseContact.astro";
+
+// Verified details only — pulled from this repo's own Footer.astro (already
+// live/approved). Nothing here is invented. Confirm consultation days at this
+// specific hospital with the clinic before publishing, and add real photos /
+// a Maps embed if you have them — I've left a plain Maps search link instead.
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Locations", href: "/locations" },
+  { label: "Shalamar Lahore" },
+];
+
+const address = "Shahnaz Hospital, Shalamar Link Road, Lahore";
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+const phoneDisplay = "+92 314 8432789";
+const phoneHref = "tel:+923148432789";
+const whatsappHref = "https://wa.me/923148432789";
+---
+
+<Layout
+  title="Fertility Clinic Near Shalamar, Lahore | Dr. Kamran Saleem"
+  description="Fertility consultations near Shalamar, Lahore at Shahnaz Hospital, Shalamar Link Road. Assessment, treatment planning and follow-up with Dr. Kamran Saleem."
+>
+  <PageHero
+    eyebrow="Shalamar, Lahore"
+    title="Fertility Clinic Near Shalamar — Shahnaz Hospital"
+    sub={["Dr. Kamran Saleem holds fertility consultations at Shahnaz Hospital on Shalamar Link Road, Lahore. Patients near Shalamar and surrounding areas can access fertility assessment, treatment planning, and follow-up care at this location."]}
+    breadcrumbs={breadcrumbs}
+    cta="Message us on WhatsApp"
+  />
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto grid max-w-5xl gap-10 px-5 sm:px-8 md:grid-cols-2">
+      <div data-reveal>
+        <h2 class="font-heading text-xl font-bold text-ink">Clinic details</h2>
+        <dl class="mt-4 space-y-3 text-sm">
+          <div>
+            <dt class="font-semibold text-ink">Address</dt>
+            <dd class="text-body">{address}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-ink">Phone</dt>
+            <dd><a href={phoneHref} class="text-azure hover:underline">{phoneDisplay}</a></dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-ink">WhatsApp</dt>
+            <dd><a href={whatsappHref} target="_blank" rel="noopener noreferrer" class="text-azure hover:underline">{phoneDisplay}</a></dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-ink">Hours</dt>
+            <dd class="text-body">Monday &amp; Thursday: 6:00pm – 9:00pm<br />Other days: Closed</dd>
+          </div>
+        </dl>
+        <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 font-semibold text-azure hover:underline">
+          Get directions on Google Maps →
+        </a>
+      </div>
+
+      <div data-reveal>
+        <h2 class="font-heading text-xl font-bold text-ink">What's available at this location</h2>
+        <p class="mt-4 leading-relaxed text-body">
+          Consultations at Shahnaz Hospital cover the full range of care offered by
+          Kamran Fertility Clinic, including
+          <a href="/services/assessment" class="text-azure underline hover:text-navy">fertility assessment &amp; diagnosis</a>,
+          <a href="/services/fertility-treatment" class="text-azure underline hover:text-navy">fertility treatment</a>
+          such as IVF, ICSI, and IUI, and
+          <a href="/services/support" class="text-azure underline hover:text-navy">support &amp; second opinions</a>.
+          Your first visit begins with a consultation to understand your history and goals before any tests or treatment are recommended.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CloseContact
+    heading="Ready to book at our Shalamar location?"
+    body="Message us on WhatsApp to arrange a consultation with Dr. Kamran Saleem at Shahnaz Hospital, Shalamar Link Road."
+    cta="Book Consultation"
+  />
+</Layout>
