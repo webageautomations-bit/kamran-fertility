@@ -5,6 +5,12 @@ const services = [
   { label: "Support & Second Opinions", href: "/services/support" },
 ];
 
+const locations = [
+  { label: "DHA Lahore (Rasheed Hospital)", href: "/locations/dha-lahore" },
+  { label: "M.M. Alam Road (TAMC)", href: "/locations/mm-alam-road-lahore" },
+  { label: "Shalamar (Shahnaz Hospital)", href: "/locations/shalamar-lahore" },
+];
+
 const links = [
   { label: "Home", href: "/" },
   { label: "Resources", href: "/resources" },
@@ -18,6 +24,7 @@ const currentPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
 const isCurrent = (href: string) =>
   (href.replace(/\/+$/, "") || "/") === currentPath;
 const servicesOpen = currentPath.startsWith("/services");
+const locationsOpen = currentPath.startsWith("/locations");
 ---
 
 <header
@@ -85,6 +92,56 @@ const servicesOpen = currentPath.startsWith("/services");
                 </a>
               ))
             }
+          </div>
+        </div>
+      </li>
+
+      <!-- Locations dropdown -->
+      <li class="group relative">
+        <button
+          type="button"
+          class="nav-link inline-flex items-center gap-1"
+          aria-haspopup="true"
+          aria-expanded="false"
+          data-locations-trigger
+        >
+          Locations
+          <svg
+            class="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180"
+            viewBox="0 0 12 12"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M3 4.5 6 7.5 9 4.5"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <div
+          class="invisible absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 translate-y-1 pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
+        >
+          <div
+            class="overflow-hidden rounded-[var(--r-md)] border border-line bg-white p-2 shadow-[var(--shadow-soft)]"
+          >
+            {
+              locations.map((l) => (
+                <a
+                  href={l.href}
+                  class="block rounded-[var(--r-sm)] px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-ice hover:text-azure"
+                >
+                  {l.label}
+                </a>
+              ))
+            }
+            <a
+              href="/locations"
+              class="mt-1 block rounded-[var(--r-sm)] border-t border-line px-4 py-2.5 text-sm font-semibold text-azure transition-colors hover:bg-ice"
+            >
+              View all locations →
+            </a>
           </div>
         </div>
       </li>
@@ -164,6 +221,39 @@ const servicesOpen = currentPath.startsWith("/services");
         </div>
       </div>
 
+      <!-- Locations: same pattern as Services. -->
+      <button
+        type="button"
+        class="m-item"
+        aria-expanded={locationsOpen ? "true" : "false"}
+        aria-controls="m-locations"
+        data-locations-toggle
+      >
+        <span>Locations</span>
+        <svg class="m-chevron h-4 w-4 text-body" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 9l6 6l6 -6" />
+        </svg>
+      </button>
+      <div id="m-locations" class={`m-sub ${locationsOpen ? "open" : ""}`} data-locations-panel>
+        <div class="m-sub-inner">
+          {
+            locations.map((l) => (
+              <a
+                href={l.href}
+                class="m-sublink"
+                data-menu-link
+                aria-current={isCurrent(l.href) ? "page" : undefined}
+              >
+                {l.label}
+              </a>
+            ))
+          }
+          <a href="/locations" class="m-sublink" data-menu-link aria-current={isCurrent("/locations") ? "page" : undefined}>
+            View all locations
+          </a>
+        </div>
+      </div>
+
       <a href="/resources" class="m-item" data-menu-link aria-current={isCurrent("/resources") ? "page" : undefined}>
         <span>Resources</span>
       </a>
@@ -213,7 +303,7 @@ const servicesOpen = currentPath.startsWith("/services");
   }
 
   /* ── Mobile menu ─────────────────────────────────────────── */
-  /* Uniform top-level item (Home, Services, Resources, Contact). */
+  /* Uniform top-level item (Home, Services, Locations, Resources, Contact). */
   .m-item {
     display: flex;
     align-items: center;
@@ -245,7 +335,7 @@ const servicesOpen = currentPath.startsWith("/services");
     background: var(--ice);
     color: var(--azure);
   }
-  /* Services parent reads as active when on a /services/* page */
+  /* Services/Locations parent reads as active when expanded */
   .m-item[aria-expanded="true"] .m-chevron {
     transform: rotate(180deg);
   }
@@ -312,10 +402,17 @@ const servicesOpen = currentPath.startsWith("/services");
   const closeIcon = toggle?.querySelector<SVGElement>(".menu-close");
   const servicesToggle = document.querySelector<HTMLButtonElement>("[data-services-toggle]");
   const servicesPanel = document.querySelector<HTMLElement>("[data-services-panel]");
+  const locationsToggle = document.querySelector<HTMLButtonElement>("[data-locations-toggle]");
+  const locationsPanel = document.querySelector<HTMLElement>("[data-locations-panel]");
 
   const collapseServices = () => {
     servicesPanel?.classList.remove("open");
     servicesToggle?.setAttribute("aria-expanded", "false");
+  };
+
+  const collapseLocations = () => {
+    locationsPanel?.classList.remove("open");
+    locationsToggle?.setAttribute("aria-expanded", "false");
   };
 
   const setMenu = (open: boolean) => {
@@ -323,8 +420,11 @@ const servicesOpen = currentPath.startsWith("/services");
     toggle?.setAttribute("aria-expanded", String(open));
     openIcon?.classList.toggle("hidden", open);
     closeIcon?.classList.toggle("hidden", !open);
-    // Closing the menu resets the Services accordion to collapsed.
-    if (!open) collapseServices();
+    // Closing the menu resets both accordions to collapsed.
+    if (!open) {
+      collapseServices();
+      collapseLocations();
+    }
   };
 
   toggle?.addEventListener("click", () =>
@@ -336,6 +436,13 @@ const servicesOpen = currentPath.startsWith("/services");
     const open = servicesToggle.getAttribute("aria-expanded") === "true";
     servicesToggle.setAttribute("aria-expanded", String(!open));
     servicesPanel?.classList.toggle("open", !open);
+  });
+
+  // Locations row expands/collapses inline — it never navigates.
+  locationsToggle?.addEventListener("click", () => {
+    const open = locationsToggle.getAttribute("aria-expanded") === "true";
+    locationsToggle.setAttribute("aria-expanded", String(!open));
+    locationsPanel?.classList.toggle("open", !open);
   });
 
   // Any navigating link (top items, sub-links, CTA) closes the menu.
@@ -377,4 +484,3 @@ const servicesOpen = currentPath.startsWith("/services");
     window.addEventListener("load", () => window.setTimeout(scrollToContact, 300));
   }
 </script>
-
