@@ -1,0 +1,409 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import ServiceBlock from "../../components/ServiceBlock.astro";
+import CloseContact from "../../components/CloseContact.astro";
+
+// Doctor profile page — converted from a standalone static HTML build into
+// the shared Layout / PageHero / ServiceBlock / CloseContact structure used
+// across the rest of the site (see services/assessment.astro for the same
+// pattern). Content is carried over as-is from the original HTML; only the
+// markup/scaffolding changed.
+
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Dr. Kamran Saleem" },
+];
+
+const heroBody = [
+  "A fertility specialist and andrologist in Lahore with 35 years' clinical experience, Dr. Kamran Saleem sees couples trying to conceive and men with sexual or reproductive health concerns at Kamran Fertility Clinic. His approach is unhurried and evidence-based — investigations and treatment are recommended only when they're genuinely likely to help, never as routine.",
+  "As a male infertility specialist and andrologist, he covers everything from a WHO-standard semen analysis and hormone testing to full IVF, ICSI and IUI coordination for couples, alongside PCOS, thyroid and ovulation assessment for women.",
+];
+
+// FAQ content — kept in one place so the visible accordion and the FAQPage
+// schema below always stay in sync.
+const faqs = [
+  {
+    q: "Is Dr. Kamran Saleem still practising as an andrologist, or only fertility medicine now?",
+    a: "Both. Andrology and fertility medicine overlap heavily on the male side, so men's reproductive and sexual health remain a core part of the practice. The clinic name reflects a fuller service for couples — the 35 years of andrology expertise behind it hasn't changed.",
+  },
+  {
+    q: "What are Dr. Kamran Saleem's qualifications?",
+    a: "MBBS from Allama Iqbal Medical College, Lahore, and a Diploma in Genitourinary Medicine & Venereology from the Royal Liverpool University Hospital, UK.",
+  },
+  {
+    q: "Which clinic location does Dr. Kamran Saleem see patients at?",
+    a: "He sees patients across all three Kamran Fertility Clinic locations in Lahore — Rasheed Hospital (DHA), TAMC (M.M. Alam Road) and Shahnaz Hospital (Shalamar). Confirm the specific clinic and day on WhatsApp when you book.",
+  },
+  {
+    q: "Does Dr. Kamran Saleem still perform andrology procedures like vasectomy or circumcision?",
+    a: "His current practice is centred on fertility assessment, treatment coordination (IUI, IVF, ICSI) and men's reproductive health. For a specific procedure, confirm current availability directly with the clinic.",
+  },
+  {
+    q: "Are consultations with Dr. Kamran Saleem confidential for men?",
+    a: "Yes. Male sexual and reproductive health concerns, including STI/STD screening, are discussed in confidence with no judgement.",
+  },
+  {
+    q: "Are the reviews on this page genuine?",
+    a: "Yes. The screenshots shown are taken directly from Kamran Fertility Clinic's Google Business Profile, and the rating summary is pulled from Dr. Kamran Saleem's verified Marham profile — both linked here for independent verification.",
+  },
+  {
+    q: "How do I book an appointment with Dr. Kamran Saleem?",
+    a: "Message the clinic on WhatsApp. There are no forms to fill and no obligation — the team usually replies the same day.",
+  },
+];
+
+const locations = [
+  { name: "Rasheed Hospital", address: "Main Boulevard, DHA Defence, Lahore" },
+  { name: "TAMC", address: "M.M. Alam Road, Lahore" },
+  { name: "Shahnaz Hospital", address: "Shalamar Link Road, Lahore 54000" },
+];
+---
+
+<Layout
+  title="Dr. Kamran Saleem — Fertility Specialist & Andrologist in Lahore | Kamran Fertility Clinic"
+  description="Dr. Kamran Saleem: fertility specialist & andrologist in Lahore. MBBS, Dip GUM & Ven (UK), 35 years' experience. Male & female fertility assessment, IVF/ICSI/IUI, men's reproductive health. Real Google & Marham reviews. Book on WhatsApp."
+>
+  <!-- Structured data: Physician + FAQPage. Purely additive — does not
+       touch any visible copy. -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MedicalWebPage",
+        "@id": "https://www.kamranfertility.com/doctor/dr-kamran-saleem#webpage",
+        "url": "https://www.kamranfertility.com/doctor/dr-kamran-saleem",
+        "name": "Dr. Kamran Saleem — Fertility Specialist & Andrologist in Lahore",
+        "description": "Fertility specialist and andrologist in Lahore. MBBS, Dip GUM & Ven (UK), 35 years' experience.",
+        "specialty": "Reproductive Medicine",
+        "isPartOf": { "@id": "https://www.kamranfertility.com/#website" },
+        "mainEntity": { "@id": "https://www.kamranfertility.com/doctor/dr-kamran-saleem#physician" }
+      },
+      {
+        "@type": "Physician",
+        "@id": "https://www.kamranfertility.com/doctor/dr-kamran-saleem#physician",
+        "name": "Dr. Kamran Saleem",
+        "image": "https://www.kamranfertility.com/assets/dr-kamran.webp",
+        "url": "https://www.kamranfertility.com/",
+        "telephone": "+923148432789",
+        "medicalSpecialty": ["Andrology", "Reproductive Endocrinology and Infertility", "Genitourinary Medicine"],
+        "sameAs": ["https://www.marham.pk/doctors/lahore/andrologist/dr-kamran-saleem"],
+        "alumniOf": [
+          { "@type": "CollegeOrUniversity", "name": "Allama Iqbal Medical College, Lahore" },
+          { "@type": "CollegeOrUniversity", "name": "Royal Liverpool University Hospital, UK" }
+        ],
+        "hasCredential": [
+          { "@type": "EducationalOccupationalCredential", "credentialCategory": "MBBS" },
+          { "@type": "EducationalOccupationalCredential", "credentialCategory": "Diploma in Genitourinary Medicine & Venereology" }
+        ],
+        "worksFor": { "@type": "MedicalClinic", "name": "Kamran Fertility Clinic", "url": "https://www.kamranfertility.com/" },
+        "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "bestRating": "5", "reviewCount": "32" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.kamranfertility.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Dr. Kamran Saleem", "item": "https://www.kamranfertility.com/doctor/dr-kamran-saleem" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": faqs.map((item) => ({
+          "@type": "Question",
+          "name": item.q,
+          "acceptedAnswer": { "@type": "Answer", "text": item.a }
+        }))
+      }
+    ]
+  })} />
+
+  <PageHero
+    eyebrow="Doctor profile"
+    title="Dr. Kamran Saleem"
+    sub={heroBody}
+    breadcrumbs={breadcrumbs}
+    cta="Book on WhatsApp"
+  />
+
+  <!-- Hero stat strip + headshot card. PageHero doesn't have slots for a
+       photo or a stats row today, so this sits directly under it as its own
+       block — same pattern as the page-intro block in assessment.astro.
+       If PageHero grows an image/stats slot later, this can move inside it. -->
+  <section class="bg-white pb-4 pt-2 md:pb-8">
+    <div class="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
+      <div class="grid items-center gap-12 md:grid-cols-[1.1fr_0.9fr]">
+        <div data-reveal class="grid grid-cols-2 gap-y-5 border-t border-black/10 pt-6 sm:grid-cols-4">
+          <div><span class="block font-heading text-2xl font-extrabold text-ink">35 yrs</span><span class="text-xs text-body">Clinical experience</span></div>
+          <div><span class="block font-heading text-2xl font-extrabold text-ink">5.0</span><span class="text-xs text-body">Rating · 32 Marham reviews</span></div>
+          <div><span class="block font-heading text-2xl font-extrabold text-ink">3</span><span class="text-xs text-body">Lahore clinic locations</span></div>
+          <div><span class="block font-heading text-2xl font-extrabold text-ink">100%</span><span class="text-xs text-body">Patient satisfaction score</span></div>
+        </div>
+
+        <div class="relative mx-auto max-w-sm" data-reveal>
+          <img
+            src="https://www.kamranfertility.com/assets/dr-kamran.webp"
+            alt="Dr. Kamran Saleem, fertility specialist and andrologist at Kamran Fertility Clinic, Lahore"
+            class="relative rounded-2xl border border-black/10 shadow-sm"
+          />
+          <div class="absolute -bottom-6 -left-6 flex items-center gap-3 rounded-2xl border border-black/10 bg-white p-3 pr-5 shadow-sm">
+            <img src="https://www.kamranfertility.com/favicon.png" alt="" class="h-9 w-9 rounded-full" />
+            <div class="text-left">
+              <p class="font-heading text-sm font-bold leading-tight text-ink">MBBS · Dip GUM &amp; Ven (UK)</p>
+              <p class="text-xs text-body">Reproductive health specialist</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="bg-white py-16 md:py-20" id="about">
+    <div class="relative z-10 mx-auto max-w-3xl px-5 text-center sm:px-8" data-reveal>
+      <img src="https://www.kamranfertility.com/favicon.png" alt="" class="mx-auto mb-4 h-9 w-9 rounded-full" />
+      <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl">From andrology to full-spectrum fertility care</h2>
+      <p class="mx-auto measure mt-4 text-lg leading-relaxed text-body [margin-inline:auto]">
+        Dr. Kamran Saleem trained at Allama Iqbal Medical College, Lahore, and completed a Diploma in Genitourinary
+        Medicine &amp; Venereology at the Royal Liverpool University Hospital, UK. Thirty-five years of consultant
+        practice as an andrologist in Lahore — treating male infertility, hormone disorders and men's sexual health —
+        now sits at the centre of a broader, doctor-led fertility practice for couples, at Kamran Fertility Clinic.
+      </p>
+      <p class="mx-auto measure mt-4 leading-relaxed text-body [margin-inline:auto]">
+        The name on the clinic has changed. The refusal to recommend a test or treatment that isn't medically
+        justified hasn't.
+      </p>
+    </div>
+  </section>
+
+  <!-- Expertise, via the shared ServiceBlock component -->
+  <section class="bg-white pb-20 md:pb-28" id="expertise">
+    <div class="mx-auto max-w-6xl space-y-20 px-5 sm:px-8 md:space-y-28">
+      <ServiceBlock
+        id="mens-health"
+        title="Men's Reproductive & Sexual Health"
+        intro="As an andrologist in Lahore, Dr. Kamran Saleem provides confidential assessment of sperm health, hormone levels and reproductive history — the same male infertility expertise that anchors his fertility practice today."
+        relevantIf={[
+          "Concerns about sperm count or motility",
+          "Erectile dysfunction or reduced libido",
+          "Varicocele or hormone imbalance",
+          "Confidential STI/STD screening",
+        ]}
+        whatToExpect={[
+          "Confidential male fertility test",
+          "WHO-standard semen analysis",
+          "Hormone testing where indicated",
+          "Personalised treatment planning",
+        ]}
+        reversed
+      >
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+          <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+          <path d="M15 19l2 2l4 -4" />
+        </svg>
+      </ServiceBlock>
+
+      <ServiceBlock
+        id="fertility-medicine"
+        title="Fertility & Reproductive Medicine"
+        intro="A full fertility assessment for both partners — female fertility test, male fertility test, hormone test for fertility, ovulation test, pelvic ultrasound and semen analysis — before any treatment is discussed."
+        relevantIf={[
+          "Trying to conceive 12+ months (6 if over 35)",
+          "Irregular cycles or suspected PCOS",
+          "Recurrent miscarriage or pregnancy loss",
+        ]}
+        whatToExpect={[
+          "Consultation with a fertility specialist in Lahore",
+          "Review of prior investigations",
+          "Written plan with clear next steps",
+        ]}
+      >
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M6 4h-1a1 1 0 0 0 -1 1v3.5a5.5 5.5 0 0 0 11 0v-3.5a1 1 0 0 0 -1 -1h-1" />
+          <path d="M8 15a6 6 0 1 0 12 0v-3" />
+          <path d="M20 9m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+        </svg>
+      </ServiceBlock>
+    </div>
+  </section>
+
+  <!-- Reassurance band -->
+  <section class="bg-ice py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 text-center sm:px-8" data-reveal>
+      <p class="mx-auto measure font-heading text-xl font-bold leading-snug text-ink [margin-inline:auto] sm:text-2xl">
+        Every recommendation Dr. Kamran Saleem makes is based on your diagnosis — never on a routine package.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services link cards -->
+  <section class="bg-white py-16 md:py-20" id="services">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <h2 class="text-center font-heading text-2xl font-bold text-ink sm:text-3xl">Services at Kamran Fertility Clinic</h2>
+      <p class="mx-auto measure mt-3 text-center text-body [margin-inline:auto]">
+        Every visit starts with understanding the cause — here's where that can lead.
+      </p>
+      <div class="mt-10 grid gap-6 sm:grid-cols-3">
+        <a href="/services/assessment" class="block rounded-2xl border border-black/5 bg-ice p-6 transition hover:shadow-md">
+          <h3 class="font-heading text-lg font-bold text-ink">Assessment &amp; Diagnosis</h3>
+          <p class="mt-2 text-body">Female &amp; male fertility test, hormone test for fertility, ovulation test, pelvic ultrasound, WHO-standard semen analysis.</p>
+        </a>
+        <a href="/services/fertility-treatment" class="block rounded-2xl border border-black/5 bg-ice p-6 transition hover:shadow-md">
+          <h3 class="font-heading text-lg font-bold text-ink">Fertility Treatment</h3>
+          <p class="mt-2 text-body">IUI, IVF, ICSI, PGD/PGT and fertility preservation — recommended only when clinically indicated.</p>
+        </a>
+        <a href="/services/support" class="block rounded-2xl border border-black/5 bg-ice p-6 transition hover:shadow-md">
+          <h3 class="font-heading text-lg font-bold text-ink">Support &amp; Second Opinions</h3>
+          <p class="mt-2 text-body">Independent review of prior treatment, plus gentle support after miscarriage or ectopic pregnancy.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Qualifications -->
+  <section class="bg-ice py-16 md:py-20" id="qualifications">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <h2 class="text-center font-heading text-2xl font-bold text-ink sm:text-3xl">Qualifications &amp; experience</h2>
+      <div class="mt-10 grid gap-6 md:grid-cols-2">
+        <div class="rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
+          <h3 class="font-heading text-lg font-bold text-ink">Education</h3>
+          <table class="mt-4 w-full text-sm">
+            <tbody>
+              <tr class="border-b border-black/10"><td class="py-2.5 pr-3 text-body">Allama Iqbal Medical College, Lahore</td><td class="py-2.5 font-semibold text-ink">MBBS</td></tr>
+              <tr><td class="py-2.5 pr-3 text-body">Royal Liverpool University Hospital, UK</td><td class="py-2.5 font-semibold text-ink">Dip. GUM &amp; Ven</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
+          <h3 class="font-heading text-lg font-bold text-ink">Experience</h3>
+          <table class="mt-4 w-full text-sm">
+            <tbody>
+              <tr class="border-b border-black/10"><td class="py-2.5 pr-3 text-body">Services Hospital, Lahore</td><td class="py-2.5 font-semibold text-ink">Internship</td></tr>
+              <tr class="border-b border-black/10"><td class="py-2.5 pr-3 text-body">Ministry of Health, Saudi Arabia</td><td class="py-2.5 font-semibold text-ink">Medical Officer</td></tr>
+              <tr class="border-b border-black/10"><td class="py-2.5 pr-3 text-body">Rasheed Hospital, Lahore</td><td class="py-2.5 font-semibold text-ink">Consultant</td></tr>
+              <tr><td class="py-2.5 pr-3 text-body">Kamran Fertility Clinic</td><td class="py-2.5 font-semibold text-ink">Consultant Fertility Specialist</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="mt-6 text-center text-sm text-body">
+        Profile also maintained on
+        <a href="https://www.marham.pk/doctors/lahore/andrologist/dr-kamran-saleem" target="_blank" rel="noopener" class="font-semibold text-primary underline-offset-4 hover:underline">Marham →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Locations -->
+  <section class="bg-white py-16 md:py-20" id="locations">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <h2 class="text-center font-heading text-2xl font-bold text-ink sm:text-3xl">Three Lahore locations</h2>
+      <p class="mx-auto measure mt-3 text-center text-body [margin-inline:auto]">
+        Mon–Sat, 11:00am–9:00pm. Closed Sundays &amp; public holidays. Exact clinic day is confirmed on booking.
+      </p>
+      <div class="mt-10 grid gap-6 sm:grid-cols-3">
+        {locations.map((loc) => (
+          <div class="rounded-2xl border border-black/5 bg-ice p-6">
+            <h3 class="font-heading text-lg font-bold text-ink">{loc.name}</h3>
+            <p class="mt-1 text-sm text-body">{loc.address}</p>
+            <a href="https://wa.me/923148432789" target="_blank" rel="noopener" class="mt-4 block rounded-full bg-primary py-2.5 text-center text-sm font-semibold text-white">
+              Book at this clinic
+            </a>
+          </div>
+        ))}
+      </div>
+      <div class="mt-8 overflow-hidden rounded-2xl border border-black/10">
+        <iframe
+          loading="lazy"
+          title="Map to Rasheed Hospital, DHA Defence, Lahore"
+          class="h-72 w-full"
+          src="https://www.google.com/maps?q=Rasheed+Hospital,+Main+Boulevard,+DHA+Defence,+Lahore&output=embed"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews (real screenshots — do not paraphrase or invent) -->
+  <section class="bg-ice py-16 md:py-20" id="reviews">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <h2 class="text-center font-heading text-2xl font-bold text-ink sm:text-3xl">What patients say — verified, not written by us</h2>
+      <p class="mx-auto measure mt-3 text-center text-body [margin-inline:auto]">
+        Real screenshots from Kamran Fertility Clinic's Google Business Profile, alongside Dr. Kamran Saleem's
+        verified Marham rating. Nothing here is paraphrased or invented.
+      </p>
+
+      <div class="mt-10 grid gap-8 md:grid-cols-2">
+        <div>
+          <p class="mb-3 text-sm font-semibold text-ink">Google Business Profile — 5.0, 3 reviews</p>
+          <div class="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
+            <img
+              src="/assets/reviews/google-reviews-summary.png"
+              alt="Kamran Fertility Clinic Google Business Profile: 5.0 rating from 3 reviews, with a 5-star review from Attiya Jabeen describing a clear, professional experience focused on proper assessment over unnecessary treatment."
+              class="w-full"
+            />
+          </div>
+        </div>
+
+        <div class="grid content-start gap-6">
+          <div>
+            <p class="mb-3 text-sm font-semibold text-ink">Fazal Khan · 5 stars</p>
+            <div class="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
+              <img
+                src="/assets/reviews/google-review-fazal-khan.png"
+                alt="Google review from Fazal Khan describing an experienced, polite team and a detailed, in-depth consultation with Dr. Kamran."
+                class="w-full"
+              />
+            </div>
+          </div>
+          <div>
+            <p class="mb-3 text-sm font-semibold text-ink">Kinza Bibi · 5 stars</p>
+            <div class="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-sm">
+              <img
+                src="/assets/reviews/google-review-kinza-bibi.png"
+                alt="Google review from Kinza Bibi describing a professional, kind doctor who explained everything clearly, with cooperative and welcoming staff."
+                class="w-full"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 grid gap-4 rounded-2xl border border-black/5 bg-white p-6 shadow-sm sm:grid-cols-5 sm:text-center">
+        <div><span class="block font-heading text-2xl font-extrabold text-ink">5/5</span><span class="text-xs text-body">Overall (Marham)</span></div>
+        <div><span class="block font-heading text-2xl font-extrabold text-ink">5/5</span><span class="text-xs text-body">Diagnosis</span></div>
+        <div><span class="block font-heading text-2xl font-extrabold text-ink">4.8/5</span><span class="text-xs text-body">Staff behaviour</span></div>
+        <div><span class="block font-heading text-2xl font-extrabold text-ink">5/5</span><span class="text-xs text-body">Clinic environment</span></div>
+        <div><span class="block font-heading text-2xl font-extrabold text-ink">~4 min</span><span class="text-xs text-body">Average wait time</span></div>
+      </div>
+
+      <p class="mt-6 text-center text-sm text-body">
+        Verify independently:
+        <a href="https://www.marham.pk/doctors/lahore/andrologist/dr-kamran-saleem/reviews" target="_blank" rel="noopener" class="font-semibold text-primary underline-offset-4 hover:underline">32 reviews on Marham →</a>
+        &nbsp;·&nbsp;
+        <a href="https://www.google.com/maps?q=Kamran+Fertility+Clinic+Lahore" target="_blank" rel="noopener" class="font-semibold text-primary underline-offset-4 hover:underline">Kamran Fertility Clinic on Google →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQs — mirrors the FAQPage schema above -->
+  <section class="bg-white py-16 md:py-20" id="faqs">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8">
+      <h2 class="text-center font-heading text-2xl font-bold text-ink sm:text-3xl">Frequently asked questions</h2>
+      <div class="mt-10 space-y-4">
+        {faqs.map((item) => (
+          <details class="group rounded-xl bg-ice p-5">
+            <summary class="cursor-pointer list-none font-heading font-bold text-ink">
+              {item.q}
+            </summary>
+            <p class="mt-3 text-body leading-relaxed">{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CloseContact
+    heading="Whatever stage you're at, you won't be rushed — or judged."
+    body="Message Dr. Kamran Saleem's clinic on WhatsApp and the team will guide you from there. Fees are explained up front, with no obligation to proceed with anything that doesn't feel right."
+    cta="Message us on WhatsApp"
+  />
+</Layout>
