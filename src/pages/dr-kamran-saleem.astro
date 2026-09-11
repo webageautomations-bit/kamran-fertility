@@ -7,8 +7,14 @@
 // Doctor profile page — converted from a standalone static HTML build into
 // the shared Layout / PageHero / ServiceBlock / CloseContact structure used
 // across the rest of the site (see services/assessment.astro for the same
-// pattern). Content is carried over as-is from the original HTML; only the
-// markup/scaffolding changed.
+// pattern).
+//
+// Content below reflects only what Dr. Kamran Saleem confirmed on his
+// profile questionnaire, plus his Diploma certificate (University of
+// Liverpool, Faculty of Medicine, 1998). Anything he left blank on the
+// form (total years of medical practice, postgrad quals beyond the
+// Diploma, fellowships, patient volume, publications, awards, etc.) has
+// been left out rather than guessed at — add it back in once he provides it.
 
 const breadcrumbs = [
   { label: "Home", href: "/" },
@@ -16,32 +22,41 @@ const breadcrumbs = [
 ];
 
 const heroBody = [
-  "A fertility specialist and andrologist in Lahore with 35 years' clinical experience, Dr. Kamran Saleem sees couples trying to conceive and men with sexual or reproductive health concerns at Kamran Fertility Clinic. His approach is unhurried and evidence-based — investigations and treatment are recommended only when they're genuinely likely to help, never as routine.",
-  "As a male infertility specialist and andrologist, he covers everything from a WHO-standard semen analysis and hormone testing to full IVF, ICSI and IUI coordination for couples, alongside PCOS, thyroid and ovulation assessment for women.",
+  "A fertility specialist and andrologist in Lahore with 25 years' experience in reproductive health and fertility, Dr. Kamran Saleem sees couples trying to conceive and men with sexual or reproductive health concerns at Kamran Fertility Clinic. His approach starts with history, examination and the tests that are actually indicated — treatment is recommended only when it's genuinely likely to help, never as routine.",
+  "As a male infertility specialist and andrologist, he covers everything from a semen analysis and hormone testing to full IVF, ICSI and IUI coordination for couples, alongside PCOS and ovulation assessment for women. Where a condition can be managed with medication, that's his preferred first option — IVF is considered when it's clinically appropriate, not by default.",
 ];
 
 // FAQ content — kept in one place so the visible accordion and the FAQPage
-// schema below always stay in sync.
+// schema below always stay in sync. Wording below is drawn directly from
+// Dr. Kamran Saleem's own answers on his profile questionnaire.
 const faqs = [
   {
-    q: "Is Dr. Kamran Saleem still practising as an andrologist, or only fertility medicine now?",
-    a: "Both. Andrology and fertility medicine overlap heavily on the male side, so men's reproductive and sexual health remain a core part of the practice. The clinic name reflects a fuller service for couples — the 35 years of andrology expertise behind it hasn't changed.",
+    q: "What can I expect during a first consultation with Dr. Kamran Saleem?",
+    a: "A detailed history and complete evaluation, including any tests needed to reach a diagnosis or plan treatment. A sexual health evaluation is also carried out where relevant.",
+  },
+  {
+    q: "Who should consider booking an appointment?",
+    a: "Anyone having difficulty conceiving, or experiencing male or female fertility-related issues.",
+  },
+  {
+    q: "When should someone seek a fertility assessment?",
+    a: "It's ultimately the patient's own choice. Many couples wait up to a year after marriage before seeking an assessment, but there's no requirement to wait if you'd rather not.",
+  },
+  {
+    q: "What questions do patients most commonly bring to a consultation?",
+    a: "Most often: being married but not conceiving, semen-related concerns, or findings from a female ultrasound such as reduced follicle size or irregular menstrual cycles.",
+  },
+  {
+    q: "Does Dr. Kamran Saleem recommend IVF for every patient?",
+    a: "No. Where a condition can be treated with medication, that's the preferred option first — IVF is used when it's clinically appropriate, not as a default starting point.",
   },
   {
     q: "What are Dr. Kamran Saleem's qualifications?",
-    a: "MBBS from Allama Iqbal Medical College, Lahore, and a Diploma in Genitourinary Medicine & Venereology from the Royal Liverpool University Hospital, UK.",
+    a: "MBBS (1988) and a Diploma in Genito-Urinary Medicine and Venereology from the University of Liverpool, Faculty of Medicine, UK, awarded in 1998.",
   },
   {
-    q: "Which clinic location does Dr. Kamran Saleem see patients at?",
-    a: "He sees patients across all three Kamran Fertility Clinic locations in Lahore — Rasheed Hospital (DHA), TAMC (M.M. Alam Road) and Shahnaz Hospital (Shalamar). Confirm the specific clinic and day on WhatsApp when you book.",
-  },
-  {
-    q: "Does Dr. Kamran Saleem still perform andrology procedures like vasectomy or circumcision?",
-    a: "His current practice is centred on fertility assessment, treatment coordination (IUI, IVF, ICSI) and men's reproductive health. For a specific procedure, confirm current availability directly with the clinic.",
-  },
-  {
-    q: "Are consultations with Dr. Kamran Saleem confidential for men?",
-    a: "Yes. Male sexual and reproductive health concerns, including STI/STD screening, are discussed in confidence with no judgement.",
+    q: "Which clinic locations does Dr. Kamran Saleem see patients at?",
+    a: "Rasheed Hospital (DHA), TAMC (M.M. Alam Road) and Shahnaz Hospital (Shalamar) in Lahore. Confirm the specific clinic and day when you book.",
   },
   {
     q: "Are the reviews on this page genuine?",
@@ -62,7 +77,7 @@ const locations = [
 
 <Layout
   title="Dr. Kamran Saleem — Fertility Specialist & Andrologist in Lahore | Kamran Fertility Clinic"
-  description="Dr. Kamran Saleem: fertility specialist & andrologist in Lahore. MBBS, Dip GUM & Ven (UK), 35 years' experience. Male & female fertility assessment, IVF/ICSI/IUI, men's reproductive health. Real Google & Marham reviews. Book on WhatsApp."
+  description="Dr. Kamran Saleem: fertility specialist & andrologist in Lahore. MBBS (1988), Diploma in Genito-Urinary Medicine & Venereology, University of Liverpool (1998). 25 years in male & female fertility assessment, IVF/ICSI/IUI. Real Google & Marham reviews. Book on WhatsApp."
 >
   <!-- Structured data: Physician + FAQPage. Purely additive — does not
        touch any visible copy. -->
@@ -74,7 +89,7 @@ const locations = [
         "@id": "https://www.kamranfertility.com/doctor/dr-kamran-saleem#webpage",
         "url": "https://www.kamranfertility.com/doctor/dr-kamran-saleem",
         "name": "Dr. Kamran Saleem — Fertility Specialist & Andrologist in Lahore",
-        "description": "Fertility specialist and andrologist in Lahore. MBBS, Dip GUM & Ven (UK), 35 years' experience.",
+        "description": "Fertility specialist and andrologist in Lahore. MBBS (1988), Diploma in Genito-Urinary Medicine & Venereology, University of Liverpool (1998). 25 years in reproductive health and fertility.",
         "specialty": "Reproductive Medicine",
         "isPartOf": { "@id": "https://www.kamranfertility.com/#website" },
         "mainEntity": { "@id": "https://www.kamranfertility.com/doctor/dr-kamran-saleem#physician" }
@@ -89,13 +104,18 @@ const locations = [
         "medicalSpecialty": ["Andrology", "Reproductive Endocrinology and Infertility", "Genitourinary Medicine"],
         "sameAs": ["https://www.marham.pk/doctors/lahore/andrologist/dr-kamran-saleem"],
         "alumniOf": [
-          { "@type": "CollegeOrUniversity", "name": "Allama Iqbal Medical College, Lahore" },
-          { "@type": "CollegeOrUniversity", "name": "Royal Liverpool University Hospital, UK" }
+          { "@type": "CollegeOrUniversity", "name": "University of Liverpool" }
         ],
         "hasCredential": [
-          { "@type": "EducationalOccupationalCredential", "credentialCategory": "MBBS" },
-          { "@type": "EducationalOccupationalCredential", "credentialCategory": "Diploma in Genitourinary Medicine & Venereology" }
+          { "@type": "EducationalOccupationalCredential", "credentialCategory": "MBBS", "dateCreated": "1988" },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "Diploma in Genito-Urinary Medicine & Venereology",
+            "recognizedBy": { "@type": "CollegeOrUniversity", "name": "University of Liverpool" },
+            "dateCreated": "1998"
+          }
         ],
+        "memberOf": { "@type": "MedicalOrganization", "name": "Royal Liverpool University Hospital (RLUH)" },
         "worksFor": { "@type": "MedicalClinic", "name": "Kamran Fertility Clinic", "url": "https://www.kamranfertility.com/" },
         "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "bestRating": "5", "reviewCount": "32" }
       },
@@ -125,18 +145,15 @@ const locations = [
     cta="Book on WhatsApp"
   />
 
-  <!-- Hero stat strip + headshot card. PageHero doesn't have slots for a
-       photo or a stats row today, so this sits directly under it as its own
-       block — same pattern as the page-intro block in assessment.astro.
-       If PageHero grows an image/stats slot later, this can move inside it. -->
+  <!-- Hero stat strip + headshot card. -->
   <section class="bg-white pb-4 pt-2 md:pb-8">
     <div class="relative z-10 mx-auto max-w-6xl px-5 sm:px-8">
       <div class="grid items-center gap-12 md:grid-cols-[1.1fr_0.9fr]">
         <div data-reveal class="grid grid-cols-2 gap-y-5 border-t border-black/10 pt-6 sm:grid-cols-4">
-          <div><span class="block font-heading text-2xl font-extrabold text-ink">35 yrs</span><span class="text-xs text-body">Clinical experience</span></div>
+          <div><span class="block font-heading text-2xl font-extrabold text-ink">25 yrs</span><span class="text-xs text-body">In fertility &amp; reproductive health</span></div>
           <div><span class="block font-heading text-2xl font-extrabold text-ink">5.0</span><span class="text-xs text-body">Rating · 32 Marham reviews</span></div>
           <div><span class="block font-heading text-2xl font-extrabold text-ink">3</span><span class="text-xs text-body">Lahore clinic locations</span></div>
-          <div><span class="block font-heading text-2xl font-extrabold text-ink">100%</span><span class="text-xs text-body">Patient satisfaction score</span></div>
+          <div><span class="block font-heading text-2xl font-extrabold text-ink">1998</span><span class="text-xs text-body">UK Diploma (GUM &amp; Ven.)</span></div>
         </div>
 
         <div class="relative mx-auto max-w-sm" data-reveal>
@@ -148,7 +165,7 @@ const locations = [
           <div class="absolute -bottom-6 -left-6 flex items-center gap-3 rounded-2xl border border-black/10 bg-white p-3 pr-5 shadow-sm">
             <img src="https://www.kamranfertility.com/favicon.png" alt="" class="h-9 w-9 rounded-full" />
             <div class="text-left">
-              <p class="font-heading text-sm font-bold leading-tight text-ink">MBBS · Dip GUM &amp; Ven (UK)</p>
+              <p class="font-heading text-sm font-bold leading-tight text-ink">MBBS · Dip. GUM &amp; Ven (UK)</p>
               <p class="text-xs text-body">Reproductive health specialist</p>
             </div>
           </div>
@@ -163,14 +180,14 @@ const locations = [
       <img src="https://www.kamranfertility.com/favicon.png" alt="" class="mx-auto mb-4 h-9 w-9 rounded-full" />
       <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl">From andrology to full-spectrum fertility care</h2>
       <p class="mx-auto measure mt-4 text-lg leading-relaxed text-body [margin-inline:auto]">
-        Dr. Kamran Saleem trained at Allama Iqbal Medical College, Lahore, and completed a Diploma in Genitourinary
-        Medicine &amp; Venereology at the Royal Liverpool University Hospital, UK. Thirty-five years of consultant
-        practice as an andrologist in Lahore — treating male infertility, hormone disorders and men's sexual health —
-        now sits at the centre of a broader, doctor-led fertility practice for couples, at Kamran Fertility Clinic.
+        Dr. Kamran Saleem completed his MBBS in 1988 and a Diploma in Genito-Urinary Medicine &amp; Venereology at
+        the University of Liverpool, UK, in 1998. Twenty-five years focused on reproductive health and fertility —
+        treating male infertility, hormone-related issues and men's sexual health — now sit at the centre of a
+        broader, doctor-led fertility practice for couples, at Kamran Fertility Clinic.
       </p>
       <p class="mx-auto measure mt-4 leading-relaxed text-body [margin-inline:auto]">
         The name on the clinic has changed. The refusal to recommend a test or treatment that isn't medically
-        justified hasn't.
+        justified hasn't — where a condition can be treated with medicine, that remains the preferred option.
       </p>
     </div>
   </section>
@@ -184,13 +201,12 @@ const locations = [
         intro="As an andrologist in Lahore, Dr. Kamran Saleem provides confidential assessment of sperm health, hormone levels and reproductive history — the same male infertility expertise that anchors his fertility practice today."
         relevantIf={[
           "Concerns about sperm count or motility",
-          "Erectile dysfunction or reduced libido",
-          "Varicocele or hormone imbalance",
-          "Confidential STI/STD screening",
+          "Hormone-related fertility issues",
+          "Sexual and reproductive health concerns",
         ]}
         whatToExpect={[
           "Confidential male fertility test",
-          "WHO-standard semen analysis",
+          "Semen analysis interpretation",
           "Hormone testing where indicated",
           "Personalised treatment planning",
         ]}
@@ -206,16 +222,16 @@ const locations = [
       <ServiceBlock
         id="fertility-medicine"
         title="Fertility & Reproductive Medicine"
-        intro="A full fertility assessment for both partners — female fertility test, male fertility test, hormone test for fertility, ovulation test, pelvic ultrasound and semen analysis — before any treatment is discussed."
+        intro="A full fertility assessment for both partners — female fertility test, male fertility test, ovulation assessment and semen analysis — before any treatment is discussed."
         relevantIf={[
-          "Trying to conceive 12+ months (6 if over 35)",
+          "Married but not conceiving",
           "Irregular cycles or suspected PCOS",
-          "Recurrent miscarriage or pregnancy loss",
+          "Endometriosis or recurrent pregnancy loss",
         ]}
         whatToExpect={[
           "Consultation with a fertility specialist in Lahore",
-          "Review of prior investigations",
-          "Written plan with clear next steps",
+          "History, examination and the tests that are actually needed",
+          "A plan built around medication first, where that's a suitable option",
         ]}
       >
         <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -246,15 +262,15 @@ const locations = [
       <div class="mt-10 grid gap-6 sm:grid-cols-3">
         <a href="/services/assessment" class="block rounded-2xl border border-black/5 bg-ice p-6 transition hover:shadow-md">
           <h3 class="font-heading text-lg font-bold text-ink">Assessment &amp; Diagnosis</h3>
-          <p class="mt-2 text-body">Female &amp; male fertility test, hormone test for fertility, ovulation test, pelvic ultrasound, WHO-standard semen analysis.</p>
+          <p class="mt-2 text-body">Female &amp; male fertility test, ovulation assessment, semen analysis interpretation, PCOS and endometriosis-related evaluation.</p>
         </a>
         <a href="/services/fertility-treatment" class="block rounded-2xl border border-black/5 bg-ice p-6 transition hover:shadow-md">
           <h3 class="font-heading text-lg font-bold text-ink">Fertility Treatment</h3>
-          <p class="mt-2 text-body">IUI, IVF, ICSI, PGD/PGT and fertility preservation — recommended only when clinically indicated.</p>
+          <p class="mt-2 text-body">IUI, IVF, ICSI and fertility preservation — recommended only when clinically indicated, with medication considered first where suitable.</p>
         </a>
         <a href="/services/support" class="block rounded-2xl border border-black/5 bg-ice p-6 transition hover:shadow-md">
           <h3 class="font-heading text-lg font-bold text-ink">Support &amp; Second Opinions</h3>
-          <p class="mt-2 text-body">Independent review of prior treatment, plus gentle support after miscarriage or ectopic pregnancy.</p>
+          <p class="mt-2 text-body">Independent review of prior treatment, plus support for recurrent pregnancy loss.</p>
         </a>
       </div>
     </div>
@@ -269,21 +285,29 @@ const locations = [
           <h3 class="font-heading text-lg font-bold text-ink">Education</h3>
           <table class="mt-4 w-full text-sm">
             <tbody>
-              <tr class="border-b border-black/10"><td class="py-2.5 pr-3 text-body">Allama Iqbal Medical College, Lahore</td><td class="py-2.5 font-semibold text-ink">MBBS</td></tr>
-              <tr><td class="py-2.5 pr-3 text-body">Royal Liverpool University Hospital, UK</td><td class="py-2.5 font-semibold text-ink">Dip. GUM &amp; Ven</td></tr>
+              <tr class="border-b border-black/10"><td class="py-2.5 pr-3 text-body">MBBS</td><td class="py-2.5 font-semibold text-ink">1988</td></tr>
+              <tr><td class="py-2.5 pr-3 text-body">University of Liverpool, Faculty of Medicine, UK</td><td class="py-2.5 font-semibold text-ink">Dip. GUM &amp; Ven — 1998</td></tr>
             </tbody>
           </table>
+          <div class="mt-5 overflow-hidden rounded-xl border border-black/10">
+            <img
+              src="/assets/diploma-university-of-liverpool-1998.jpg"
+              alt="Diploma in Genito-Urinary Medicine and Venereology, University of Liverpool, awarded to Kamran Saleem Sheikh, 29 June 1998"
+              class="w-full"
+            />
+          </div>
+          <p class="mt-2 text-xs text-body">Diploma certificate, University of Liverpool, Faculty of Medicine (29 June 1998).</p>
         </div>
         <div class="rounded-2xl border border-black/5 bg-white p-6 shadow-sm">
           <h3 class="font-heading text-lg font-bold text-ink">Experience</h3>
           <table class="mt-4 w-full text-sm">
             <tbody>
-              <tr class="border-b border-black/10"><td class="py-2.5 pr-3 text-body">Services Hospital, Lahore</td><td class="py-2.5 font-semibold text-ink">Internship</td></tr>
-              <tr class="border-b border-black/10"><td class="py-2.5 pr-3 text-body">Ministry of Health, Saudi Arabia</td><td class="py-2.5 font-semibold text-ink">Medical Officer</td></tr>
-              <tr class="border-b border-black/10"><td class="py-2.5 pr-3 text-body">Rasheed Hospital, Lahore</td><td class="py-2.5 font-semibold text-ink">Consultant</td></tr>
+              <tr class="border-b border-black/10"><td class="py-2.5 pr-3 text-body">Current role</td><td class="py-2.5 font-semibold text-ink">Men's Health &amp; Infertility, incl. ART (IVF/ICSI/IUI)</td></tr>
+              <tr class="border-b border-black/10"><td class="py-2.5 pr-3 text-body">Experience in reproductive health/fertility</td><td class="py-2.5 font-semibold text-ink">25 years</td></tr>
               <tr><td class="py-2.5 pr-3 text-body">Kamran Fertility Clinic</td><td class="py-2.5 font-semibold text-ink">Consultant Fertility Specialist</td></tr>
             </tbody>
           </table>
+          <p class="mt-4 text-sm text-body">Professional membership: Royal Liverpool University Hospital (RLUH).</p>
         </div>
       </div>
       <p class="mt-6 text-center text-sm text-body">
