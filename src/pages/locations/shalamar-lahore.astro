@@ -4,9 +4,13 @@ import PageHero from "../../components/PageHero.astro";
 import CloseContact from "../../components/CloseContact.astro";
 
 // Verified details only — pulled from this repo's own Footer.astro (already
-// live/approved). Nothing here is invented. Confirm consultation days at this
-// specific hospital with the clinic before publishing, and add real photos /
-// a Maps embed if you have them — I've left a plain Maps search link instead.
+// live/approved). CONFIRM with the clinic before publishing: public
+// directories list a "Shalamar Hospital" (a large, well-known 500-bed
+// hospital) AND a separately-run "Shehnaz Medical Center" on the same
+// Shalimar Link Road — this page's "Shahnaz Hospital" appears to be the
+// latter, not the big hospital of the same road name. The FAQ below flags
+// this distinction for patients; please confirm the exact building name/
+// spelling with the clinic so we're not sending patients to the wrong door.
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Locations", href: "/locations" },
@@ -18,6 +22,21 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
 const phoneDisplay = "+92 314 8432789";
 const phoneHref = "tel:+923148432789";
 const whatsappHref = "https://wa.me/923148432789";
+
+const faqs = [
+  {
+    q: "Is this the same as the big Shalamar Hospital on this road?",
+    a: "No — Shalimar Link Road is also home to the large Shalamar Hospital (part of the Shalamar Institute of Health Sciences), which is a separate, much larger facility. Dr. Kamran's consultations are held at Shahnaz Hospital specifically, so double-check the building name with your rideshare driver or on Maps before heading over.",
+  },
+  {
+    q: "Why is this location only open two evenings a week?",
+    a: "Dr. Kamran holds his fixed consultation slot here on Monday and Thursday evenings, 6:00pm–9:00pm — timing that works well for patients who can't get away from work during the day. Other days are closed at this specific clinic; message us on WhatsApp if you need a different day and we'll point you to TAMC or Rasheed Hospital instead.",
+  },
+  {
+    q: "Is the evening slot suitable for a first consultation?",
+    a: "Yes — new-patient consultations run in this same evening window, the same as any other appointment type here.",
+  },
+];
 ---
 
 <Layout
@@ -27,7 +46,7 @@ const whatsappHref = "https://wa.me/923148432789";
   <PageHero
     eyebrow="Shalamar, Lahore"
     title="Fertility Clinic Near Shalamar — Shahnaz Hospital"
-    sub={["Dr. Kamran Saleem holds fertility consultations at Shahnaz Hospital on Shalamar Link Road, Lahore. Patients near Shalamar and surrounding areas can access fertility assessment, treatment planning, and follow-up care at this location."]}
+    sub={["Dr. Kamran Saleem holds evening fertility consultations at Shahnaz Hospital on Shalimar Link Road — a separate, smaller building from the large Shalamar Hospital on the same road. This clinic is the shortest trip of our three Lahore locations for patients coming from Shalimar Town, Baghbanpura, and Garden Town."]}
     breadcrumbs={breadcrumbs}
     cta="Message us on WhatsApp"
   />
@@ -54,6 +73,11 @@ const whatsappHref = "https://wa.me/923148432789";
             <dd class="text-body">Monday &amp; Thursday: 6:00pm – 9:00pm<br />Other days: Closed</dd>
           </div>
         </dl>
+        <p class="mt-4 text-sm leading-relaxed text-body">
+          Shahnaz Hospital is a distinct building from the larger Shalamar Hospital
+          further down the same road — mention "Shahnaz Hospital" specifically when
+          booking a rideshare or asking for directions.
+        </p>
         <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 font-semibold text-azure hover:underline">
           Get directions on Google Maps →
         </a>
@@ -62,15 +86,35 @@ const whatsappHref = "https://wa.me/923148432789";
       <div data-reveal>
         <h2 class="font-heading text-xl font-bold text-ink">What's available at this location</h2>
         <p class="mt-4 leading-relaxed text-body">
-          Consultations at Shahnaz Hospital cover the full range of care offered by
-          Kamran Fertility Clinic, including
-          <a href="/services/assessment" class="text-azure underline hover:text-navy">fertility assessment &amp; diagnosis</a>,
-          <a href="/services/fertility-treatment" class="text-azure underline hover:text-navy">fertility treatment</a>
-          such as IVF, ICSI, and IUI, and
-          <a href="/services/support" class="text-azure underline hover:text-navy">support &amp; second opinions</a>.
-          Your first visit begins with a consultation to understand your history and goals before any tests or treatment are recommended.
+          The Monday and Thursday evening slots at Shahnaz Hospital cover new-patient
+          and follow-up
+          <a href="/services/assessment" class="text-azure underline hover:text-navy">fertility assessments</a>,
+          <a href="/services/fertility-treatment" class="text-azure underline hover:text-navy">treatment planning</a>
+          for IVF, ICSI, and IUI, and
+          <a href="/services/support" class="text-azure underline hover:text-navy">second-opinion consultations</a>.
+          Evening hours here make it a practical choice for working couples on the
+          eastern side of Lahore who can't get away during the day.
         </p>
       </div>
+    </div>
+  </section>
+
+  <section class="bg-cloud py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8">
+      <h2 class="font-heading text-xl font-bold text-ink">Common questions about the Shalamar location</h2>
+      <div class="mt-6 space-y-6">
+        {faqs.map((item) => (
+          <div data-reveal>
+            <h3 class="font-semibold text-ink">{item.q}</h3>
+            <p class="mt-1 leading-relaxed text-body">{item.a}</p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-6 text-sm leading-relaxed text-body">
+        Not sure which of our three clinics is closest to you?
+        <a href="/locations" class="text-azure underline hover:text-navy">See all Kamran Fertility Clinic locations</a>
+        or message us on WhatsApp and we'll suggest the nearest option.
+      </p>
     </div>
   </section>
 
