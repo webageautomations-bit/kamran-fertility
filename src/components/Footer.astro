@@ -7,14 +7,22 @@ const locations = [
   {
     name: "Rasheed Hospital",
     address: "Main Boulevard, Defence, Lahore",
+    // TODO: confirm with Dr. Saleem — "Daily" contradicts "Sat & Sun: Closed".
+    // Using the DHA page's current (unresolved) text until clarified.
+    hoursPrimary: "Daily: 3:00pm – 6:00pm",
+    hoursSecondary: "Saturday & Sunday: Closed",
   },
   {
     name: "TAMC",
     address: "M.M. Alam Road, Lahore",
+    hoursPrimary: "Wednesday: 12:00pm – 3:00pm",
+    hoursSecondary: "Other days: by appointment (on call)",
   },
   {
     name: "Shahnaz Hospital",
     address: "Shalamar Link Road, Lahore",
+    hoursPrimary: "Monday & Thursday: 6:00pm – 9:00pm",
+    hoursSecondary: "Other days: Closed",
   },
 ];
 
@@ -55,7 +63,7 @@ const services = [
           <div class="flex items-center gap-2">
             <dt class="font-semibold text-ink">WhatsApp</dt>
             <dd>
-              <a
+              
                 href={whatsappHref}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -66,7 +74,7 @@ const services = [
         </dl>
       </div>
 
-      <!-- Locations -->
+      <!-- Locations + hours (per clinic — hours vary by location) -->
       <div>
         <h2 class="text-sm font-bold uppercase tracking-wide text-ink">
           Locations
@@ -77,25 +85,17 @@ const services = [
               <li>
                 <p class="font-semibold text-ink">{loc.name}</p>
                 <p class="text-body">{loc.address}</p>
+                <p class="mt-1 text-body/80">{loc.hoursPrimary}</p>
+                <p class="text-body/80">{loc.hoursSecondary}</p>
               </li>
             ))
           }
         </ul>
       </div>
 
-      <!-- Hours + services -->
+      <!-- Services -->
       <div>
-        <h2 class="text-sm font-bold uppercase tracking-wide text-ink">Hours</h2>
-        <ul class="mt-4 space-y-1 text-sm text-body">
-          <li>
-            <span class="font-medium text-ink">Mon–Sat:</span> 11:00am – 9:00pm
-          </li>
-          <li>
-            <span class="font-medium text-ink">Sun &amp; holidays:</span> Closed
-          </li>
-        </ul>
-
-        <h2 class="mt-8 text-sm font-bold uppercase tracking-wide text-ink">
+        <h2 class="text-sm font-bold uppercase tracking-wide text-ink">
           Services
         </h2>
         <ul class="mt-4 space-y-2 text-sm">
