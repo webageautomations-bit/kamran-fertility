@@ -1,0 +1,125 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/PageHero.astro";
+import CloseContact from "../../components/CloseContact.astro";
+
+// Verified details only — pulled from this repo's own Footer.astro (already
+// live/approved), plus the building landmark below, which is publicly listed
+// on multiple directories for other clinics operating in the same TAMC
+// building (2nd floor, 27-C III, M.M. Alam Road, Gulberg III — near Euro
+// Petrol Pump, opposite Park Lane Hotel). CONFIRM the floor/landmark detail
+// with the clinic before publishing in case TAMC has moved floors or the
+// petrol station/hotel names have changed.
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Locations", href: "/locations" },
+  { label: "M.M. Alam Road" },
+];
+
+const address = "TAMC, M.M. Alam Road, Gulberg, Lahore";
+const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+const phoneDisplay = "+92 314 8432789";
+const phoneHref = "tel:+923148432789";
+const whatsappHref = "https://wa.me/923148432789";
+
+const faqs = [
+  {
+    q: "Which floor is the clinic on?",
+    a: "TAMC's fertility consultations with Dr. Kamran Saleem are held on the 2nd floor of the TAMC building on M.M. Alam Road, Gulberg III — next to the Euro Petrol Pump, opposite Park Lane Hotel. Confirm the floor at reception if you haven't visited before.",
+  },
+  {
+    q: "Why is this location only open on Wednesdays?",
+    a: "Dr. Kamran holds his fixed weekly consultation slot at TAMC on Wednesday, 12:00pm–3:00pm. Outside that window, appointments here are arranged on call rather than walk-in — message on WhatsApp and we'll confirm a time.",
+  },
+  {
+    q: "Is this a good option if I want an independent second opinion?",
+    a: "Yes. Being in Gulberg, this location sees a number of patients requesting a second opinion on a treatment plan started at another clinic nearby before deciding how to proceed.",
+  },
+];
+---
+
+<Layout
+  title="Fertility Clinic on M.M. Alam Road, Lahore | Dr. Kamran Saleem"
+  description="Fertility consultations on M.M. Alam Road, Lahore at TAMC. Assessment, treatment planning and follow-up with Dr. Kamran Saleem."
+>
+  <PageHero
+    eyebrow="M.M. Alam Road, Lahore"
+    title="Fertility Clinic on M.M. Alam Road — TAMC"
+    sub={["Dr. Kamran Saleem holds a weekly fertility consultation slot at TAMC in Gulberg III — 2nd floor, next to the Euro Petrol Pump and opposite Park Lane Hotel on M.M. Alam Road. It's the most central of our three Lahore clinics for patients based in or around Gulberg."]}
+    breadcrumbs={breadcrumbs}
+    cta="Message us on WhatsApp"
+  />
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto grid max-w-5xl gap-10 px-5 sm:px-8 md:grid-cols-2">
+      <div data-reveal>
+        <h2 class="font-heading text-xl font-bold text-ink">Clinic details</h2>
+        <dl class="mt-4 space-y-3 text-sm">
+          <div>
+            <dt class="font-semibold text-ink">Address</dt>
+            <dd class="text-body">{address}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-ink">Landmark</dt>
+            <dd class="text-body">2nd floor, TAMC building — beside Euro Petrol Pump, opposite Park Lane Hotel</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-ink">Phone</dt>
+            <dd><a href={phoneHref} class="text-azure hover:underline">{phoneDisplay}</a></dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-ink">WhatsApp</dt>
+            <dd><a href={whatsappHref} target="_blank" rel="noopener noreferrer" class="text-azure hover:underline">{phoneDisplay}</a></dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-ink">Hours</dt>
+            <dd class="text-body">Wednesday: 12:00pm – 3:00pm<br />Other days: by appointment (on call)</dd>
+          </div>
+        </dl>
+        <p class="mt-4 text-sm leading-relaxed text-body">
+          Since the walk-in slot here is a single weekly window, message us on WhatsApp
+          ahead of time to confirm your spot on Wednesday, or to arrange an on-call
+          appointment on another day.
+        </p>
+        <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 font-semibold text-azure hover:underline">
+          Get directions on Google Maps →
+        </a>
+      </div>
+
+      <div data-reveal>
+        <h2 class="font-heading text-xl font-bold text-ink">What's available at this location</h2>
+        <p class="mt-4 leading-relaxed text-body">
+          On Wednesdays, Dr. Kamran Saleem runs new-patient and follow-up
+          <a href="/services/assessment" class="text-azure underline hover:text-navy">fertility assessments</a>
+          at TAMC, along with
+          <a href="/services/fertility-treatment" class="text-azure underline hover:text-navy">treatment planning</a>
+          for IVF, ICSI, and IUI. Given the Gulberg location, this clinic also handles a
+          steady number of
+          <a href="/services/support" class="text-azure underline hover:text-navy">second-opinion consultations</a>
+          for patients partway through treatment at another nearby fertility centre and
+          wanting an independent view before continuing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cloud py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8">
+      <h2 class="font-heading text-xl font-bold text-ink">Common questions about the M.M. Alam Road location</h2>
+      <div class="mt-6 space-y-6">
+        {faqs.map((item) => (
+          <div data-reveal>
+            <h3 class="font-semibold text-ink">{item.q}</h3>
+            <p class="mt-1 leading-relaxed text-body">{item.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CloseContact
+    heading="Ready to book at our M.M. Alam Road location?"
+    body="Message us on WhatsApp to arrange a consultation with Dr. Kamran Saleem at TAMC, M.M. Alam Road."
+    cta="Book Consultation"
+  />
+</Layout>
