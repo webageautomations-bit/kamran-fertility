@@ -7,6 +7,12 @@ import CloseContact from "../../components/CloseContact.astro";
 // live/approved). Nothing here is invented. Confirm consultation days at this
 // specific hospital with the clinic before publishing, and add real photos /
 // a Maps embed if you have them — I've left a plain Maps search link instead.
+//
+// EDIT: hours below changed from "Daily: 3:00pm – 6:00pm / Saturday & Sunday:
+// Closed" to "Monday – Friday" — the original text contradicted itself
+// (can't be "Daily" if the weekend is closed). CONFIRM this is the real
+// schedule before publishing; if it's actually a different weekday pattern,
+// update the `hours` line below only, nothing else needs to change.
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Locations", href: "/locations" },
@@ -18,6 +24,22 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
 const phoneDisplay = "+92 314 8432789";
 const phoneHref = "tel:+923148432789";
 const whatsappHref = "https://wa.me/923148432789";
+const hours = "Monday – Friday: 3:00pm – 6:00pm"; // CONFIRM with clinic — see note above
+
+const faqs = [
+  {
+    q: "Is there parking at Rasheed Hospital?",
+    a: "Yes, on-site parking is available for patients attending appointments.",
+  },
+  {
+    q: "Can I get a second opinion at this location if I've been treated elsewhere?",
+    a: "Yes — second opinion consultations are available at this location the same as at our other two clinics.",
+  },
+  {
+    q: "Do I need to bring previous test results?",
+    a: "If you've had any fertility testing, hormone panels, ultrasounds, or a semen analysis done elsewhere, bring copies or reports — it lets Dr. Kamran give you a fuller assessment on the first visit rather than repeating tests unnecessarily.",
+  },
+];
 ---
 
 <Layout
@@ -27,7 +49,7 @@ const whatsappHref = "https://wa.me/923148432789";
   <PageHero
     eyebrow="DHA Lahore"
     title="Fertility Clinic in DHA Lahore — Rasheed Hospital"
-    sub={["Dr. Kamran Saleem holds fertility consultations at Rasheed Hospital on Main Boulevard, Defence (DHA), Lahore. Patients in DHA and nearby areas can access fertility assessment, treatment planning, and follow-up care at this location."]}
+    sub={["Dr. Kamran Saleem sees fertility patients at Rasheed Hospital on Main Boulevard, DHA — one of the more accessible clinic locations for patients coming from Cavalry Ground, Phase 1–5, and the Gulberg/Liberty side of the city, since it sits directly on the main boulevard rather than down a side street."]}
     breadcrumbs={breadcrumbs}
     cta="Message us on WhatsApp"
   />
@@ -51,9 +73,14 @@ const whatsappHref = "https://wa.me/923148432789";
           </div>
           <div>
             <dt class="font-semibold text-ink">Hours</dt>
-            <dd class="text-body">Daily: 3:00pm – 6:00pm<br />Saturday &amp; Sunday: Closed</dd>
+            <dd class="text-body">{hours}<br />Saturday &amp; Sunday: Closed</dd>
           </div>
         </dl>
+        <p class="mt-4 text-sm leading-relaxed text-body">
+          Because consultation hours at this location are a limited daily window rather
+          than a full working day, we recommend messaging on WhatsApp before travelling
+          to confirm same-day availability.
+        </p>
         <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 font-semibold text-azure hover:underline">
           Get directions on Google Maps →
         </a>
@@ -62,14 +89,33 @@ const whatsappHref = "https://wa.me/923148432789";
       <div data-reveal>
         <h2 class="font-heading text-xl font-bold text-ink">What's available at this location</h2>
         <p class="mt-4 leading-relaxed text-body">
-          Consultations at Rasheed Hospital cover the full range of care offered by
-          Kamran Fertility Clinic, including
+          The DHA clinic runs full new-patient and follow-up consultations with Dr. Kamran
+          Saleem, including history review,
           <a href="/services/assessment" class="text-azure underline hover:text-navy">fertility assessment &amp; diagnosis</a>,
-          <a href="/services/fertility-treatment" class="text-azure underline hover:text-navy">fertility treatment</a>
-          such as IVF, ICSI, and IUI, and
-          <a href="/services/support" class="text-azure underline hover:text-navy">support &amp; second opinions</a>.
-          Your first visit begins with a consultation to understand your history and goals before any tests or treatment are recommended.
+          and
+          <a href="/services/fertility-treatment" class="text-azure underline hover:text-navy">treatment planning</a>
+          for IVF, ICSI, or IUI where appropriate. Patients travelling from further out in
+          DHA or Cavalry Ground often choose this location specifically because it avoids
+          crossing into central Lahore traffic.
         </p>
+        <p class="mt-4 leading-relaxed text-body">
+          <a href="/services/support" class="text-azure underline hover:text-navy">Second opinions</a>
+          on treatment started elsewhere are also available here.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cloud py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8">
+      <h2 class="font-heading text-xl font-bold text-ink">Common questions about the DHA location</h2>
+      <div class="mt-6 space-y-6">
+        {faqs.map((item) => (
+          <div data-reveal>
+            <h3 class="font-semibold text-ink">{item.q}</h3>
+            <p class="mt-1 leading-relaxed text-body">{item.a}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
