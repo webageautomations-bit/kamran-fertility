@@ -9,43 +9,465 @@ import CloseContact from "../../components/CloseContact.astro";
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Services" },
-  { label: "Fertility Treatment" },
+  { label: "Assessment & Diagnosis" },
 ];
 
-// Sections whose approved copy is pure prose render without the
-// "relevant if / what to expect" lists — the block component handles both.
-const ivfIcsiPgt = [
-  "IVF treatment may be recommended when pregnancy is difficult to achieve naturally due to blocked fallopian tubes, ovulation disorders, or unexplained infertility. During IVF, eggs are collected, fertilised with sperm in a specialised laboratory, and the healthiest embryo is transferred to the uterus. Many people know this as test tube baby treatment, although the fertilisation takes place in a laboratory rather than a test tube.",
-  "ICSI treatment is an advanced form of IVF used mainly for moderate to severe male infertility. During the procedure, a single healthy sperm is carefully injected into an egg to improve the chances of fertilisation when sperm count or movement is low.",
-  "For some couples with inherited genetic conditions, repeated IVF failure, or advanced maternal age, PGT treatment may be recommended to check embryos for certain chromosome or genetic conditions before embryo transfer. It is only advised when it is medically appropriate for your individual situation.",
-  "IVF treatment cost and ICSI treatment cost depend on your diagnosis, the medicines required, and whether PGT is included in your treatment plan. After your fertility assessment, we explain every step and provide a clear treatment plan before you make any decision.",
+// TODO (not published): the source copy for the Cost section ended with the
+// editor's note "If the clinic has a current consultation fee or testing range,
+// this section should be updated with the actual amount rather than an
+// estimated figure." Add the real fee/range to the cost section when known.
+
+// Shared classes for the detail content that sits under each ServiceBlock.
+const wrapClass = "mx-auto max-w-3xl space-y-5 text-body leading-relaxed";
+const h3Class = "pt-4 font-heading text-xl font-bold text-ink";
+const ulClass = "list-disc space-y-1.5 pl-6 marker:text-primary";
+const linkClass = "font-semibold text-primary underline underline-offset-2";
+
+const heroSub = [
+  "Trying to conceive can raise many questions, especially when pregnancy does not happen as expected. A fertility assessment can help identify factors that may be affecting conception and give you a clearer understanding of what to do next.",
+  "At Kamran Fertility Clinic, Dr. Kamran Saleem provides fertility assessment for both women and men in Lahore. Your consultation may include a review of your medical history, reproductive health, menstrual cycle, previous pregnancies, medications, lifestyle, sexual health, ovulation, hormone levels, and sperm health.",
+  "The goal is not to order every possible fertility test. Investigations are selected according to your age, symptoms, medical history, fertility history, and individual concerns.",
+].join(" ");
+
+// ---- What Is a Fertility Assessment? ----
+const whatIsIntro = [
+  "A fertility assessment is a medical evaluation used to understand factors that may be affecting conception. It can also help people who want to understand their reproductive health before trying for a pregnancy.",
+  "Fertility involves both partners. In women, factors can include ovulation, ovarian reserve, hormones, the fallopian tubes, the uterus, and age. In men, sperm production and quality, reproductive health, hormones, sexual health, and other medical factors can affect fertility.",
+  "For couples experiencing difficulty conceiving, evaluating both partners can help identify male and female factors rather than focusing only on the woman.",
+];
+const whatIsBody = [
+  { t: "p", text: "A fertility assessment may include:" },
+  {
+    t: "ul",
+    items: [
+      "Medical and reproductive history",
+      "Menstrual cycle and ovulation review",
+      "Physical examination when needed",
+      "Hormone blood tests",
+      "Pelvic ultrasound",
+      "Ovarian reserve assessment",
+      "Semen analysis",
+      "Assessment of sperm concentration, motility, and morphology",
+      "Assessment of the fallopian tubes when indicated",
+      "Review of previous fertility investigations",
+      "Review of previous fertility treatment",
+      "Additional tests based on the findings",
+    ],
+  },
+  { t: "p", text: "Not everyone needs every test. A systematic evaluation helps identify relevant factors while avoiding investigations that are unlikely to provide useful information." },
+];
+
+// ---- When Should You Have a Fertility Assessment? ----
+const whenBody = [
+  {
+    t: "ul",
+    items: [
+      "You have been trying to conceive for 12 months without pregnancy.",
+      "You are 35 or older and have been trying for about 6 months without pregnancy.",
+      "Your periods are irregular, absent, or difficult to predict.",
+      "You have symptoms or a diagnosis associated with fertility problems, such as PCOS or endometriosis.",
+      "You have experienced recurrent miscarriage.",
+      "You have a history of pelvic infection, reproductive surgery, or another condition that may affect fertility.",
+      "Your partner has an abnormal semen analysis.",
+      "You have concerns about sperm count or sperm quality.",
+      "You have previously undergone fertility treatment without the expected result.",
+      "You want a fertility check before trying to conceive because of a known risk factor or personal concern.",
+    ],
+  },
+  { t: "p", text: "Earlier assessment may be appropriate when there is a known or suspected condition that can affect fertility. Age is also an important consideration because female fertility generally declines with increasing age." },
+];
+
+// ---- Female Fertility Assessment ----
+const femaleIntro = [
+  "Female fertility can be affected by ovulation, ovarian reserve, hormones, the fallopian tubes, the uterus, endometriosis, and other reproductive health conditions.",
+  "A female fertility assessment usually begins with questions about your menstrual cycle, previous pregnancies, miscarriages, medical conditions, medications, previous surgery, symptoms, and how long you have been trying to conceive.",
+  "Depending on your history, a female fertility test or evaluation may include the following.",
+];
+const femaleBody = [
+  { t: "h3", text: "Hormone Tests for Fertility" },
+  { t: "p", text: "Hormone testing can provide information about reproductive function and, in selected situations, ovulation and ovarian reserve." },
+  { t: "p", text: "Depending on your symptoms and medical history, your doctor may consider tests such as:" },
+  {
+    t: "ul",
+    items: [
+      "AMH",
+      "FSH",
+      "LH",
+      "Thyroid-related tests",
+      "Prolactin when clinically indicated",
+      "Other reproductive hormones when needed",
+    ],
+  },
+  { t: "link", before: "For more information, read our guide on ", href: "/resources/hormone-test--for-fertility", label: "Hormone Test for Fertility: Which Tests Do Women Need?", after: "" },
+  { t: "p", text: "Hormone levels can change during the menstrual cycle, so the timing of some tests matters. Your doctor will explain which tests are useful and when they should be performed." },
+  { t: "p", text: "A hormone result should also be interpreted in context. A single hormone test cannot provide a complete picture of fertility." },
+
+  { t: "h3", text: "Ovulation Assessment" },
+  { t: "p", text: "Ovulation is the release of an egg from an ovary and is an important part of natural conception." },
+  { t: "p", text: "Your doctor may consider ovulation assessment if your periods are irregular, absent, unusually short or long, or if your medical history suggests an ovulation problem." },
+  { t: "p", text: "Assessment may include:" },
+  {
+    t: "ul",
+    items: [
+      "Menstrual cycle history",
+      "Cycle regularity",
+      "Symptoms associated with ovulation",
+      "Hormone testing when appropriate",
+      "Ultrasound findings",
+      "Other investigations when needed",
+    ],
+  },
+  { t: "p", text: "Regular periods can be reassuring, but they do not by themselves rule out every possible fertility problem." },
+
+  { t: "h3", text: "Ovarian Reserve Assessment" },
+  { t: "p", text: "Ovarian reserve refers to the remaining supply of eggs in the ovaries." },
+  { t: "p", text: "Tests such as AMH and antral follicle count may provide information about ovarian reserve. However, ovarian reserve testing is not a standalone fertility prediction. Results need to be considered alongside age, medical history, menstrual pattern, ultrasound findings, and other fertility factors." },
+  { t: "p", text: "Ovarian reserve testing is particularly useful when it forms part of an appropriate fertility evaluation rather than being treated as a general screening test for everyone." },
+
+  { t: "h3", text: "Pelvic Ultrasound" },
+  { t: "p", text: "A pelvic ultrasound can help assess the uterus and ovaries." },
+  { t: "p", text: "Depending on the situation, it may help identify findings such as:" },
+  {
+    t: "ul",
+    items: [
+      "Ovarian cysts",
+      "Fibroids",
+      "Uterine abnormalities",
+      "Ovarian appearance",
+      "Antral follicles",
+      "Other pelvic findings",
+    ],
+  },
+  { t: "p", text: "Ultrasound may also contribute to the assessment of ovulation and ovarian reserve." },
+
+  { t: "h3", text: "Fallopian Tube Assessment" },
+  { t: "p", text: "The fallopian tubes provide the pathway through which sperm and egg can meet. Blocked or damaged tubes can therefore affect natural conception." },
+  { t: "p", text: "When there is a reason to assess tubal patency, your doctor may recommend an investigation such as a hysterosalpingogram (HSG) or another suitable test." },
+  { t: "p", text: "A tubal test is not automatically required for every person. The decision depends on your fertility history, symptoms, previous surgery or infection, and other clinical findings." },
+];
+
+// ---- Male Fertility Test in Lahore ----
+const maleIntro = [
+  "Fertility is not only a woman's concern. Male factors can contribute to difficulty conceiving, which is why evaluating both partners can be important.",
+];
+const maleBody = [
+  { t: "p", text: "A male fertility assessment may include:" },
+  {
+    t: "ul",
+    items: [
+      "Medical and reproductive history",
+      "Previous semen analysis results",
+      "Semen analysis",
+      "Sperm concentration",
+      "Sperm motility",
+      "Sperm morphology",
+      "Review of medications and lifestyle factors",
+      "Previous infections or reproductive problems",
+      "Previous testicular injury or surgery",
+      "Hormone testing when indicated",
+      "Assessment of sexual or reproductive health concerns when relevant",
+    ],
+  },
+  { t: "link", before: "For a detailed explanation of male fertility testing, see our guide on ", href: "/resources/male-fertility-test", label: "Male Fertility Test: What It Involves and What the Results Mean", after: "." },
+
+  { t: "h3", text: "Semen Analysis" },
+  { t: "p", text: "Semen analysis is one of the main tests used to assess male fertility." },
+  { t: "p", text: "It provides information about characteristics such as:" },
+  {
+    t: "ul",
+    items: [
+      "Semen volume",
+      "Sperm concentration",
+      "Sperm motility",
+      "Sperm morphology",
+      "Other laboratory measures used to assess semen quality",
+    ],
+  },
+  { t: "link", before: "For a more detailed explanation of semen testing and results, read ", href: "/resources/understanding-a-semen-analysis", label: "Understanding a Semen Analysis", after: "." },
+  { t: "p", text: "An abnormal semen analysis does not automatically mean that pregnancy is impossible. Semen parameters can vary, and an abnormal result may need confirmation or further investigation." },
+];
+
+// ---- Fertility, Sexual Health and Other Symptoms ----
+const symptomsIntro = "Some fertility concerns occur alongside sexual, hormonal, or reproductive symptoms.";
+const symptomsBody = [
+  { t: "p", text: "For men, it can be useful to mention:" },
+  {
+    t: "ul",
+    items: [
+      "Erectile difficulties",
+      "Reduced libido",
+      "Ejaculation problems",
+      "Previous genital or reproductive infections",
+      "Testicular pain or injury",
+      "Previous testicular surgery",
+    ],
+  },
+  { t: "p", text: "For women, relevant information can include:" },
+  {
+    t: "ul",
+    items: [
+      "Irregular periods",
+      "Absent periods",
+      "Very painful periods",
+      "Pelvic pain",
+      "Symptoms associated with PCOS",
+      "Previous pelvic infection",
+      "Previous reproductive surgery",
+      "Previous miscarriages",
+    ],
+  },
+  { t: "link", before: "For more information about PCOS and fertility, see ", href: "/resources/pcos-and-fertility", label: "PCOS and Fertility: Can You Get Pregnant with PCOS?", after: "" },
+  { t: "p", text: "These details can help your doctor understand the wider picture rather than assessing fertility through a single test." },
+];
+
+// ---- What Happens During a Fertility Assessment? ----
+const duringIntro = "A fertility assessment is more than a list of laboratory tests. The first consultation is used to understand your history, identify possible factors, review existing information, and decide whether further testing is necessary.";
+const duringBody = [
+  { t: "h3", text: "1. Medical and Reproductive History" },
+  { t: "p", text: "Your doctor may ask about:" },
+  {
+    t: "ul",
+    items: [
+      "How long you have been trying to conceive",
+      "Your menstrual cycle",
+      "Previous pregnancies",
+      "Previous miscarriages",
+      "Medical conditions",
+      "Previous operations",
+      "Medications",
+      "Lifestyle factors",
+      "Previous fertility investigations",
+      "Previous fertility treatment",
+      "Sexual or reproductive health concerns",
+      "Relevant family history",
+    ],
+  },
+  { t: "p", text: "A detailed history can help determine which investigations are useful." },
+
+  { t: "h3", text: "2. Review of Previous Reports" },
+  { t: "p", text: "If you have already had blood tests, ultrasound reports, semen analysis, HSG results, or fertility treatment elsewhere, bring the reports to your appointment." },
+  { t: "p", text: "Recent results may provide useful information and can help avoid unnecessary repetition." },
+
+  { t: "h3", text: "3. Targeted Fertility Testing" },
+  { t: "p", text: "Testing is selected according to the information gathered during the consultation." },
+  { t: "p", text: "Depending on the situation, this may include:" },
+  {
+    t: "ul",
+    items: [
+      "Hormone testing",
+      "Pelvic ultrasound",
+      "Ovulation assessment",
+      "Ovarian reserve assessment",
+      "Semen analysis",
+      "Tubal assessment",
+      "Other diagnostic investigations",
+    ],
+  },
+  { t: "p", text: "The purpose is to investigate relevant fertility factors rather than automatically ordering every available test." },
+
+  { t: "h3", text: "4. Explanation of Results and Next Steps" },
+  { t: "p", text: "Understanding your results is an important part of fertility care." },
+  { t: "p", text: "Your doctor can explain:" },
+  {
+    t: "ul",
+    items: [
+      "What your results show",
+      "Which findings are normal or need further assessment",
+      "Whether additional testing is needed",
+      "Whether a treatable cause has been identified",
+      "What options may be available next",
+    ],
+  },
+  { t: "p", text: "The next step is not always fertility treatment. Sometimes the appropriate next step is reassurance, further investigation, treatment of an underlying condition, or continued attempts at natural conception." },
+];
+
+// ---- How to Prepare for a Fertility Assessment ----
+const prepareIntro = "Before your consultation, gather any information that may help your doctor understand your fertility history.";
+const prepareBody = [
+  { t: "p", text: "Bring:" },
+  {
+    t: "ul",
+    items: [
+      "Previous blood test reports",
+      "Ultrasound reports",
+      "Semen analysis results",
+      "HSG or other tubal test reports",
+      "Previous fertility treatment records",
+      "A list of current medications",
+      "Information about your menstrual cycle",
+      "Details of previous pregnancies or miscarriages",
+      "Relevant surgical or medical records",
+    ],
+  },
+  { t: "p", text: "If you are attending because of difficulty conceiving as a couple, it can be helpful for both partners to provide their medical and reproductive history." },
+  { t: "p", text: "If a semen analysis is planned, follow the laboratory's collection instructions, including the recommended period of sexual abstinence." },
+  { t: "p", text: "For hormone testing, ask whether the test needs to be performed on a particular day of your menstrual cycle." },
+];
+
+// ---- What Causes Fertility Problems? ----
+const causesIntro = "Infertility can have many possible causes, and sometimes more than one factor is involved.";
+const causesBody = [
+  { t: "p", text: "Possible factors include:" },
+  {
+    t: "ul",
+    items: [
+      "Ovulation problems",
+      "PCOS",
+      "Reduced ovarian reserve",
+      "Endometriosis",
+      "Blocked or damaged fallopian tubes",
+      "Uterine conditions",
+      "Hormonal disorders",
+      "Reduced sperm concentration",
+      "Reduced sperm motility",
+      "Abnormal sperm morphology",
+      "Sexual or reproductive health problems",
+      "Previous infections",
+      "Previous reproductive surgery",
+      "Age-related changes",
+      "Male and female factors occurring together",
+      "Unexplained infertility",
+    ],
+  },
+  { t: "p", text: "Sometimes appropriate testing does not identify a clear cause. This is commonly described as unexplained infertility." },
+  { t: "p", text: "Not finding one obvious cause does not mean there are no treatment options. Your doctor can discuss the next steps based on your age, fertility history, test results, and treatment goals." },
+];
+
+// ---- Does Every Fertility Problem Need IVF? ----
+const ivfIntro = "No. IVF is one fertility treatment, but it is not automatically required after a fertility assessment.";
+const ivfBody = [
+  { t: "p", text: "Depending on the cause, management may include:" },
+  {
+    t: "ul",
+    items: [
+      "Advice about timing intercourse",
+      "Treatment of an underlying medical condition",
+      "Medication",
+      "Ovulation management",
+      "Treatment of certain male fertility problems",
+      "Intrauterine insemination (IUI)",
+      "In vitro fertilization (IVF)",
+      "Intracytoplasmic sperm injection (ICSI)",
+      "Other fertility treatments when appropriate",
+    ],
+  },
+  { t: "p", text: "The right approach depends on the underlying findings and the individual circumstances of the person or couple." },
+  { t: "p", text: "A fertility assessment helps provide information before treatment decisions are made." },
+  { t: "link", before: "For more information about available treatment options, see ", href: "/services/fertility-treatment", label: "Fertility Treatment in Lahore", after: "." },
+];
+
+// ---- Fertility Assessment Cost in Lahore ----
+const costIntro = "The cost of a fertility assessment depends on the consultation and the investigations that are recommended.";
+const costBody = [
+  { t: "p", text: "A fertility evaluation may involve separate costs for services such as:" },
+  {
+    t: "ul",
+    items: [
+      "Doctor consultation",
+      "Hormone tests",
+      "Ultrasound",
+      "Semen analysis",
+      "Ovarian reserve testing",
+      "Tubal assessment",
+    ],
+  },
+  { t: "p", text: "Because patients do not all require the same investigations, there may not be one appropriate fixed price for every fertility assessment." },
+  { t: "p", text: "Before proceeding with additional tests, you can ask the clinic:" },
+  {
+    t: "ul",
+    items: [
+      "Which test is being recommended?",
+      "Why is the test needed?",
+      "When should it be performed?",
+      "How should I prepare?",
+      "What is the cost?",
+    ],
+  },
+];
+
+// ---- What Happens After a Fertility Assessment? ----
+const afterIntro = "A fertility assessment does not automatically mean that you will need IVF or another fertility treatment.";
+const afterBody = [
+  { t: "p", text: "Your next step may be:" },
+  {
+    t: "ul",
+    items: [
+      "Reassurance and continued attempts to conceive",
+      "Further diagnostic testing",
+      "Treatment of an identified medical condition",
+      "Ovulation management",
+      "Male fertility treatment",
+      "IUI",
+      "IVF or ICSI when appropriate",
+      "A second opinion about previous results or treatment",
+    ],
+  },
+  { t: "p", text: "The purpose of the assessment is to understand the situation first so that any next step can be based on the available medical information." },
+  { t: "p", text: "If you have already had fertility tests or treatment elsewhere, you can bring your previous reports for review and discuss whether further investigation or another treatment approach is appropriate." },
+  { t: "link", before: "You can also learn more about ", href: "/services/support", label: "Support & Second Opinions", after: " if you have already received a diagnosis or treatment plan elsewhere." },
 ];
 
 // FAQ content — kept in one place so the visible accordion and the
 // FAQPage schema below always stay in sync.
 const faqs = [
   {
-    q: "How much does IVF or ICSI treatment cost in Lahore?",
-    a: "Cost depends on your diagnosis, the medicines your protocol needs, and whether ICSI or PGT is included. You'll get a clear, itemised treatment plan with costs explained before you decide anything.",
+    q: "How long should you try before having a fertility assessment?",
+    a: "When there is no known fertility problem, evaluation is generally considered after 12 months of regular unprotected intercourse if the female partner is under 35. For women aged 35 or older, evaluation is generally considered after 6 months. Earlier assessment may be appropriate when there is a known or suspected fertility problem or another risk factor.",
   },
   {
-    q: "How do I know if I need IUI, IVF, or ICSI?",
-    a: "This is decided after your fertility assessment, not before it. IUI is usually considered first for mild male-factor or unexplained infertility, IVF for blocked tubes or ovulation disorders, and ICSI when sperm count or motility is significantly reduced.",
+    q: "Should both partners have a fertility assessment?",
+    a: "When a couple is experiencing difficulty conceiving, both partners may need to be considered. Fertility problems can involve male factors, female factors, or a combination of both. Parallel evaluation can help avoid overlooking a contributing factor.",
   },
   {
-    q: "How long does a full IVF cycle take?",
-    a: "A typical IVF cycle, from starting ovarian stimulation medication to embryo transfer, takes around four to six weeks. Your specialist will map out the exact timeline for your protocol during your consultation.",
+    q: "What is the first fertility test for a woman?",
+    a: "There is no single test that evaluates every aspect of female fertility. Depending on the medical history, assessment may include menstrual and ovulation evaluation, hormone testing, pelvic ultrasound, ovarian reserve assessment, and assessment of the fallopian tubes.",
   },
   {
-    q: "Is fertility treatment painful?",
-    a: "Most steps involve mild discomfort rather than pain — injections for ovarian stimulation, and a brief, usually sedated procedure for egg collection. IUI and embryo transfer are typically painless and similar to a routine internal exam.",
+    q: "What is the main fertility test for men?",
+    a: "Semen analysis is a key initial investigation for male fertility. It provides information about semen and sperm characteristics such as concentration, motility, and morphology. Further testing may be recommended depending on the result and medical history.",
   },
+  {
+    q: "Can you have fertility problems with regular periods?",
+    a: "Yes. Regular menstrual cycles do not rule out every possible fertility problem. Fertility can also be affected by factors involving the fallopian tubes, uterus, ovarian reserve, sperm health, age, or other reproductive conditions.",
+  },
+  {
+    q: "Can you check fertility before trying for a baby?",
+    a: "Yes. A preconception or fertility consultation may be useful for people who have concerns about age, previous reproductive problems, family history, previous medical treatment, or another known risk factor.",
+  },
+  {
+    q: "How should I prepare for a semen analysis?",
+    a: "Follow the laboratory's instructions. The sample collection requirements should be confirmed with the clinic or laboratory before testing.",
+  },
+  {
+    q: "Do fertility tests have to be done on a specific day?",
+    a: "Some fertility tests are affected by the menstrual cycle, while others can be performed at different times. Your doctor will explain the appropriate timing for each investigation.",
+  },
+  {
+    q: "Does an abnormal semen analysis mean infertility?",
+    a: "No. An abnormal result does not by itself mean that pregnancy is impossible. Depending on the findings, the semen analysis may be repeated and additional evaluation may be recommended.",
+  },
+  {
+    q: "Can fertility problems be treated without IVF?",
+    a: "Yes. IVF is only one treatment option. Depending on the underlying cause, management may include medication, treatment of an underlying condition, ovulation management, male fertility treatment, IUI, or other approaches.",
+  },
+];
+
+// Closing section
+const closingParas = [
+  "Understanding your fertility should start with accurate information and an evaluation suited to your individual situation.",
+  "At Kamran Fertility Clinic, Dr. Kamran Saleem provides fertility assessment for women and men with concerns about conception, reproductive health, menstrual problems, sperm health, or previous fertility treatment.",
+  "Your assessment can include a review of your medical and reproductive history, previous reports, fertility concerns, and relevant diagnostic tests. The aim is to explain the findings clearly and help you understand your available next steps.",
+];
+const locations = [
+  "Rasheed Hospital — DHA Lahore",
+  "TAMC — M.M. Alam Road, Lahore",
+  "Shahnaz Hospital — Shalamar Link Road, Lahore",
 ];
 ---
 
 <Layout
-  title="IVF, ICSI & Fertility Treatment in Lahore | Dr. Kamran Saleem"
-  description="Fertility treatment in Lahore, explained honestly before it's decided. IVF, ICSI, PGT, IUI cost & fertility preservation with Dr. Kamran Saleem."
+  title="Fertility Assessment in Lahore | Tests & Diagnosis – Dr. Kamran Saleem"
+  description="Personalised fertility assessment in Lahore with Dr. Kamran Saleem — fertility tests, hormone testing, ultrasound & semen analysis, explained clearly."
 >
   <!-- Structured data: helps Google and AI answer engines understand this
        as a medical service page with genuine FAQ content. Purely additive —
@@ -55,10 +477,10 @@ const faqs = [
     "@graph": [
       {
         "@type": "MedicalWebPage",
-        "@id": "https://www.kamranfertility.com/services/fertility-treatment#webpage",
-        "url": "https://www.kamranfertility.com/services/fertility-treatment",
-        "name": "Fertility Treatment in Lahore",
-        "description": "Fertility treatment in Lahore, explained honestly before it's decided. IVF, ICSI, PGT, IUI cost & fertility preservation with Dr. Kamran Saleem.",
+        "@id": "https://www.kamranfertility.com/services/assessment#webpage",
+        "url": "https://www.kamranfertility.com/services/assessment",
+        "name": "Fertility Assessment & Diagnosis in Lahore",
+        "description": "Personalised fertility assessment in Lahore with Dr. Kamran Saleem — fertility tests, hormone testing, ultrasound & semen analysis, explained clearly.",
         "specialty": "Reproductive Medicine",
         "isPartOf": { "@id": "https://www.kamranfertility.com/#website" },
         "about": {
@@ -73,7 +495,7 @@ const faqs = [
         "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.kamranfertility.com/" },
           { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.kamranfertility.com/#services" },
-          { "@type": "ListItem", "position": 3, "name": "Fertility Treatment", "item": "https://www.kamranfertility.com/services/fertility-treatment" }
+          { "@type": "ListItem", "position": 3, "name": "Assessment & Diagnosis", "item": "https://www.kamranfertility.com/services/assessment" }
         ]
       },
       {
@@ -88,98 +510,248 @@ const faqs = [
   })} />
 
   <PageHero
-    eyebrow="Fertility Treatment"
-    title="Fertility Treatment in Lahore"
-    sub="Every fertility journey is different, and the right treatment starts with finding the real cause of infertility—not making assumptions. At Kamran Fertility Clinic, fertility treatment in Lahore always begins with a detailed fertility assessment. We carefully review your hormone levels, ultrasound results, and semen analysis before recommending any treatment. This is the same approach we follow for couples seeking fertility treatment in Pakistan—every treatment plan is personalised and recommended only after understanding what is affecting your ability to conceive."
+    eyebrow="Assessment & Diagnosis"
+    title="Fertility Assessment & Diagnosis in Lahore"
+    sub={heroSub}
     breadcrumbs={breadcrumbs}
   />
 
   <section class="bg-white py-20 md:py-28">
     <div class="relative z-10 mx-auto max-w-6xl space-y-20 px-5 sm:px-8 md:space-y-28">
-      <ServiceBlock
-        id="ivf-icsi-pgt"
-        title="IVF & ICSI, with PGT Treatment"
-        intro={ivfIcsiPgt}
-      >
-        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M9 3l6 0" />
-          <path d="M10 9l4 0" />
-          <path d="M10 3v6l-4 11a.7 .7 0 0 0 .5 1h11a.7 .7 0 0 0 .5 -1l-4 -11v-6" />
-        </svg>
-      </ServiceBlock>
 
-      <ServiceBlock
-        id="male-fertility-treatment"
-        title="Male Fertility Treatment in Lahore"
-        intro="Male infertility contributes to many fertility problems, but it is often overlooked. Male fertility treatment in Lahore starts with a detailed semen analysis and hormone testing to identify the underlying cause. Depending on the results, treatment may include medication, a minor procedure, or ICSI. Every recommendation is based on your diagnosis, helping you receive the treatment that is most suitable for your condition."
-        reversed
-      >
-        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-          <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
-          <path d="M15 19l2 2l4 -4" />
-        </svg>
-      </ServiceBlock>
-
-      <ServiceBlock
-        id="iui"
-        title="IUI Treatment"
-        intro="IUI treatment is a simple and less invasive fertility option that places specially prepared sperm directly into the uterus at the right time during ovulation. It may be suitable for couples with mild male infertility, unexplained infertility, or certain ovulation-related conditions. Whether IUI is the right choice depends on your fertility assessment, and IUI treatment cost is explained after your personalised treatment plan has been prepared. If another treatment offers a better chance of success, our specialists will discuss that with you honestly."
-      >
-        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M6.8 11a6 6 0 1 0 10.396 0l-5.197 -8l-5.199 8z" />
-        </svg>
-      </ServiceBlock>
-
-      <ServiceBlock
-        id="preservation"
-        title="Fertility Preservation"
-        intro="Fertility preservation helps protect your future ability to have children through egg or sperm freezing. It may be recommended if you plan to delay parenthood or are preparing for medical treatments that could affect fertility. Your fertility specialist will explain the most suitable option based on your age, health, and future family plans, while helping you understand what fertility preservation can realistically achieve."
-        reversed
-      >
-        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 3v18" />
-          <path d="M5.5 6.5l13 11" />
-          <path d="M18.5 6.5l-13 11" />
-        </svg>
-      </ServiceBlock>
-    </div>
-  </section>
-
-  <!-- Where treatment starts — new, additive internal linking block -->
-  <section class="bg-ice py-16 md:py-20">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8">
-      <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">
-        Where treatment starts
-      </h2>
-      <p class="mx-auto measure mt-3 text-center text-body [margin-inline:auto]">
-        Every treatment plan on this page begins with the same first step —
-        finding out what's actually causing the difficulty conceiving.
-      </p>
-      <div class="mt-10 grid gap-6 sm:grid-cols-2">
-        <a href="/services/assessment" class="block rounded-2xl border border-black/5 bg-white p-6 transition hover:shadow-md">
-          <h3 class="font-heading text-lg font-bold text-ink">Fertility Assessment & Diagnosis</h3>
-          <p class="mt-2 text-body">
-            Hormone testing, ultrasound, and semen analysis to find the real
-            cause before any treatment is recommended.
-          </p>
-        </a>
-        <a href="/services/support" class="block rounded-2xl border border-black/5 bg-white p-6 transition hover:shadow-md">
-          <h3 class="font-heading text-lg font-bold text-ink">Support & Second Opinions</h3>
-          <p class="mt-2 text-body">
-            Already started treatment elsewhere? Get an independent specialist
-            review of your plan before continuing.
-          </p>
-        </a>
+      <div class="space-y-10">
+        <ServiceBlock
+          id="what-is-a-fertility-assessment"
+          title="What Is a Fertility Assessment?"
+          intro={whatIsIntro}
+        >
+          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" />
+            <path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" />
+            <path d="M9 14l2 2l4 -4" />
+          </svg>
+        </ServiceBlock>
+        <div class={wrapClass}>
+          {whatIsBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : <p>{b.text}</p>
+          )}
+        </div>
       </div>
+
+      <div class="space-y-10">
+        <ServiceBlock
+          id="when-to-have-a-fertility-assessment"
+          title="When Should You Have a Fertility Assessment?"
+          intro="You may wish to arrange a fertility consultation if:"
+          reversed
+        >
+          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
+            <path d="M16 3v4" />
+            <path d="M8 3v4" />
+            <path d="M4 11h16" />
+          </svg>
+        </ServiceBlock>
+        <div class={wrapClass}>
+          {whenBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : <p>{b.text}</p>
+          )}
+        </div>
+      </div>
+
+      <div class="space-y-10">
+        <ServiceBlock
+          id="female-fertility-assessment"
+          title="Female Fertility Assessment"
+          intro={femaleIntro}
+        >
+          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+          </svg>
+        </ServiceBlock>
+        <div class={wrapClass}>
+          {femaleBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : <p>{b.text}</p>
+          )}
+        </div>
+      </div>
+
+      <div class="space-y-10">
+        <ServiceBlock
+          id="male-fertility-test"
+          title="Male Fertility Test in Lahore"
+          intro={maleIntro}
+          reversed
+        >
+          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
+            <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
+            <path d="M15 19l2 2l4 -4" />
+          </svg>
+        </ServiceBlock>
+        <div class={wrapClass}>
+          {maleBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : <p>{b.text}</p>
+          )}
+        </div>
+      </div>
+
+      <div class="space-y-10">
+        <ServiceBlock
+          id="sexual-health-and-other-symptoms"
+          title="Fertility, Sexual Health and Other Symptoms"
+          intro={symptomsIntro}
+        >
+          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 12h4l3 8l4 -16l3 8h4" />
+          </svg>
+        </ServiceBlock>
+        <div class={wrapClass}>
+          {symptomsBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : <p>{b.text}</p>
+          )}
+        </div>
+      </div>
+
+      <div class="space-y-10">
+        <ServiceBlock
+          id="what-happens-during-an-assessment"
+          title="What Happens During a Fertility Assessment?"
+          intro={duringIntro}
+          reversed
+        >
+          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 6h9" />
+            <path d="M11 12h9" />
+            <path d="M12 18h8" />
+            <path d="M4 16a2 2 0 1 1 4 0c0 .591 -.5 1 -1 1.5l-3 2.5h4" />
+            <path d="M6 10v-6l-2 2" />
+          </svg>
+        </ServiceBlock>
+        <div class={wrapClass}>
+          {duringBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : <p>{b.text}</p>
+          )}
+        </div>
+      </div>
+
+      <div class="space-y-10">
+        <ServiceBlock
+          id="how-to-prepare"
+          title="How to Prepare for a Fertility Assessment"
+          intro={prepareIntro}
+        >
+          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+            <path d="M9 9l1 0" />
+            <path d="M9 13l6 0" />
+            <path d="M9 17l6 0" />
+          </svg>
+        </ServiceBlock>
+        <div class={wrapClass}>
+          {prepareBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : <p>{b.text}</p>
+          )}
+        </div>
+      </div>
+
+      <div class="space-y-10">
+        <ServiceBlock
+          id="what-causes-fertility-problems"
+          title="What Causes Fertility Problems?"
+          intro={causesIntro}
+          reversed
+        >
+          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+            <path d="M21 21l-6 -6" />
+          </svg>
+        </ServiceBlock>
+        <div class={wrapClass}>
+          {causesBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : <p>{b.text}</p>
+          )}
+        </div>
+      </div>
+
+      <div class="space-y-10">
+        <ServiceBlock
+          id="does-every-problem-need-ivf"
+          title="Does Every Fertility Problem Need IVF?"
+          intro={ivfIntro}
+        >
+          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 3l6 0" />
+            <path d="M10 9l4 0" />
+            <path d="M10 3v6l-4 11a.7 .7 0 0 0 .5 1h11a.7 .7 0 0 0 .5 -1l-4 -11v-6" />
+          </svg>
+        </ServiceBlock>
+        <div class={wrapClass}>
+          {ivfBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : <p>{b.text}</p>
+          )}
+        </div>
+      </div>
+
+      <div class="space-y-10">
+        <ServiceBlock
+          id="fertility-assessment-cost"
+          title="Fertility Assessment Cost in Lahore"
+          intro={costIntro}
+          reversed
+        >
+          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
+            <path d="M14.8 9a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1" />
+            <path d="M12 6v2m0 8v2" />
+          </svg>
+        </ServiceBlock>
+        <div class={wrapClass}>
+          {costBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : <p>{b.text}</p>
+          )}
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- FAQs — new, additive; mirrors the FAQPage schema above -->
+  <!-- FAQs — mirrors the FAQPage schema above -->
   <section class="bg-white py-16 md:py-20">
     <div class="mx-auto max-w-3xl px-5 sm:px-8">
       <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">
-        Fertility treatment: frequently asked questions
+        Frequently Asked Questions About Fertility Assessment
       </h2>
       <div class="mt-10 space-y-4">
         {faqs.map((item) => (
@@ -194,36 +766,108 @@ const faqs = [
     </div>
   </section>
 
-  <!-- Related reading — new, additive internal linking to the blog -->
+  <!-- What happens after an assessment -->
   <section class="bg-ice py-16 md:py-20">
+    <div class="mx-auto max-w-6xl space-y-10 px-5 sm:px-8">
+      <ServiceBlock
+        id="what-happens-after"
+        title="What Happens After a Fertility Assessment?"
+        intro={afterIntro}
+      >
+        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12l14 0" />
+          <path d="M13 18l6 -6" />
+          <path d="M13 6l6 6" />
+        </svg>
+      </ServiceBlock>
+      <div class={wrapClass}>
+        {afterBody.map((b) =>
+          b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+          : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+          : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+          : <p>{b.text}</p>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing: assessment with Dr. Kamran Saleem + clinic locations -->
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8">
+      <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">
+        Fertility Assessment in Lahore With Dr. Kamran Saleem
+      </h2>
+      <div class={`mt-10 ${wrapClass}`}>
+        {closingParas.map((p) => <p>{p}</p>)}
+        <h3 class={h3Class}>Clinic Locations in Lahore</h3>
+        <ul class={ulClass}>
+          {locations.map((li) => <li>{li}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Where an assessment can lead — internal linking block -->
+  <section class="bg-ice py-16 md:py-20">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">
+        Where an assessment can lead
+      </h2>
+      <p class="mx-auto measure mt-3 text-center text-body [margin-inline:auto]">
+        Once your results are in, we'll walk you through what they mean and
+        what, if anything, makes sense next.
+      </p>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2">
+        <a href="/services/fertility-treatment" class="block rounded-2xl border border-black/5 bg-white p-6 transition hover:shadow-md">
+          <h3 class="font-heading text-lg font-bold text-ink">Fertility Treatment</h3>
+          <p class="mt-2 text-body">
+            If your assessment points to a specific cause, explore IUI, IVF,
+            ICSI, PGD and PGT options — recommended only when clinically
+            indicated.
+          </p>
+        </a>
+        <a href="/services/support" class="block rounded-2xl border border-black/5 bg-white p-6 transition hover:shadow-md">
+          <h3 class="font-heading text-lg font-bold text-ink">Support & Second Opinions</h3>
+          <p class="mt-2 text-body">
+            Already have test results or a previous treatment plan from
+            elsewhere? Get an independent specialist review before deciding
+            what's next.
+          </p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related reading — internal linking to the blog -->
+  <section class="bg-white py-16 md:py-20">
     <div class="mx-auto max-w-6xl px-5 sm:px-8">
       <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">
         Related reading
       </h2>
       <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <a href="/resources/ivf-treatment-in-lahore" class="block rounded-2xl border border-black/5 bg-white p-5 transition hover:shadow-md">
+        <a href="/resources/fertility-assessment-in-lahore" class="block rounded-2xl border border-black/5 bg-white p-5 transition hover:shadow-md">
           <p class="text-sm font-semibold text-primary">Fertility Treatment</p>
-          <h3 class="mt-1 font-heading font-bold text-ink">IVF Treatment in Lahore: Cost, Process, Tests & Choosing the Right Clinic</h3>
+          <h3 class="mt-1 font-heading font-bold text-ink">Where Can You Get a Fertility Assessment in Lahore?</h3>
         </a>
-        <a href="/resources/icsi-treatment-in-lahore" class="block rounded-2xl border border-black/5 bg-white p-5 transition hover:shadow-md">
+        <a href="/resources/male-fertility-test" class="block rounded-2xl border border-black/5 bg-white p-5 transition hover:shadow-md">
+          <p class="text-sm font-semibold text-primary">Diagnosis</p>
+          <h3 class="mt-1 font-heading font-bold text-ink">Male fertility test: what it involves and what the results mean</h3>
+        </a>
+        <a href="/resources/understanding-a-semen-analysis" class="block rounded-2xl border border-black/5 bg-white p-5 transition hover:shadow-md">
+          <p class="text-sm font-semibold text-primary">Diagnosis</p>
+          <h3 class="mt-1 font-heading font-bold text-ink">Understanding a semen analysis</h3>
+        </a>
+        <a href="/resources/hormone-test--for-fertility" class="block rounded-2xl border border-black/5 bg-white p-5 transition hover:shadow-md">
           <p class="text-sm font-semibold text-primary">Fertility Treatment</p>
-          <h3 class="mt-1 font-heading font-bold text-ink">ICSI Treatment in Lahore: Procedure, Cost, Benefits and Success Factors</h3>
+          <h3 class="mt-1 font-heading font-bold text-ink">Hormone Test for Fertility: Which Tests Do Women Need?</h3>
         </a>
-        <a href="/resources/ivf-vs-iui" class="block rounded-2xl border border-black/5 bg-white p-5 transition hover:shadow-md">
-          <p class="text-sm font-semibold text-primary">Treatments</p>
-          <h3 class="mt-1 font-heading font-bold text-ink">IVF vs IUI — understanding the difference</h3>
+        <a href="/resources/pcos-and-fertility" class="block rounded-2xl border border-black/5 bg-white p-5 transition hover:shadow-md">
+          <p class="text-sm font-semibold text-primary">Women's health</p>
+          <h3 class="mt-1 font-heading font-bold text-ink">PCOS and Fertility: Can You Get Pregnant with PCOS?</h3>
         </a>
-        <a href="/resources/ivf-treatment-cost-in-pakistan" class="block rounded-2xl border border-black/5 bg-white p-5 transition hover:shadow-md">
-          <p class="text-sm font-semibold text-primary">Fertility Treatment</p>
-          <h3 class="mt-1 font-heading font-bold text-ink">IVF Treatment Cost in Pakistan 2026</h3>
-        </a>
-        <a href="/resources/male-infertility--treatment" class="block rounded-2xl border border-black/5 bg-white p-5 transition hover:shadow-md">
-          <p class="text-sm font-semibold text-primary">Fertility Treatment</p>
-          <h3 class="mt-1 font-heading font-bold text-ink">Male Infertility Treatment: Causes, Tests and Options</h3>
-        </a>
-        <a href="/resources/female-infertility-treatment" class="block rounded-2xl border border-black/5 bg-white p-5 transition hover:shadow-md">
-          <p class="text-sm font-semibold text-primary">Fertility Treatment</p>
-          <h3 class="mt-1 font-heading font-bold text-ink">Female Infertility Treatment: Causes, Medicines, Tests and Options</h3>
+        <a href="/resources/when-to-seek-fertility-consultation" class="block rounded-2xl border border-black/5 bg-white p-5 transition hover:shadow-md">
+          <p class="text-sm font-semibold text-primary">Getting started</p>
+          <h3 class="mt-1 font-heading font-bold text-ink">Fertility Consultation: When Should You Seek Advice?</h3>
         </a>
       </div>
     </div>
@@ -232,7 +876,7 @@ const faqs = [
   <CloseContact
     eyebrow="Take the next step"
     heading="Ready to Begin?"
-    body="If you're looking for a trusted fertility specialist in Lahore, schedule a consultation at Kamran Fertility Clinic. We'll explain your options clearly, answer your questions honestly, and recommend the treatment that best suits your needs—without unnecessary procedures or pressure. Begin your journey with personalised, compassionate fertility care."
+    body="If you have been trying to conceive, have concerns about your menstrual cycle or sperm health, have received fertility treatment before, or want to understand your reproductive health before pregnancy, you can arrange a consultation with Dr. Kamran Saleem."
     cta="Book Your Consultation Today"
   />
 </Layout>
