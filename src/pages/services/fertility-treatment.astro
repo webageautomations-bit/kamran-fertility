@@ -25,16 +25,6 @@ const ulClass = "list-disc space-y-1.5 pl-6 marker:text-primary";
 const linkClass = "font-semibold text-primary underline underline-offset-2";
 const ctaClass = "inline-block rounded-full bg-primary px-6 py-3 font-heading font-semibold text-white transition hover:opacity-90";
 
-// Renders one content block: paragraph, list, single link-paragraph, or a
-// paragraph with more than one inline link ("richp").
-function renderBlock(b) {
-  if (b.t === "h3") return <h3 class={h3Class}>{b.text}</h3>;
-  if (b.t === "ul") return <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>;
-  if (b.t === "link") return <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>;
-  if (b.t === "richp") return <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>;
-  return <p>{b.text}</p>;
-}
-
 const heroSub = [
   "Fertility treatment can help when pregnancy has not occurred naturally or when a known fertility problem needs treatment.",
   "At Kamran Fertility Clinic, Dr. Kamran Saleem provides fertility treatment for women and men in Lahore. Treatment is selected according to the fertility problem, age, previous treatment, test results, and individual circumstances.",
@@ -333,7 +323,13 @@ const locations = [
 
   <section class="bg-white pt-14 pb-4">
     <div class="mx-auto max-w-3xl space-y-4 px-5 text-center sm:px-8">
-      {leadIn.map((b) => renderBlock(b))}
+      {leadIn.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
+            : <p>{b.text}</p>
+          )}
       <a href={bookingHref} class={ctaClass}>Book a fertility consultation</a>
     </div>
   </section>
@@ -355,7 +351,13 @@ const locations = [
           </svg>
         </ServiceBlock>
         <div class={wrapClass}>
-          {includeBody.map((b) => renderBlock(b))}
+          {includeBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
+            : <p>{b.text}</p>
+          )}
         </div>
       </div>
 
@@ -373,7 +375,13 @@ const locations = [
           </svg>
         </ServiceBlock>
         <div class={wrapClass}>
-          {optionsBody.map((b) => renderBlock(b))}
+          {optionsBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
+            : <p>{b.text}</p>
+          )}
         </div>
       </div>
 
@@ -390,7 +398,13 @@ const locations = [
           </svg>
         </ServiceBlock>
         <div class={wrapClass}>
-          {maleBody.map((b) => renderBlock(b))}
+          {maleBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
+            : <p>{b.text}</p>
+          )}
         </div>
       </div>
 
@@ -406,7 +420,13 @@ const locations = [
           </svg>
         </ServiceBlock>
         <div class={wrapClass}>
-          {femaleBody.map((b) => renderBlock(b))}
+          {femaleBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
+            : <p>{b.text}</p>
+          )}
         </div>
       </div>
 
@@ -425,7 +445,13 @@ const locations = [
           </svg>
         </ServiceBlock>
         <div class={wrapClass}>
-          {beforeBody.map((b) => renderBlock(b))}
+          {beforeBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
+            : <p>{b.text}</p>
+          )}
         </div>
       </div>
 
@@ -444,7 +470,13 @@ const locations = [
           </svg>
         </ServiceBlock>
         <div class={wrapClass}>
-          {choosingBody.map((b) => renderBlock(b))}
+          {choosingBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
+            : <p>{b.text}</p>
+          )}
         </div>
       </div>
 
@@ -459,7 +491,13 @@ const locations = [
           </svg>
         </ServiceBlock>
         <div class={wrapClass}>
-          {afterUnsuccessfulBody.map((b) => renderBlock(b))}
+          {afterUnsuccessfulBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
+            : <p>{b.text}</p>
+          )}
         </div>
       </div>
 
@@ -475,7 +513,13 @@ const locations = [
           </svg>
         </ServiceBlock>
         <div class={wrapClass}>
-          {alwaysIvfBody.map((b) => renderBlock(b))}
+          {alwaysIvfBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
+            : <p>{b.text}</p>
+          )}
         </div>
       </div>
 
@@ -492,7 +536,13 @@ const locations = [
           </svg>
         </ServiceBlock>
         <div class={wrapClass}>
-          {costBody.map((b) => renderBlock(b))}
+          {costBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
+            : <p>{b.text}</p>
+          )}
         </div>
       </div>
 
@@ -508,7 +558,13 @@ const locations = [
           </svg>
         </ServiceBlock>
         <div class={wrapClass}>
-          {guaranteeBody.map((b) => renderBlock(b))}
+          {guaranteeBody.map((b) =>
+            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
+            : <p>{b.text}</p>
+          )}
         </div>
       </div>
 
