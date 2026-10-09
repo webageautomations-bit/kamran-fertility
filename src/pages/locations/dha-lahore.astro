@@ -3,16 +3,13 @@ import Layout from "../../layouts/Layout.astro";
 import PageHero from "../../components/PageHero.astro";
 import CloseContact from "../../components/CloseContact.astro";
 
-// Verified details only — pulled from this repo's own Footer.astro (already
-// live/approved). Nothing here is invented. Confirm consultation days at this
-// specific hospital with the clinic before publishing, and add real photos /
-// a Maps embed if you have them — I've left a plain Maps search link instead.
+// Verified details only — taken from this site's own live pages (Footer.astro
+// and the Dr. Kamran Saleem page). Nothing here is invented. Confirm consultation
+// days at this specific hospital with the clinic before publishing.
 //
-// EDIT: hours below changed from "Daily: 3:00pm – 6:00pm / Saturday & Sunday:
-// Closed" to "Monday – Friday" — the original text contradicted itself
-// (can't be "Daily" if the weekend is closed). CONFIRM this is the real
-// schedule before publishing; if it's actually a different weekday pattern,
-// update the `hours` line below only, nothing else needs to change.
+// NOTE: hours are "Monday to Friday, 3:00pm to 6:00pm" with the weekend closed.
+// If the real schedule differs, update the `hours` line below and the
+// `openingHoursSpecification` in the schema — nothing else needs to change.
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Locations", href: "/locations" },
@@ -24,91 +21,309 @@ const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURICom
 const phoneDisplay = "+92 314 8432789";
 const phoneHref = "tel:+923148432789";
 const whatsappHref = "https://wa.me/923148432789";
-const hours = "Monday – Friday: 3:00pm – 6:00pm"; // CONFIRM with clinic — see note above
+const hours = "Monday to Friday, 3:00pm to 6:00pm. Closed Saturday and Sunday"; // CONFIRM with clinic — see note above
+
+const pageUrl = "https://www.kamranfertility.com/locations/dha-lahore";
+
+const services = [
+  {
+    lead: "Infertility assessment and diagnosis.",
+    body: "Your first visit starts with a full history for both partners. Dr. Kamran then recommends only the tests you need, which may include hormone profiles, pelvic ultrasound and semen analysis. If you already have recent reports, bring them so tests are not repeated unnecessarily.",
+    href: "/services/assessment",
+    cta: "Learn more about assessment and diagnosis →",
+  },
+  {
+    lead: "Fertility treatment planning.",
+    body: "Depending on your diagnosis, options may include ovulation tracking and induction, IUI (intrauterine insemination), IVF (in vitro fertilisation) and ICSI (intracytoplasmic sperm injection). Dr. Kamran explains what each involves and who it suits, so you can decide with full information.",
+    href: "/services/fertility-treatment",
+    cta: "Explore fertility treatment →",
+  },
+  {
+    lead: "Male factor infertility.",
+    body: "As an andrologist, Dr. Kamran assesses sperm health, hormone levels and reproductive history. Male factors account for a large share of infertility cases, which is why both partners are assessed from the start.",
+  },
+  {
+    lead: "PCOS, irregular cycles and ovulation problems.",
+    body: "Women are assessed for PCOS, ovulation and cycle problems as part of a full fertility evaluation. Where a condition can be managed with medication, that is Dr. Kamran's preferred first option, and IVF is considered only when it is clinically appropriate.",
+  },
+  {
+    lead: "Second opinions.",
+    body: "If treatment elsewhere has not worked or you want another view before starting IVF, bring your records for a clear, independent review.",
+    href: "/services/support",
+    cta: "Read about second opinions →",
+  },
+];
+
+const steps = [
+  {
+    lead: "Book on WhatsApp.",
+    body: "Tell us your preferred day and we confirm a time in the 3pm to 6pm window.",
+  },
+  {
+    lead: "Bring your records.",
+    body: "Previous reports, scans, semen analysis and any medication history. Both partners are welcome.",
+  },
+  {
+    lead: "Consultation.",
+    body: "Dr. Kamran reviews your history, examines where needed, and explains what may be contributing to the delay in conceiving.",
+  },
+  {
+    lead: "Plan.",
+    body: "You leave with a clear next step: further tests, a treatment plan, or reassurance.",
+  },
+];
 
 const faqs = [
   {
+    q: "Where is Dr. Kamran Saleem's fertility clinic in DHA Lahore?",
+    a: "At Rasheed Hospital, Main Boulevard, Defence, Lahore. Hours are Monday to Friday, 3pm to 6pm. Message us on WhatsApp at +92 314 8432789 to confirm your slot.",
+  },
+  {
+    q: "Do you offer IVF and ICSI at the DHA clinic?",
+    a: "Consultations, diagnosis and treatment planning for IUI, IVF and ICSI take place here.",
+  },
+  {
+    q: "Does Dr. Kamran Saleem recommend IVF for every patient?",
+    a: "No. Where a condition can be treated with medication, that is the preferred option first. IVF is used when it is clinically appropriate, not as a default starting point.",
+  },
+  {
+    q: "How much does an IVF consultation or treatment cost in Lahore?",
+    a: "Fees are explained up front, with no obligation to proceed. The cost of IVF or ICSI depends on your diagnosis, medication needs and number of cycles, so Dr. Kamran gives you an individual estimate after assessment.",
+  },
+  {
+    q: "When should we see a fertility specialist?",
+    a: "Many couples wait up to a year after marriage before seeking an assessment, but there is no requirement to wait if you would rather not. See a specialist sooner if cycles are very irregular, or if there is a known condition such as PCOS or endometriosis, or a known male factor.",
+  },
+  {
+    q: "Do both partners need to attend?",
+    a: "It helps. Infertility can involve either partner, so a joint visit gives the fullest picture. Either partner may attend the first visit if the other cannot.",
+  },
+  {
+    q: "What should we bring to the first appointment?",
+    a: "Hormone panels, ultrasound reports, semen analysis, previous treatment records and a list of current medications. This avoids repeating tests.",
+  },
+  {
+    q: "Can I get a second opinion here if I was treated elsewhere?",
+    a: "Yes. Bring your complete records and Dr. Kamran will review them and explain your options.",
+  },
+  {
     q: "Is there parking at Rasheed Hospital?",
-    a: "Yes, on-site parking is available for patients attending appointments.",
+    a: "Yes, on-site parking is available for patients.",
   },
   {
-    q: "Can I get a second opinion at this location if I've been treated elsewhere?",
-    a: "Yes — second opinion consultations are available at this location the same as at our other two clinics.",
+    q: "Is the first visit confidential?",
+    a: "Yes. Assessments are handled confidentially.",
   },
   {
-    q: "Do I need to bring previous test results?",
-    a: "If you've had any fertility testing, hormone panels, ultrasounds, or a semen analysis done elsewhere, bring copies or reports — it lets Dr. Kamran give you a fuller assessment on the first visit rather than repeating tests unnecessarily.",
+    q: "Which other Lahore locations does Dr. Kamran see patients at?",
+    a: "At TAMC on M.M. Alam Road and Shahnaz Hospital on Shalamar Link Road. Hours differ at each clinic.",
   },
 ];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["MedicalClinic", "LocalBusiness"],
+      "@id": `${pageUrl}#clinic`,
+      name: "Dr. Kamran Saleem Fertility Clinic - DHA Lahore",
+      url: pageUrl,
+      image: "https://www.kamranfertility.com/assets/dr-kamran.webp",
+      telephone: "+923148432789",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Rasheed Hospital, Main Boulevard, Defence",
+        addressLocality: "Lahore",
+        addressRegion: "Punjab",
+        addressCountry: "PK",
+      },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          opens: "15:00",
+          closes: "18:00",
+        },
+      ],
+      sameAs: [
+        "https://www.google.com/maps?q=Kamran+Fertility+Clinic+Lahore",
+        "https://www.marham.pk/doctors/lahore/andrologist/dr-kamran-saleem",
+      ],
+      employee: { "@id": "https://www.kamranfertility.com/dr-kamran-saleem#physician" },
+    },
+    {
+      "@type": "Physician",
+      "@id": "https://www.kamranfertility.com/dr-kamran-saleem#physician",
+      name: "Dr. Kamran Saleem",
+      url: "https://www.kamranfertility.com/dr-kamran-saleem",
+      image: "https://www.kamranfertility.com/assets/dr-kamran.webp",
+      description: "Fertility specialist and andrologist in Lahore with 25 years of experience, offering infertility assessment, IUI, IVF and ICSI treatment planning.",
+      alumniOf: {
+        "@type": "CollegeOrUniversity",
+        name: "University of Liverpool",
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.kamranfertility.com/" },
+        { "@type": "ListItem", position: 2, name: "Locations", item: "https://www.kamranfertility.com/locations" },
+        { "@type": "ListItem", position: 3, name: "DHA Lahore", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
+    },
+  ],
+};
 ---
 
 <Layout
-  title="Fertility Clinic in DHA Lahore | Dr. Kamran Saleem"
-  description="Fertility consultations in DHA Lahore at Rasheed Hospital, Main Boulevard, Defence. Assessment, treatment planning and follow-up with Dr. Kamran Saleem."
+  title="IVF & Fertility Specialist in DHA Lahore | Dr. Kamran Saleem"
+  description="Consult fertility specialist and andrologist Dr. Kamran Saleem at Rasheed Hospital, DHA Lahore. IVF, ICSI, IUI, infertility tests & second opinions. Message us on WhatsApp."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
   <PageHero
     eyebrow="DHA Lahore"
-    title="Fertility Clinic in DHA Lahore — Rasheed Hospital"
-    sub={["Dr. Kamran Saleem sees fertility patients at Rasheed Hospital on Main Boulevard, DHA — one of the more accessible clinic locations for patients coming from Cavalry Ground, Phase 1–5, and the Gulberg/Liberty side of the city, since it sits directly on the main boulevard rather than down a side street."]}
+    title="IVF & Fertility Specialist in DHA Lahore"
+    sub={["Dr. Kamran Saleem sees fertility patients at Rasheed Hospital, Main Boulevard, Defence, Lahore. If you live in DHA or Cavalry Ground, this is one of his three Lahore clinics that is easiest for you to reach, with on-site parking and a main-road location that is easy to find.", "Consultations cover infertility assessment, treatment planning for IUI, IVF and ICSI where appropriate, and second opinions for couples already treated elsewhere."]}
     breadcrumbs={breadcrumbs}
     cta="Message us on WhatsApp"
   />
 
   <section class="bg-white py-16 md:py-20">
-    <div class="mx-auto grid max-w-5xl gap-10 px-5 sm:px-8 md:grid-cols-2">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8">
       <div data-reveal>
         <h2 class="font-heading text-xl font-bold text-ink">Clinic details</h2>
         <dl class="mt-4 space-y-3 text-sm">
+          <div>
+            <dt class="font-semibold text-ink">Clinic</dt>
+            <dd class="text-body">Rasheed Hospital, DHA Lahore</dd>
+          </div>
           <div>
             <dt class="font-semibold text-ink">Address</dt>
             <dd class="text-body">{address}</dd>
           </div>
           <div>
-            <dt class="font-semibold text-ink">Phone</dt>
-            <dd><a href={phoneHref} class="text-azure hover:underline">{phoneDisplay}</a></dd>
-          </div>
-          <div>
-            <dt class="font-semibold text-ink">WhatsApp</dt>
-            <dd><a href={whatsappHref} target="_blank" rel="noopener noreferrer" class="text-azure hover:underline">{phoneDisplay}</a></dd>
+            <dt class="font-semibold text-ink">Doctor</dt>
+            <dd class="text-body">Dr. Kamran Saleem, MBBS (1988), Diploma in Genito-Urinary Medicine &amp; Venereology, University of Liverpool (1998)</dd>
           </div>
           <div>
             <dt class="font-semibold text-ink">Hours</dt>
-            <dd class="text-body">{hours}<br />Saturday &amp; Sunday: Closed</dd>
+            <dd class="text-body">{hours}</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-ink">Phone / WhatsApp</dt>
+            <dd><a href={phoneHref} class="text-azure hover:underline">{phoneDisplay}</a></dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-ink">Parking</dt>
+            <dd class="text-body">Yes, on-site parking for patients</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-ink">Consultation fee</dt>
+            <dd class="text-body">Fees are explained up front, with no obligation to proceed</dd>
           </div>
         </dl>
         <p class="mt-4 text-sm leading-relaxed text-body">
-          Because consultation hours at this location are a limited daily window rather
-          than a full working day, we recommend messaging on WhatsApp before travelling
-          to confirm same-day availability.
+          Because hours here are a three-hour daily window, please message on WhatsApp
+          before travelling so we can confirm your slot.
         </p>
         <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 font-semibold text-azure hover:underline">
           Get directions on Google Maps →
         </a>
-      </div>
-
-      <div data-reveal>
-        <h2 class="font-heading text-xl font-bold text-ink">What's available at this location</h2>
-        <p class="mt-4 leading-relaxed text-body">
-          The DHA clinic runs full new-patient and follow-up consultations with Dr. Kamran
-          Saleem, including history review,
-          <a href="/services/assessment" class="text-azure underline hover:text-navy">fertility assessment &amp; diagnosis</a>,
-          and
-          <a href="/services/fertility-treatment" class="text-azure underline hover:text-navy">treatment planning</a>
-          for IVF, ICSI, or IUI where appropriate. Patients travelling from further out in
-          DHA or Cavalry Ground often choose this location specifically because it avoids
-          crossing into central Lahore traffic.
-        </p>
-        <p class="mt-4 leading-relaxed text-body">
-          <a href="/services/support" class="text-azure underline hover:text-navy">Second opinions</a>
-          on treatment started elsewhere are also available here.
-        </p>
       </div>
     </div>
   </section>
 
   <section class="bg-cloud py-16 md:py-20">
     <div class="mx-auto max-w-3xl px-5 sm:px-8">
-      <h2 class="font-heading text-xl font-bold text-ink">Common questions about the DHA location</h2>
+      <h2 class="font-heading text-xl font-bold text-ink">Fertility services at our DHA Lahore clinic</h2>
+      <div class="mt-6 space-y-6">
+        {services.map((item) => (
+          <p data-reveal class="leading-relaxed text-body">
+            <span class="font-semibold text-ink">{item.lead}</span> {item.body}
+            {item.href && (
+              <>
+                {" "}
+                <a href={item.href} class="text-azure underline hover:text-navy">{item.cta}</a>
+              </>
+            )}
+          </p>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8">
+      <h2 class="font-heading text-xl font-bold text-ink">What to expect at your first visit</h2>
+      <ol class="mt-6 space-y-4">
+        {steps.map((item, i) => (
+          <li data-reveal class="leading-relaxed text-body">
+            {i + 1}. <span class="font-semibold text-ink">{item.lead}</span> {item.body}
+          </li>
+        ))}
+      </ol>
+      <p class="mt-6 leading-relaxed text-body">
+        There is no pressure to start treatment on the first visit.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-cloud py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">Meet Dr. Kamran Saleem</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        Dr. Kamran Saleem is a fertility specialist and andrologist in Lahore with 25
+        years of experience in reproductive health and fertility. He completed his MBBS
+        in 1988 and a Diploma in Genito-Urinary Medicine and Venereology at the
+        University of Liverpool, UK, in 1998. His approach is doctor-led and
+        evidence-based: history, examination and only the tests that are actually
+        indicated, with treatment recommended only when it is genuinely likely to help.
+        <a href="/dr-kamran-saleem" class="text-azure underline hover:text-navy">Read his full profile →</a>
+      </p>
+      <p class="mt-4 text-sm leading-relaxed text-body">
+        Medically reviewed by Dr. Kamran Saleem. Last updated: October 2026.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">Getting to Rasheed Hospital, DHA Lahore</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        Rasheed Hospital is on Main Boulevard, Defence, directly on the main road rather
+        than down a side street. Patients coming from further out in DHA or Cavalry
+        Ground often choose this clinic because it avoids central Lahore traffic.
+        Parking is available on site.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-cloud py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">Patient reviews</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        Dr. Kamran Saleem holds a 5.0 rating from 32 patient reviews on Marham, and
+        Kamran Fertility Clinic has a 5.0 rating on its Google Business Profile. You can
+        verify both independently:
+        <a href="https://www.marham.pk/doctors/lahore/andrologist/dr-kamran-saleem/reviews" target="_blank" rel="noopener noreferrer" class="text-azure underline hover:text-navy">32 reviews on Marham →</a>
+        ·
+        <a href="https://www.google.com/maps?q=Kamran+Fertility+Clinic+Lahore" target="_blank" rel="noopener noreferrer" class="text-azure underline hover:text-navy">Kamran Fertility Clinic on Google →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8">
+      <h2 class="font-heading text-xl font-bold text-ink">Frequently asked questions</h2>
       <div class="mt-6 space-y-6">
         {faqs.map((item) => (
           <div data-reveal>
@@ -117,12 +332,17 @@ const faqs = [
           </div>
         ))}
       </div>
+      <p class="mt-10 text-xs leading-relaxed text-body">
+        Medical disclaimer: This page is for general information and is not a substitute
+        for professional medical advice, diagnosis or treatment. Outcomes vary between
+        individuals and no result is guaranteed.
+      </p>
     </div>
   </section>
 
   <CloseContact
-    heading="Ready to book at our DHA location?"
-    body="Message us on WhatsApp to arrange a consultation with Dr. Kamran Saleem at Rasheed Hospital, DHA Lahore."
-    cta="Book Consultation"
+    heading="Book your consultation in DHA Lahore"
+    body="Message us on WhatsApp to arrange a visit with Dr. Kamran Saleem at Rasheed Hospital, DHA Lahore. We usually reply the same day."
+    cta="Book Consultation on WhatsApp"
   />
 </Layout>
