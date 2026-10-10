@@ -125,7 +125,33 @@ const locations = [
 
   <PageHero eyebrow={eyebrow} title={h1} sub={heroSub} breadcrumbs={breadcrumbs} />
 
-  <section class="bg-white pt-14 pb-4">
+  <!-- Treatments dropdown — built from src/data/treatments.js, no JavaScript needed -->
+  <nav aria-label="Fertility treatments" class="relative z-20 bg-white pt-10">
+    <div class="mx-auto max-w-3xl px-5 text-center sm:px-8">
+      <details class="relative inline-block text-left">
+        <summary class="inline-flex cursor-pointer list-none items-center gap-2 rounded-full border border-primary/30 bg-ice px-5 py-2.5 font-heading font-semibold text-ink transition hover:shadow-md">
+          Browse fertility treatments
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6l6 -6" /></svg>
+        </summary>
+        <ul class="absolute left-1/2 z-30 mt-2 w-72 -translate-x-1/2 space-y-1 rounded-xl border border-black/5 bg-white p-2 shadow-lg">
+          <li>
+            <a href={hub} class="block rounded-lg px-3 py-2 font-semibold text-primary hover:bg-ice">All fertility treatments</a>
+          </li>
+          {allTreatments.map((t) => (
+            <li>
+              <a
+                href={`${hub}/${t.slug}`}
+                aria-current={t.slug === slug ? "page" : undefined}
+                class:list={["block rounded-lg px-3 py-2 text-ink hover:bg-ice", t.slug === slug && "bg-ice font-semibold"]}
+              >{t.label}</a>
+            </li>
+          ))}
+        </ul>
+      </details>
+    </div>
+  </nav>
+
+  <section class="bg-white pt-8 pb-4">
     <div class="mx-auto max-w-3xl space-y-4 px-5 text-center sm:px-8">
       {leadIn.map(norm).map((b) =>
         b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
