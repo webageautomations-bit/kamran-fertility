@@ -1,0 +1,147 @@
+---
+import TreatmentPage from "../../../components/TreatmentPage.astro";
+
+const T = "/services/fertility-treatment";
+
+// NOTE: Copy deliberately covers PGT for medical and genetic indications only.
+// It does not target "gender selection" keywords. Confirm clinic policy before adding any.
+
+const page = {
+  slug: "pgt",
+  name: "Embryo Genetic Testing (PGT)",
+  title: "PGT Embryo Genetic Testing in Lahore | PGT-A & PGT-M",
+  description:
+    "PGT in Lahore: what PGT-A, PGT-M and PGT-SR are, who may benefit, how embryo biopsy works, limitations and cost. Honest guidance from Dr. Kamran Saleem.",
+  eyebrow: "Embryo Genetic Testing",
+  h1: "PGT Embryo Genetic Testing in Lahore",
+  waText: "Hello, I would like to ask about PGT embryo genetic testing with Dr. Kamran Saleem.",
+  ctaLabel: "Book a PGT consultation",
+  heroSub: [
+    "Preimplantation genetic testing (PGT) checks embryos created through IVF for specific chromosomal or inherited conditions before one is transferred to the uterus. It was previously known as PGD and PGS.",
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem explains who may genuinely benefit from PGT, what it can and cannot tell you, and why it is not needed in every IVF cycle.",
+  ].join(" "),
+  leadIn: [
+    { rich: ["PGT is only possible within an ", ["IVF", `${T}/ivf`], " or ", ["ICSI", `${T}/icsi`], " cycle, so it is usually discussed as part of a wider treatment plan."] },
+  ],
+  sections: [
+    {
+      id: "what-is-pgt",
+      title: "What Is PGT (Preimplantation Genetic Testing)?",
+      intro: "PGT examines a few cells from an embryo before transfer.",
+      icon: "flask",
+      body: [
+        "After IVF, embryos are grown to the blastocyst stage, around day five or six. A few cells are carefully removed from the outer layer, which will become the placenta, and sent to a specialist genetics laboratory. Meanwhile the embryo is frozen. Results guide which embryo is transferred in a later frozen cycle.",
+        "You may still see the older names PGD (preimplantation genetic diagnosis) and PGS (preimplantation genetic screening). PGD is now generally called PGT-M or PGT-SR, and PGS is called PGT-A.",
+      ],
+    },
+    {
+      id: "types-of-pgt",
+      title: "Types of PGT: PGT-A, PGT-M and PGT-SR",
+      intro: "The type of test depends on the question being asked.",
+      icon: "compare",
+      body: [
+        { ul: [
+          "PGT-A (aneuploidy screening): counts the chromosomes in an embryo, since embryos with extra or missing chromosomes often fail to implant or miscarry.",
+          "PGT-M (monogenic conditions): tests for a specific inherited disease, such as thalassemia or cystic fibrosis, when one or both parents carry the gene.",
+          "PGT-SR (structural rearrangements): checks embryos when a parent carries a balanced chromosomal translocation or inversion.",
+        ] },
+        "Embryo sex is reported only where it is medically relevant, such as in X-linked disorders.",
+      ],
+    },
+    {
+      id: "who-may-benefit-from-pgt",
+      title: "Who May Benefit From PGT?",
+      intro: "PGT is considered where there is a specific, identifiable reason.",
+      icon: "user",
+      body: [
+        { ul: [
+          "Couples who carry a known inherited condition",
+          "A parent with a balanced chromosomal rearrangement",
+          "A previous pregnancy or child affected by a genetic or chromosomal condition",
+          "Recurrent miscarriage, in selected cases after investigation",
+          "Repeated unexplained implantation failure, selectively",
+        ] },
+        "For most couples having IVF for other reasons, PGT-A has not been shown to improve the chance of a live birth, and professional bodies urge caution about offering it routinely. It may reduce the number of embryos available to transfer, and can discard embryos that might have produced a healthy baby.",
+      ],
+    },
+    {
+      id: "pgt-process-step-by-step",
+      title: "The PGT Process, Step by Step",
+      intro: "PGT adds laboratory steps and usually a frozen transfer to an IVF cycle.",
+      icon: "calendar",
+      body: [
+        { h3: "1. Genetic counseling and test planning" },
+        "Carrier status, family history and previous results are reviewed, and a suitable test is chosen. For PGT-M, the genetics laboratory often needs time to prepare a test specific to your family.",
+        { h3: "2. IVF with ICSI" },
+        "Stimulation, egg retrieval and fertilization follow as in IVF. ICSI is usually used to avoid contamination from extra sperm DNA.",
+        { h3: "3. Embryo culture and biopsy" },
+        "Embryos are grown to the blastocyst stage and a few cells are biopsied. Embryos are then frozen.",
+        { h3: "4. Genetic analysis" },
+        "The biopsy is analyzed in a specialist laboratory. Results usually take about one to two weeks.",
+        { h3: "5. Frozen embryo transfer" },
+        { rich: ["An embryo with a favorable result is transferred in a later ", ["FET cycle", `${T}/fet`], ". Prenatal testing in pregnancy is still advised to confirm the result."] },
+      ],
+    },
+    {
+      id: "pgt-limitations",
+      title: "What PGT Cannot Do",
+      intro: "PGT reduces uncertainty. It does not remove it.",
+      icon: "shield",
+      body: [
+        { ul: [
+          "It cannot guarantee a pregnancy or a healthy baby",
+          "It tests only for the conditions or chromosomes it is designed to detect, not every genetic disorder",
+          "A few cells may not represent the whole embryo, and mosaic results are hard to interpret",
+          "False positive and false negative results are possible, so confirmatory prenatal testing is recommended",
+          "It involves extra laboratory handling and cost",
+        ] },
+        "Dr. Kamran will give you an honest assessment of whether PGT is likely to help in your situation, including when it is not recommended.",
+      ],
+    },
+    {
+      id: "pgt-risks",
+      title: "Risks and Considerations",
+      intro: "Embryo biopsy is performed by experienced embryologists, but it is not risk-free.",
+      icon: "heart",
+      body: [
+        "The biopsy carries a small theoretical risk of damaging the embryo. PGT also usually means fewer embryos to transfer, and some couples find they have no embryo suitable for transfer in a given cycle. All the usual IVF risks apply, including hyperstimulation and multiple pregnancy.",
+        "Ethical and legal rules around embryo testing differ between countries. In Pakistan, PGT is offered for medical and genetic indications.",
+      ],
+    },
+    {
+      id: "pgt-cost-in-lahore",
+      title: "PGT Cost in Lahore",
+      intro: "PGT is an additional cost on top of IVF.",
+      icon: "coin",
+      body: [
+        "The total depends on the type of test, the number of embryos biopsied, the genetics laboratory fee, frozen transfer costs and storage. PGT-M may also need a test developed for your family's specific variant. You will receive an itemized estimate during your consultation.",
+      ],
+    },
+  ],
+  faqs: [
+    { q: "What is PGT in IVF?", a: "PGT (preimplantation genetic testing) checks embryos created through IVF for chromosomal or inherited conditions before one is chosen for transfer." },
+    { q: "What is the difference between PGD and PGS?", a: "These are older names. PGD is now called PGT-M or PGT-SR (testing for a specific inherited condition or a chromosomal rearrangement), and PGS is called PGT-A (screening for extra or missing chromosomes)." },
+    { q: "Does everyone having IVF need PGT?", a: "No. PGT is considered when there is a specific reason, such as a known genetic condition. For most patients having IVF, routine PGT-A has not been shown to improve live birth rates." },
+    { q: "Is PGT accurate?", a: "PGT is accurate for what it tests, but it is not perfect. Mosaic embryos and laboratory limitations mean confirmatory prenatal testing is still advised." },
+    { q: "Does PGT harm the embryo?", a: "The biopsy carries a small theoretical risk, but it is performed at the blastocyst stage by experienced embryologists. It is considered safe when done correctly." },
+    { q: "How long do PGT results take?", a: "Usually about one to two weeks, which is why embryos are frozen and transferred in a later frozen cycle." },
+    { q: "Can PGT guarantee a healthy baby?", a: "No. It reduces the risk of specific conditions, but it cannot test for everything and cannot guarantee pregnancy." },
+  ],
+  closingHeading: "PGT Embryo Genetic Testing With Dr. Kamran Saleem",
+  closingParas: [
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem provides guidance on PGT for couples in Lahore, including whether it is likely to be of real benefit in your situation.",
+    "Genetic testing is carried out by a specialist genetics laboratory, and we explain clearly what is done in the clinic, what is coordinated with partner services, and the limits of the results.",
+  ],
+  resources: [
+    { href: "/resources/ivf-treatment-in-lahore", category: "Fertility Treatment", title: "IVF Treatment in Lahore: Cost, Process, Tests & Choosing the Right Clinic" },
+    { href: "/resources/icsi-treatment-in-lahore", category: "Fertility Treatment", title: "ICSI Treatment in Lahore: Procedure, Cost, Benefits and Success Factors" },
+  ],
+  close: {
+    heading: "Thinking About Genetic Testing?",
+    body: "Bring any genetic reports, carrier results or previous miscarriage records to your consultation.",
+    cta: "Book a PGT Consultation",
+  },
+};
+---
+
+<TreatmentPage {...page} />

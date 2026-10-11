@@ -1,0 +1,189 @@
+---
+import TreatmentPage from "../../../components/TreatmentPage.astro";
+
+const T = "/services/fertility-treatment";
+
+const page = {
+  slug: "iui",
+  name: "IUI Treatment",
+  title: "IUI Treatment in Lahore | Procedure & Success Rate",
+  description:
+    "IUI treatment in Lahore: how intrauterine insemination works, who it suits, the step-by-step procedure, success factors, risks and cost with Dr. Kamran Saleem.",
+  eyebrow: "IUI Treatment",
+  h1: "IUI Treatment in Lahore",
+  waText: "Hello, I would like to book an IUI consultation with Dr. Kamran Saleem.",
+  ctaLabel: "Book an IUI consultation",
+  heroSub: [
+    "Intrauterine insemination (IUI) is a simple fertility treatment in which prepared sperm is placed directly into the uterus around the time of ovulation.",
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem offers IUI to couples in Lahore when tests show it has a realistic chance of working, and explains plainly when it does not.",
+  ].join(" "),
+  leadIn: [
+    { rich: ["IUI works only when certain conditions are met, so a proper ", ["fertility assessment", "/services/assessment"], " comes first."] },
+  ],
+  sections: [
+    {
+      id: "what-is-iui",
+      title: "What Is IUI (Intrauterine Insemination)?",
+      intro: "IUI gives sperm a shorter journey. Fertilization still happens inside the body.",
+      icon: "flask",
+      body: [
+        "In IUI, a semen sample is washed and concentrated in the laboratory so that the most active sperm are separated from the rest of the fluid. A thin, soft catheter then places these sperm into the uterus, close to the fallopian tubes, at the time an egg is released.",
+        { rich: ["Because fertilization takes place naturally, IUI is less invasive and less costly than ", ["IVF", `${T}/ivf`], ". It is also less powerful, which is why selecting the right patients matters."] },
+      ],
+    },
+    {
+      id: "who-is-iui-suitable-for",
+      title: "Who Is IUI Suitable For?",
+      intro: "IUI can help when the basic ingredients for natural conception are present but something is slightly out of sync.",
+      icon: "user",
+      body: [
+        "IUI may be considered for:",
+        { ul: [
+          "Mild male-factor infertility, such as slightly reduced count or motility",
+          "Ovulation problems, once ovulation has been restored with medication",
+          "Unexplained infertility, in selected cases",
+          "Cervical mucus problems or ejaculatory and sexual difficulties",
+          "Use of donor or frozen sperm, where appropriate",
+        ] },
+        "IUI is generally not suitable when both tubes are blocked, when sperm quality is severely reduced, when there is advanced endometriosis, or when a woman's age or ovarian reserve makes time the main issue. In those cases, going straight to IVF or ICSI is more sensible than repeating cycles that are unlikely to work.",
+      ],
+    },
+    {
+      id: "tests-before-iui",
+      title: "Tests You Need Before IUI",
+      intro: "A few checks prevent wasted cycles.",
+      icon: "document",
+      body: [
+        { ul: [
+          "Semen analysis, to confirm there will be enough motile sperm after preparation",
+          "A tubal check, such as HSG or sonohysterogram, to confirm at least one tube is open",
+          "Evidence of ovulation, with hormone tests and ultrasound as needed",
+          "Thyroid and prolactin levels, where cycles are irregular",
+        ] },
+        { rich: ["If you already have these reports, bring them. If not, our ", ["Assessment & Diagnosis", "/services/assessment"], " service covers them."] },
+      ],
+    },
+    {
+      id: "iui-procedure-step-by-step",
+      title: "The IUI Procedure, Step by Step",
+      intro: "Each IUI cycle takes about two weeks, and the insemination itself takes only minutes.",
+      icon: "calendar",
+      body: [
+        { h3: "1. Cycle monitoring" },
+        "A baseline scan early in your cycle. In a natural cycle, ovulation is tracked by ultrasound and sometimes hormone tests. In a stimulated cycle, tablets or injections encourage one to three follicles to develop.",
+        { h3: "2. Trigger injection (if used)" },
+        "When a follicle is mature, a trigger injection may be given to time ovulation precisely.",
+        { h3: "3. Sperm preparation" },
+        "On the day of insemination, a fresh semen sample is washed and concentrated in the laboratory.",
+        { h3: "4. Insemination" },
+        "Usually 24 to 36 hours after the trigger, prepared sperm is placed in the uterus with a catheter. It takes a few minutes, needs no anesthesia, and feels like a cervical smear. Mild cramping can occur.",
+        { h3: "5. After the procedure" },
+        "You can resume normal activities. Progesterone may be prescribed to support the uterine lining. A pregnancy test is done about 14 days after IUI.",
+      ],
+    },
+    {
+      id: "iui-medication",
+      title: "IUI With Ovulation Medication",
+      intro: "Mild stimulation can improve the chance of ovulation, but it needs careful monitoring.",
+      icon: "bolt",
+      body: [
+        "Many IUI cycles use letrozole or clomiphene tablets, and some use low-dose FSH injections. The goal is a small number of mature follicles, not many.",
+        "The main risk of stimulation is multiple pregnancy, which is why ultrasound monitoring is essential. If too many follicles develop, the cycle may be cancelled or converted to avoid a high-order multiple pregnancy.",
+        { rich: ["For patients with irregular cycles, restoring ovulation first is a separate step; see ", ["ovulation induction and PCOS treatment", `${T}/ovulation-induction`], "."] },
+      ],
+    },
+    {
+      id: "iui-success-rates",
+      title: "IUI Success Rate: What to Expect",
+      intro: "The chance of pregnancy per IUI cycle is modest, and it falls with age.",
+      icon: "heart",
+      body: [
+        "IUI is usually offered for a limited number of cycles, often three to four, with a review after each. If pregnancy does not occur, repeating the same treatment indefinitely is rarely helpful.",
+        "The factors that most affect results:",
+        { ul: [
+          "The woman's age, the strongest factor",
+          "The cause of infertility",
+          "Post-wash motile sperm count",
+          "Whether ovulation is well timed",
+          "How long you have been trying",
+        ] },
+        "Dr. Kamran will give you an honest estimate based on your own results, and will recommend moving to IVF or ICSI when further IUI is unlikely to be worthwhile.",
+      ],
+    },
+    {
+      id: "iui-risks",
+      title: "IUI Risks and Side Effects",
+      intro: "IUI is a low-risk procedure, but it is not risk-free.",
+      icon: "shield",
+      body: [
+        { ul: [
+          "Mild cramping or light spotting after insemination",
+          "Multiple pregnancy, mainly with ovulation medication",
+          "A small risk of pelvic infection",
+          "Ovarian hyperstimulation, rare with mild stimulation",
+          "Ectopic pregnancy, as in any pregnancy",
+          "Emotional strain from waiting and repeated cycles",
+        ] },
+        "Contact the clinic or seek urgent care for severe pain, heavy bleeding or fever after insemination.",
+      ],
+    },
+    {
+      id: "iui-vs-ivf",
+      title: "IUI vs IVF: How to Decide",
+      intro: "They are different treatments for different problems.",
+      icon: "compare",
+      body: [
+        { ul: [
+          "IUI suits open tubes, adequate sperm and a woman whose age allows a few cycles to be tried.",
+          "IVF suits blocked tubes, severe male factor, advanced age, endometriosis, or failed IUI, and allows embryo selection and freezing.",
+        ] },
+        { rich: ["Our guide to ", ["IVF vs IUI", "/resources/ivf-vs-iui"], " explains the decision in more detail."] },
+      ],
+    },
+    {
+      id: "iui-cost-in-lahore",
+      title: "IUI Cost in Lahore: What Affects the Price",
+      intro: "IUI costs less than IVF, but the total depends on your plan.",
+      icon: "coin",
+      body: [
+        "Typical cost components are:",
+        { ul: [
+          "Consultation and baseline tests",
+          "Medication",
+          "Monitoring scans",
+          "Sperm preparation and insemination",
+          "The number of cycles needed",
+        ] },
+        "Dr. Kamran will give you an itemized estimate per cycle, and a realistic view of how many cycles are worth trying.",
+      ],
+    },
+  ],
+  faqs: [
+    { q: "What is IUI treatment?", a: "IUI (intrauterine insemination) is a treatment in which washed and concentrated sperm is placed directly into the uterus around ovulation, to increase the chance of natural fertilization." },
+    { q: "Is IUI painful?", a: "Most women feel little more than mild cramping, similar to a cervical smear. No anesthesia is needed and the procedure takes only a few minutes." },
+    { q: "What is the success rate of IUI?", a: "The chance per cycle is modest and depends mainly on age and the cause of infertility. Your doctor will give an individual estimate after your tests, rather than a general figure." },
+    { q: "How many IUI cycles should we try?", a: "Usually a limited number, often three to four, reviewed after each. If pregnancy has not occurred, IVF or ICSI is usually a better next step." },
+    { q: "When can I take a pregnancy test after IUI?", a: "About 14 days after the insemination. Testing sooner can be misleading, especially if a trigger injection was used." },
+    { q: "Can IUI work with a low sperm count?", a: "It can with a mild reduction, if enough motile sperm remain after preparation. With a severe reduction, IVF with ICSI is more likely to work." },
+    { q: "What is the difference between IUI and IVF?", a: "In IUI, sperm is placed in the uterus and fertilization occurs inside the body. In IVF, eggs are collected and fertilized in a laboratory, and an embryo is transferred." },
+    { q: "Do I need bed rest after IUI?", a: "No. Most clinics suggest resting for a short while afterwards, then resuming normal activity. Strict bed rest has not been shown to help." },
+  ],
+  closingHeading: "IUI Treatment in Lahore With Dr. Kamran Saleem",
+  closingParas: [
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem provides IUI for couples in Lahore, with ovulation monitoring, sperm assessment and a clear limit on how many cycles are worth trying.",
+    "We recommend IUI only where tests suggest it has a realistic chance, and say so honestly when IVF or ICSI is the better route.",
+  ],
+  resources: [
+    { href: "/resources/ivf-vs-iui", category: "Treatments", title: "IVF vs IUI: understanding the difference" },
+    { href: "/resources/female-infertility-treatment", category: "Fertility Treatment", title: "Female Infertility Treatment: Causes, Medicines, Tests and Options" },
+    { href: "/resources/male-fertility-test", category: "Male Fertility", title: "Male Fertility Test: What It Shows" },
+  ],
+  close: {
+    heading: "Considering IUI?",
+    body: "Bring your semen analysis, any HSG or tubal reports and recent cycle history to your consultation.",
+    cta: "Book an IUI Consultation",
+  },
+};
+---
+
+<TreatmentPage {...page} />

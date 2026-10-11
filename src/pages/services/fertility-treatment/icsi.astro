@@ -1,0 +1,176 @@
+---
+import TreatmentPage from "../../../components/TreatmentPage.astro";
+
+const T = "/services/fertility-treatment";
+
+const page = {
+  slug: "icsi",
+  name: "ICSI Treatment",
+  title: "ICSI Treatment in Lahore | Procedure, Cost & Success",
+  description:
+    "ICSI treatment in Lahore: how sperm injection works, who needs it, risks, success factors and cost, explained by Dr. Kamran Saleem. Book a consultation.",
+  eyebrow: "ICSI Treatment",
+  h1: "ICSI Treatment in Lahore",
+  waText: "Hello, I would like to book an ICSI consultation with Dr. Kamran Saleem.",
+  ctaLabel: "Book an ICSI consultation",
+  heroSub: [
+    "Intracytoplasmic sperm injection (ICSI) is a laboratory technique used within IVF, in which a single sperm is injected directly into a mature egg to help fertilization happen.",
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem recommends ICSI where it is likely to help, mainly in male-factor infertility or after fertilization problems, and explains clearly when standard IVF is the better choice.",
+  ].join(" "),
+  leadIn: [
+    { rich: ["ICSI decisions depend heavily on semen results. If you do not have a recent report, see our ", ["semen analysis guide", "/resources/understanding-a-semen-analysis"], " or start with ", ["Fertility Assessment & Diagnosis", "/services/assessment"], "."] },
+  ],
+  sections: [
+    {
+      id: "what-is-icsi",
+      title: "What Is ICSI (Intracytoplasmic Sperm Injection)?",
+      intro: "ICSI is not a separate treatment cycle. It is a fertilization method used inside an IVF cycle.",
+      icon: "flask",
+      body: [
+        { rich: ["In conventional ", ["IVF", `${T}/ivf`], ", thousands of prepared sperm are placed around each egg and one fertilizes it on its own. In ICSI, an embryologist selects one healthy-looking sperm under a high-powered microscope and injects it directly into the egg using a very fine glass needle."] },
+        "Everything else in the cycle is the same as IVF: ovarian stimulation, egg retrieval, embryo culture and embryo transfer. The difference is only in how fertilization is achieved in the laboratory.",
+      ],
+    },
+    {
+      id: "when-is-icsi-recommended",
+      title: "When Is ICSI Recommended?",
+      intro: "ICSI is most useful when sperm are unlikely to fertilize an egg unaided.",
+      icon: "user",
+      body: [
+        "ICSI may be advised in situations such as:",
+        { ul: [
+          "Severely low sperm count (oligozoospermia)",
+          "Poor sperm movement (asthenozoospermia) or markedly abnormal shape (teratozoospermia)",
+          "No sperm in the ejaculate (azoospermia), with sperm retrieved surgically from the epididymis or testis",
+          "Previous IVF cycles with very low or failed fertilization",
+          "Limited quantity of frozen sperm, or thawed frozen eggs",
+          "Embryo genetic testing (PGT) cycles, to avoid contamination from extra sperm DNA",
+          "Selected cases of antisperm antibodies or high sperm DNA damage",
+        ] },
+        "ICSI is not automatically better for everyone. In couples without a male-factor problem, studies have not shown that routine ICSI improves live birth rates over conventional IVF, and it adds cost and a laboratory step. Dr. Kamran recommends it when there is a clear reason.",
+      ],
+    },
+    {
+      id: "icsi-procedure-step-by-step",
+      title: "The ICSI Procedure Step by Step",
+      intro: "The patient experience of an ICSI cycle is the same as IVF; the difference happens in the laboratory.",
+      icon: "calendar",
+      body: [
+        { h3: "1. Stimulation and egg retrieval" },
+        "As in IVF, daily injections encourage several eggs to mature. They are collected under sedation with an ultrasound-guided needle.",
+        { h3: "2. Egg preparation" },
+        "The surrounding cells are removed so the embryologist can check egg maturity. Only mature eggs can be injected.",
+        { h3: "3. Sperm selection" },
+        "A sperm sample (fresh, frozen or surgically retrieved) is prepared, and the best-looking motile sperm is chosen for each egg.",
+        { h3: "4. Injection" },
+        "One sperm is placed inside each mature egg. This takes only seconds per egg.",
+        { h3: "5. Fertilization check and embryo culture" },
+        "Fertilization is checked the next day, 16 to 18 hours after injection. Fertilized eggs are grown as embryos for several days and graded.",
+        { h3: "6. Embryo transfer and pregnancy test" },
+        { rich: ["The best embryo is transferred to the uterus, and spare embryos can be frozen (see ", ["Frozen Embryo Transfer", `${T}/fet`], "). A blood pregnancy test follows about 10 to 14 days later."] },
+      ],
+    },
+    {
+      id: "icsi-and-male-infertility",
+      title: "ICSI and Male Infertility: Sperm Retrieval Options",
+      intro: "ICSI makes pregnancy possible for many men who previously had no treatment options.",
+      icon: "heart",
+      body: [
+        "Even a few viable sperm can be enough for ICSI. When no sperm are found in the ejaculate, they may be retrieved by a short surgical procedure:",
+        { ul: [
+          "PESA or TESA: needle aspiration of sperm from the epididymis or testis",
+          "Micro-TESE: microsurgical sperm retrieval from the testis, mainly in non-obstructive azoospermia",
+        ] },
+        { rich: ["Surgical retrieval is performed by an experienced urological surgeon and coordinated with your ICSI cycle. Dr. Kamran will explain whether this is likely to be needed after your tests; see our ", ["male infertility treatment", `${T}/male-infertility`], " page for the wider picture."] },
+      ],
+    },
+    {
+      id: "icsi-vs-ivf",
+      title: "ICSI vs IVF: What Is the Difference?",
+      intro: "Both involve the same cycle. The question is how fertilization is done.",
+      icon: "compare",
+      body: [
+        { ul: [
+          "Conventional IVF: eggs and prepared sperm are placed together and fertilize naturally in the dish. Suitable when sperm quality is adequate.",
+          "ICSI: one sperm is injected into each mature egg. Used when sperm count, movement or shape make unaided fertilization unlikely, or when fertilization has failed before.",
+          "Some centres split eggs between IVF and ICSI when it is unclear which will work, to avoid total fertilization failure.",
+        ] },
+        { rich: ["Whichever is chosen, the stimulation, retrieval and transfer stages are the same. See the full ", ["IVF process", `${T}/ivf`], " for details."] },
+      ],
+    },
+    {
+      id: "icsi-success-rates",
+      title: "ICSI Success Rates: What to Expect",
+      intro: "Successful fertilization is not the same as pregnancy, and ICSI does not overcome every problem.",
+      icon: "shield",
+      body: [
+        "ICSI mainly improves the chance that eggs fertilize. Whether that becomes a live birth depends on what happens afterwards, so the same factors that govern IVF success apply:",
+        { ul: [
+          "The woman's age at egg collection, which remains the strongest factor",
+          "The number and maturity of eggs retrieved",
+          "Embryo quality and blastocyst development",
+          "Sperm source (ejaculated or surgically retrieved) and sperm DNA quality",
+          "Uterine receptivity",
+        ] },
+        "Fertilization failure is uncommon with ICSI but can still happen, for example if eggs are immature or sperm are unable to activate the egg. Dr. Kamran will give you an honest individual estimate and will not promise a result.",
+      ],
+    },
+    {
+      id: "icsi-safety-and-genetics",
+      title: "Is ICSI Safe? Risks and Genetic Considerations",
+      intro: "Most children born after ICSI are healthy, but some risks and genetic questions deserve a frank conversation.",
+      icon: "shield",
+      body: [
+        "ICSI carries the usual IVF risks, such as ovarian hyperstimulation, multiple pregnancy and retrieval-related complications. It adds a small chance that an egg is damaged during injection.",
+        "Some studies report a slightly higher rate of certain birth defects after IVF and ICSI compared with natural conception. It is hard to separate the effect of the treatment from the underlying infertility, and the absolute risk remains low.",
+        "More importantly, severe male infertility can be linked to genetic causes, such as chromosomal changes or Y-chromosome microdeletions, which can be passed to sons. When sperm counts are very low or absent, genetic tests and counseling are discussed before ICSI.",
+      ],
+    },
+    {
+      id: "icsi-cost-in-lahore",
+      title: "ICSI Cost in Lahore: What to Ask",
+      intro: "ICSI is usually priced as part of an IVF cycle, so the total depends on the whole plan.",
+      icon: "coin",
+      body: [
+        "Ask any clinic to itemize:",
+        { ul: [
+          "The IVF cycle itself, including medication, monitoring and retrieval",
+          "The ICSI laboratory fee, charged per cycle",
+          "Surgical sperm retrieval, if needed",
+          "Embryo freezing and storage",
+          "Genetic testing, if recommended",
+        ] },
+        "You will receive an itemized estimate during your consultation, so you can compare before you commit.",
+      ],
+    },
+  ],
+  faqs: [
+    { q: "What is ICSI treatment?", a: "ICSI (intracytoplasmic sperm injection) is a technique in which a single sperm is injected directly into a mature egg during an IVF cycle, to help fertilization occur." },
+    { q: "Is ICSI better than IVF?", a: "Not for everyone. ICSI helps when sperm quality is poor or fertilization has failed before. When the male factor is normal, routine ICSI has not been shown to improve live birth rates." },
+    { q: "Is ICSI the same as test tube baby treatment?", a: "ICSI is a variation of test tube baby (IVF) treatment. The cycle is the same, but fertilization is done by injecting one sperm into each egg." },
+    { q: "Does ICSI hurt?", a: "The injection itself is done on eggs in the laboratory, so you do not feel it. Your experience is that of an IVF cycle: injections, egg retrieval under sedation, and embryo transfer." },
+    { q: "Are ICSI babies healthy?", a: "Most are. Studies suggest a small increase in certain congenital and genetic risks compared with natural conception, partly because of the underlying male infertility. Genetic counseling is advised in severe cases." },
+    { q: "Can ICSI work with a very low sperm count or no sperm?", a: "Often, yes. Even a few viable sperm can be enough, and sperm can sometimes be retrieved surgically in azoospermia. Success depends on the cause and the quality of the sperm retrieved." },
+    { q: "Can ICSI be done with frozen sperm?", a: "Yes. Frozen sperm, including sperm retrieved surgically and frozen in advance, can be used for ICSI. Post-thaw sperm survival is checked in the laboratory." },
+    { q: "How long after ICSI can I take a pregnancy test?", a: "A blood test is usually done about 10 to 14 days after embryo transfer. Testing earlier at home may give an unreliable result." },
+  ],
+  closingHeading: "ICSI Treatment in Lahore With Dr. Kamran Saleem",
+  closingParas: [
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem provides ICSI treatment planning for couples in Lahore, building on 25 years of experience in male and female fertility, semen analysis interpretation and hormone assessment.",
+    "ICSI is recommended when your results justify it, not as an automatic add-on, and the reasons are explained in plain language.",
+    "Where surgical sperm retrieval or specialist laboratory work is needed, we are open about what is done in the clinic and what is coordinated with partner services.",
+  ],
+  resources: [
+    { href: "/resources/icsi-treatment-in-lahore", category: "Fertility Treatment", title: "ICSI Treatment in Lahore: Procedure, Cost, Benefits and Success Factors" },
+    { href: "/resources/male-infertility--treatment", category: "Fertility Treatment", title: "Male Infertility Treatment: Causes, Tests and Options" },
+    { href: "/resources/understanding-a-semen-analysis", category: "Male Fertility", title: "Understanding a Semen Analysis" },
+  ],
+  close: {
+    heading: "Wondering Whether You Need ICSI?",
+    body: "Bring your semen analysis and any previous IVF records to your consultation, so the decision is based on your results.",
+    cta: "Book an ICSI Consultation",
+  },
+};
+---
+
+<TreatmentPage {...page} />

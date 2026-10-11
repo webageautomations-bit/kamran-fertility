@@ -1,0 +1,267 @@
+---
+// Shared template for every /services/fertility-treatment/<slug> page.
+// Markup, classes, components and JSON-LD mirror the existing
+// /services/fertility-treatment page exactly; only the content comes from props.
+//
+// Block shorthand used in `sections[].body` and `leadIn`:
+//   "text"                              -> <p>
+//   { h3: "text" }                      -> <h3>
+//   { ul: ["a", "b"] }                  -> <ul>
+//   { rich: ["text ", ["label", "/href"], " more text"] } -> <p> with inline links
+import Layout from "../layouts/Layout.astro";
+import PageHero from "./PageHero.astro";
+import ServiceBlock from "./ServiceBlock.astro";
+import CloseContact from "./CloseContact.astro";
+import { treatments as allTreatments } from "../data/treatments.js";
+
+const {
+  slug,
+  name,
+  title,
+  description,
+  eyebrow,
+  h1,
+  heroSub,
+  leadIn = [],
+  ctaLabel = "Book a fertility consultation",
+  waText = "Hello, I would like to book a fertility consultation.",
+  sections,
+  faqs,
+  closingHeading,
+  closingParas,
+  resources = [],
+  close,
+} = Astro.props;
+
+const base = "https://www.kamranfertility.com";
+const hub = "/services/fertility-treatment";
+const pageUrl = `${base}${hub}/${slug}`;
+
+// Same booking target the site header uses (WhatsApp), with a per-page prefilled message.
+const bookingHref = `https://wa.me/923148432789?text=${encodeURIComponent(waText)}`;
+
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Services" },
+  { label: "Fertility Treatment", href: hub },
+  { label: name },
+];
+
+const wrapClass = "mx-auto max-w-3xl space-y-5 text-body leading-relaxed";
+const h3Class = "pt-4 font-heading text-xl font-bold text-ink";
+const ulClass = "list-disc space-y-1.5 pl-6 marker:text-primary";
+const linkClass = "font-semibold text-primary underline underline-offset-2";
+const ctaClass = "inline-block rounded-full bg-primary px-6 py-3 font-heading font-semibold text-white transition hover:opacity-90";
+
+const norm = (b) =>
+  typeof b === "string" ? { t: "p", text: b }
+  : b.h3 ? { t: "h3", text: b.h3 }
+  : b.ul ? { t: "ul", items: b.ul }
+  : { t: "richp", parts: b.rich.map((x) => (Array.isArray(x) ? { label: x[0], href: x[1] } : { text: x })) };
+
+const icons = {
+  calendar: ["M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z", "M16 3v4", "M8 3v4", "M4 11h16"],
+  flask: ["M9 3l6 0", "M10 9l4 0", "M10 3v6l-4 11a.7 .7 0 0 0 .5 1h11a.7 .7 0 0 0 .5 -1l-4 -11v-6"],
+  user: ["M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0", "M6 21v-2a4 4 0 0 1 4 -4h4", "M15 19l2 2l4 -4"],
+  heart: ["M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"],
+  document: ["M14 3v4a1 1 0 0 0 1 1h4", "M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z", "M9 9l1 0", "M9 13l6 0", "M9 17l6 0"],
+  compare: ["M6 3l0 18", "M18 3l0 18", "M3 7l3 -4l3 4", "M15 17l3 4l3 -4"],
+  refresh: ["M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5"],
+  bolt: ["M8.7 3h6.6a1 1 0 0 1 .877 1.481l-2.4 4.319h3.223a1 1 0 0 1 .793 1.606l-7.6 9.799a.996 .996 0 0 1 -.375 .273c-.485 .207 -1.047 -.011 -1.253 -.486a.994 .994 0 0 1 -.075 -.5l1.2 -6.402h-3.316a1 1 0 0 1 -.949 -1.316l2.4 -7.2a1 1 0 0 1 .949 -.684z"],
+  coin: ["M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0", "M14.8 9a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1", "M12 6v2m0 8v2"],
+  shield: ["M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3"],
+};
+
+const treatments = allTreatments.filter((t) => t.slug !== slug);
+
+const locations = [
+  "Rasheed Hospital — DHA Lahore",
+  "TAMC — M.M. Alam Road, Lahore",
+  "Shahnaz Hospital — Shalamar Link Road, Lahore",
+];
+---
+
+<Layout title={title} description={description}>
+  <!-- Structured data: medical service page + breadcrumb + FAQ, in sync with the visible FAQ. -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MedicalWebPage",
+        "@id": `${pageUrl}#webpage`,
+        "url": pageUrl,
+        "name": title,
+        "description": description,
+        "specialty": "Reproductive Medicine",
+        "isPartOf": { "@id": `${base}/#website` },
+        // Keep `reviewedBy` only once Dr. Kamran Saleem has actually reviewed this page's clinical content.
+        "reviewedBy": { "@type": "Person", "name": "Dr. Kamran Saleem" },
+        "about": {
+          "@type": "MedicalClinic",
+          "name": "Kamran Fertility Clinic",
+          "url": `${base}/`,
+          "telephone": "+923148432789"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": `${base}/` },
+          { "@type": "ListItem", "position": 2, "name": "Services", "item": `${base}/#services` },
+          { "@type": "ListItem", "position": 3, "name": "Fertility Treatment", "item": `${base}${hub}` },
+          { "@type": "ListItem", "position": 4, "name": name, "item": pageUrl }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": faqs.map((item) => ({
+          "@type": "Question",
+          "name": item.q,
+          "acceptedAnswer": { "@type": "Answer", "text": item.a }
+        }))
+      }
+    ]
+  })} />
+
+  <PageHero eyebrow={eyebrow} title={h1} sub={heroSub} breadcrumbs={breadcrumbs} />
+
+  <!-- Treatments dropdown — built from src/data/treatments.js, no JavaScript needed -->
+  <nav aria-label="Fertility treatments" class="relative z-20 bg-white pt-10">
+    <div class="mx-auto max-w-3xl px-5 text-center sm:px-8">
+      <details class="relative inline-block text-left">
+        <summary class="inline-flex cursor-pointer list-none items-center gap-2 rounded-full border border-primary/30 bg-ice px-5 py-2.5 font-heading font-semibold text-ink transition hover:shadow-md">
+          Browse fertility treatments
+          <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6l6 -6" /></svg>
+        </summary>
+        <ul class="absolute left-1/2 z-30 mt-2 w-72 -translate-x-1/2 space-y-1 rounded-xl border border-black/5 bg-white p-2 shadow-lg">
+          <li>
+            <a href={hub} class="block rounded-lg px-3 py-2 font-semibold text-primary hover:bg-ice">All fertility treatments</a>
+          </li>
+          {allTreatments.map((t) => (
+            <li>
+              <a
+                href={`${hub}/${t.slug}`}
+                aria-current={t.slug === slug ? "page" : undefined}
+                class:list={["block rounded-lg px-3 py-2 text-ink hover:bg-ice", t.slug === slug && "bg-ice font-semibold"]}
+              >{t.label}</a>
+            </li>
+          ))}
+        </ul>
+      </details>
+    </div>
+  </nav>
+
+  <section class="bg-white pt-8 pb-4">
+    <div class="mx-auto max-w-3xl space-y-4 px-5 text-center sm:px-8">
+      {leadIn.map(norm).map((b) =>
+        b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
+        : <p>{b.text}</p>
+      )}
+      <a href={bookingHref} class={ctaClass}>{ctaLabel}</a>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 md:py-24">
+    <div class="relative z-10 mx-auto max-w-6xl space-y-20 px-5 sm:px-8 md:space-y-28">
+      {sections.map((s, i) => (
+        <div class="space-y-10">
+          <ServiceBlock id={s.id} title={s.title} intro={s.intro} reversed={i % 2 === 1}>
+            <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              {(icons[s.icon] ?? icons.document).map((d) => <path d={d} />)}
+            </svg>
+          </ServiceBlock>
+          <div class={wrapClass}>
+            {s.body.map(norm).map((b) =>
+              b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+              : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
+              : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
+              : <p>{b.text}</p>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQs — mirrors the FAQPage schema above -->
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8">
+      <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">Frequently Asked Questions</h2>
+      <div class="mt-10 space-y-4">
+        {faqs.map((item) => (
+          <details class="group rounded-xl bg-ice p-5 shadow-sm">
+            <summary class="cursor-pointer list-none font-heading font-bold text-ink">{item.q}</summary>
+            <p class="mt-3 text-body leading-relaxed">{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Closing: doctor + locations -->
+  <section class="bg-ice py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8">
+      <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">{closingHeading}</h2>
+      <div class={`mt-10 ${wrapClass}`}>
+        {closingParas.map((p) => <p>{p}</p>)}
+        <h3 class={h3Class}>Clinic Locations</h3>
+        <ul class={ulClass}>{locations.map((li) => <li>{li}</li>)}</ul>
+        <p><a href="/locations" class={linkClass}>View all locations and opening hours</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Where treatment starts — internal linking -->
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">Where treatment starts</h2>
+      <p class="mx-auto measure mt-3 text-center text-body [margin-inline:auto]">
+        Every treatment plan begins with the same first step — finding out what's actually causing the difficulty conceiving.
+      </p>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2">
+        <a href="/services/assessment" class="block rounded-2xl border border-black/5 bg-ice p-6 transition hover:shadow-md">
+          <h3 class="font-heading text-lg font-bold text-ink">Fertility Assessment & Diagnosis</h3>
+          <p class="mt-2 text-body">Hormone testing, ultrasound, and semen analysis to find the real cause before any treatment is recommended.</p>
+        </a>
+        <a href="/services/support" class="block rounded-2xl border border-black/5 bg-ice p-6 transition hover:shadow-md">
+          <h3 class="font-heading text-lg font-bold text-ink">Support & Second Opinions</h3>
+          <p class="mt-2 text-body">Already started treatment elsewhere? Get an independent specialist review of your plan before continuing.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Other treatments -->
+  <section class="bg-ice py-16 md:py-20">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">Other fertility treatments</h2>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {treatments.map((t) => (
+          <a href={`${hub}/${t.slug}`} class="block rounded-2xl border border-black/5 bg-white p-5 transition hover:shadow-md">
+            <h3 class="font-heading font-bold text-ink">{t.label}</h3>
+            <p class="mt-2 text-body">{t.blurb}</p>
+          </a>
+        ))}
+      </div>
+      <p class="mt-8 text-center"><a href={hub} class={linkClass}>See all fertility treatment options</a></p>
+    </div>
+  </section>
+
+  {resources.length > 0 && (
+    <section class="bg-white py-16 md:py-20">
+      <div class="mx-auto max-w-6xl px-5 sm:px-8">
+        <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">Related reading</h2>
+        <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {resources.map((r) => (
+            <a href={r.href} class="block rounded-2xl border border-black/5 bg-ice p-5 transition hover:shadow-md">
+              <p class="text-sm font-semibold text-primary">{r.category}</p>
+              <h3 class="mt-1 font-heading font-bold text-ink">{r.title}</h3>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CloseContact eyebrow="Take the next step" heading={close.heading} body={close.body} cta={close.cta ?? ctaLabel} />
+</Layout>

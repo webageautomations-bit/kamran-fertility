@@ -1,0 +1,150 @@
+---
+import TreatmentPage from "../../../components/TreatmentPage.astro";
+
+const T = "/services/fertility-treatment";
+
+const page = {
+  slug: "ovulation-induction",
+  name: "Ovulation Induction & PCOS",
+  title: "Ovulation Induction & PCOS Treatment in Lahore",
+  description:
+    "Ovulation induction and PCOS fertility treatment in Lahore: letrozole, clomiphene, monitoring, success factors and when to move to IUI or IVF. Dr. Kamran Saleem.",
+  eyebrow: "Ovulation Induction & PCOS",
+  h1: "Ovulation Induction & PCOS Treatment in Lahore",
+  waText: "Hello, I would like to book a consultation about ovulation induction / PCOS with Dr. Kamran Saleem.",
+  ctaLabel: "Book a consultation",
+  heroSub: [
+    "Ovulation induction uses medication and ultrasound monitoring to help the ovaries release an egg, and it is often the first treatment for women with irregular or absent periods, including PCOS.",
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem looks for the cause of your cycle problem, checks that ovulation is the only barrier, and sets a clear limit on how long to continue before changing plan.",
+  ].join(" "),
+  leadIn: [
+    { rich: ["Irregular cycles have many causes. A proper ", ["fertility assessment", "/services/assessment"], " comes first, including hormone tests and a semen analysis for your partner."] },
+  ],
+  sections: [
+    {
+      id: "what-is-ovulation-induction",
+      title: "What Is Ovulation Induction?",
+      intro: "Ovulation induction restores or improves ovulation. It does not involve laboratory fertilization.",
+      icon: "flask",
+      body: [
+        "In ovulation induction, tablets or injections encourage one or two follicles to mature and release an egg. Pregnancy is then attempted by timed intercourse, or by IUI if appropriate.",
+        { rich: ["It is different from the strong stimulation used in ", ["IVF", `${T}/ivf`], ", where the aim is to obtain many eggs. Here the aim is a single, well-timed ovulation."] },
+      ],
+    },
+    {
+      id: "causes-of-ovulation-problems",
+      title: "Common Causes of Ovulation Problems",
+      intro: "The right treatment depends on why ovulation is not happening.",
+      icon: "user",
+      body: [
+        { ul: [
+          "Polycystic ovary syndrome (PCOS), the most common cause",
+          "Thyroid disorders, underactive or overactive",
+          "High prolactin (hyperprolactinemia)",
+          "Very low body weight, intense exercise or hypothalamic amenorrhea",
+          "Premature ovarian insufficiency or very low ovarian reserve",
+          "Obesity and insulin resistance",
+        ] },
+        "Irregular periods are not always caused by PCOS, which is why testing matters before treatment.",
+      ],
+    },
+    {
+      id: "pcos-and-fertility",
+      title: "PCOS and Fertility",
+      intro: "PCOS is one of the most treatable causes of infertility.",
+      icon: "heart",
+      body: [
+        "PCOS is diagnosed when at least two of three features are present, after other causes are excluded: irregular or absent ovulation, raised androgen hormones (or signs such as excess hair growth and acne), and polycystic-appearing ovaries on ultrasound.",
+        "Many women with PCOS conceive with ovulation induction, sometimes after lifestyle changes alone. The challenge is not usually egg quantity but egg release, and that can often be improved.",
+      ],
+    },
+    {
+      id: "tests-before-ovulation-induction",
+      title: "Checks Before Treatment Starts",
+      intro: "Medication should not be started without confirming that ovulation is truly the main problem.",
+      icon: "document",
+      body: [
+        { ul: [
+          "Hormone tests: FSH, LH, AMH, prolactin, thyroid function, and androgens where relevant",
+          "Pelvic ultrasound, including follicle count",
+          "A semen analysis for your partner",
+          "A tubal check (HSG or sonohysterogram) when tubal disease is suspected or before IUI",
+        ] },
+        { rich: ["For more on what the tests show, see our ", ["Assessment & Diagnosis", "/services/assessment"], " page."] },
+      ],
+    },
+    {
+      id: "ovulation-induction-medication",
+      title: "Ovulation Induction Medication",
+      intro: "Several medicines can be used, chosen by the cause and your response.",
+      icon: "bolt",
+      body: [
+        { ul: [
+          "Letrozole: commonly used first-line for women with PCOS, taken as tablets for a few days early in the cycle",
+          "Clomiphene citrate: another oral option, with a longer history of use",
+          "Metformin: sometimes added for insulin resistance",
+          "Gonadotropin injections (FSH): used when tablets do not work, with closer monitoring",
+          "Cabergoline: for raised prolactin; thyroid medication if thyroid levels are abnormal",
+        ] },
+        "Doses are individual and adjusted using ultrasound monitoring. Side effects vary: clomiphene can cause hot flushes or mood changes; letrozole can cause tiredness or dizziness.",
+      ],
+    },
+    {
+      id: "monitoring-and-timing",
+      title: "Monitoring and Timing",
+      intro: "Monitoring is what keeps ovulation induction effective and safe.",
+      icon: "calendar",
+      body: [
+        "A baseline scan is done early in the cycle, followed by one or more follicle-tracking scans that measure follicle size and lining thickness. When a follicle is mature, a trigger injection may be advised, and you are told when to have intercourse, or when to have IUI.",
+        { rich: ["If tubes are open and sperm quality is adequate, ", ["IUI", `${T}/iui`], " can be combined with ovulation induction to improve timing."] },
+      ],
+    },
+    {
+      id: "lifestyle-and-pcos",
+      title: "Lifestyle, Weight and PCOS",
+      intro: "Small, sustainable changes can improve ovulation, sometimes without medication.",
+      icon: "refresh",
+      body: [
+        "For women who are overweight, even a modest weight reduction can restore ovulation and improve response to medication. Regular physical activity, adequate sleep and a balanced diet help insulin resistance. Crash diets are not recommended.",
+        "A folic acid supplement should be started before trying to conceive, and smoking and excess alcohol avoided.",
+      ],
+    },
+    {
+      id: "success-and-when-to-move-on",
+      title: "Success Rates and When to Move On",
+      intro: "Ovulation induction works for many women, but not indefinitely.",
+      icon: "shield",
+      body: [
+        "Most women who are going to respond to tablets do so within the first few cycles. Treatment is normally limited to a defined number of cycles, often around six, and then reviewed.",
+        { rich: ["If you ovulate but do not conceive, the next step may be ", ["IUI", `${T}/iui`], " or ", ["IVF", `${T}/ivf`], ", depending on age, tubes and sperm quality. Age matters: the longer treatment continues, the more it affects the odds."] },
+        "The main risks are multiple pregnancy and, with injections, ovarian hyperstimulation. These are why monitoring is not optional.",
+      ],
+    },
+  ],
+  faqs: [
+    { q: "What is ovulation induction?", a: "It is the use of medication, usually tablets, sometimes injections, along with ultrasound monitoring, to help the ovaries release an egg." },
+    { q: "Can I get pregnant naturally with PCOS?", a: "Many women with PCOS do, sometimes after lifestyle changes or a few cycles of ovulation induction. PCOS makes ovulation less predictable, but it does not make pregnancy impossible." },
+    { q: "Is letrozole better than clomiphene for PCOS?", a: "Letrozole is now commonly used as the first-line option for PCOS, though the best choice depends on your individual situation." },
+    { q: "How long should I try ovulation induction?", a: "Usually a limited number of cycles, often around six, after which the plan is reviewed. If you are older, the review may come sooner." },
+    { q: "Does ovulation induction cause twins?", a: "It can increase the chance of twins, especially with injections. Ultrasound monitoring helps keep the number of mature follicles low." },
+    { q: "Do I need IVF for PCOS?", a: "Not usually at first. IVF is considered if ovulation induction and IUI have not worked, or if another factor such as blocked tubes or poor sperm quality is present." },
+    { q: "Do irregular periods always mean PCOS?", a: "No. Thyroid problems, high prolactin, low body weight and other conditions can also cause irregular periods, which is why testing comes before treatment." },
+  ],
+  closingHeading: "Ovulation Induction & PCOS Treatment With Dr. Kamran Saleem",
+  closingParas: [
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem treats cycle and hormone concerns in women in Lahore, looking at the cause first and medication second.",
+    "Treatment is monitored, limited to a defined number of cycles, and reviewed honestly, so you know when to continue and when to move to a different approach.",
+  ],
+  resources: [
+    { href: "/resources/female-infertility-treatment", category: "Fertility Treatment", title: "Female Infertility Treatment: Causes, Medicines, Tests and Options" },
+    { href: "/resources/ivf-vs-iui", category: "Treatments", title: "IVF vs IUI: understanding the difference" },
+  ],
+  close: {
+    heading: "Irregular Cycles or Suspected PCOS?",
+    body: "Bring any previous ultrasound and hormone reports, and note your usual cycle length, to your consultation.",
+    cta: "Book a Consultation",
+  },
+};
+---
+
+<TreatmentPage {...page} />
