@@ -1,0 +1,164 @@
+---
+import TreatmentPage from "../../../components/TreatmentPage.astro";
+
+const T = "/services/fertility-treatment";
+
+const page = {
+  slug: "fet",
+  name: "Frozen Embryo Transfer",
+  title: "Frozen Embryo Transfer (FET) in Lahore | Process",
+  description:
+    "Frozen embryo transfer (FET) in Lahore: how embryos are frozen and thawed, cycle types, preparation, success factors, risks and cost. Dr. Kamran Saleem.",
+  eyebrow: "Frozen Embryo Transfer",
+  h1: "Frozen Embryo Transfer (FET) in Lahore",
+  waText: "Hello, I would like to book a frozen embryo transfer (FET) consultation with Dr. Kamran Saleem.",
+  ctaLabel: "Book an FET consultation",
+  heroSub: [
+    "Frozen embryo transfer (FET) uses embryos that were frozen after an earlier IVF or ICSI cycle, thawing one and transferring it to the uterus in a carefully prepared cycle.",
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem plans FET cycles around your uterine lining, your embryo quality and your history, and explains why a frozen transfer may suit you better than a fresh one.",
+  ].join(" "),
+  leadIn: [
+    { rich: ["Frozen transfers follow from an IVF cycle. If you are at an earlier stage, see our ", ["IVF treatment", `${T}/ivf`], " page first."] },
+  ],
+  sections: [
+    {
+      id: "what-is-fet",
+      title: "What Is Frozen Embryo Transfer (FET)?",
+      intro: "FET separates making embryos from transferring them, so the uterus can be prepared on its own schedule.",
+      icon: "flask",
+      body: [
+        "In a fresh IVF cycle, an embryo is transferred a few days after egg retrieval. In a frozen embryo transfer, embryos are frozen after they develop, then thawed and transferred in a later cycle, usually one to several months afterwards.",
+        "Modern freezing uses vitrification, a rapid process that turns embryos into a glass-like state without damaging ice crystals. Most good-quality embryos survive thawing.",
+      ],
+    },
+    {
+      id: "why-embryos-are-frozen",
+      title: "Why Embryos Are Frozen",
+      intro: "Freezing is a deliberate part of many treatment plans, not a sign that something went wrong.",
+      icon: "user",
+      body: [
+        "Embryos may be frozen when:",
+        { ul: [
+          "There are spare good-quality embryos after a fresh transfer",
+          "A high response to stimulation raises the risk of ovarian hyperstimulation, so transfer is delayed (a freeze-all strategy)",
+          "The uterine lining is not ready, or hormone levels at the time of retrieval are unfavorable",
+          "Embryos are being biopsied for genetic testing (PGT) and results are awaited",
+          "A woman needs to postpone pregnancy for medical or personal reasons",
+          "A transfer needs to be delayed for an illness or procedure",
+        ] },
+      ],
+    },
+    {
+      id: "fet-cycle-types",
+      title: "Types of FET Cycle",
+      intro: "The best cycle type depends on whether you ovulate regularly and on your past results.",
+      icon: "compare",
+      body: [
+        { h3: "Natural cycle FET" },
+        "For women who ovulate regularly. Ovulation is tracked by ultrasound and blood tests, and transfer is timed to your own cycle with little or no medication.",
+        { h3: "Modified natural cycle" },
+        "As above, with a trigger injection to time ovulation exactly and progesterone support after transfer.",
+        { h3: "Hormone replacement (programmed) cycle" },
+        "Estrogen is given to build the lining, then progesterone is added when it is ready. It is convenient and predictable, and is used when ovulation is irregular.",
+        "Some studies suggest a slightly higher risk of certain pregnancy complications, such as hypertensive disorders, in programmed cycles. Where suitable, Dr. Kamran may therefore prefer a natural or modified natural cycle.",
+      ],
+    },
+    {
+      id: "fet-step-by-step",
+      title: "The FET Process, Step by Step",
+      intro: "A frozen transfer cycle usually takes two to three weeks.",
+      icon: "calendar",
+      body: [
+        { h3: "1. Review and planning" },
+        "Your previous cycle, embryo grades, uterine cavity and any lining problems are reviewed, and the cycle type is chosen.",
+        { h3: "2. Lining preparation and monitoring" },
+        "Ultrasound scans check lining thickness and pattern, and sometimes hormone levels are measured, until the uterus is ready.",
+        { h3: "3. Thawing and transfer" },
+        "On the day, the embryo is thawed and its survival checked. It is then transferred with a thin catheter under ultrasound guidance. The procedure is brief and usually needs no anesthesia.",
+        { h3: "4. Hormone support" },
+        "Progesterone, and sometimes estrogen, continue after transfer until pregnancy is confirmed or ruled out.",
+        { h3: "5. Pregnancy test" },
+        "A blood test is usually done around 9 to 14 days after transfer, depending on the age of the embryo.",
+      ],
+    },
+    {
+      id: "fresh-vs-frozen-transfer",
+      title: "Fresh vs Frozen Embryo Transfer",
+      intro: "Neither is better for everyone.",
+      icon: "refresh",
+      body: [
+        "Frozen transfer may be preferred when there is a risk of hyperstimulation, when PGT is used, when hormone levels at retrieval are unfavorable, or when the lining needs better preparation. A fresh transfer may be reasonable when the response to stimulation is moderate and the lining is receptive.",
+        "A frozen transfer also lets you try again after a negative result without repeating stimulation and egg retrieval.",
+      ],
+    },
+    {
+      id: "fet-success-rates",
+      title: "FET Success Rates: What Matters",
+      intro: "The age at which the embryo was created matters more than how long it was frozen.",
+      icon: "heart",
+      body: [
+        "The factors most likely to affect results are:",
+        { ul: [
+          "The woman's age when the eggs were collected",
+          "Embryo quality, and whether it was frozen at the blastocyst stage",
+          "Uterine receptivity, including lining thickness and any polyps, scarring or fibroids",
+          "Underlying diagnosis, such as endometriosis",
+          "Whether a single embryo is transferred, which reduces the risk of multiple pregnancy",
+        ] },
+        "Dr. Kamran will give you an honest estimate based on your embryos and history, not a headline figure.",
+      ],
+    },
+    {
+      id: "fet-risks",
+      title: "FET Risks and Considerations",
+      intro: "FET avoids repeat stimulation, but it is still a medical treatment.",
+      icon: "shield",
+      body: [
+        { ul: [
+          "Not every embryo survives thawing, though most good-quality ones do",
+          "Estrogen and progesterone can cause bloating, headaches, mood changes and breast tenderness",
+          "Multiple pregnancy if more than one embryo is transferred",
+          "Ectopic pregnancy and miscarriage, as in any pregnancy",
+          "Possible differences in pregnancy outcomes between cycle types, discussed above",
+        ] },
+      ],
+    },
+    {
+      id: "fet-cost-and-storage",
+      title: "FET Cost and Embryo Storage",
+      intro: "FET is usually less costly than a fresh IVF cycle, since stimulation and egg retrieval are not repeated.",
+      icon: "coin",
+      body: [
+        "Costs typically include the consultation, medication, monitoring scans, thawing and transfer, and embryo storage fees. Storage terms and consent forms are explained in writing, including what happens if storage lapses.",
+        { rich: ["You will receive an itemized estimate during your consultation. For overall IVF costs, see ", ["IVF treatment cost in Pakistan", "/resources/ivf-treatment-cost-in-pakistan"], "."] },
+      ],
+    },
+  ],
+  faqs: [
+    { q: "What is frozen embryo transfer?", a: "FET is a treatment in which embryos frozen after an earlier IVF or ICSI cycle are thawed and transferred to the uterus in a prepared cycle." },
+    { q: "Is FET better than a fresh transfer?", a: "Not always. It is often preferred when there is a risk of hyperstimulation, when embryos are genetically tested, or when the lining needs more careful preparation." },
+    { q: "How are embryos frozen and thawed?", a: "Embryos are frozen by vitrification, a very rapid process that avoids damaging ice crystals. They are thawed on the day of transfer and checked before being placed in the uterus." },
+    { q: "How long can embryos stay frozen?", a: "Embryos can remain viable for many years. Storage periods and fees are set out in your consent form." },
+    { q: "How long does a FET cycle take?", a: "Usually two to three weeks, including lining preparation, scans, transfer and hormone support, before the pregnancy test." },
+    { q: "Is frozen embryo transfer painful?", a: "No. It is similar to a cervical smear and generally needs no anesthesia. Medication can cause mild side effects." },
+    { q: "When do I take a pregnancy test after FET?", a: "A blood test is usually done about 9 to 14 days after transfer, depending on the age of the embryo." },
+    { q: "What is the success rate of FET?", a: "It depends mainly on age at egg collection and embryo quality. Your doctor will give an individual estimate after reviewing your embryos." },
+  ],
+  closingHeading: "Frozen Embryo Transfer in Lahore With Dr. Kamran Saleem",
+  closingParas: [
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem plans frozen embryo transfer cycles for women in Lahore, choosing the cycle type that suits your ovulation, lining and history.",
+    "We review embryo records from other clinics too, so you do not need to repeat a full cycle when your frozen embryos can be used.",
+  ],
+  resources: [
+    { href: "/resources/ivf-treatment-in-lahore", category: "Fertility Treatment", title: "IVF Treatment in Lahore: Cost, Process, Tests & Choosing the Right Clinic" },
+    { href: "/resources/ivf-treatment-cost-in-pakistan", category: "Fertility Treatment", title: "IVF Treatment Cost in Pakistan 2026" },
+  ],
+  close: {
+    heading: "Have Frozen Embryos?",
+    body: "Bring your embryo freezing report and previous cycle summary to your consultation, so your FET plan builds on them.",
+    cta: "Book an FET Consultation",
+  },
+};
+---
+
+<TreatmentPage {...page} />
