@@ -1,0 +1,211 @@
+---
+import TreatmentPage from "../../../components/TreatmentPage.astro";
+
+const T = "/services/fertility-treatment";
+
+const page = {
+  slug: "ivf",
+  name: "IVF Treatment",
+  title: "IVF Treatment in Lahore | Process, Cost & Success",
+  description:
+    "IVF treatment in Lahore with Dr. Kamran Saleem: who needs IVF, the step-by-step process, injections, success factors, risks and cost. Book a consultation.",
+  eyebrow: "IVF Treatment",
+  h1: "IVF Treatment in Lahore",
+  waText: "Hello, I would like to book an IVF consultation with Dr. Kamran Saleem.",
+  ctaLabel: "Book an IVF consultation",
+  heroSub: [
+    "In vitro fertilization (IVF), often called test tube baby treatment, combines eggs and sperm in a laboratory and transfers the resulting embryo to the uterus.",
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem helps couples in Lahore decide whether IVF is genuinely the right next step, plans each cycle around their test results, and explains every stage, risk and cost before treatment begins.",
+    "IVF is recommended when your findings point to it, not as a default.",
+  ].join(" "),
+  leadIn: [
+    { rich: ["Not sure whether IVF is the right step yet? Start with our ", ["Fertility Assessment & Diagnosis", "/services/assessment"], " service, so any recommendation is based on your results."] },
+  ],
+  sections: [
+    {
+      id: "what-is-ivf",
+      title: "What Is IVF (In Vitro Fertilization)?",
+      intro: "IVF means fertilization in a laboratory dish instead of inside the body.",
+      icon: "flask",
+      body: [
+        "In a natural cycle, a woman usually releases one egg a month. During IVF, medication encourages the ovaries to develop several mature eggs. These are collected, fertilized with sperm in an embryology laboratory, and grown for three to six days. The best embryo (or embryos) can then be transferred to the uterus, or frozen for a later transfer.",
+        "IVF is what most people mean when they search for test tube baby treatment in Lahore. The phrase is informal: the baby does not grow in a test tube. Only fertilization and the first days of embryo development happen in the laboratory, and the pregnancy then develops in the womb as usual.",
+        { rich: ["IVF is one of several assisted reproductive treatments. Depending on your results, a simpler option such as ", ["IUI", `${T}/iui`], " may be appropriate first, or ", ["ICSI", `${T}/icsi`], " may be added to IVF when sperm factors require it."] },
+      ],
+    },
+    {
+      id: "who-needs-ivf",
+      title: "Who May Need IVF?",
+      intro: "IVF is considered when the cause of infertility, or the time already spent trying, makes simpler treatment unlikely to work.",
+      icon: "user",
+      body: [
+        "IVF may be recommended in situations such as:",
+        { ul: [
+          "Blocked, damaged or absent fallopian tubes, including after tubal surgery or pelvic infection",
+          "Endometriosis affecting the ovaries or tubes",
+          "Reduced ovarian reserve or advancing age, where time matters",
+          "PCOS or ovulation problems that have not responded to ovulation induction or IUI",
+          "Male-factor infertility, usually with ICSI (low count, poor motility, or surgically retrieved sperm)",
+          "Unexplained infertility that continues despite appropriate treatment",
+          "A known genetic condition where embryo testing (PGT) is being considered",
+          "Unsuccessful IUI cycles after careful review",
+        ] },
+        "Equally important is who does not need IVF yet. Many couples are first asked to repeat a test, correct a hormone problem, treat an infection or try a lower-intensity treatment. Your plan follows your findings, not a standard package.",
+      ],
+    },
+    {
+      id: "ivf-process-step-by-step",
+      title: "The IVF Process, Step by Step",
+      intro: "A typical IVF cycle takes around four to six weeks from the start of medication to the pregnancy test.",
+      icon: "calendar",
+      body: [
+        { h3: "1. Assessment and planning" },
+        "Hormone tests (such as AMH, FSH, LH, prolactin and thyroid function), a pelvic ultrasound with antral follicle count, a semen analysis, and a check of the uterine cavity and tubes where needed. These results decide your protocol and starting dose.",
+        { h3: "2. Ovarian stimulation (about 8 to 14 days)" },
+        "Daily hormone injections, mainly FSH and sometimes LH, encourage several follicles to grow. Ultrasound scans, and sometimes blood tests, track growth every few days so the dose can be adjusted. A second medication stops the eggs being released too early.",
+        { h3: "3. Trigger injection" },
+        "When the follicles reach the right size, a trigger injection matures the eggs. Retrieval is timed for roughly 34 to 36 hours later, so the timing of this injection matters.",
+        { h3: "4. Egg retrieval" },
+        "A short procedure under sedation. A fine needle, guided by ultrasound, collects the eggs through the vaginal wall. There are no cuts, and most women go home the same day.",
+        { h3: "5. Sperm collection and fertilization" },
+        "A semen sample is provided on the same day and prepared in the laboratory. Eggs and sperm are then combined for conventional IVF, or a single sperm is injected into each mature egg (ICSI) when indicated.",
+        { h3: "6. Embryo development" },
+        "Fertilization is checked the next day. Embryos are grown for up to five or six days, until the blastocyst stage, when they can be graded and the strongest selected.",
+        { h3: "7. Embryo transfer" },
+        { rich: ["A thin catheter places the selected embryo in the uterus under ultrasound guidance. It is quick and usually needs no anesthesia. Surplus good-quality embryos can be frozen for later use; see ", ["Frozen Embryo Transfer (FET)", `${T}/fet`], "."] },
+        { h3: "8. Pregnancy test" },
+        "A blood pregnancy test is usually done 10 to 14 days after transfer. Testing at home too early can give a misleading result.",
+      ],
+    },
+    {
+      id: "ivf-injections-and-medication",
+      title: "IVF Injections and Medication",
+      intro: "The injections are the part most people worry about, and often turn out to be easier than expected.",
+      icon: "bolt",
+      body: [
+        "IVF medication falls into a few groups:",
+        { ul: [
+          "Gonadotropins (FSH, sometimes with LH) that stimulate several follicles to grow",
+          "GnRH antagonist or agonist, which prevents the eggs being released too early",
+          "A trigger injection (hCG or a GnRH agonist) that matures the eggs before retrieval",
+          "Progesterone, to support the uterine lining after embryo transfer",
+          "Estrogen tablets or patches in frozen embryo transfer cycles",
+        ] },
+        "Most injections are small shots under the skin, given with pre-filled pens. You are shown how to give them yourself, or a partner or nurse can help. Doses are individual: a dose that suits one patient can over- or under-stimulate another, which is why monitoring scans matter.",
+        "Bloating, breast tenderness, mood changes, headaches and bruising at injection sites are common. Severe abdominal pain, rapid weight gain, repeated vomiting or breathlessness are not, and should be reported urgently.",
+      ],
+    },
+    {
+      id: "ivf-success-rates",
+      title: "IVF Success Rates: What Actually Matters",
+      intro: "No honest clinic can promise a result. What can be explained is which factors change the odds.",
+      icon: "heart",
+      body: [
+        "Published IVF success rates are often not comparable. Some clinics report positive pregnancy tests, others live births; some count per cycle started, others per embryo transfer, and some only report their best-prognosis patients. When comparing clinics, ask for live birth rate, the denominator used, and results by age group.",
+        "The factors that most influence an individual outcome:",
+        { ul: [
+          "The woman's age when the eggs are collected, the single strongest factor",
+          "Ovarian reserve and response to stimulation",
+          "Embryo quality, and whether embryos reach the blastocyst stage",
+          "Sperm quality and DNA integrity",
+          "The uterus: polyps, fibroids, a thin or scarred lining",
+          "The underlying diagnosis, such as endometriosis or long-standing unexplained infertility",
+          "Weight, smoking, thyroid control and other modifiable health factors",
+          "The number of embryos available across several transfers, not just the first",
+        ] },
+        "Success is best judged over a series of embryo transfers from one egg collection, not a single attempt, which is one reason frozen embryos matter. Dr. Kamran will give you an honest individual estimate based on your age and results, including when the likely benefit of IVF is low.",
+      ],
+    },
+    {
+      id: "ivf-risks-and-complications",
+      title: "IVF Risks and Possible Complications",
+      intro: "IVF is widely used and generally safe, but it is a medical treatment with real risks that should be discussed before you start.",
+      icon: "shield",
+      body: [
+        { ul: [
+          "Ovarian hyperstimulation syndrome (OHSS): an exaggerated response to stimulation causing abdominal swelling and pain. Mild cases are common; severe cases are uncommon, and careful monitoring or a freeze-all approach is used to prevent them.",
+          "Multiple pregnancy: twins or triplets carry higher risks for mother and babies. Transferring a single good-quality embryo greatly reduces this.",
+          "Procedure-related risks: bleeding, infection or, rarely, injury to nearby structures during egg retrieval, plus the small risks of sedation.",
+          "Ectopic pregnancy: a pregnancy outside the uterus, slightly more common after IVF, particularly with tubal disease.",
+          "Miscarriage: related mainly to age and embryo quality rather than to IVF itself.",
+          "Emotional strain: waiting, cost and uncertainty are heavy. Asking for support is reasonable.",
+        ] },
+        "Seek urgent medical attention for severe abdominal pain, heavy bleeding, fever, difficulty breathing or very rapid weight gain during treatment. Clinic hours are limited and we do not provide emergency care.",
+      ],
+    },
+    {
+      id: "ivf-cost-in-lahore",
+      title: "IVF Cost in Lahore: What Affects the Price",
+      intro: "A single fixed IVF price would be misleading, because cycles differ.",
+      icon: "coin",
+      body: [
+        "The total cost of IVF treatment in Lahore depends on what your cycle actually involves. When comparing quotes between clinics, check what is included:",
+        { ul: [
+          "Consultation, tests and monitoring scans",
+          "Medication, often the most variable part, depending on dose and brand",
+          "Egg retrieval, including sedation",
+          "Laboratory and embryology fees",
+          "ICSI, if needed",
+          "Embryo freezing and annual storage",
+          "Later frozen embryo transfer cycles",
+          "Add-ons such as PGT, time-lapse imaging or assisted hatching",
+        ] },
+        "Add-ons deserve scrutiny. Several popular ones have limited evidence of benefit for most patients, and we suggest them only where there is a clear clinical reason.",
+        { rich: ["At Kamran Fertility Clinic, the proposed plan and an itemized estimate are explained before you commit. For a wider overview, see our guide to ", ["IVF treatment cost in Pakistan", "/resources/ivf-treatment-cost-in-pakistan"], "."] },
+      ],
+    },
+    {
+      id: "ivf-after-unsuccessful-cycle",
+      title: "IVF After an Unsuccessful Cycle or at Another Clinic",
+      intro: "A negative result is painful, but it is information, not necessarily a final answer.",
+      icon: "refresh",
+      body: [
+        "If you have had IVF elsewhere, bring the cycle summary: stimulation protocol, number of eggs, fertilization results, embryo grades and transfer details. Reviewing these often shows whether the difficulty was ovarian response, fertilization, embryo development or implantation, which changes what to do next.",
+        { rich: ["You can also request an independent view through our ", ["Support & Second Opinions", "/services/support"], " service."] },
+      ],
+    },
+    {
+      id: "ivf-vs-iui-vs-icsi",
+      title: "IVF, IUI or ICSI: How They Differ",
+      intro: "These are different treatments, not steps on a fixed ladder.",
+      icon: "compare",
+      body: [
+        { ul: [
+          "IUI places prepared sperm in the uterus and fertilization still happens in the body. It is less invasive, but suits only open tubes and adequate sperm quality.",
+          "IVF fertilizes eggs outside the body and transfers an embryo. It bypasses tubal problems and allows embryo selection and freezing.",
+          "ICSI is a laboratory technique used within IVF, where one sperm is injected into one egg. It is used when sperm factors or earlier fertilization failure make standard IVF unreliable.",
+        ] },
+        { rich: ["Read more: ", ["IUI treatment", `${T}/iui`], ", ", ["ICSI treatment", `${T}/icsi`], " and ", ["IVF vs IUI", "/resources/ivf-vs-iui"], "."] },
+      ],
+    },
+  ],
+  faqs: [
+    { q: "What is IVF treatment?", a: "IVF (in vitro fertilization) is a treatment in which eggs are collected, fertilized with sperm in a laboratory, and the resulting embryo is transferred to the uterus. It is used when simpler treatment is unlikely to work or has not worked." },
+    { q: "Is IVF the same as test tube baby treatment?", a: "Yes. Test tube baby is the popular name for IVF. Fertilization happens in a laboratory dish, but the pregnancy develops in the mother's womb in the usual way." },
+    { q: "How long does one IVF cycle take?", a: "Ovarian stimulation usually takes 8 to 14 days, followed by egg retrieval, fertilization, embryo development and transfer. From the start of medication to the pregnancy test is typically four to six weeks, longer if embryos are frozen for a later transfer." },
+    { q: "Is IVF painful?", a: "Injections can sting or bruise. Egg retrieval is done under sedation, so you should not feel it, though cramping and bloating are common afterwards. Embryo transfer is usually painless, similar to a cervical smear." },
+    { q: "Will IVF work on the first attempt?", a: "It can, but nobody can promise it. Success depends mainly on age, ovarian reserve, embryo quality and the cause of infertility. Many people need more than one transfer, which is why embryo freezing and cumulative results matter." },
+    { q: "How much does IVF cost in Lahore?", a: "The cost depends on your medication, whether ICSI, freezing or genetic testing are needed, and how many transfers are required. You will receive an itemized estimate during your consultation, before any treatment begins." },
+    { q: "When can I take a pregnancy test after embryo transfer?", a: "A blood test is usually done about 10 to 14 days after transfer. Testing earlier at home can show a false negative, or a false positive caused by the trigger injection." },
+    { q: "Do I need ICSI with IVF?", a: "Not always. ICSI is used mainly for male-factor infertility, previous fertilization failure or surgically retrieved sperm. For couples without those issues, routine ICSI has not been shown to improve live birth rates." },
+  ],
+  closingHeading: "IVF Treatment in Lahore With Dr. Kamran Saleem",
+  closingParas: [
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem provides IVF treatment planning for women and men in Lahore, with 25 years of experience in reproductive health and fertility.",
+    "Your plan is based on your own results: whether IVF is the right treatment, which protocol suits you, whether ICSI or embryo freezing is needed, and what each stage will cost.",
+    "We are open about which stages are managed in the clinic and which are coordinated with partner laboratories, so you know exactly what to expect before you begin.",
+  ],
+  resources: [
+    { href: "/resources/ivf-treatment-in-lahore", category: "Fertility Treatment", title: "IVF Treatment in Lahore: Cost, Process, Tests & Choosing the Right Clinic" },
+    { href: "/resources/ivf-treatment-cost-in-pakistan", category: "Fertility Treatment", title: "IVF Treatment Cost in Pakistan 2026" },
+    { href: "/resources/ivf-vs-iui", category: "Treatments", title: "IVF vs IUI: understanding the difference" },
+  ],
+  close: {
+    heading: "Ready to Talk About IVF?",
+    body: "Bring any previous reports, semen analysis or treatment summaries to your consultation, so your IVF plan starts from the facts.",
+    cta: "Book an IVF Consultation",
+  },
+};
+---
+
+<TreatmentPage {...page} />
