@@ -1,0 +1,154 @@
+---
+import TreatmentPage from "../../../components/TreatmentPage.astro";
+
+const T = "/services/fertility-treatment";
+
+// ASSUMPTION: freezing and storage are delivered through an embryology laboratory
+// (in-clinic or partner). Confirm with the clinic before publishing.
+
+const page = {
+  slug: "fertility-preservation",
+  name: "Egg & Sperm Freezing",
+  title: "Egg & Sperm Freezing in Lahore | Fertility Preservation",
+  description:
+    "Egg freezing and sperm freezing in Lahore: who it suits, how vitrification works, the process, success factors, risks and costs. Fertility preservation guidance.",
+  eyebrow: "Fertility Preservation",
+  h1: "Egg and Sperm Freezing in Lahore",
+  waText: "Hello, I would like to ask about egg or sperm freezing (fertility preservation) with Dr. Kamran Saleem.",
+  ctaLabel: "Book a fertility preservation consultation",
+  heroSub: [
+    "Fertility preservation means freezing eggs or sperm now so that they can be used to try for a pregnancy later.",
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem advises women and men in Lahore on egg freezing and sperm freezing, including before cancer treatment or surgery, and is honest about what freezing can and cannot guarantee.",
+  ].join(" "),
+  leadIn: [
+    "If you are about to start cancer treatment or surgery that could affect fertility, contact us as early as possible, because preservation can often be arranged quickly.",
+  ],
+  sections: [
+    {
+      id: "what-is-fertility-preservation",
+      title: "What Is Fertility Preservation?",
+      intro: "Freezing stops the clock on the eggs or sperm that are stored, not on the body they came from.",
+      icon: "flask",
+      body: [
+        "Eggs and sperm can be frozen and stored for years. When you are ready, they are thawed and used in treatment, usually IVF or ICSI for eggs, and IUI or IVF/ICSI for sperm.",
+        "Eggs are frozen by vitrification, an ultra-rapid method that prevents damaging ice crystals and gives much better survival than older slow-freezing methods.",
+      ],
+    },
+    {
+      id: "who-should-consider-freezing",
+      title: "Who Should Consider Egg or Sperm Freezing?",
+      intro: "Medical reasons are the most urgent, but planning for later is also valid.",
+      icon: "user",
+      body: [
+        { h3: "Women" },
+        { ul: [
+          "Before chemotherapy, radiotherapy or surgery that may affect the ovaries",
+          "Conditions that may reduce ovarian reserve, such as severe or recurrent endometriosis",
+          "A family history of early menopause",
+          "Wanting to delay pregnancy for personal, educational or career reasons",
+        ] },
+        { h3: "Men" },
+        { ul: [
+          "Before cancer treatment, testicular surgery or vasectomy",
+          "Declining sperm counts, or retrieval of rare sperm that should be stored",
+          "As a back-up before an IVF or ICSI cycle",
+        ] },
+      ],
+    },
+    {
+      id: "egg-freezing-process",
+      title: "The Egg Freezing Process",
+      intro: "Egg freezing uses the first half of an IVF cycle.",
+      icon: "calendar",
+      body: [
+        { h3: "1. Assessment" },
+        "A consultation, an AMH blood test and an ultrasound antral follicle count estimate your ovarian reserve and the likely response.",
+        { h3: "2. Stimulation (about 10 to 14 days)" },
+        "Daily hormone injections encourage several eggs to mature, with ultrasound monitoring.",
+        { h3: "3. Egg retrieval" },
+        "A short procedure under sedation, usually with discharge the same day.",
+        { h3: "4. Vitrification and storage" },
+        "Mature eggs are frozen in the laboratory and stored.",
+        { h3: "5. Using the eggs later" },
+        { rich: ["When you wish to conceive, the eggs are thawed, fertilized with sperm using ICSI, and the embryo is transferred, as described in our ", ["IVF", `${T}/ivf`], " and ", ["ICSI", `${T}/icsi`], " pages."] },
+        "In urgent medical situations, stimulation can sometimes start at any point in the menstrual cycle, so treatment is not delayed.",
+      ],
+    },
+    {
+      id: "sperm-freezing-process",
+      title: "The Sperm Freezing Process",
+      intro: "Sperm freezing is quicker and simpler than egg freezing.",
+      icon: "bolt",
+      body: [
+        "After a short period of abstinence, a semen sample is produced at the clinic and assessed. It is mixed with a protective solution, divided into vials and frozen. A few samples are often stored if time allows, especially before cancer treatment.",
+        "Some sperm do not survive thawing, so the number of vials stored and the post-thaw quality both matter. Sperm retrieved surgically for azoospermia can also be frozen.",
+        { rich: ["See our ", ["male infertility treatment", `${T}/male-infertility`], " page for details."] },
+      ],
+    },
+    {
+      id: "freezing-success-rates",
+      title: "What to Expect: Success and Limits",
+      intro: "Freezing is a chance, not a guarantee.",
+      icon: "heart",
+      body: [
+        "The chance that frozen eggs lead to a baby depends mainly on the woman's age when they were frozen, and on how many mature eggs are stored. Younger eggs and more eggs mean better odds. Some women need more than one cycle to store enough.",
+        "Not every egg survives thawing, fertilizes or becomes a healthy embryo. Freezing also does not remove age-related risks to pregnancy itself later in life. Dr. Kamran will give you an honest estimate based on your age and reserve before you decide.",
+      ],
+    },
+    {
+      id: "freezing-risks",
+      title: "Risks and Considerations",
+      intro: "Freezing is safe for most people, but it is not trivial.",
+      icon: "shield",
+      body: [
+        { ul: [
+          "Ovarian hyperstimulation syndrome, which is uncommon with careful monitoring",
+          "Risks of egg retrieval and sedation, such as bleeding or infection, which are rare",
+          "Possible emotional and financial strain, especially if several cycles are needed",
+          "Many stored eggs are never used, which is a good outcome if you conceive naturally",
+        ] },
+      ],
+    },
+    {
+      id: "storage-and-consent",
+      title: "Storage, Consent and Cost",
+      intro: "Storage is long term, so the terms should be clear from the start.",
+      icon: "document",
+      body: [
+        "Storage duration, annual fees, written consent, and what happens to stored material if fees stop or circumstances change are explained before you begin.",
+        { ul: [
+          "Egg freezing: consultation and tests, stimulation medication, retrieval, vitrification and annual storage",
+          "Sperm freezing: assessment, freezing and annual storage",
+          "Later use: IVF or ICSI cycle costs at the time of use",
+        ] },
+        "You will receive an itemized estimate during your consultation.",
+      ],
+    },
+  ],
+  faqs: [
+    { q: "What is egg freezing?", a: "Egg freezing is a process in which a woman's eggs are collected after ovarian stimulation, frozen by vitrification, and stored for possible later use in IVF or ICSI." },
+    { q: "What is the best age for egg freezing?", a: "Younger is better. Egg quality falls with age, so eggs frozen earlier generally give better results, but the right time depends on your own circumstances and reserve." },
+    { q: "Does egg freezing guarantee a baby?", a: "No. Success depends on the age at freezing, the number of mature eggs stored, and later fertilization and embryo development." },
+    { q: "Is egg retrieval painful?", a: "It is done under sedation, so you do not feel it. Mild cramping and bloating afterwards are common." },
+    { q: "How long can eggs and sperm be stored?", a: "For many years. Storage periods and fees are set out in your consent form." },
+    { q: "Can men freeze sperm before cancer treatment?", a: "Yes. Sperm freezing is quick and is usually arranged before treatment starts. Several samples may be stored if time allows." },
+    { q: "How soon can freezing be done before cancer treatment?", a: "Often within days. Stimulation can sometimes start at any point in the cycle. Contact the clinic as early as possible and coordinate with your oncology team." },
+  ],
+  closingHeading: "Fertility Preservation in Lahore With Dr. Kamran Saleem",
+  closingParas: [
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem advises on egg and sperm freezing in Lahore, including urgent preservation before cancer treatment and planned preservation for later.",
+    "We explain the realistic benefits and limits of freezing, and what is carried out in the clinic and what is coordinated with partner services.",
+  ],
+  resources: [
+    { href: "/resources/ivf-treatment-in-lahore", category: "Fertility Treatment", title: "IVF Treatment in Lahore: Cost, Process, Tests & Choosing the Right Clinic" },
+    { href: "/resources/male-infertility--treatment", category: "Fertility Treatment", title: "Male Infertility Treatment: Causes, Tests and Options" },
+  ],
+  close: {
+    heading: "Thinking About Preserving Your Fertility?",
+    body: "If time is short because of medical treatment, message us first so we can arrange the earliest possible appointment.",
+    cta: "Book a Fertility Preservation Consultation",
+  },
+};
+---
+
+<TreatmentPage {...page} />
