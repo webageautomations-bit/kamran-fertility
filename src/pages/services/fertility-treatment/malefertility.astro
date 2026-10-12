@@ -1,0 +1,174 @@
+---
+import TreatmentPage from "../../../components/TreatmentPage.astro";
+
+const T = "/services/fertility-treatment";
+
+const page = {
+  slug: "male-infertility",
+  name: "Male Infertility Treatment",
+  title: "Male Infertility Treatment in Lahore | Causes & Options",
+  description:
+    "Male infertility treatment in Lahore: causes of low sperm count, azoospermia, varicocele and infections, testing, treatment options and when ICSI is needed.",
+  eyebrow: "Male Infertility Treatment",
+  h1: "Male Infertility Treatment in Lahore",
+  waText: "Hello, I would like to book a confidential male fertility consultation with Dr. Kamran Saleem.",
+  ctaLabel: "Book a confidential consultation",
+  heroSub: [
+    "Male factors contribute to infertility in around half of couples, yet men are often the last to be tested.",
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem assesses sperm health, hormones and infections with full confidentiality and no stigma, treats what can be treated, and explains clearly when assisted treatment such as ICSI is the better option.",
+  ].join(" "),
+  leadIn: [
+    { rich: ["If you already have a semen analysis, bring it. If not, see our guides to the ", ["male fertility test", "/resources/male-fertility-test"], " and ", ["understanding a semen analysis", "/resources/understanding-a-semen-analysis"], "."] },
+  ],
+  sections: [
+    {
+      id: "causes-of-male-infertility",
+      title: "Common Causes of Male Infertility",
+      intro: "Causes range from fully treatable to genetic, and many men have no symptoms.",
+      icon: "user",
+      body: [
+        { ul: [
+          "Varicocele: enlarged veins in the scrotum that can raise testicular temperature and reduce sperm quality",
+          "Hormonal problems, such as low testosterone, raised prolactin or low FSH and LH",
+          "Infections of the genital tract or past sexually transmitted infections",
+          "Blockage in the ducts that carry sperm (obstructive azoospermia)",
+          "Testicular failure, undescended testes or past injury, mumps or chemotherapy",
+          "Genetic causes, including chromosomal changes and Y-chromosome microdeletions",
+          "Erectile or ejaculation problems, including retrograde ejaculation",
+          "Medication, anabolic steroids and testosterone supplements",
+          "Lifestyle factors: smoking, heavy alcohol, obesity and prolonged heat exposure",
+        ] },
+        "In a proportion of men, no cause is found. This is called idiopathic male infertility.",
+      ],
+    },
+    {
+      id: "when-to-see-a-doctor",
+      title: "When to See a Doctor",
+      intro: "Do not wait if there are signs, and do not wait for your partner to be tested first.",
+      icon: "heart",
+      body: [
+        "Consider an assessment if you have been trying for a year without pregnancy (six months if your partner is over 35), or earlier if you have:",
+        { ul: [
+          "A history of undescended testes, testicular surgery, torsion or injury",
+          "Past genital infection, mumps or sexually transmitted infection",
+          "Erectile or ejaculation difficulties, or reduced desire",
+          "Testicular pain, swelling or a lump",
+          "Chemotherapy, radiotherapy or long-term medication",
+          "Use of anabolic steroids or testosterone",
+        ] },
+      ],
+    },
+    {
+      id: "tests-for-male-infertility",
+      title: "Tests for Male Infertility",
+      intro: "Testing starts with a semen analysis, and often goes further.",
+      icon: "document",
+      body: [
+        { ul: [
+          "Semen analysis: sperm count, movement and shape, interpreted against WHO reference limits. A single abnormal result is usually repeated after a couple of months, because sperm numbers vary.",
+          "Hormone tests: FSH, LH, testosterone and prolactin",
+          "Scrotal ultrasound with Doppler, to look for varicocele or testicular abnormalities",
+          "Infection screening of urine, semen and sexually transmitted infections where relevant",
+          "Genetic testing for severely low counts or absent sperm",
+          "Sperm DNA fragmentation testing, in selected cases",
+        ] },
+        { rich: ["More detail is in our ", ["Assessment & Diagnosis", "/services/assessment"], " service."] },
+      ],
+    },
+    {
+      id: "male-infertility-treatment-options",
+      title: "Treatment Options by Cause",
+      intro: "Treatment depends on what the tests show.",
+      icon: "bolt",
+      body: [
+        { ul: [
+          "Infection: appropriate antibiotics and treatment of any partner when needed",
+          "Hormonal disorders: targeted hormone treatment where a deficiency is found, such as gonadotropin therapy in hypogonadotropic hypogonadism",
+          "Medication and steroids: stopping testosterone or anabolic steroids, which suppress sperm production, and reviewing other drugs",
+          "Varicocele: surgical or radiological repair in selected men, performed by a urological specialist",
+          "Erectile and ejaculation problems: assessment and treatment of the underlying cause",
+          "Lifestyle: stopping smoking, reducing alcohol, weight loss and avoiding heat exposure",
+        ] },
+        "Antioxidant and supplement courses are widely marketed and sometimes used, but the evidence for them is mixed. We avoid long, costly supplement regimes that are unlikely to help.",
+      ],
+    },
+    {
+      id: "azoospermia-and-sperm-retrieval",
+      title: "Azoospermia and Sperm Retrieval",
+      intro: "No sperm in the ejaculate does not always mean no sperm.",
+      icon: "flask",
+      body: [
+        "Azoospermia means no sperm in the ejaculated semen. It can be obstructive, where sperm are made but blocked, or non-obstructive, where sperm production is impaired. Hormone tests, ultrasound and sometimes genetics help tell which.",
+        "Sperm can often be retrieved surgically with PESA, TESA or micro-TESE, then used for ICSI. Retrieval is performed by an experienced urological surgeon, and Dr. Kamran coordinates it with your treatment cycle.",
+        { rich: ["See our ", ["ICSI treatment", `${T}/icsi`], " page for how retrieved sperm are used."] },
+      ],
+    },
+    {
+      id: "assisted-treatment-for-male-factor",
+      title: "When Assisted Treatment Is Needed",
+      intro: "The degree of sperm impairment decides which option is realistic.",
+      icon: "compare",
+      body: [
+        { ul: [
+          "Mild impairment: timed intercourse or IUI may be reasonable",
+          "Moderate to severe impairment: IVF with ICSI is usually more effective",
+          "Azoospermia: surgical sperm retrieval with ICSI",
+        ] },
+        { rich: ["Read more about ", ["IUI", `${T}/iui`], " and ", ["IVF", `${T}/ivf`], ", or see our wider guide to ", ["male infertility treatment", "/resources/male-infertility--treatment"], "."] },
+      ],
+    },
+    {
+      id: "improving-sperm-health",
+      title: "Improving Sperm Health: Realistic Steps",
+      intro: "Sperm take about three months to develop, so changes need time to show.",
+      icon: "refresh",
+      body: [
+        { ul: [
+          "Stop smoking and avoid recreational drugs",
+          "Do not use anabolic steroids or testosterone supplements unless prescribed, since they can shut down sperm production",
+          "Limit alcohol",
+          "Move toward a healthy weight and exercise regularly",
+          "Avoid prolonged heat on the testes, such as hot baths, saunas and laptops on the lap",
+          "Manage stress and sleep",
+        ] },
+        "A repeat semen analysis after about three months shows whether these steps have helped.",
+      ],
+    },
+    {
+      id: "confidential-care",
+      title: "Confidential, Respectful Care",
+      intro: "Many men delay getting help because of embarrassment. There is no reason to.",
+      icon: "shield",
+      body: [
+        "Dr. Kamran Saleem has a postgraduate qualification in genito-urinary medicine and venereology and extensive experience in reproductive health. Assessment is private, discussed without judgment, and focused on practical answers.",
+      ],
+    },
+  ],
+  faqs: [
+    { q: "Can male infertility be treated?", a: "Often, yes. Treatment depends on the cause: infections and hormonal problems can be treated directly, varicocele can be repaired, and assisted treatment such as IUI, IVF or ICSI can help when sperm remain impaired." },
+    { q: "What is a normal sperm count?", a: "WHO reference limits put the lower limit of normal at about 16 million sperm per milliliter, with total motility of about 42 percent. These are reference limits, not a pass or fail mark, and results are interpreted with the full picture." },
+    { q: "What is azoospermia and can it be treated?", a: "Azoospermia means no sperm in the ejaculate. Sometimes sperm can be retrieved surgically from the testis or epididymis and used for ICSI. Treatment depends on whether the cause is a blockage or reduced sperm production." },
+    { q: "Does a varicocele cause infertility?", a: "It can in some men by raising testicular temperature, though many men with varicocele are fertile. Repair is considered selectively when sperm results are abnormal." },
+    { q: "Can steroids or testosterone cause male infertility?", a: "Yes. Anabolic steroids and testosterone supplements can suppress sperm production, sometimes severely. Stopping them under medical guidance often allows recovery, though it can take months." },
+    { q: "How long does it take to improve sperm count?", a: "Sperm take around three months to develop, so lifestyle changes or treatment need about that long before a repeat test shows a difference." },
+    { q: "Is a semen analysis confidential?", a: "Yes. Results and discussions are private. Reports are given to you, and shared only with your consent." },
+  ],
+  closingHeading: "Male Infertility Treatment in Lahore With Dr. Kamran Saleem",
+  closingParas: [
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem assesses and treats male fertility concerns in Lahore, including semen analysis interpretation, hormone assessment and genito-urinary health.",
+    "Where surgery or specialist procedures such as varicocele repair or sperm retrieval are needed, we coordinate with trusted specialists and explain what happens where.",
+  ],
+  resources: [
+    { href: "/resources/male-infertility--treatment", category: "Fertility Treatment", title: "Male Infertility Treatment: Causes, Tests and Options" },
+    { href: "/resources/male-fertility-test", category: "Male Fertility", title: "Male Fertility Test: What It Shows" },
+    { href: "/resources/understanding-a-semen-analysis", category: "Male Fertility", title: "Understanding a Semen Analysis" },
+  ],
+  close: {
+    heading: "Ready for Answers?",
+    body: "Bring any previous semen analysis or hormone reports. If you have none, we will tell you which tests are worth doing first.",
+    cta: "Book a Confidential Consultation",
+  },
+};
+---
+
+<TreatmentPage {...page} />
