@@ -1,0 +1,216 @@
+---
+import TreatmentPage from "../../../components/TreatmentPage.astro";
+
+const T = "/services/fertility-treatment";
+
+const page = {
+  slug: "hormonal-analysis",
+  name: "Hormonal Analysis",
+  title: "Hormonal Analysis for Fertility in Lahore | AMH, FSH, LH",
+  description:
+    "Fertility hormone tests in Lahore: AMH, FSH, LH, prolactin, TSH and testosterone for men and women, explained by Dr. Kamran Saleem. Book a consultation.",
+  eyebrow: "Hormonal Analysis",
+  h1: "Hormonal Analysis for Fertility in Lahore",
+  waText: "Hello, I would like to book a hormonal analysis consultation with Dr. Kamran Saleem.",
+  ctaLabel: "Book a hormone consultation",
+  heroSub: [
+    "A fertility hormone analysis measures the blood hormones that control ovulation, egg supply and sperm production, in both women and men.",
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem chooses the tests that fit your history, times them correctly, and explains each result in plain language, rather than ordering a long panel by default.",
+  ].join(" "),
+  leadIn: [
+    { rich: ["Hormone results are only useful when they are tested at the right time and read alongside your history. They sit within a wider ", ["Fertility Assessment & Diagnosis", "/services/assessment"], ". Other parts of the assessment: ", ["female fertility test", "/services/assessment/female-fertility-test"], ", ", ["ovulation test", "/services/assessment/ovulation-test"], " and, for men, the ", ["male fertility test", "/services/assessment/male-fertility-test"], "."] },
+  ],
+  sections: [
+    {
+      id: "what-is-hormonal-analysis",
+      title: "What Is a Fertility Hormone Test?",
+      intro: "Hormones are the signals that tell the ovaries, testes and uterus what to do.",
+      icon: "flask",
+      body: [
+        "In women, hormones from the brain, the ovaries and the thyroid control the menstrual cycle, egg development and ovulation. In men, they control sperm production and testosterone.",
+        "A hormone analysis is a set of blood tests that shows whether these signals are working. It helps to explain irregular or absent periods, difficulty ovulating, a low sperm count with no obvious cause, and unexplained delay in conceiving.",
+        "It is not a pass or fail exam. A normal result is reassuring, and an abnormal one points to a cause that can often be treated.",
+      ],
+    },
+    {
+      id: "who-needs-hormone-tests",
+      title: "Who Needs a Hormone Test?",
+      intro: "Not everyone does. Testing is recommended when it is likely to guide a decision.",
+      icon: "user",
+      body: [
+        "A hormone analysis may be useful if:",
+        { ul: [
+          "Your periods are irregular, very infrequent, or absent",
+          "You have symptoms of PCOS: excess hair, acne, weight gain or hair thinning",
+          "You are unsure whether you are ovulating",
+          "You are over 35, or have a family history of early menopause, and want to understand your ovarian reserve",
+          "You have had recurrent miscarriage or a long delay in conceiving",
+          "You have thyroid symptoms or a known thyroid condition",
+          "A man has a low sperm count, low libido, erectile problems or signs of low testosterone",
+        ] },
+        "If your periods are regular and nothing else points to a problem, a full hormone panel may add little. Dr. Kamran will tell you honestly if that is the case.",
+      ],
+    },
+    {
+      id: "womens-hormone-tests",
+      title: "Women's Fertility Hormone Tests Explained",
+      intro: "Each test answers a different question.",
+      icon: "calendar",
+      body: [
+        { ul: [
+          "AMH (anti-Müllerian hormone): reflects the number of small follicles, an indicator of ovarian reserve. It can be tested on any day of the cycle.",
+          "FSH (follicle-stimulating hormone): rises when the ovaries are working harder to produce an egg. Best measured on days 2 to 4 of the cycle.",
+          "LH (luteinising hormone): triggers ovulation. A baseline level is measured early in the cycle, and it is interpreted with FSH.",
+          "Estradiol: measured with FSH, because a high early-cycle value can make FSH look falsely normal.",
+          "Progesterone: a mid-luteal test, about seven days before your expected period, to confirm that ovulation occurred.",
+          "Prolactin: when high, it can stop ovulation and cause irregular or absent periods.",
+          "TSH (thyroid): an underactive or overactive thyroid can affect ovulation and pregnancy.",
+          "Testosterone, DHEAS and 17-hydroxyprogesterone: when PCOS or another cause of excess male-type hormones is suspected.",
+          "Fasting glucose and insulin: where PCOS or insulin resistance is suspected.",
+        ] },
+        { rich: ["Our article ", ["Hormone Test for Fertility: Which Tests Do Women Need?", "/resources/hormone-test--for-fertility"], " goes into the detail of each."] },
+      ],
+    },
+    {
+      id: "when-to-test",
+      title: "When in Your Cycle Should You Test?",
+      intro: "Timing changes the result. Testing on the wrong day is the most common reason for confusing reports.",
+      icon: "calendar",
+      body: [
+        { ul: [
+          "Days 2 to 4 of your period (day 1 is the first day of full flow): FSH, LH and estradiol",
+          "Any day: AMH, TSH and, for most people, prolactin",
+          "About 7 days before your next expected period: progesterone, to check ovulation",
+          "If your periods are absent or very irregular: tests can usually be done on any day, with the timing explained in your report",
+        ] },
+        "If you take hormonal contraception, tell us. It can alter some results, and the plan may need to be adjusted.",
+      ],
+    },
+    {
+      id: "mens-hormone-tests",
+      title: "Men's Hormone Tests and Sperm Production",
+      intro: "Hormones help to explain why a sperm count is low, and whether it can be treated.",
+      icon: "heart",
+      body: [
+        { ul: [
+          "Total testosterone: measured in the early morning, and repeated if low, because levels vary through the day and between samples",
+          "FSH and LH: show whether the problem lies in the testes or in the brain's signals to them",
+          "Prolactin: checked when libido is low or testosterone is low",
+          "Estradiol, SHBG or free testosterone: in selected cases only",
+        ] },
+        "A high FSH with a very low sperm count often points to a problem in sperm production within the testes. Low testosterone with low or normal FSH and LH suggests the cause lies in the brain's signalling, which is often treatable.",
+        { rich: ["One important warning: testosterone injections, gels and anabolic steroids can switch off sperm production. Men trying to conceive should not start them without specialist advice. See ", ["male infertility assessment", "/services/assessment/male-infertility"], " for the full male assessment."] },
+      ],
+    },
+    {
+      id: "pcos-and-hormones",
+      title: "PCOS and Hormone Testing",
+      intro: "PCOS is diagnosed from the whole picture, not from one blood test.",
+      icon: "shield",
+      body: [
+        "PCOS (polycystic ovary syndrome) is diagnosed when at least two of three features are present: irregular or absent ovulation, signs of high androgens (clinical or on blood tests), and polycystic-appearing ovaries on ultrasound, once other causes have been excluded.",
+        "Hormone tests help in two ways: to confirm high androgens, and to rule out look-alike conditions such as thyroid disease, high prolactin and non-classic adrenal hyperplasia.",
+        { rich: [["Ovulation induction and PCOS", `${T}/ovulation-induction`], " treatment is tailored to your goals. Many women with PCOS conceive with simple ovulation treatment. See ", ["PCOS and Fertility: Can You Get Pregnant with PCOS?", "/resources/pcos-and-fertility"], "."] },
+      ],
+    },
+    {
+      id: "thyroid-and-prolactin",
+      title: "Thyroid and Prolactin: Two Treatable Causes",
+      intro: "Both are simple blood tests, and both are worth checking when ovulation or periods are irregular.",
+      icon: "flask",
+      body: [
+        "An underactive thyroid can cause irregular periods, failure to ovulate and, in pregnancy, a higher risk of complications. Many fertility specialists prefer the TSH level to sit in the lower part of the normal range when trying to conceive, commonly below about 2.5 mIU/L, although targets are individualised. Treatment is a daily tablet, with regular monitoring.",
+        "High prolactin can stop ovulation. Causes include stress, certain medicines, an underactive thyroid, and a small benign pituitary growth. A repeat test is often done first, because prolactin can rise after stress, exercise or eating. If it stays high, medicines can bring it down, and further tests are discussed.",
+      ],
+    },
+    {
+      id: "understanding-results",
+      title: "Understanding Your Results",
+      intro: "Numbers need context. Here is what the most misunderstood result actually means.",
+      icon: "compare",
+      body: [
+        { h3: "AMH measures quantity, not quality" },
+        "A low AMH means fewer eggs remain, but it does not mean you cannot conceive naturally, and it does not tell you about egg quality. A high AMH is common in PCOS. AMH is mainly useful for planning IVF stimulation and for understanding how much time you have.",
+        { h3: "FSH varies from cycle to cycle" },
+        "One raised FSH does not settle the question. It is read together with estradiol, AMH, your age, and an ultrasound count of small follicles.",
+        { h3: "Reference ranges differ between laboratories" },
+        "Each laboratory publishes its own ranges, which depend on the method it uses. That is why we interpret your report alongside your history rather than relying on a generic chart.",
+      ],
+    },
+    {
+      id: "preparing-for-tests",
+      title: "How to Prepare for Your Hormone Tests",
+      intro: "A little preparation makes results more reliable.",
+      icon: "calendar",
+      body: [
+        { ul: [
+          "Note the first day of your period, so tests can be timed correctly",
+          "Tell us about all medicines, including hormonal contraception, thyroid tablets and steroids",
+          "Mention high-dose biotin (common in hair and nail supplements), which can distort some hormone results",
+          "Fasting is needed only for certain tests, such as glucose and insulin, and we will tell you in advance",
+          "For prolactin, avoid vigorous exercise beforehand and try to be rested",
+          "For men's testosterone, a morning blood sample is preferred",
+        ] },
+        "Most hormone results are ready within a few days. We then go through them with you in a follow-up consultation, with a written next-steps plan.",
+      ],
+    },
+    {
+      id: "after-the-results",
+      title: "After the Results: What Happens Next",
+      intro: "An abnormal result is a starting point, not a verdict.",
+      icon: "heart",
+      body: [
+        { ul: [
+          "Normal results: reassurance, advice on timing intercourse, and a plan if pregnancy does not follow",
+          "Ovulation problems: lifestyle changes and ovulation induction",
+          "Thyroid or prolactin problems: treatment with regular monitoring",
+          "Low ovarian reserve: an honest discussion of timing, and whether to move sooner to assisted treatment",
+          "Male hormonal causes: treatment of the underlying problem, and guidance on avoiding anything that suppresses sperm",
+        ] },
+        { rich: ["When assisted treatment is the right step, we explain the options clearly: ", ["IUI", `${T}/iui`], ", ", ["IVF", `${T}/ivf`], " and ", ["ICSI", `${T}/icsi`], ", recommended only when your results support them."] },
+      ],
+    },
+    {
+      id: "cost-and-fees",
+      title: "Hormone Test Cost and Fees in Lahore",
+      intro: "Transparent, with nothing bundled that you do not need.",
+      icon: "coin",
+      body: [
+        "The consultation fee is shown before you confirm your booking. Individual hormone tests are priced separately, and ordered only when they are clinically appropriate. We do not sell a fixed package for everyone.",
+        "You can ask for an itemised estimate during your consultation, so you can see what each test will cost before you decide.",
+      ],
+    },
+  ],
+  faqs: [
+    { q: "Which hormone tests are done for fertility?", a: "In women, commonly AMH, FSH, LH, estradiol, progesterone, prolactin and TSH, with testosterone and related tests if PCOS is suspected. In men, testosterone, FSH, LH and sometimes prolactin. Only the tests relevant to you are ordered." },
+    { q: "On which day of the cycle should I do the FSH test?", a: "Usually on day 2, 3 or 4 of your period, counting the first day of full flow as day 1. AMH, TSH and prolactin can generally be tested on any day." },
+    { q: "Does a low AMH mean I cannot get pregnant?", a: "No. AMH reflects how many eggs remain, not their quality, and it does not rule out natural pregnancy. It is mainly useful for planning treatment and timing." },
+    { q: "Do I need to fast before a fertility hormone test?", a: "Not for most. Fasting is needed for tests such as glucose and insulin. We will tell you in advance which tests require it." },
+    { q: "Can hormone tests diagnose PCOS?", a: "Not on their own. PCOS is diagnosed from your cycle pattern, signs of high androgens, and ultrasound. Hormone tests help confirm the diagnosis and rule out other conditions." },
+    { q: "How long do hormone test results take?", a: "Most results are ready within a few days. We review them with you in a follow-up consultation and provide a written plan." },
+    { q: "Do men need hormone tests for fertility?", a: "Sometimes. They are useful when a semen analysis is abnormal, or when there is low libido, erectile problems or signs of low testosterone. Many men with normal semen do not need them." },
+    { q: "Can testosterone treatment affect my fertility?", a: "Yes. Testosterone injections, gels and anabolic steroids can suppress sperm production, sometimes for months. If you plan to have children, seek specialist advice before using them." },
+    { q: "Can thyroid problems stop me getting pregnant?", a: "They can affect ovulation and pregnancy outcomes. A thyroid problem is simple to test for, and treatment is straightforward and effective for most people." },
+    { q: "Do I need a referral for a hormone test?", a: "No. You can book directly through WhatsApp, whether or not you have previous reports." },
+  ],
+  closingHeading: "Hormonal Analysis in Lahore With Dr. Kamran Saleem",
+  closingParas: [
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem provides fertility hormone assessment for women and men in Lahore, with 25 years of experience in reproductive health and hormone assessment.",
+    "Tests are chosen for a reason, timed correctly and explained clearly, so you leave with an understanding of your results and a plan, not just a report.",
+    "If you already have hormone reports from elsewhere, we are happy to review them and give a clear second opinion.",
+  ],
+  resources: [
+    { href: "/resources/hormone-test--for-fertility", category: "Fertility Treatment", title: "Hormone Test for Fertility: Which Tests Do Women Need?" },
+    { href: "/resources/pcos-and-fertility", category: "Women's Health", title: "PCOS and Fertility: Can You Get Pregnant with PCOS?" },
+    { href: "/resources/regular-periods-but-not-getting-pregnant", category: "Fertility Assessment", title: "Why Is My Period Regular but I'm Not Getting Pregnant?" },
+    { href: "/resources/pcos-specialist-in-lahore", category: "PCOS", title: "PCOS Specialist in Lahore: How to Choose the Right Doctor" },
+  ],
+  close: {
+    heading: "Not Sure Which Tests You Need?",
+    body: "Bring any existing hormone reports to your consultation, and we will explain what they mean and what, if anything, is worth repeating.",
+    cta: "Book a Hormone Consultation",
+  },
+};
+---
+
+<TreatmentPage {...page} />
