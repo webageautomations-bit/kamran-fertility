@@ -7,8 +7,18 @@ const treatmentLinks = treatments.map((t) => ({
   href: `${hubHref}/${t.slug}`,
 }));
 
+// Assessment pages shown under "Assessment & Diagnosis".
+const assessmentLinks = [
+  { label: "Female Fertility Test", href: "/services/assessment/female-fertility-test" },
+  { label: "Male Fertility Test", href: "/services/assessment/male-fertility-test" },
+  { label: "Hormonal Analysis", href: "/services/assessment/hormonal-analysis" },
+  { label: "Ovulation Test", href: "/services/assessment/ovulation-test" },
+  { label: "Semen Analysis", href: "/services/assessment/semen-analysis" },
+  { label: "Male Infertility", href: "/services/assessment/male-infertility" },
+];
+
 const services = [
-  { label: "Assessment & Diagnosis", href: "/services/assessment", children: [] },
+  { label: "Assessment & Diagnosis", href: "/services/assessment", children: assessmentLinks },
   { label: "Fertility Treatment", href: hubHref, children: treatmentLinks },
   { label: "Support & Second Opinions", href: "/services/support", children: [] },
 ];
