@@ -1,0 +1,255 @@
+---
+import TreatmentPage from "../../../components/TreatmentPage.astro";
+
+const T = "/services/fertility-treatment";
+
+const page = {
+  slug: "male-infertility",
+  name: "Male Infertility Treatment",
+  title: "Male Infertility Treatment in Lahore | Tests & Specialist",
+  description:
+    "Male infertility specialist in Lahore: semen analysis, hormone tests, low sperm count treatment and confidential care with Dr. Kamran Saleem. Book today.",
+  eyebrow: "Male Infertility Treatment",
+  h1: "Male Infertility Treatment in Lahore",
+  waText: "Hello, I would like to book a male infertility consultation with Dr. Kamran Saleem.",
+  ctaLabel: "Book a confidential consultation",
+  heroSub: [
+    "Male infertility means a man's reproductive health is reducing the chance of a pregnancy. It is common, it is usually treatable or workable, and it has nothing to do with masculinity.",
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem provides private male fertility assessment and treatment planning in Lahore, with 25 years of experience in reproductive health, semen analysis interpretation and hormone assessment. Care of this kind is also called andrology. Nothing is ordered unless it is likely to change your plan.",
+  ].join(" "),
+  leadIn: [
+    { rich: ["Male factors contribute to close to half of all infertility cases, so a complete evaluation includes both partners. For the wider picture, see ", ["Fertility Assessment & Diagnosis", "/services/assessment"], " and ", ["hormonal analysis for fertility", "/services/assessment/hormonal-analysis"], "."] },
+  ],
+  sections: [
+    {
+      id: "what-is-male-infertility",
+      title: "What Is Male Infertility?",
+      intro: "It means a problem with sperm production, sperm delivery or male hormones is lowering the chance of conceiving.",
+      icon: "user",
+      body: [
+        "A couple is generally considered infertile after 12 months of regular unprotected intercourse without pregnancy (6 months if the woman is over 35). In many of these couples the cause lies with the man, the woman, or both.",
+        "Male infertility can involve how many sperm are made, how well they move, their shape, whether they can leave the body, or the hormones that control all of this. Often more than one factor is present.",
+        "A man can feel completely well and have normal sexual function and still have a sperm problem, which is why testing matters.",
+      ],
+    },
+    {
+      id: "when-to-see-a-specialist",
+      title: "When to See a Male Infertility Specialist",
+      intro: "Many men wait too long. Early testing is simple, private and often reassuring.",
+      icon: "calendar",
+      body: [
+        "Consider a consultation if:",
+        { ul: [
+          "You have been trying to conceive for 12 months (6 months if your partner is over 35)",
+          "A previous semen analysis showed a low count, poor movement or abnormal shape",
+          "You have a history of mumps after puberty, undescended testis, testicular injury, torsion or surgery",
+          "You have noticed a swelling, a heavy feeling or a dilated vein in the scrotum",
+          "You have erectile difficulty, ejaculation problems or reduced libido",
+          "You have had a genital infection, or want confidential STI screening",
+          "You are planning a pregnancy and want to check your own health first",
+        ] },
+        "You do not need a confirmed diagnosis or a referral. You can bring existing reports, or simply start with a conversation.",
+      ],
+    },
+    {
+      id: "male-fertility-tests",
+      title: "Male Fertility Tests: What Is Checked",
+      intro: "A good assessment is focused. Each test has a reason.",
+      icon: "flask",
+      body: [
+        { h3: "History and examination" },
+        "Dr. Kamran reviews how long you have been trying, past illnesses, medicines, surgery, infections, smoking, work and lifestyle. A physical examination checks the testes, the epididymis and the veins of the scrotum.",
+        { h3: "Semen analysis" },
+        { rich: ["This is the core male fertility test. It measures volume, sperm concentration, movement and shape. A single result is a snapshot, so an abnormal result is usually repeated. See our guide to ", ["understanding a semen analysis", "/resources/understanding-a-semen-analysis"], " and ", ["what a male fertility test involves", "/resources/male-fertility-test"], ". Service pages: ", ["Male Fertility Test", "/services/assessment/male-fertility-test"], " and ", ["Semen Analysis", "/services/assessment/semen-analysis"], "."] },
+        { h3: "Hormone tests, when indicated" },
+        { rich: ["Testosterone, FSH, LH and sometimes prolactin help show whether a low sperm count has a testicular or a hormonal cause. See ", ["hormonal analysis", "/services/assessment/hormonal-analysis"], " for how and when these are done."] },
+        { h3: "Infection screening and further tests" },
+        "Where clinically appropriate: urine and semen cultures, confidential STI screening, a scrotal ultrasound, and genetic tests for severe cases.",
+      ],
+    },
+    {
+      id: "semen-analysis-results",
+      title: "Understanding Your Semen Analysis Results",
+      intro: "Reference limits describe the lower end seen in fertile men. They are not a pass or fail line.",
+      icon: "flask",
+      body: [
+        "The World Health Organization (WHO) 6th edition lower reference limits are:",
+        { ul: [
+          "Semen volume: 1.4 mL or more",
+          "Sperm concentration: 16 million per mL or more",
+          "Total sperm number: 39 million per ejaculate or more",
+          "Total motility: 42% or more",
+          "Progressive motility: 30% or more",
+          "Normal shape (morphology): 4% or more",
+          "Vitality (live sperm): 54% or more",
+        ] },
+        "A man with a result below one of these limits can still father a child, and a man within them can still have a problem. Results vary from sample to sample, with illness, fever and length of abstinence, so interpretation needs the full picture rather than one number.",
+        "Terms you may see on a report include oligozoospermia (low count), asthenozoospermia (low movement), teratozoospermia (abnormal shape), and azoospermia (no sperm in the ejaculate).",
+      ],
+    },
+    {
+      id: "causes-of-male-infertility",
+      title: "Causes of Male Infertility",
+      intro: "Most causes can be identified, and many can be treated or worked around.",
+      icon: "heart",
+      body: [
+        { ul: [
+          "Varicocele: enlarged veins around the testis, found in many men with abnormal semen",
+          "Hormonal problems: low testosterone, abnormal FSH or LH, or high prolactin",
+          "Infections: of the urinary tract, prostate, epididymis, or sexually transmitted infections",
+          "Blockage: in the tubes that carry sperm, which can cause azoospermia despite normal production",
+          "Genetic causes: chromosomal changes or Y-chromosome microdeletions, mainly in severe cases",
+          "Previous testicular injury, torsion, undescended testis or mumps orchitis",
+          "Ejaculation problems, including retrograde ejaculation",
+          "Medicines and substances: anabolic steroids, testosterone products, some cancer treatments, heavy alcohol and smoking",
+          "Unexplained: some men have abnormal semen without an identifiable cause",
+        ] },
+        { rich: ["Read more in ", ["Is Male Infertility Permanent? Can It Be Reversed?", "/resources/is-male-infertility-permanent"]] },
+      ],
+    },
+    {
+      id: "low-sperm-count-treatment",
+      title: "Low Sperm Count: Can It Be Treated?",
+      intro: "Often, yes. The answer depends on why the count is low.",
+      icon: "compare",
+      body: [
+        "A low sperm count is not a diagnosis in itself. Dr. Kamran first looks for a cause, because that decides the treatment:",
+        { ul: [
+          "A temporary cause, such as recent fever, illness or medicines: counts often recover, so the test is repeated",
+          "An infection: treated, with a repeat test afterwards",
+          "A hormonal cause: treated where possible, and sperm production may improve",
+          "A varicocele: assessed, and repair discussed where appropriate",
+          "A lifestyle factor: smoking, alcohol, weight, heat and steroid use are addressed",
+          "No correctable cause: assisted options such as IUI, IVF or ICSI are discussed",
+        ] },
+        "Even when the count is very low, or sperm are absent from the ejaculate, there are often options. In some cases of azoospermia, sperm can be retrieved surgically for use in ICSI. Success depends on the cause, and we will give you an honest estimate rather than a promise.",
+      ],
+    },
+    {
+      id: "low-testosterone-and-hormones",
+      title: "Low Testosterone and Hormonal Causes",
+      intro: "Symptoms of low testosterone are common, but they are not specific, so testing is done carefully.",
+      icon: "shield",
+      body: [
+        "Low libido, fatigue, low mood and erectile difficulty can all have causes other than testosterone. A diagnosis needs symptoms plus repeated early-morning blood tests, along with FSH and LH to find the cause.",
+        "An important warning for men who want children: testosterone injections, gels and supplements, and anabolic steroids, can switch off the body's own sperm production, sometimes for months. If you are trying to conceive, speak to a doctor before taking any of them.",
+        "Where a hormonal cause is found, it is often treatable, and sperm production can improve once the underlying problem is managed.",
+      ],
+    },
+    {
+      id: "infections-and-sti-screening",
+      title: "Infections and Confidential STI Screening",
+      intro: "Many infections cause no symptoms, but some can affect sperm transport and fertility.",
+      icon: "shield",
+      body: [
+        "Dr. Kamran holds a Diploma in Genito-Urinary Medicine & Venereology from the University of Liverpool, UK. Screening and treatment are handled privately and without judgement.",
+        "Depending on your history, tests may include chlamydia, gonorrhoea, syphilis, HIV and hepatitis B and C. Untreated infection can cause inflammation of the epididymis or scarring of the sperm-carrying tubes, and it matters for your partner's health and for treatment planning.",
+        "Screening is also commonly advised before assisted fertility treatment, so a confidential check often fits naturally into a fertility assessment.",
+      ],
+    },
+    {
+      id: "sexual-function-and-fertility",
+      title: "Erectile and Ejaculation Problems",
+      intro: "Sexual problems are common, treatable, and a normal part of a male fertility consultation.",
+      icon: "heart",
+      body: [
+        { rich: ["Erectile dysfunction does not by itself mean low sperm count, but it can make conception difficult, and it sometimes signals diabetes, high blood pressure or hormonal problems. See ", ["Can Erectile Dysfunction Cause Infertility?", "/resources/erectile-dysfunction-and-infertility"]] },
+        "Premature, delayed, absent and retrograde ejaculation (semen passing into the bladder) are also assessed. Treatment depends on the cause. If sperm are healthy but intercourse is the barrier, assisted options such as IUI can be discussed.",
+      ],
+    },
+    {
+      id: "treatment-options",
+      title: "Male Infertility Treatment Options",
+      intro: "Treatment follows the diagnosis. Many men need nothing more than reassurance and a few changes.",
+      icon: "compare",
+      body: [
+        { ul: [
+          "Treating the cause: infections, hormonal problems, medicines that affect sperm",
+          "Lifestyle changes: stopping smoking, reducing alcohol, weight management, avoiding prolonged heat exposure to the testes",
+          "Timed intercourse, with advice on the fertile window",
+          "IUI: washed, prepared sperm placed in the uterus, suited to mild male factor",
+          "IVF and ICSI: for more significant male factor, where one sperm can be injected into each egg",
+          "Surgical options: varicocele repair in selected men, and sperm retrieval (TESA, PESA, micro-TESE) when no sperm are found in the ejaculate",
+          "Sperm freezing: before cancer treatment, surgery or a planned procedure",
+        ] },
+        { rich: ["Read more about ", ["IUI", `${T}/iui`], ", ", ["IVF", `${T}/ivf`], ", ", ["ICSI", `${T}/icsi`], " and ", ["egg & sperm freezing", `${T}/fertility-preservation`], "."] },
+        "Not every man with a varicocele benefits from repair, and evidence for its benefit in men with no sperm in the ejaculate is not definitive. Dr. Kamran will explain the realistic benefit before any procedure.",
+      ],
+    },
+    {
+      id: "improving-sperm-health",
+      title: "Improving Sperm Health: What Actually Helps",
+      intro: "Sperm take about three months to develop, so changes take time to show.",
+      icon: "heart",
+      body: [
+        { ul: [
+          "Stop smoking and cut down alcohol",
+          "Aim for a healthy weight and stay active",
+          "Avoid anabolic steroids and unprescribed testosterone or supplements",
+          "Avoid long exposure to heat: hot tubs, saunas and prolonged laptop use on the lap",
+          "Manage diabetes, blood pressure and chronic illness",
+          "Eat a balanced diet, and discuss any supplement with your doctor first",
+          "Repeat a semen analysis after about three months to see the effect",
+        ] },
+        "No supplement or product reliably cures male infertility. Be cautious of clinics or online sellers who promise guaranteed results.",
+      ],
+    },
+    {
+      id: "what-to-expect",
+      title: "What to Expect at Your Consultation",
+      intro: "Private, unhurried, and at your pace.",
+      icon: "calendar",
+      body: [
+        { ul: [
+          "A calm conversation about your history, your concerns and any reports you bring",
+          "A focused examination, with your comfort and privacy respected",
+          "Only the tests that are likely to change your care, explained beforehand",
+          "Results reviewed in plain language, with a written plan and clear next steps",
+          "Honest guidance on what can be done and what the realistic outcomes are",
+        ] },
+        "You do not need to bring your partner, though joint assessment often gives the clearest answers.",
+      ],
+    },
+    {
+      id: "cost-and-preparation",
+      title: "Male Infertility Treatment Cost and Preparation",
+      intro: "No hidden costs. The consultation fee is shown before you confirm.",
+      icon: "coin",
+      body: [
+        "Cost depends on what you need. Recommended tests such as semen analysis, hormone panels or ultrasound are priced separately and only ordered when clinically appropriate. Treatment costs differ widely, for example between medical treatment, IUI and ICSI, so you receive an itemised estimate before you decide.",
+        "For a semen analysis, an abstinence period of about two to seven days before the sample is usually advised. Collect the whole sample in the container supplied, and follow the laboratory's instructions on delivery time. Tell us about any fever or illness in the last three months, and about all medicines and supplements you take.",
+      ],
+    },
+  ],
+  faqs: [
+    { q: "What is male infertility treatment?", a: "It is care aimed at the cause of a male fertility problem. It can include treating infections or hormonal problems, lifestyle changes, assisted options such as IUI, IVF or ICSI, and surgery in selected cases." },
+    { q: "Can male infertility be cured?", a: "Sometimes. Some causes, such as infections and certain hormonal problems, can be treated and sperm quality can improve. Where the cause cannot be corrected, assisted reproduction can help many couples conceive." },
+    { q: "Can a low sperm count be treated?", a: "Often, yes. It depends on the cause. Infections, hormonal problems and lifestyle factors can be treated, and where the count remains low, IUI, IVF or ICSI can help many couples." },
+    { q: "What does a male infertility specialist do?", a: "A male infertility specialist, sometimes called an andrologist, assesses sperm health, male hormones, sexual function and reproductive tract infections, explains the results, and plans treatment." },
+    { q: "What is the difference between an andrologist and a urologist?", a: "A urologist treats the urinary tract and male reproductive organs and performs related surgery. An andrologist focuses on male fertility, hormones and sexual health. The fields overlap." },
+    { q: "When should a man get a fertility test?", a: "After 12 months of trying without pregnancy, or 6 months if your partner is over 35. Earlier if you have had testicular problems, infections, surgery or a previous abnormal semen result." },
+    { q: "How do I prepare for a semen analysis?", a: "Usually two to seven days of abstinence, a complete sample in the container supplied, and delivery to the laboratory within the time they specify. An abnormal result is normally repeated before conclusions are drawn." },
+    { q: "Does erectile dysfunction mean I am infertile?", a: "No. ED affects the ability to have intercourse, not sperm production. It can still make conception difficult, and it is worth assessing because it can signal other health conditions." },
+    { q: "Is my consultation confidential?", a: "Yes. Consultations, test results and STI screening are handled privately, and your information is not shared without your consent." },
+    { q: "How long does it take to improve sperm quality?", a: "Sperm take roughly three months to develop, so lifestyle changes or treatment are usually reassessed with a repeat semen analysis after about three months." },
+  ],
+  closingHeading: "Male Infertility Care in Lahore With Dr. Kamran Saleem",
+  closingParas: [
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem provides private male infertility consultations in Lahore, drawing on 25 years of experience in male and female reproductive health.",
+    "Assessment is focused and respectful: the right tests, explained clearly, with no pressure towards treatment you do not need.",
+  ],
+  resources: [
+    { href: "/resources/male-infertility--treatment", category: "Fertility Treatment", title: "Male Infertility Treatment: Causes, Tests and Options" },
+    { href: "/resources/male-fertility-test", category: "Diagnosis", title: "Male fertility test: what it involves and what the results mean" },
+    { href: "/resources/understanding-a-semen-analysis", category: "Diagnosis", title: "Understanding a Semen Analysis" },
+    { href: "/resources/andrologist-in-lahore", category: "Male Fertility", title: "Andrologist in Lahore: Male Fertility, Sexual & Reproductive Health Guide" },
+  ],
+  close: {
+    heading: "Ready to Talk, Privately?",
+    body: "Bring any previous semen analysis or reports to your consultation, so the plan is based on your results.",
+    cta: "Book a Confidential Consultation",
+  },
+};
+---
+
+<TreatmentPage {...page} />
