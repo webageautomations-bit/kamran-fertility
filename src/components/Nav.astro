@@ -23,6 +23,11 @@ const services = [
   { label: "Support & Second Opinions", href: "/services/support", children: [] },
 ];
 
+// Desktop dropdown: services with sub-pages become columns,
+// services without sub-pages become a single row along the bottom.
+const serviceColumns = services.filter((s) => s.children.length > 0);
+const serviceSingles = services.filter((s) => s.children.length === 0);
+
 const locations = [
   { label: "DHA Lahore (Rasheed Hospital)", href: "/locations/dha-lahore" },
   { label: "M.M. Alam Road (TAMC)", href: "/locations/mm-alam-road-lahore" },
@@ -70,7 +75,7 @@ const locationsOpen = currentPath.startsWith("/locations");
         <a href="/" class="nav-link">Home</a>
       </li>
 
-      <!-- Services dropdown -->
+      <!-- Services dropdown (two columns + bottom row) -->
       <li class="group relative">
         <button
           type="button"
@@ -95,33 +100,43 @@ const locationsOpen = currentPath.startsWith("/locations");
           </svg>
         </button>
         <div
-          class="invisible absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 translate-y-1 pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
+          class="invisible absolute left-1/2 top-full z-50 w-[36rem] -translate-x-1/2 translate-y-1 pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
         >
           <div
-            class="overflow-hidden rounded-[var(--r-md)] border border-line bg-white p-2 shadow-[var(--shadow-soft)]"
+            class="overflow-hidden rounded-[var(--r-md)] border border-line bg-white p-3 shadow-[var(--shadow-soft)]"
           >
-            {
-              services.map((s) => (
-                <Fragment>
-                  <a
-                    href={s.href}
-                    class="block rounded-[var(--r-sm)] px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-ice hover:text-azure"
-                  >
-                    {s.label}
-                  </a>
-                  {s.children.length > 0 && (
-                    <div class="mb-1 ml-4 border-l border-line pl-2">
+            <div class="grid grid-cols-2 gap-x-4">
+              {
+                serviceColumns.map((s) => (
+                  <div>
+                    <a
+                      href={s.href}
+                      class="block rounded-[var(--r-sm)] px-3 py-2 text-sm font-semibold text-ink transition-colors hover:bg-ice hover:text-azure"
+                    >
+                      {s.label}
+                    </a>
+                    <div class="ml-3 border-l border-line pl-2">
                       {s.children.map((c) => (
                         <a
                           href={c.href}
-                          class="block rounded-[var(--r-sm)] px-3 py-2 text-[0.8125rem] font-medium text-body transition-colors hover:bg-ice hover:text-azure"
+                          class="block rounded-[var(--r-sm)] px-3 py-1.5 text-[0.8125rem] font-medium text-body transition-colors hover:bg-ice hover:text-azure"
                         >
                           {c.label}
                         </a>
                       ))}
                     </div>
-                  )}
-                </Fragment>
+                  </div>
+                ))
+              }
+            </div>
+            {
+              serviceSingles.map((s) => (
+                <a
+                  href={s.href}
+                  class="mt-3 block rounded-[var(--r-sm)] border-t border-line px-3 pb-2 pt-3 text-sm font-semibold text-azure transition-colors hover:bg-ice"
+                >
+                  {s.label} →
+                </a>
               ))
             }
           </div>
@@ -219,8 +234,12 @@ const locationsOpen = currentPath.startsWith("/locations");
     </div>
   </nav>
 
-  <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden border-t border-line bg-white lg:hidden" data-mobile-menu>
+  <!-- Mobile menu (scrolls if taller than the screen) -->
+  <div
+    id="mobile-menu"
+    class="hidden max-h-[calc(100vh-68px)] overflow-y-auto border-t border-line bg-white lg:hidden"
+    data-mobile-menu
+  >
     <div class="space-y-1 px-5 py-4">
       <a href="/" class="m-item" data-menu-link aria-current={isCurrent("/") ? "page" : undefined}>
         <span>Home</span>
