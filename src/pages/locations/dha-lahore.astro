@@ -3,120 +3,260 @@ import Layout from "../../layouts/Layout.astro";
 import PageHero from "../../components/PageHero.astro";
 import CloseContact from "../../components/CloseContact.astro";
 
-// Verified details only — taken from this site's own live pages (Footer.astro
-// and the Dr. Kamran Saleem page). Nothing here is invented. Confirm consultation
-// days at this specific hospital with the clinic before publishing.
+// ─────────────────────────────────────────────────────────────────────────────
+// BEFORE PUBLISHING: resolve every line marked  >>> CONFIRM.
+// Empty values hide their block, so the page stays honest by default.
+// Medical page (YMYL): do not publish a claim you cannot prove.
 //
-// NOTE: hours are "Monday to Friday, 3:00pm to 6:00pm" with the weekend closed.
-// If the real schedule differs, update the `hours` line below and the
-// `openingHoursSpecification` in the schema — nothing else needs to change.
+// CLAIMS THAT MUST BE VERIFIED BEFORE PUBLISHING:
+//  1. "25 years of experience" (what it covers: fertility practice vs total medical experience)
+//  2. Marham 5.0 rating and 32 reviews (re-check live)
+//  3. On-site parking at Rasheed Hospital
+//  4. Monday to Friday, 3pm to 6pm (visible text, schema and Google Business Profile must all agree)
+//  5. Confidentiality statement
+//  6. Exact doctor designation and PMDC registration
+//  7. Which services are performed at Rasheed Hospital vs a partner facility
+//  8. Medical sections reviewed by Dr. Kamran; Urdu section reviewed by a native Urdu medical reader
+//  9. Schema: MedicalClinic address, Physician profile, and the Marham sameAs URL
+// ─────────────────────────────────────────────────────────────────────────────
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Locations", href: "/locations" },
   { label: "DHA Lahore" },
 ];
 
+const hospitalName = "Rasheed Hospital";
 const address = "Rasheed Hospital, Main Boulevard, Defence, Lahore";
+// >>> CONFIRM: phase / block / plot / floor / room, e.g. "Phase X, Plot Y, 2nd floor".
+const addressDetail = "";
+// >>> CONFIRM: one or two real landmarks and entrance directions. Empty = hidden.
+const landmarkNote = "";
 const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 const phoneDisplay = "+92 314 8432789";
 const phoneHref = "tel:+923148432789";
 const whatsappHref = "https://wa.me/923148432789";
-const hours = "Monday to Friday, 3:00pm to 6:00pm. Closed Saturday and Sunday"; // CONFIRM with clinic — see note above
+const hours = "Monday to Friday, 3:00pm to 6:00pm. Closed Saturday and Sunday"; // >>> CONFIRM
+
+// >>> CONFIRM: put the real consultation fee here, e.g. "Consultation fee: Rs. X."
+const feeStatement =
+  "Fees are explained up front, with no obligation to proceed. Message us on WhatsApp for the current consultation fee.";
+// >>> CONFIRM + EDIT: say exactly where egg collection, the embryology lab and embryo transfer take place.
+const ivfSiteNote =
+  "Before you commit to any treatment, we tell you exactly where each stage of IVF or ICSI is carried out.";
+// >>> CONFIRM: PMDC / PMC registration, e.g. "PMDC registration no. 12345-P". Empty = hidden.
+const registration = "";
+// >>> CONFIRM: what the 25 years covers (fertility practice vs. total medical experience).
+const experienceLine = "25 years of experience in reproductive health and fertility";
+// >>> CONFIRM: re-check live on Marham before publishing.
+const marhamRating = "5.0";
+const marhamCount = "32";
+const lastUpdated = "November 2026";
+// >>> CONFIRM: ISO date (e.g. "2026-11-03") ONLY after Dr. Kamran has actually reviewed this page. Empty = no "reviewed" claim.
+const lastReviewedISO = "";
+// >>> CONFIRM against the HFEA before turning on (set true). Figures are UK national averages, not this clinic's results.
+const showAgeTable = false;
+const ageRates = [
+  { age: "18 to 34", rate: "about 35%" },
+  { age: "35 to 37", rate: "about 26%" },
+  { age: "38 to 39", rate: "about 18%" },
+  { age: "40 to 42", rate: "about 10%" },
+  { age: "43 to 44", rate: "about 5%" },
+];
+
+// >>> CONFIRM: which stages happen at Rasheed Hospital and which at a partner facility.
+// List ONLY services you have verified. If both lists are empty, the generic line is shown instead.
+const onSiteServices: string[] = []; // e.g. "Consultation and examination", "Ultrasound scans", "Treatment planning"
+const offSiteServices: string[] = []; // e.g. "Egg collection", "Embryology laboratory work", "Embryo transfer"
+const offSiteFacilityNote = ""; // e.g. name and address of the partner facility
+// >>> CONFIRM: real local information. Empty = hidden.
+const entranceDirections = ""; // e.g. "Enter from ... gate, take the lift to the 2nd floor, consultation room ..."
+const hospitalPhoto = ""; // e.g. "/assets/rasheed-hospital-entrance.webp" (a genuine exterior photo)
+const hospitalPhotoAlt = "Entrance of Rasheed Hospital on Main Boulevard, Defence, Lahore";
+// Optional internal links. Add a URL ONLY if that page exists. Empty = no link is shown.
+const links = { male: "", icsi: "", iui: "", pcos: "", loss: "", urdu: "" };
+const reviewedDisplay = lastReviewedISO
+  ? new Date(lastReviewedISO).toLocaleDateString("en-GB", { month: "long", year: "numeric" })
+  : "";
 
 const pageUrl = "https://www.kamranfertility.com/locations/dha-lahore";
 
 const services = [
   {
-    lead: "Infertility assessment and diagnosis.",
-    body: "Your first visit starts with a full history for both partners. Dr. Kamran then recommends only the tests you need, which may include hormone profiles, pelvic ultrasound and semen analysis. If you already have recent reports, bring them so tests are not repeated unnecessarily.",
+    h: "Infertility assessment and fertility tests in Lahore",
+    body: "Your first visit starts with a full history for both partners. Dr. Kamran then recommends only the tests you need, which may include semen analysis, hormone blood tests, a pelvic ultrasound and, where indicated, a check of the fallopian tubes. If you already have recent reports, bring them so tests are not repeated unnecessarily.",
     href: "/services/assessment",
-    cta: "Learn more about assessment and diagnosis →",
+    cta: "Learn more about infertility assessment and diagnosis →",
   },
   {
-    lead: "Fertility treatment planning.",
-    body: "Depending on your diagnosis, options may include ovulation tracking and induction, IUI (intrauterine insemination), IVF (in vitro fertilisation) and ICSI (intracytoplasmic sperm injection). Dr. Kamran explains what each involves and who it suits, so you can decide with full information.",
+    h: "IVF treatment in DHA Lahore: consultation and planning",
+    body: "IVF (in vitro fertilisation), often called test tube baby treatment, may be advised for blocked fallopian tubes, significant male-factor infertility, reduced ovarian reserve, endometriosis, unexplained infertility, or when simpler treatments have not worked. Dr. Kamran explains the stages, the risks, what affects success and the likely cost before you decide.",
     href: "/services/fertility-treatment",
-    cta: "Explore fertility treatment →",
+    cta: "Explore IVF and fertility treatment →",
   },
   {
-    lead: "Male factor infertility.",
-    body: "As an andrologist, Dr. Kamran assesses sperm health, hormone levels and reproductive history. Male factors account for a large share of infertility cases, which is why both partners are assessed from the start.",
+    h: "ICSI treatment in Lahore",
+    body: "ICSI (intracytoplasmic sperm injection) is a form of IVF in which a single sperm is injected directly into an egg. It is commonly considered when sperm count, movement or shape is significantly reduced, or when earlier IVF showed poor fertilisation. It is not needed in every IVF cycle, and your semen analysis and wider assessment guide the choice.",
+    href: links.icsi || undefined,
+    cta: "Learn more about ICSI →",
   },
   {
-    lead: "PCOS, irregular cycles and ovulation problems.",
-    body: "Women are assessed for PCOS, ovulation and cycle problems as part of a full fertility evaluation. Where a condition can be managed with medication, that is Dr. Kamran's preferred first option, and IVF is considered only when it is clinically appropriate.",
+    h: "IUI treatment in Lahore and ovulation induction",
+    body: "IUI (intrauterine insemination) places prepared sperm in the uterus around ovulation. It may suit selected couples, for example some with ovulation problems or mild sperm abnormalities, provided the fallopian tubes are open. It is not suitable for everyone, and significant tubal damage usually points to a different treatment. Ovulation tracking and induction can be used on their own or alongside IUI.",
+    href: links.iui || undefined,
+    cta: "Learn more about IUI →",
   },
   {
-    lead: "Second opinions.",
-    body: "If treatment elsewhere has not worked or you want another view before starting IVF, bring your records for a clear, independent review.",
+    h: "PCOS fertility treatment in Lahore",
+    body: "PCOS can make ovulation irregular, but it does not mean IVF is automatically needed. Women are assessed for cycle pattern, ovulation and hormone levels first. Where appropriate, lifestyle measures and ovulation-inducing medication are considered before assisted treatments such as IUI or IVF.",
+    href: links.pcos || undefined,
+    cta: "Learn more about PCOS and fertility →",
+  },
+  {
+    h: "IVF second opinion in Lahore",
+    body: "If treatment elsewhere has not worked, or you have been given different recommendations, bring your records for an independent review: medication charts, scan reports, and any embryo or cycle summaries. Dr. Kamran explains what may have contributed to the outcome and what your options are.",
     href: "/services/support",
     cta: "Read about second opinions →",
   },
 ];
 
+const maleCauses = [
+  { lead: "Sperm production problems.", body: "Low count, poor movement or abnormal shape, often found on semen analysis. Causes include hormonal problems, medicines, previous illness or surgery, and sometimes genetic factors." },
+  { lead: "Varicocele.", body: "Swollen veins around the testicle, described as the most common reversible cause of male infertility. It can be examined clinically and confirmed by scrotal ultrasound where needed." },
+  { lead: "Infections and inflammation.", body: "Conditions such as epididymitis, orchitis and some sexually transmitted infections can affect sperm production or block sperm transport. Dr. Kamran's training in genito-urinary medicine is relevant to assessing these." },
+  { lead: "Blockages.", body: "If sperm are made but cannot pass through the ducts, they may be low or absent in the ejaculate. The cause and the options depend on the assessment." },
+  { lead: "Hormonal and lifestyle factors.", body: "Low testosterone or other hormonal problems, smoking, heavy alcohol use, drugs, obesity and some medicines can reduce sperm quality." },
+];
+
+const timing = [
+  "Under 35: after 12 months of regular, unprotected intercourse without pregnancy.",
+  "Age 35 to 39: after 6 months.",
+  "Age 40 or over: promptly, without waiting.",
+  "Sooner at any age with very irregular or absent periods, a known condition such as PCOS or endometriosis, previous pelvic infection or surgery, or a known or suspected male factor.",
+];
+
+const initialTests = [
+  { test: "History and examination", shows: "Cycle pattern, previous pregnancies, medical and surgical history for both partners", who: "Both partners" },
+  { test: "Semen analysis", shows: "Sperm count, movement, shape and volume", who: "Male partner" },
+  { test: "Hormone blood tests", shows: "Ovulation, ovarian reserve (AMH), thyroid, prolactin, chosen from your history", who: "Mostly the female partner" },
+  { test: "Pelvic ultrasound", shows: "Uterus and ovaries, PCOS features, fibroids, cysts, antral follicles", who: "Female partner" },
+];
+
+const selectedTests = [
+  { test: "Fallopian tube assessment (such as HSG)", when: "A history of pelvic infection, tubal or pelvic surgery, ectopic pregnancy, or when IUI is being considered", note: "Tube status is one part of the picture. It does not on its own decide between IUI and IVF; age, sperm quality, ovarian reserve and how long you have been trying also matter." },
+  { test: "Uterine cavity assessment", when: "Abnormal ultrasound findings, repeated miscarriage or repeated failed embryo transfers", note: "Not needed for every patient." },
+  { test: "Scrotal ultrasound", when: "An abnormal examination or semen result, or a suspected varicocele or testicular problem", note: "Not a routine test for every man." },
+  { test: "Infection screening", when: "Symptoms, a history of infection, or findings that suggest inflammation", note: "Done on clinical grounds, not routinely." },
+  { test: "Repeat or extended male tests", when: "After an abnormal first semen analysis", note: "Results can vary between samples, so a repeat is usually advised before conclusions are drawn." },
+  { test: "Genetic tests", when: "Very low or absent sperm count, repeated pregnancy loss, or a relevant family history", note: "Chosen case by case, with counselling." },
+];
+
 const steps = [
-  {
-    lead: "Book on WhatsApp.",
-    body: "Tell us your preferred day and we confirm a time in the 3pm to 6pm window.",
-  },
-  {
-    lead: "Bring your records.",
-    body: "Previous reports, scans, semen analysis and any medication history. Both partners are welcome.",
-  },
-  {
-    lead: "Consultation.",
-    body: "Dr. Kamran reviews your history, examines where needed, and explains what may be contributing to the delay in conceiving.",
-  },
-  {
-    lead: "Plan.",
-    body: "You leave with a clear next step: further tests, a treatment plan, or reassurance.",
-  },
+  { lead: "Book on WhatsApp.", body: "Tell us your preferred day and we confirm a time in the 3pm to 6pm window." },
+  { lead: "Bring your records.", body: "Previous reports, scans, semen analysis and any medication history. Both partners are welcome." },
+  { lead: "Consultation.", body: "Dr. Kamran reviews your history, examines where needed, and explains what may be contributing to the delay in conceiving." },
+  { lead: "Plan.", body: "You leave with a clear next step: further tests, a treatment plan, or reassurance." },
+];
+
+const costFactors = [
+  "Your diagnosis, and whether IUI, IVF or ICSI is appropriate",
+  "Medication type and dose, which differ from patient to patient",
+  "Whether extra procedures such as embryo freezing or male-factor procedures are needed",
+  "The number of treatment cycles required",
+  "Which facility performs each stage of treatment",
+];
+
+const costQuestions = [
+  "What exactly is included in the quoted amount?",
+  "Are medicines included, or paid separately?",
+  "Is ICSI, embryo freezing and storage included or extra?",
+  "Are monitoring scans and follow-up visits included?",
+  "What happens to the cost if the cycle is cancelled or repeated?",
+];
+
+const lifestyle = [
+  "Stop smoking and avoid recreational drugs; both partners benefit.",
+  "Keep alcohol low. For men, heavy drinking can reduce sperm production.",
+  "Aim for a healthy weight, as being very underweight or overweight can affect ovulation and sperm quality.",
+  "Ask your doctor about folic acid before you conceive.",
+  "Tell your doctor about every medicine you take, including those bought without a prescription.",
 ];
 
 const faqs = [
   {
-    q: "Where is Dr. Kamran Saleem's fertility clinic in DHA Lahore?",
-    a: "At Rasheed Hospital, Main Boulevard, Defence, Lahore. Hours are Monday to Friday, 3pm to 6pm. Message us on WhatsApp at +92 314 8432789 to confirm your slot.",
+    q: "Where can I consult a fertility specialist in DHA Lahore?",
+    a: "Dr. Kamran Saleem, a fertility specialist and andrologist, consults at Rasheed Hospital, Main Boulevard, Defence, Lahore. Clinic hours are Monday to Friday, 3pm to 6pm, and the clinic is closed at weekends. Message us on WhatsApp at +92 314 8432789 before travelling so we can confirm your appointment slot.",
   },
   {
-    q: "Do you offer IVF and ICSI at the DHA clinic?",
-    a: "Consultations, diagnosis and treatment planning for IUI, IVF and ICSI take place here.",
+    q: "Do you offer IVF treatment in DHA Lahore?",
+    a: `Consultations, diagnosis and treatment planning for IUI, IVF and ICSI take place at ${hospitalName}. ${ivfSiteNote}`,
   },
   {
-    q: "Does Dr. Kamran Saleem recommend IVF for every patient?",
-    a: "No. Where a condition can be treated with medication, that is the preferred option first. IVF is used when it is clinically appropriate, not as a default starting point.",
-  },
-  {
-    q: "How much does an IVF consultation or treatment cost in Lahore?",
-    a: "Fees are explained up front, with no obligation to proceed. The cost of IVF or ICSI depends on your diagnosis, medication needs and number of cycles, so Dr. Kamran gives you an individual estimate after assessment.",
+    q: "How much does IVF cost in Lahore?",
+    a: `The cost depends on your diagnosis, medication, any extra procedures such as embryo freezing, and the number of cycles. Dr. Kamran gives an individual estimate after assessment, so you know the likely cost before you decide. ${feeStatement}`,
   },
   {
     q: "When should we see a fertility specialist?",
-    a: "Many couples wait up to a year after marriage before seeking an assessment, but there is no requirement to wait if you would rather not. See a specialist sooner if cycles are very irregular, or if there is a known condition such as PCOS or endometriosis, or a known male factor.",
+    a: "Couples are generally advised to see a fertility specialist after 12 months of regular, unprotected intercourse if the woman is under 35, and after 6 months if she is 35 or older. Women over 40 should seek evaluation promptly. See a specialist sooner for irregular cycles, known conditions such as PCOS or endometriosis, or suspected male-factor infertility.",
   },
   {
-    q: "Do both partners need to attend?",
-    a: "It helps. Infertility can involve either partner, so a joint visit gives the fullest picture. Either partner may attend the first visit if the other cannot.",
+    q: "What tests are done for infertility in Lahore?",
+    a: "Assessment starts with a history for both partners, then only the tests that are indicated. Common tests include semen analysis, hormone blood tests, a pelvic ultrasound, and sometimes a test of the fallopian tubes. Bring previous reports so tests are not repeated unnecessarily.",
   },
   {
-    q: "What should we bring to the first appointment?",
-    a: "Hormone panels, ultrasound reports, semen analysis, previous treatment records and a list of current medications. This avoids repeating tests.",
+    q: "Can male infertility be treated?",
+    a: "Many causes of male infertility can be treated or managed. A varicocele, for example, is described as the most common reversible cause. Dr. Kamran, an andrologist, starts with semen analysis, hormone levels and your history. Options range from treating an underlying condition to assisted treatment such as IUI or ICSI.",
   },
   {
-    q: "Can I get a second opinion here if I was treated elsewhere?",
-    a: "Yes. Bring your complete records and Dr. Kamran will review them and explain your options.",
+    q: "Does a low sperm count mean we cannot have a baby?",
+    a: "No. A low count lowers the chance of natural conception, but many couples still conceive naturally or with treatment. If no sperm are found in the ejaculate, the cause, such as a blockage or a hormonal problem, needs specialist assessment because the options depend on it. A repeat test is often advised.",
   },
   {
-    q: "Is there parking at Rasheed Hospital?",
-    a: "Yes, on-site parking is available for patients.",
+    q: "Can infections affect male fertility?",
+    a: "Yes. Infections and inflammation of the testicles, epididymis or reproductive tract, including some sexually transmitted infections, can reduce sperm quality or block sperm transport. If you have had repeated infections or symptoms, tell Dr. Kamran. Screening and treatment, where needed, can be part of the assessment.",
   },
   {
-    q: "Is the first visit confidential?",
-    a: "Yes. Assessments are handled confidentially.",
+    q: "Can PCOS be treated without IVF?",
+    a: "Many women with PCOS conceive without IVF. Depending on the assessment, options may include lifestyle measures, ovulation-inducing medication and IUI. IVF is considered when these are unsuitable or have not worked. Dr. Kamran assesses your cycles, ovulation and hormones first, then explains which options suit your situation.",
   },
   {
-    q: "Which other Lahore locations does Dr. Kamran see patients at?",
-    a: "At TAMC on M.M. Alam Road and Shahnaz Hospital on Shalamar Link Road. Hours differ at each clinic.",
+    q: "What is the difference between IVF and ICSI?",
+    a: "In standard IVF, eggs and sperm are placed together in a laboratory so fertilisation can occur. In ICSI, a single sperm is injected directly into each egg. ICSI is often considered when sperm numbers or movement are significantly reduced. Which approach suits you depends on your semen analysis and treatment history.",
+  },
+  {
+    q: "What are the chances of IVF success?",
+    a: "Success depends mainly on the woman's age, the cause of infertility, sperm and embryo quality, and previous treatment. Chances fall as age rises, and no clinic can guarantee a pregnancy. Dr. Kamran discusses realistic expectations for your age, test results and history before you decide whether to start.",
+  },
+  {
+    q: "What are the risks of IVF?",
+    a: "Possible risks include ovarian hyperstimulation syndrome (OHSS), multiple pregnancy if more than one embryo is transferred, ectopic pregnancy, and emotional strain. Treatment is planned and monitored to reduce these risks, and a cycle may not result in pregnancy. Dr. Kamran explains the risks that apply to you before you consent.",
+  },
+  {
+    q: "Do both partners need to attend, and what should we bring?",
+    a: "A joint visit gives the fullest picture, but either partner may attend first. Bring hormone panels, ultrasound reports, semen analysis, previous treatment records, any IUI or IVF cycle summaries and a list of current medicines. This avoids repeating tests and lets Dr. Kamran focus on your next step.",
+  },
+  {
+    q: "Can I get an IVF second opinion in Lahore?",
+    a: "Yes. Bring your complete records, including medication charts, scan reports and any embryo or cycle summaries. Dr. Kamran reviews them, explains what may have contributed to the outcome and sets out your options, whether that is a change of approach, further tests or a different treatment.",
+  },
+  {
+    q: "Do I need an appointment, and is parking available?",
+    a: "Yes, please confirm by WhatsApp before you travel. Clinic hours are a three-hour window, Monday to Friday from 3pm to 6pm, so we confirm a slot with you first. On-site parking is available for patients at Rasheed Hospital. Message +92 314 8432789 with your preferred day.",
+  },
+  {
+    q: "Is the first fertility consultation confidential?",
+    a: "Yes. Assessments are handled confidentially. Your history, test results and treatment discussions are kept private, and you decide who attends with you. There is no pressure to start treatment on the first visit, and you are welcome to ask questions about privacy before sharing sensitive information.",
+  },
+  {
+    q: "What if my fertility tests are normal?",
+    a: "Normal initial results are reassuring but do not rule out a problem, because standard tests cannot assess everything, such as egg quality. When no cause is found, this is called unexplained infertility. Dr. Kamran then considers your age and how long you have been trying, and discusses options from continued attempts with ovulation tracking to IUI or IVF.",
+  },
+  {
+    q: "How does age affect fertility?",
+    a: "A woman's fertility declines with age because the number and quality of eggs fall, with a faster decline after the mid-30s. Male age can also affect sperm quality, usually more gradually. This is why assessment is advised sooner at 35 and over, and why Dr. Kamran weighs age carefully when planning treatment.",
+  },
+  {
+    q: "When should I seek help after a miscarriage?",
+    a: "A single miscarriage is common and does not usually need an extensive work-up. Guidelines differ, with some advising assessment after two consecutive losses and others after three, and earlier if you are 35 or older or the loss was later in pregnancy. Seek urgent care for heavy bleeding or severe pain in pregnancy.",
   },
 ];
 
@@ -124,19 +264,23 @@ const schema = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": ["MedicalClinic", "LocalBusiness"],
+      "@type": "MedicalClinic",
       "@id": `${pageUrl}#clinic`,
       name: "Dr. Kamran Saleem Fertility Clinic - DHA Lahore",
       url: pageUrl,
       image: "https://www.kamranfertility.com/assets/dr-kamran.webp",
       telephone: "+923148432789",
+      description:
+        "Fertility specialist and andrologist consultations for infertility assessment, IVF, ICSI, IUI, male infertility, PCOS and second opinions at Rasheed Hospital, DHA Lahore.",
       address: {
         "@type": "PostalAddress",
-        streetAddress: "Rasheed Hospital, Main Boulevard, Defence",
+        streetAddress: addressDetail ? `${addressDetail}, Main Boulevard, Defence` : "Rasheed Hospital, Main Boulevard, Defence",
         addressLocality: "Lahore",
         addressRegion: "Punjab",
         addressCountry: "PK",
       },
+      containedInPlace: { "@type": "Hospital", name: hospitalName },
+      areaServed: ["DHA Lahore", "Defence, Lahore", "Cavalry Ground, Lahore", "Lahore"],
       openingHoursSpecification: [
         {
           "@type": "OpeningHoursSpecification",
@@ -145,10 +289,8 @@ const schema = {
           closes: "18:00",
         },
       ],
-      sameAs: [
-        "https://www.google.com/maps?q=Kamran+Fertility+Clinic+Lahore",
-        "https://www.marham.pk/doctors/lahore/andrologist/dr-kamran-saleem",
-      ],
+      // >>> CONFIRM: exact Marham profile URL, and that it genuinely represents this doctor.
+      sameAs: ["https://www.marham.pk/doctors/lahore/andrologist/dr-kamran-saleem"],
       employee: { "@id": "https://www.kamranfertility.com/dr-kamran-saleem#physician" },
     },
     {
@@ -157,11 +299,21 @@ const schema = {
       name: "Dr. Kamran Saleem",
       url: "https://www.kamranfertility.com/dr-kamran-saleem",
       image: "https://www.kamranfertility.com/assets/dr-kamran.webp",
-      description: "Fertility specialist and andrologist in Lahore with 25 years of experience, offering infertility assessment, IUI, IVF and ICSI treatment planning.",
-      alumniOf: {
-        "@type": "CollegeOrUniversity",
-        name: "University of Liverpool",
-      },
+      description:
+        "Fertility specialist and andrologist in Lahore offering infertility assessment, IUI, IVF and ICSI treatment planning, male infertility care and second opinions.",
+      alumniOf: { "@type": "CollegeOrUniversity", name: "University of Liverpool" },
+    },
+    {
+      "@type": "MedicalWebPage",
+      "@id": `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: "IVF & Fertility Specialist in DHA Lahore | Dr. Kamran Saleem",
+      inLanguage: "en",
+      about: { "@type": "MedicalCondition", name: "Infertility" },
+      medicalAudience: { "@type": "MedicalAudience", audienceType: "Patient" },
+      ...(lastReviewedISO
+        ? { lastReviewed: lastReviewedISO, reviewedBy: { "@id": "https://www.kamranfertility.com/dr-kamran-saleem#physician" } }
+        : {}),
     },
     {
       "@type": "BreadcrumbList",
@@ -184,35 +336,62 @@ const schema = {
 ---
 
 <Layout
-  title="IVF & Fertility Specialist in DHA Lahore | Dr. Kamran Saleem"
-  description="Consult fertility specialist and andrologist Dr. Kamran Saleem at Rasheed Hospital, DHA Lahore. IVF, ICSI, IUI, infertility tests & second opinions. Message us on WhatsApp."
+  title="IVF & Fertility Specialist DHA Lahore | Dr. Kamran Saleem"
+  description="See Dr. Kamran Saleem, fertility specialist & andrologist, at Rasheed Hospital, DHA Lahore for IVF, ICSI, IUI, male infertility, PCOS and second opinions."
 >
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
   <PageHero
     eyebrow="DHA Lahore"
     title="IVF & Fertility Specialist in DHA Lahore"
-    sub={["Dr. Kamran Saleem sees fertility patients at Rasheed Hospital, Main Boulevard, Defence, Lahore. If you live in DHA or Cavalry Ground, this is one of his three Lahore clinics that is easiest for you to reach, with on-site parking and a main-road location that is easy to find.", "Consultations cover infertility assessment, treatment planning for IUI, IVF and ICSI where appropriate, and second opinions for couples already treated elsewhere."]}
+    sub={[
+      "If you are looking for an IVF specialist in DHA Lahore, Dr. Kamran Saleem, a fertility specialist and andrologist, sees patients at Rasheed Hospital, Main Boulevard, Defence, Lahore. Book an infertility assessment, IVF consultation, male infertility check-up or second opinion.",
+      "Both partners are assessed. Consultations cover fertility tests, treatment planning for IUI, IVF and ICSI where appropriate, PCOS and ovulation problems, and second opinions for couples already treated elsewhere in Lahore.",
+    ]}
     breadcrumbs={breadcrumbs}
     cta="Message us on WhatsApp"
   />
 
   <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">Infertility specialist in DHA Lahore: quick answer</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        Dr. Kamran Saleem consults at {hospitalName}, Main Boulevard, Defence, Lahore, Monday to
+        Friday, 3pm to 6pm. He assesses both partners and advises on IUI, IVF and ICSI where
+        appropriate, male infertility, PCOS and second opinions. Message {phoneDisplay} on
+        WhatsApp to confirm your appointment before you travel.
+      </p>
+      <p class="mt-4 leading-relaxed text-body">
+        Infertility is common and treatable in many cases. The World Health Organization estimates
+        that about 1 in 6 people worldwide experience it at some point, and that rates are similar
+        in lower- and higher-income countries. It is a medical condition, not a personal failing,
+        and it can involve either partner.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-cloud py-16 md:py-20">
     <div class="mx-auto max-w-3xl px-5 sm:px-8">
       <div data-reveal>
-        <h2 class="font-heading text-xl font-bold text-ink">Clinic details</h2>
+        <h2 class="font-heading text-xl font-bold text-ink">Fertility clinic in DHA Lahore: details</h2>
         <dl class="mt-4 space-y-3 text-sm">
           <div>
             <dt class="font-semibold text-ink">Clinic</dt>
-            <dd class="text-body">Rasheed Hospital, DHA Lahore</dd>
+            <dd class="text-body">{hospitalName}, DHA Lahore</dd>
           </div>
           <div>
             <dt class="font-semibold text-ink">Address</dt>
-            <dd class="text-body">{address}</dd>
+            <dd class="text-body">{addressDetail ? `${addressDetail}, ` : ""}{address}</dd>
           </div>
+          {landmarkNote && (
+            <div>
+              <dt class="font-semibold text-ink">Landmark</dt>
+              <dd class="text-body">{landmarkNote}</dd>
+            </div>
+          )}
           <div>
             <dt class="font-semibold text-ink">Doctor</dt>
-            <dd class="text-body">Dr. Kamran Saleem, MBBS (1988), Diploma in Genito-Urinary Medicine &amp; Venereology, University of Liverpool (1998)</dd>
+            <dd class="text-body">Dr. Kamran Saleem, fertility specialist and andrologist. MBBS (1988), Diploma in Genito-Urinary Medicine &amp; Venereology, University of Liverpool (1998){registration ? `. ${registration}` : ""}</dd>
           </div>
           <div>
             <dt class="font-semibold text-ink">Hours</dt>
@@ -228,42 +407,271 @@ const schema = {
           </div>
           <div>
             <dt class="font-semibold text-ink">Consultation fee</dt>
-            <dd class="text-body">Fees are explained up front, with no obligation to proceed</dd>
+            <dd class="text-body">{feeStatement}</dd>
           </div>
         </dl>
         <p class="mt-4 text-sm leading-relaxed text-body">
-          Because hours here are a three-hour daily window, please message on WhatsApp
+          Because clinic hours here are a three-hour daily window, please message us on WhatsApp
           before travelling so we can confirm your slot.
         </p>
-        <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 font-semibold text-azure hover:underline">
-          Get directions on Google Maps →
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-cloud py-16 md:py-20">
-    <div class="mx-auto max-w-3xl px-5 sm:px-8">
-      <h2 class="font-heading text-xl font-bold text-ink">Fertility services at our DHA Lahore clinic</h2>
-      <div class="mt-6 space-y-6">
-        {services.map((item) => (
-          <p data-reveal class="leading-relaxed text-body">
-            <span class="font-semibold text-ink">{item.lead}</span> {item.body}
-            {item.href && (
-              <>
-                {" "}
-                <a href={item.href} class="text-azure underline hover:text-navy">{item.cta}</a>
-              </>
-            )}
-          </p>
-        ))}
+        <div class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+          <a href={whatsappHref} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 font-semibold text-azure hover:underline">
+            Book on WhatsApp →
+          </a>
+          <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 font-semibold text-azure hover:underline">
+            Get directions on Google Maps →
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">Where treatment happens: Rasheed Hospital and other facilities</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        Consultations, examination, diagnosis and treatment planning take place at {hospitalName}.
+        {ivfSiteNote}
+      </p>
+      {onSiteServices.length > 0 && (
+        <>
+          <h3 class="mt-6 font-semibold text-ink">At {hospitalName}</h3>
+          <ul class="mt-2 list-disc space-y-1 pl-6 leading-relaxed text-body">
+            {onSiteServices.map((item) => <li>{item}</li>)}
+          </ul>
+        </>
+      )}
+      {offSiteServices.length > 0 && (
+        <>
+          <h3 class="mt-6 font-semibold text-ink">At a partner or treatment facility</h3>
+          <ul class="mt-2 list-disc space-y-1 pl-6 leading-relaxed text-body">
+            {offSiteServices.map((item) => <li>{item}</li>)}
+          </ul>
+          {offSiteFacilityNote && <p class="mt-3 leading-relaxed text-body">{offSiteFacilityNote}</p>}
+        </>
+      )}
+    </div>
+  </section>
+
+  <section class="bg-cloud py-16 md:py-20">
     <div class="mx-auto max-w-3xl px-5 sm:px-8">
-      <h2 class="font-heading text-xl font-bold text-ink">What to expect at your first visit</h2>
+      <h2 class="font-heading text-xl font-bold text-ink">Infertility treatment in Lahore: IVF, ICSI and IUI at Rasheed Hospital</h2>
+      <div class="mt-6 space-y-8">
+        {services.map((item) => (
+          <div data-reveal>
+            <h3 class="font-semibold text-ink">{item.h}</h3>
+            <p class="mt-2 leading-relaxed text-body">
+              {item.body}
+              {item.href && (
+                <>
+                  {" "}
+                  <a href={item.href} class="text-azure underline hover:text-navy">{item.cta}</a>
+                </>
+              )}
+            </p>
+          </div>
+        ))}
+      </div>
+      <p class="mt-8 leading-relaxed text-body">
+        Treatment recommendations depend on the cause of infertility, your age, medical history
+        and individual circumstances. Where appropriate, less invasive options may be considered
+        before assisted reproductive treatments such as IVF.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8">
+      <h2 class="font-heading text-xl font-bold text-ink">Male infertility specialist in Lahore: causes, tests and treatment</h2>
+      <p class="mt-4 leading-relaxed text-body" data-reveal>
+        Male factors are involved in a substantial share of couples' infertility, which is why
+        both partners are assessed from the start. As an andrologist, Dr. Kamran looks for the
+        cause rather than treating a semen report in isolation. Common causes include:
+      </p>
+      <div class="mt-6 space-y-4">
+        {maleCauses.map((item) => (
+          <p data-reveal class="leading-relaxed text-body">
+            <span class="font-semibold text-ink">{item.lead}</span> {item.body}
+          </p>
+        ))}
+      </div>
+      <p class="mt-6 leading-relaxed text-body" data-reveal>
+        An abnormal semen analysis does not always mean natural conception is impossible, and a
+        repeat test is often advised before conclusions are drawn. Follow the laboratory's
+        instructions on abstinence before giving a sample. Depending on the findings, management
+        may include treating an underlying condition, lifestyle changes, or assisted treatment
+        such as IUI or ICSI.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-cloud py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">When should you see a fertility specialist?</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        The World Health Organization defines infertility as not achieving pregnancy after 12
+        months or more of regular, unprotected intercourse. Guidance is based on how long you
+        have been trying, your age and your medical history, not on how long you have been
+        married. Fertility societies generally advise evaluation as follows:
+      </p>
+      <ul class="mt-4 list-disc space-y-2 pl-6 leading-relaxed text-body">
+        {timing.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="mt-4 leading-relaxed text-body">
+        These are general guidelines, not a rule that you must wait. Female age strongly affects
+        fertility, so an early assessment can save valuable time.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">Age and fertility: how age affects your chances and treatment plan</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        Age is one of the most important factors in fertility, and it shapes treatment planning
+        as much as it shapes the chance of conceiving naturally.
+      </p>
+      <p class="mt-4 leading-relaxed text-body">
+        <span class="font-semibold text-ink">Women.</span> A woman is born with all the eggs she will
+        ever have. Their number falls over time and the proportion with chromosomal abnormalities
+        rises, which is why conception becomes harder and miscarriage more likely as age increases.
+        The decline is gradual in the early 30s and tends to speed up after about 35.
+      </p>
+      <p class="mt-4 leading-relaxed text-body">
+        <span class="font-semibold text-ink">Ovarian reserve tests.</span> AMH and an antral follicle
+        count estimate how many eggs remain. They do not measure egg quality and cannot predict
+        exactly when or whether you will conceive, so results are read alongside your age and history.
+      </p>
+      <p class="mt-4 leading-relaxed text-body">
+        <span class="font-semibold text-ink">Men.</span> Age can also affect sperm quality and the time
+        it takes to conceive, although the effect is generally smaller and more gradual than in women.
+      </p>
+      <p class="mt-4 leading-relaxed text-body">
+        <span class="font-semibold text-ink">What this means for planning.</span> Women aged 35 and over are
+        advised to seek assessment sooner. For women in their late 30s and 40s, Dr. Kamran may discuss
+        moving to treatment such as IUI or IVF earlier rather than waiting. This is a medical judgement
+        based on your tests and history, not a fixed rule.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-cloud py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">Fertility tests in Lahore for men and women</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        No single test explains every case, and not everyone needs every test. Dr. Kamran selects
+        tests from your history, so you are not asked to repeat or pay for tests that will not
+        change your plan, including semen analysis in Lahore and the other common investigations below.
+      </p>
+      <h3 class="mt-6 font-semibold text-ink">Initial tests: used for most couples</h3>
+      <div class="mt-3 overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead>
+            <tr class="border-b border-gray-300">
+              <th class="py-2 pr-4 font-semibold text-ink">Test</th>
+              <th class="py-2 pr-4 font-semibold text-ink">What it shows</th>
+              <th class="py-2 font-semibold text-ink">Who</th>
+            </tr>
+          </thead>
+          <tbody class="text-body">
+            {initialTests.map((row) => (
+              <tr class="border-b border-gray-200 align-top">
+                <td class="py-2 pr-4 font-semibold text-ink">{row.test}</td>
+                <td class="py-2 pr-4">{row.shows}</td>
+                <td class="py-2">{row.who}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <h3 class="mt-8 font-semibold text-ink">Selected investigations: only when your history points to them</h3>
+      <p class="mt-2 leading-relaxed text-body">
+        The tests below are not routine. They are considered only when your history, examination
+        or first results suggest a reason.
+      </p>
+      <div class="mt-3 overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead>
+            <tr class="border-b border-gray-300">
+              <th class="py-2 pr-4 font-semibold text-ink">Investigation</th>
+              <th class="py-2 pr-4 font-semibold text-ink">When it may be considered</th>
+              <th class="py-2 font-semibold text-ink">Worth knowing</th>
+            </tr>
+          </thead>
+          <tbody class="text-body">
+            {selectedTests.map((row) => (
+              <tr class="border-b border-gray-200 align-top">
+                <td class="py-2 pr-4 font-semibold text-ink">{row.test}</td>
+                <td class="py-2 pr-4">{row.when}</td>
+                <td class="py-2">{row.note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-sm leading-relaxed text-body">
+        AMH is one input into assessing ovarian response when planning treatment. It is not a
+        stand-alone test of whether you can conceive naturally.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">What if your fertility tests are normal? Understanding unexplained infertility</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        Hearing that your tests are normal can be confusing when pregnancy has not happened. Normal
+        results are reassuring, but they do not mean nothing is wrong. Standard tests check the
+        common causes: ovulation, sperm, the uterus and the fallopian tubes. They cannot assess
+        everything, such as egg quality or how well egg and sperm interact.
+      </p>
+      <p class="mt-4 leading-relaxed text-body">
+        When no cause is found after a standard assessment, the term is unexplained infertility.
+        It is common, and it does not mean treatment cannot help. Next steps depend mainly on your
+        age and how long you have been trying:
+      </p>
+      <ul class="mt-4 list-disc space-y-2 pl-6 leading-relaxed text-body">
+        <li>Younger couples who have been trying for a shorter time may reasonably continue trying for a period with guidance, such as ovulation tracking and timing.</li>
+        <li>Couples with a longer history, or where the woman is older, may be offered treatment sooner, such as ovulation induction with IUI, or IVF.</li>
+        <li>A repeat or extended test may be advised if your history suggests something was missed. A single semen result can differ from the next.</li>
+      </ul>
+      <p class="mt-4 leading-relaxed text-body">
+        Dr. Kamran explains the reasoning for whichever path he suggests, and you are welcome to
+        ask for a second opinion.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-cloud py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">Fertility help after a miscarriage or repeated pregnancy loss</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        Miscarriage is common, and a single miscarriage rarely needs an extensive fertility
+        work-up. It is still a loss, and it is reasonable to ask for advice.
+      </p>
+      <p class="mt-4 leading-relaxed text-body">
+        Specialist guidelines differ on when to investigate repeated loss. Some advise assessment
+        after two consecutive miscarriages and others after three, and earlier assessment may be
+        appropriate if you are 35 or older or the loss happened later in pregnancy.
+      </p>
+      <p class="mt-4 leading-relaxed text-body">
+        An assessment usually starts with your history and may include an ultrasound of the uterus,
+        thyroid and blood sugar tests, and other blood tests chosen from your history. Tests for
+        the couple, such as chromosomal testing, are used only in selected cases. Many couples who
+        have had losses go on to have a healthy pregnancy. Where a problem sits outside fertility
+        care, Dr. Kamran will say so and advise on referral.
+        {links.loss && <> <a href={links.loss} class="text-azure underline hover:text-navy">Read more about pregnancy loss →</a></>}
+      </p>
+      <p class="mt-4 leading-relaxed text-body">
+        If you are pregnant and have heavy bleeding or severe pain, seek urgent medical care rather
+        than waiting for an appointment.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8">
+      <h2 class="font-heading text-xl font-bold text-ink">What to expect at your first IVF and fertility consultation</h2>
       <ol class="mt-6 space-y-4">
         {steps.map((item, i) => (
           <li data-reveal class="leading-relaxed text-body">
@@ -279,51 +687,159 @@ const schema = {
 
   <section class="bg-cloud py-16 md:py-20">
     <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
-      <h2 class="font-heading text-xl font-bold text-ink">Meet Dr. Kamran Saleem</h2>
+      <h2 class="font-heading text-xl font-bold text-ink">IVF cost in Lahore: what affects the price</h2>
       <p class="mt-4 leading-relaxed text-body">
-        Dr. Kamran Saleem is a fertility specialist and andrologist in Lahore with 25
-        years of experience in reproductive health and fertility. He completed his MBBS
-        in 1988 and a Diploma in Genito-Urinary Medicine and Venereology at the
-        University of Liverpool, UK, in 1998. His approach is doctor-led and
-        evidence-based: history, examination and only the tests that are actually
-        indicated, with treatment recommended only when it is genuinely likely to help.
-        <a href="/dr-kamran-saleem" class="text-azure underline hover:text-navy">Read his full profile →</a>
+        There is no single price for IVF or ICSI in Lahore, because treatment is planned around
+        the individual. Be cautious of any clinic that quotes one number without knowing your
+        diagnosis. The main factors are:
       </p>
-      <p class="mt-4 text-sm leading-relaxed text-body">
-        Medically reviewed by Dr. Kamran Saleem. Last updated: October 2026.
+      <ul class="mt-4 list-disc space-y-2 pl-6 leading-relaxed text-body">
+        {costFactors.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="mt-4 leading-relaxed text-body">
+        Whichever clinic you choose, ask for a written, itemised estimate and put these questions
+        to them:
+      </p>
+      <ul class="mt-4 list-disc space-y-2 pl-6 leading-relaxed text-body">
+        {costQuestions.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="mt-4 leading-relaxed text-body">
+        After your assessment, Dr. Kamran gives you an individual estimate and explains it before
+        you decide, with no obligation to proceed.
       </p>
     </div>
   </section>
 
   <section class="bg-white py-16 md:py-20">
     <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
-      <h2 class="font-heading text-xl font-bold text-ink">Getting to Rasheed Hospital, DHA Lahore</h2>
+      <h2 class="font-heading text-xl font-bold text-ink">IVF success rates, risks and realistic expectations</h2>
       <p class="mt-4 leading-relaxed text-body">
-        Rasheed Hospital is on Main Boulevard, Defence, directly on the main road rather
-        than down a side street. Patients coming from further out in DHA or Cavalry
-        Ground often choose this clinic because it avoids central Lahore traffic.
-        Parking is available on site.
+        IVF success depends mainly on the woman's age at treatment, along with the cause of
+        infertility, sperm and embryo quality, and previous treatment. Chances per cycle fall as
+        age rises, and no clinic can promise a pregnancy. National regulators such as the UK's HFEA
+        publish age-based results, which are a useful guide to what is realistic.
+      </p>
+      {showAgeTable && (
+        <div class="mt-4 overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead>
+              <tr class="border-b border-gray-300">
+                <th class="py-2 pr-4 font-semibold text-ink">Woman's age</th>
+                <th class="py-2 font-semibold text-ink">Live birth per embryo transferred (UK average)</th>
+              </tr>
+            </thead>
+            <tbody class="text-body">
+              {ageRates.map((row) => (
+                <tr class="border-b border-gray-200">
+                  <td class="py-2 pr-4">{row.age}</td>
+                  <td class="py-2">{row.rate}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p class="mt-2 text-xs leading-relaxed text-body">UK national averages from HFEA data. These are not this clinic's results.</p>
+        </div>
+      )}
+      <p class="mt-4 leading-relaxed text-body">
+        Risks of IVF include ovarian hyperstimulation syndrome (OHSS), multiple pregnancy when
+        more than one embryo is transferred, ectopic pregnancy and emotional strain. Treatment is
+        planned and monitored to reduce these risks, and Dr. Kamran explains those that apply to
+        you before you consent. A cycle that does not work is not a reflection of anything you did.
+      </p>
+      <h3 class="mt-6 font-semibold text-ink">Steps you can take while you plan</h3>
+      <ul class="mt-2 list-disc space-y-2 pl-6 leading-relaxed text-body">
+        {lifestyle.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="mt-4 leading-relaxed text-body">
+        Fertility problems can be stressful for both partners and for families. It is reasonable to
+        ask for support, and either partner can raise concerns at any visit.
       </p>
     </div>
   </section>
 
   <section class="bg-cloud py-16 md:py-20">
     <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">Meet Dr. Kamran Saleem, fertility specialist and andrologist in Lahore</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        Dr. Kamran Saleem is a fertility specialist and andrologist in Lahore with {experienceLine}.
+        He completed his MBBS in 1988 and a Diploma in Genito-Urinary Medicine and Venereology at
+        the University of Liverpool, UK, in 1998. His approach is doctor-led and evidence-based: a
+        full history, examination, and only the tests that are indicated. His training in
+        genito-urinary medicine is relevant to the infections and urological conditions that can
+        affect male fertility.
+        <a href="/dr-kamran-saleem" class="text-azure underline hover:text-navy">Read his full profile →</a>
+      </p>
+      {registration && <p class="mt-3 text-sm leading-relaxed text-body">{registration}</p>}
+      <p class="mt-4 text-sm leading-relaxed text-body">
+        {reviewedDisplay && <>Medically reviewed by Dr. Kamran Saleem ({reviewedDisplay}). </>}Last updated: {lastUpdated}.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">Getting to Rasheed Hospital, Main Boulevard, Defence</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        Rasheed Hospital is on Main Boulevard, Defence, Lahore. Patients from DHA, Cavalry Ground
+        and nearby areas can use the Google Maps link below to plan their journey. On-site parking
+        is available for patients.
+        {landmarkNote && <> {landmarkNote}</>}
+      </p>
+      {entranceDirections && <p class="mt-4 leading-relaxed text-body">{entranceDirections}</p>}
+      {hospitalPhoto && (
+        <img src={hospitalPhoto} alt={hospitalPhotoAlt} loading="lazy" class="mt-4 w-full rounded-lg" />
+      )}
+      <p class="mt-4 leading-relaxed text-body">
+        Because appointments are confirmed in advance, message us on WhatsApp with your preferred
+        day and we will confirm your slot between 3pm and 6pm, Monday to Friday.
+      </p>
+      <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-2 font-semibold text-azure hover:underline">
+        Get directions to Rasheed Hospital →
+      </a>
+    </div>
+  </section>
+
+  <section class="bg-cloud py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">Other Lahore clinics</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        Dr. Kamran Saleem also sees fertility patients at TAMC on M.M. Alam Road and at Shahnaz
+        Hospital on Shalamar Link Road. Hours differ at each clinic.
+        <a href="/locations" class="text-azure underline hover:text-navy">See all Lahore clinic locations →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
       <h2 class="font-heading text-xl font-bold text-ink">Patient reviews</h2>
       <p class="mt-4 leading-relaxed text-body">
-        Dr. Kamran Saleem holds a 5.0 rating from 32 patient reviews on Marham, and
-        Kamran Fertility Clinic has a 5.0 rating on its Google Business Profile. You can
-        verify both independently:
-        <a href="https://www.marham.pk/doctors/lahore/andrologist/dr-kamran-saleem/reviews" target="_blank" rel="noopener noreferrer" class="text-azure underline hover:text-navy">32 reviews on Marham →</a>
+        Dr. Kamran Saleem has a {marhamRating} rating from {marhamCount} patient reviews on Marham.
+        You can read the reviews independently:
+        <a href="https://www.marham.pk/doctors/lahore/andrologist/dr-kamran-saleem/reviews" target="_blank" rel="noopener noreferrer" class="text-azure underline hover:text-navy">{marhamCount} reviews on Marham →</a>
         ·
         <a href="https://www.google.com/maps?q=Kamran+Fertility+Clinic+Lahore" target="_blank" rel="noopener noreferrer" class="text-azure underline hover:text-navy">Kamran Fertility Clinic on Google →</a>
       </p>
     </div>
   </section>
 
+  <section class="bg-cloud py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">اردو میں: ڈی ایچ اے لاہور میں بانجھ پن اور آئی وی ایف کا علاج</h2>
+      <p class="mt-4 leading-relaxed text-body" dir="rtl" lang="ur">
+        ڈاکٹر کامران سعید رشید ہسپتال، مین بلیوارڈ، ڈیفنس، لاہور میں بانجھ پن کے معائنے، مردانہ بانجھ پن،
+        پی سی او ایس، آئی یو آئی، آئی وی ایف، آئی سی ایس آئی اور دوسری رائے کے لیے مشاورت کرتے ہیں۔
+        دونوں میاں بیوی کا معائنہ کیا جاتا ہے اور صرف ضروری ٹیسٹ تجویز کیے جاتے ہیں۔
+        ملاقات کا وقت پیر سے جمعہ، دوپہر تین بجے سے شام چھ بجے تک ہے۔
+        آنے سے پہلے واٹس ایپ پر وقت کی تصدیق کریں: +92 314 8432789
+      </p>
+      {links.urdu && <p class="mt-3 text-sm" dir="rtl" lang="ur"><a href={links.urdu} class="text-azure underline hover:text-navy">مکمل اردو صفحہ دیکھیں ←</a></p>}
+    </div>
+  </section>
+
   <section class="bg-white py-16 md:py-20">
     <div class="mx-auto max-w-3xl px-5 sm:px-8">
-      <h2 class="font-heading text-xl font-bold text-ink">Frequently asked questions</h2>
+      <h2 class="font-heading text-xl font-bold text-ink">Frequently asked questions: IVF and fertility treatment in DHA Lahore</h2>
       <div class="mt-6 space-y-6">
         {faqs.map((item) => (
           <div data-reveal>
@@ -332,17 +848,35 @@ const schema = {
           </div>
         ))}
       </div>
+
+      <h2 class="mt-12 font-heading text-base font-bold text-ink">Sources and further reading</h2>
+      <ul class="mt-2 list-disc space-y-1 pl-6 text-sm leading-relaxed text-body">
+        <li>
+          <a href="https://www.nice.org.uk/guidance/ng257" target="_blank" rel="noopener noreferrer" class="text-azure underline hover:text-navy">NICE guideline NG257: Fertility problems, assessment and treatment (March 2026)</a>
+        </li>
+        <li>
+          <a href="https://www.who.int/news-room/fact-sheets/detail/infertility" target="_blank" rel="noopener noreferrer" class="text-azure underline hover:text-navy">World Health Organization: Infertility fact sheet</a>
+        </li>
+        <li>
+          <a href="https://www.asrm.org" target="_blank" rel="noopener noreferrer" class="text-azure underline hover:text-navy">American Society for Reproductive Medicine (ASRM): patient resources on infertility evaluation</a>
+        </li>
+        <li>
+          <a href="https://www.hfea.gov.uk" target="_blank" rel="noopener noreferrer" class="text-azure underline hover:text-navy">Human Fertilisation and Embryology Authority (HFEA): IVF success rates and risks</a>
+        </li>
+      </ul>
+
       <p class="mt-10 text-xs leading-relaxed text-body">
         Medical disclaimer: This page is for general information and is not a substitute
-        for professional medical advice, diagnosis or treatment. Outcomes vary between
+        for professional medical advice, diagnosis or treatment. Investigations and treatment
+        recommendations depend on an individual clinical assessment. Outcomes vary between
         individuals and no result is guaranteed.
       </p>
     </div>
   </section>
 
   <CloseContact
-    heading="Book your consultation in DHA Lahore"
-    body="Message us on WhatsApp to arrange a visit with Dr. Kamran Saleem at Rasheed Hospital, DHA Lahore. We usually reply the same day."
+    heading="Book your IVF or fertility consultation in DHA Lahore"
+    body="Message us on WhatsApp to arrange a visit with Dr. Kamran Saleem at Rasheed Hospital, DHA Lahore. We confirm your slot before you travel."
     cta="Book Consultation on WhatsApp"
   />
 </Layout>
