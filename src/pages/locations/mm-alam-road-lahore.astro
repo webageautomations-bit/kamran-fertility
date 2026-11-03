@@ -3,65 +3,165 @@ import Layout from "../../layouts/Layout.astro";
 import PageHero from "../../components/PageHero.astro";
 import CloseContact from "../../components/CloseContact.astro";
 
-// Verified details only — pulled from this repo's own Footer.astro (already
-// live/approved), plus the building landmark below, which is publicly listed
-// on multiple directories for other clinics operating in the same TAMC
-// building (2nd floor, 27-C III, M.M. Alam Road, Gulberg III — near Euro
-// Petrol Pump, opposite Park Lane Hotel). CONFIRM the floor/landmark detail
-// with the clinic before publishing in case TAMC has moved floors or the
-// petrol station/hotel names have changed.
+// Save as: src/pages/locations/gulberg-lahore.astro  (URL: /locations/gulberg-lahore/)
+
+const siteUrl = "https://www.kamranfertility.com";
+const pageUrl = `${siteUrl}/locations/gulberg-lahore/`;
+
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Locations", href: "/locations" },
-  { label: "M.M. Alam Road" },
+  { label: "Gulberg, Lahore" },
 ];
 
-const address = "TAMC, M.M. Alam Road, Gulberg, Lahore";
+const address = "TAMC, M.M. Alam Road, Gulberg III, Lahore";
 const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 const phoneDisplay = "+92 314 8432789";
 const phoneHref = "tel:+923148432789";
 const whatsappHref = "https://wa.me/923148432789";
 
+// Internal links
+const links = {
+  assessment: "/services/assessment",
+  treatment: "/services/fertility-treatment",
+  support: "/services/support",
+  semen: "/services/assessment/semen-analysis",
+  maleInfertility: "/services/assessment/male-infertility",
+  femaleTest: "/services/assessment/female-fertility-test",
+  hormonal: "/services/assessment/hormonal-analysis",
+  ovulation: "/services/assessment/ovulation-test",
+  locations: "/locations",
+  doctor: "/dr-kamran-saleem",
+};
+
 const faqs = [
   {
-    q: "Which floor is the clinic on?",
-    a: "TAMC's fertility consultations with Dr. Kamran Saleem are held on the 2nd floor of the TAMC building on M.M. Alam Road, Gulberg III — next to the Euro Petrol Pump, opposite Park Lane Hotel. Confirm the floor at reception if you haven't visited before.",
+    q: "Where is Dr. Kamran Saleem's fertility clinic in Gulberg, Lahore?",
+    a: "Dr. Kamran Saleem sees fertility patients at TAMC, M.M. Alam Road, Gulberg III, Lahore — 2nd floor, next to Euro Petrol Pump and opposite Park Lane Hotel. Use the Google Maps link on this page for live directions.",
   },
   {
-    q: "Why is this location only open on Wednesdays?",
-    a: "Dr. Kamran holds his fixed weekly consultation slot at TAMC on Wednesday, 12:00pm–3:00pm. Outside that window, appointments here are arranged on call rather than walk-in — message on WhatsApp and we'll confirm a time.",
+    q: "What are the clinic timings in Gulberg?",
+    a: "The fixed weekly consultation is on Wednesday, 12:00pm–3:00pm. On other days, appointments are arranged by phone or WhatsApp, so message first to confirm a time.",
   },
   {
-    q: "Is this a good option if I want an independent second opinion?",
-    a: "Yes. Being in Gulberg, this location sees a number of patients requesting a second opinion on a treatment plan started at another clinic nearby before deciding how to proceed.",
+    q: "Do I need an appointment, or can I walk in?",
+    a: "Because the Gulberg slot is a single weekly window, we strongly recommend booking ahead on WhatsApp. It avoids waiting and lets us note your concern before you arrive.",
+  },
+  {
+    q: "Who should see a fertility specialist?",
+    a: "Generally, couples who have not conceived after 12 months of regular unprotected intercourse, or after 6 months if the woman is 35 or older, are advised to seek assessment. See a specialist sooner with irregular or absent periods, known PCOS or endometriosis, previous pelvic surgery, repeated miscarriage, or a known semen-analysis abnormality.",
+  },
+  {
+    q: "What happens at the first consultation?",
+    a: "Dr. Kamran reviews your history, previous reports and treatments, then explains which investigations are needed — for the woman, the man, or both — and what the sensible next step is. Not every couple needs IVF, and the plan depends on your findings.",
+  },
+  {
+    q: "What should I bring to my first appointment?",
+    a: "Bring previous ultrasound scans, hormone reports, semen analysis, HSG or laparoscopy reports, and any medication lists or IVF/IUI cycle summaries. Both partners are welcome. If you have a recent semen analysis, bring the original lab report.",
+  },
+  {
+    q: "Can I get a second opinion here after a failed IVF cycle?",
+    a: "Yes. Bring the full cycle record: stimulation protocol, number of eggs retrieved, fertilisation and embryo grading, transfer details and any pregnancy test results. The aim is an independent review of what may have gone wrong and whether changes, further testing, or a different approach make sense.",
+  },
+  {
+    q: "Do you treat male infertility in Gulberg?",
+    a: "Yes. Dr. Kamran Saleem is an andrologist, and male-factor assessment — including semen analysis review, hormonal evaluation and examination — is part of the consultation, because male factors contribute to a large share of infertility cases.",
+  },
+  {
+    q: "Are IVF procedures performed at the Gulberg location?",
+    a: "The Gulberg location is for consultation, assessment, treatment planning and follow-up. Where a treatment such as egg collection or embryo transfer is needed, we explain clearly where it will take place before you commit to anything.",
+  },
+  {
+    q: "Does Dr. Kamran see patients at other Lahore locations?",
+    a: "Yes. He consults at more than one Lahore location. See the locations page to choose the one that suits you best.",
   },
 ];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MedicalWebPage",
+      "@id": `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: "Fertility Clinic in Gulberg, Lahore | Dr. Kamran Saleem",
+      about: { "@id": `${pageUrl}#clinic` },
+      inLanguage: "en",
+    },
+    {
+      "@type": ["MedicalClinic", "Physician"],
+      "@id": `${pageUrl}#clinic`,
+      name: "Dr. Kamran Saleem — Fertility Consultations at TAMC, Gulberg",
+      url: pageUrl,
+      telephone: "+923148432789",
+      medicalSpecialty: "Reproductive Medicine",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "TAMC, M.M. Alam Road, Gulberg III",
+        addressLocality: "Lahore",
+        addressRegion: "Punjab",
+        addressCountry: "PK",
+      },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: "Wednesday",
+          opens: "12:00",
+          closes: "15:00",
+        },
+      ],
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+        { "@type": "ListItem", position: 2, name: "Locations", item: `${siteUrl}/locations` },
+        { "@type": "ListItem", position: 3, name: "Gulberg, Lahore", item: pageUrl },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    },
+  ],
+};
 ---
 
 <Layout
-  title="Fertility Clinic on M.M. Alam Road, Lahore | Dr. Kamran Saleem"
-  description="Fertility consultations on M.M. Alam Road, Lahore at TAMC. Assessment, treatment planning and follow-up with Dr. Kamran Saleem."
+  title="Fertility Clinic in Gulberg Lahore | Dr. Kamran Saleem"
+  description="Consult Dr. Kamran Saleem, fertility specialist and andrologist, at TAMC, M.M. Alam Road, Gulberg III, Lahore. Infertility assessment, IVF, ICSI, IUI and second opinions."
 >
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
   <PageHero
-    eyebrow="M.M. Alam Road, Lahore"
-    title="Fertility Clinic on M.M. Alam Road — TAMC"
-    sub={["Dr. Kamran Saleem holds a weekly fertility consultation slot at TAMC in Gulberg III — 2nd floor, next to the Euro Petrol Pump and opposite Park Lane Hotel on M.M. Alam Road. It's the most central of our three Lahore clinics for patients based in or around Gulberg."]}
+    eyebrow="Gulberg, Lahore"
+    title="Fertility Clinic & IVF Specialist in Gulberg, Lahore"
+    sub={["Consult Dr. Kamran Saleem — fertility specialist and andrologist — at TAMC, M.M. Alam Road, Gulberg III. Clear answers, proper investigation of both partners, and an honest treatment plan, including independent second opinions after unsuccessful IVF."]}
     breadcrumbs={breadcrumbs}
-    cta="Message us on WhatsApp"
+    cta="Book on WhatsApp"
   />
 
+  <!-- Clinic details -->
   <section class="bg-white py-16 md:py-20">
     <div class="mx-auto grid max-w-5xl gap-10 px-5 sm:px-8 md:grid-cols-2">
       <div data-reveal>
-        <h2 class="font-heading text-xl font-bold text-ink">Clinic details</h2>
+        <h2 class="font-heading text-xl font-bold text-ink">Our Gulberg clinic details</h2>
         <dl class="mt-4 space-y-3 text-sm">
           <div>
             <dt class="font-semibold text-ink">Address</dt>
             <dd class="text-body">{address}</dd>
           </div>
           <div>
-            <dt class="font-semibold text-ink">Landmark</dt>
-            <dd class="text-body">2nd floor, TAMC building — beside Euro Petrol Pump, opposite Park Lane Hotel</dd>
+            <dt class="font-semibold text-ink">Floor &amp; landmark</dt>
+            <dd class="text-body">2nd floor, TAMC building — next to Euro Petrol Pump, opposite Park Lane Hotel</dd>
+          </div>
+          <div>
+            <dt class="font-semibold text-ink">Consultation hours</dt>
+            <dd class="text-body">Wednesday: 12:00pm – 3:00pm<br />Other days: by appointment (phone / WhatsApp)</dd>
           </div>
           <div>
             <dt class="font-semibold text-ink">Phone</dt>
@@ -71,15 +171,10 @@ const faqs = [
             <dt class="font-semibold text-ink">WhatsApp</dt>
             <dd><a href={whatsappHref} target="_blank" rel="noopener noreferrer" class="text-azure hover:underline">{phoneDisplay}</a></dd>
           </div>
-          <div>
-            <dt class="font-semibold text-ink">Hours</dt>
-            <dd class="text-body">Wednesday: 12:00pm – 3:00pm<br />Other days: by appointment (on call)</dd>
-          </div>
         </dl>
         <p class="mt-4 text-sm leading-relaxed text-body">
-          Since the walk-in slot here is a single weekly window, message us on WhatsApp
-          ahead of time to confirm your spot on Wednesday, or to arrange an on-call
-          appointment on another day.
+          The Wednesday slot is a single weekly window, so message us beforehand to
+          reserve your time or to arrange another day.
         </p>
         <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 font-semibold text-azure hover:underline">
           Get directions on Google Maps →
@@ -87,25 +182,164 @@ const faqs = [
       </div>
 
       <div data-reveal>
-        <h2 class="font-heading text-xl font-bold text-ink">What's available at this location</h2>
+        <h2 class="font-heading text-xl font-bold text-ink">A central fertility consultation in Gulberg</h2>
         <p class="mt-4 leading-relaxed text-body">
-          On Wednesdays, Dr. Kamran Saleem runs new-patient and follow-up
-          <a href="/services/assessment" class="text-azure underline hover:text-navy">fertility assessments</a>
-          at TAMC, along with
-          <a href="/services/fertility-treatment" class="text-azure underline hover:text-navy">treatment planning</a>
-          for IVF, ICSI, and IUI. Given the Gulberg location, this clinic also handles a
-          steady number of
-          <a href="/services/support" class="text-azure underline hover:text-navy">second-opinion consultations</a>
-          for patients partway through treatment at another nearby fertility centre and
-          wanting an independent view before continuing.
+          Located on M.M. Alam Road in the heart of Gulberg III, this is the most
+          convenient of our Lahore consultation points for patients living or working in
+          Gulberg, Main Boulevard, Liberty, Model Town, Garden Town and the surrounding
+          areas. If you are searching for a fertility specialist or IVF consultant in
+          Gulberg, Lahore, this is where Dr. Kamran Saleem meets new and returning
+          patients.
+        </p>
+        <p class="mt-4 leading-relaxed text-body">
+          Each consultation is unhurried and starts with your story — how long you have
+          been trying, what has been tested, and what has already been tried — before any
+          treatment is suggested.
         </p>
       </div>
     </div>
   </section>
 
+  <!-- Doctor -->
   <section class="bg-cloud py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">Your fertility specialist: Dr. Kamran Saleem</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        Dr. Kamran Saleem is a fertility specialist and andrologist, which means he
+        evaluates the male partner as carefully as the female partner — an area that is
+        too often overlooked when couples struggle to conceive.
+      </p>
+      <p class="mt-3">
+        <a href={links.doctor} class="text-azure underline hover:text-navy">Read Dr. Kamran Saleem's full profile and qualifications →</a>
+      </p>
+      <p class="mt-4 leading-relaxed text-body">
+        His approach is simple: investigate properly, explain clearly, and recommend the
+        least complicated treatment that has a realistic chance of working — which is
+        not always IVF.
+      </p>
+    </div>
+  </section>
+
+  <!-- Conditions & treatments -->
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto max-w-5xl px-5 sm:px-8">
+      <h2 class="font-heading text-xl font-bold text-ink" data-reveal>Fertility services available for Gulberg patients</h2>
+      <div class="mt-8 grid gap-8 md:grid-cols-2">
+        <div data-reveal>
+          <h3 class="font-semibold text-ink">Infertility assessment for both partners</h3>
+          <p class="mt-2 leading-relaxed text-body">
+            A structured work-up that may include
+            <a href={links.hormonal} class="text-azure underline hover:text-navy">hormonal analysis</a>,
+            <a href={links.ovulation} class="text-azure underline hover:text-navy">ovulation testing</a>
+            and the
+            <a href={links.femaleTest} class="text-azure underline hover:text-navy">female fertility test</a>,
+            alongside
+            <a href={links.semen} class="text-azure underline hover:text-navy">semen analysis</a>
+            for the male partner. See all
+            <a href={links.assessment} class="text-azure underline hover:text-navy">assessment and diagnosis</a> options.
+          </p>
+        </div>
+        <div data-reveal>
+          <h3 class="font-semibold text-ink">Male infertility &amp; andrology</h3>
+          <p class="mt-2 leading-relaxed text-body">
+            Abnormal semen results, low sperm count, poor motility or morphology, and
+            hormonal causes are reviewed in detail. Read more about
+            <a href={links.maleInfertility} class="text-azure underline hover:text-navy">male infertility</a>
+            and how it is evaluated.
+          </p>
+        </div>
+        <div data-reveal>
+          <h3 class="font-semibold text-ink">IVF, ICSI and IUI planning</h3>
+          <p class="mt-2 leading-relaxed text-body">
+            When treatment is needed, you receive an explanation of the options —
+            IUI, IVF and ICSI —
+            and which one suits your diagnosis, age and history. Browse our
+            <a href={links.treatment} class="text-azure underline hover:text-navy">fertility treatment</a> services.
+          </p>
+        </div>
+        <div data-reveal>
+          <h3 class="font-semibold text-ink">PCOS, irregular cycles &amp; ovulation problems</h3>
+          <p class="mt-2 leading-relaxed text-body">
+            Irregular periods and polycystic ovaries are common and often very
+            treatable.
+            Many women conceive with ovulation induction or monitored cycles, without
+            needing IVF.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Second opinion -->
+  <section class="bg-cloud py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">IVF second opinion in Gulberg, Lahore</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        An unsuccessful IVF cycle is emotionally and financially exhausting. Many
+        couples want an independent view before repeating the same protocol. At the
+        Gulberg consultation, Dr. Kamran reviews your records and helps you understand:
+      </p>
+      <ul class="mt-4 list-disc space-y-2 pl-6 text-body">
+        <li>How the stimulation, egg collection, fertilisation and embryo development went</li>
+        <li>Whether further testing of the male or female partner is worth doing</li>
+        <li>Whether a change in approach is reasonable, or whether repeating is sensible</li>
+        <li>What the realistic next options are, including when to pause</li>
+      </ul>
+      <p class="mt-4 leading-relaxed text-body">
+        Bring your complete cycle summary, scans, hormone levels, semen reports and
+        embryology notes if you have them. Learn more about
+        <a href={links.support} class="text-azure underline hover:text-navy">support and second opinions</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- First visit -->
+  <section class="bg-white py-16 md:py-20">
+    <div class="mx-auto grid max-w-5xl gap-10 px-5 sm:px-8 md:grid-cols-2">
+      <div data-reveal>
+        <h2 class="font-heading text-xl font-bold text-ink">What to expect at your first visit</h2>
+        <ol class="mt-4 list-decimal space-y-2 pl-6 text-body">
+          <li>A detailed discussion of your history as a couple</li>
+          <li>Review of previous reports, scans and treatments</li>
+          <li>Examination and a clear list of tests, if any are required</li>
+          <li>An explanation of your options and a sensible next step</li>
+        </ol>
+      </div>
+      <div data-reveal>
+        <h2 class="font-heading text-xl font-bold text-ink">What to bring</h2>
+        <ul class="mt-4 list-disc space-y-2 pl-6 text-body">
+          <li>Ultrasound, HSG or laparoscopy reports</li>
+          <li>Hormone profile and thyroid results</li>
+          <li>Recent semen analysis (original report)</li>
+          <li>Previous IUI/IVF cycle summaries and medication lists</li>
+          <li>Your partner, if possible</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Directions -->
+  <section class="bg-cloud py-16 md:py-20">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8" data-reveal>
+      <h2 class="font-heading text-xl font-bold text-ink">How to reach us in Gulberg III</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        Find TAMC on M.M. Alam Road, next to Euro Petrol Pump and opposite Park Lane
+        Hotel. The consultation room is on the 2nd floor.
+      </p>
+      <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 font-semibold text-azure hover:underline">
+        Open in Google Maps →
+      </a>
+      <p class="mt-6 leading-relaxed text-body">
+        Prefer another area? Dr. Kamran also consults at other Lahore locations — see
+        <a href={links.locations} class="text-azure underline hover:text-navy">all locations</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="bg-white py-16 md:py-20">
     <div class="mx-auto max-w-3xl px-5 sm:px-8">
-      <h2 class="font-heading text-xl font-bold text-ink">Common questions about the M.M. Alam Road location</h2>
+      <h2 class="font-heading text-xl font-bold text-ink">Frequently asked questions — fertility clinic in Gulberg, Lahore</h2>
       <div class="mt-6 space-y-6">
         {faqs.map((item) => (
           <div data-reveal>
@@ -114,12 +348,15 @@ const faqs = [
           </div>
         ))}
       </div>
+      <p class="mt-8 text-xs leading-relaxed text-body">
+        This page is for general information and does not replace a medical consultation.
+      </p>
     </div>
   </section>
 
   <CloseContact
-    heading="Ready to book at our M.M. Alam Road location?"
-    body="Message us on WhatsApp to arrange a consultation with Dr. Kamran Saleem at TAMC, M.M. Alam Road."
+    heading="Book your fertility consultation in Gulberg, Lahore"
+    body="Message us on WhatsApp to reserve your slot with Dr. Kamran Saleem at TAMC, M.M. Alam Road, Gulberg III."
     cta="Book Consultation"
   />
 </Layout>
