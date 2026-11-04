@@ -1,150 +1,289 @@
 ---
-import TreatmentPage from "../components/TreatmentPage.astro";
+import Layout from "../layouts/Layout.astro";
+import CloseContact from "../components/CloseContact.astro";
 
-const T = "/services/fertility-treatment";
-const A = "/services/assessment";
-const L = "/locations";
+// Patient reviews page. Every review below is a real, public Google review,
+// reproduced word for word (typos included). Do not paraphrase, merge or invent.
+// To add a review: copy an object, paste the exact text, name and star rating.
 
-const page = {
-  slug: "success-stories",
-  name: "Patient Success Stories",
-  title: "Patient Reviews & Success Stories | Kamran Fertility Lahore",
-  description: "Real Google reviews from patients of Dr. Kamran Saleem, a Lahore fertility specialist with 25 years' experience. Honest, unhurried, evidence-based care.",
-  eyebrow: "Patient Success Stories in Lahore",
-  h1: "Patient Success Stories & Reviews in Lahore",
-  waText: "Hello, I would like to book a fertility consultation with Dr. Kamran Saleem.",
-  ctaLabel: "Book a consultation",
-  heroSub: [
-    "Starting fertility treatment can feel overwhelming. Before any procedure, most couples want to feel listened to, understood and treated honestly.",
-    "Here, patients of Dr. Kamran Saleem describe what their visit was like, in their own unedited words from Google. Outcomes vary between individuals and no result is guaranteed.",
-  ].join(" "),
-  leadIn: [
-    { rich: ["These reviews describe patients' consultation and care experience at Kamran Fertility Clinic. To learn about the doctor behind them, see ", ["Dr. Kamran Saleem", "/dr-kamran-saleem"], ", or explore our ", ["fertility assessment & diagnosis", A], " and ", ["fertility treatment", T], " services."] },
-  ],
-  sections: [
-    {
-      id: "why-couples-trust-dr-kamran",
-      title: "Why Couples Trust Dr. Kamran Saleem",
-      intro: "Experience, clear communication and an evidence-based approach shape every consultation.",
-      icon: "clipboard",
-      body: [
-        { ul: [
-          "25 years' experience in reproductive health and fertility, covering male and female concerns",
-          "MBBS (1988) and a Diploma in Genito-Urinary Medicine & Venereology from the University of Liverpool, UK (1998)",
-          "Tests and treatments recommended only when they are likely to inform decisions",
-          "New-patient consultations of 45 to 60 minutes, ending with a written plan built around your timeline and values",
-        ] },
-        { rich: ["Read his full profile on the ", ["About Dr. Kamran Saleem", "/dr-kamran-saleem"], " page."] },
-      ],
-    },
-    {
-      id: "review-attiya-jabeen",
-      title: "“Proper Assessment and Personalized Guidance”",
-      intro: "Attiya Jabeen · Google review · 5 stars",
-      icon: "clipboard",
-      body: [
-        "“I had a very positive experience with Kamran Fertility Clinic. The information provided was clear, professional, and focused on helping patients understand their fertility concerns and available options. I especially appreciated the emphasis on proper assessment and personalized guidance rather than unnecessary treatment.”",
-        { rich: ["What stood out: clear information and a focus on assessment first. Learn about our ", ["fertility assessment & diagnosis", A], " or our ", ["fertility treatment options", T], "."] },
-      ],
-    },
-    {
-      id: "review-fazal-khan",
-      title: "A Doctor Who Listened Carefully",
-      intro: "Fazal Khan · Google review · 5 stars",
-      icon: "flask",
-      body: [
-        "“We visited Kamran fertility clinic Lahore. The doctor and stuff were very experienced and polite especially Dr kamran listened us very carefully and do the indepth analysis of our treatment and provided the detailed consultation on treatment. I would highly recommend it to everyone thank you Dr.kamran”",
-        { rich: ["What stood out: careful listening and a detailed consultation. Read about ", ["Dr. Kamran Saleem's experience and approach", "/dr-kamran-saleem"], " or explore ", ["fertility treatment in Lahore", T], "."] },
-      ],
-    },
-    {
-      id: "review-kinza-bibi",
-      title: "“I Felt Comfortable Throughout the Process”",
-      intro: "Kinza Bibi · Google review · 5 stars",
-      icon: "route",
-      body: [
-        "“I had a very good experience at Kamran Fertility Clinic. The doctor was professional, kind, and took the time to explain everything clearly. The staff was also cooperative and welcoming. I felt comfortable throughout the process and would definitely recommend the clinic to anyone looking for fertility care in Lahore.”",
-        { rich: ["What stood out: kind, clear explanations and a welcoming team. See our Lahore locations: ", ["DHA", `${L}/dha-lahore`], ", ", ["M.M. Alam Road", `${L}/mm-alam-road-lahore`], " and ", ["Shalamar", `${L}/shalamar-lahore`], "."] },
-      ],
-    },
-    {
-      id: "review-yands-khan",
-      title: "Satisfied with the Consultation and Treatment Plan",
-      intro: "Yands Khan · Google review · 5 stars",
-      icon: "calendar",
-      body: [
-        "“Yesterday I visited Kamran fertility clinic in Lahore and I'm surprisingly satisfied with the consultation and treatment plan. Thank you Dr kamran”",
-        { rich: ["What stood out: a clear plan after the first visit. Browse our ", ["fertility treatment options", T], " or read about ", ["support and second opinions", "/services/support"], "."] },
-      ],
-    },
-    {
-      id: "review-ali-malik",
-      title: "Knowledgeable, Outstanding Service",
-      intro: "Ali Malik · Google review · 5 stars",
-      icon: "compare",
-      body: [
-        "“Kamran fertility clinic is the one of the best fertility clinic. The services are outstanding he is really knowledgeable Dr. I would highly recommend him.”",
-        { rich: ["What stood out: the doctor's knowledge. Meet ", ["Dr. Kamran Saleem", "/dr-kamran-saleem"], " and read our ", ["fertility resources", "/resources"], "."] },
-      ],
-    },
-    {
-      id: "review-absar-alam",
-      title: "A Good Listener with Detailed Observation",
-      intro: "Absar Alam · Google review · 4 stars",
-      icon: "clipboard",
-      body: [
-        "“Doctor sahb are very good listener and do detailed observation. I would recommend them.”",
-        { rich: ["What stood out: listening and detail. Learn about ", ["hormonal analysis", `${A}/hormonal-analysis`], ", ", ["semen analysis", `${A}/semen-analysis`], " and ", ["second opinions", "/services/support"], "."] },
-      ],
-    },
-    {
-      id: "what-patients-mention-most",
-      title: "What Patients Mention Most",
-      intro: "Counted across the six reviews above, the same themes keep appearing.",
-      icon: "compare",
-      body: [
-        { ul: [
-          "4 of 6 mention thorough assessment, analysis or a clear treatment plan",
-          "4 of 6 say they would recommend the clinic or the doctor",
-          "3 of 6 highlight clear, detailed explanations",
-          "2 of 6 praise careful listening, and 2 of 6 the doctor's knowledge and experience",
-          "2 of 6 mention a polite, welcoming staff",
-        ] },
-      ],
-    },
-    {
-      id: "how-we-publish-reviews",
-      title: "How We Publish Reviews",
-      intro: "Trust depends on honesty, so we keep this page simple and verifiable.",
-      icon: "route",
-      body: [
-        "We publish reviews exactly as patients wrote them, including the 4-star review, and we do not edit or select them to change their meaning. Reviews describe individual experiences of care. They are not a promise of any medical result.",
-        { rich: ["You can ", ["read every review on Google", "https://www.google.com/maps/search/?api=1&query=Kamran+Fertility+Clinic+Lahore"], " to check for yourself."] },
-      ],
-    },
-  ],
-  faqs: [
-    { q: "Are these reviews genuine?", a: "Yes. They are public Google reviews, reproduced as the patients wrote them, with the reviewer's name as shown on Google." },
-    { q: "Will my experience be the same?", a: "Every patient's history is different, and no clinic can guarantee a pregnancy. Your consultation explains what is realistic for you." },
-    { q: "Do I need a diagnosis before booking?", a: "No. Many patients come with questions or earlier reports. The consultation helps explain appropriate next steps." },
-    { q: "Can I leave a review?", a: "Yes, and we welcome honest feedback. You can share your experience on Google after your visit." },
-  ],
-  closingHeading: "Fertility Care in Lahore with Dr. Kamran Saleem",
-  closingParas: [
-    "Whatever stage you are at, you will not be rushed or judged. Dr. Kamran Saleem will review your history and any reports, explain your options honestly and outline a plan built around your circumstances.",
-    "You can ask about consultation fees before confirming your appointment.",
-  ],
-  resources: [
-    { href: "/resources/fertility-assessment-in-lahore", category: "Fertility Assessment", title: "Fertility Assessment in Lahore" },
-    { href: "/resources/female-infertility-treatment", category: "Fertility Assessment", title: "Female Infertility: Treatment and Next Steps" },
-    { href: "/resources/pcos-and-fertility", category: "Fertility Assessment", title: "PCOS and Fertility" },
-  ],
-  close: {
-    heading: "Ready to Book Your Consultation?",
-    body: "Message the clinic on WhatsApp and share your history or previous reports, so your first visit can focus on your questions.",
-    cta: "Book a consultation",
+const googleUrl = "https://www.google.com/maps?q=Kamran+Fertility+Clinic+Lahore";
+const marhamUrl = "https://www.marham.pk/doctors/lahore/andrologist/dr-kamran-saleem/reviews";
+
+const reviews = [
+  {
+    name: "Attiya Jabeen",
+    rating: 5,
+    text: "I had a very positive experience with Kamran Fertility Clinic. The information provided was clear, professional, and focused on helping patients understand their fertility concerns and available options. I especially appreciated the emphasis on proper assessment and personalized guidance rather than unnecessary treatment.",
+    related: [["Fertility assessment & diagnosis", "/services/assessment"], ["Fertility treatment options", "/services/fertility-treatment"]],
   },
-};
+  {
+    name: "Fazal Khan",
+    rating: 5,
+    text: "We visited Kamran fertility clinic Lahore. The doctor and stuff were very experienced and polite especially Dr kamran listened us very carefully and do the indepth analysis of our treatment and provided the detailed consultation on treatment. I would highly recommend it to everyone thank you Dr.kamran",
+    related: [["About Dr. Kamran Saleem", "/dr-kamran-saleem"], ["Fertility treatment in Lahore", "/services/fertility-treatment"]],
+  },
+  {
+    name: "Kinza Bibi",
+    rating: 5,
+    text: "I had a very good experience at Kamran Fertility Clinic. The doctor was professional, kind, and took the time to explain everything clearly. The staff was also cooperative and welcoming. I felt comfortable throughout the process and would definitely recommend the clinic to anyone looking for fertility care in Lahore.",
+    related: [["Clinic locations in Lahore", "/locations"], ["DHA Lahore", "/locations/dha-lahore"]],
+  },
+  {
+    name: "Yands Khan",
+    rating: 5,
+    text: "Yesterday I visited Kamran fertility clinic in Lahore and I'm surprisingly satisfied with the consultation and treatment plan. Thank you Dr kamran",
+    related: [["Fertility treatment", "/services/fertility-treatment"], ["Support & second opinions", "/services/support"]],
+  },
+  {
+    name: "Ali Malik",
+    rating: 5,
+    text: "Kamran fertility clinic is the one of the best fertility clinic. The services are outstanding he is really knowledgeable Dr. I would highly recommend him.",
+    related: [["Meet Dr. Kamran Saleem", "/dr-kamran-saleem"], ["Fertility resources", "/resources"]],
+  },
+  {
+    name: "Absar Alam",
+    rating: 4,
+    text: "Doctor sahb are very good listener and do detailed observation. I would recommend them.",
+    related: [["Hormonal analysis", "/services/assessment/hormonal-analysis"], ["Semen analysis", "/services/assessment/semen-analysis"]],
+  },
+];
+
+const featured = reviews[0];
+const others = reviews.slice(1);
+
+// Counted by hand from the six reviews above.
+const themes = [
+  { n: "4 of 6", t: "mention thorough assessment, analysis or a clear plan" },
+  { n: "4 of 6", t: "say they would recommend the clinic or doctor" },
+  { n: "3 of 6", t: "highlight clear, detailed explanations" },
+  { n: "2 of 6", t: "praise careful listening" },
+  { n: "2 of 6", t: "mention the doctor's knowledge and experience" },
+  { n: "2 of 6", t: "mention a polite, welcoming staff" },
+];
+
+const faqs = [
+  { q: "Are these reviews genuine?", a: "Yes. They are public Google reviews, reproduced exactly as the patients wrote them, with the reviewer's name as shown on Google. You can check them on Kamran Fertility Clinic's Google Business Profile." },
+  { q: "Will my experience be the same?", a: "Every patient's history is different, and no clinic can guarantee a pregnancy. Your consultation explains what is realistic for you." },
+  { q: "Do I need a diagnosis before booking?", a: "No. Many patients come with questions or earlier reports. The consultation helps explain appropriate next steps." },
+  { q: "Can I leave a review?", a: "Yes, honest feedback is welcome. You can share your experience on Google after your visit." },
+];
+
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Success Stories" },
+];
+
+const starPath = "M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.8 4.8 17.6l1-5.8L1.5 7.7l5.9-.9z";
 ---
 
-<TreatmentPage {...page} />
+<Layout
+  title="Patient Reviews & Success Stories | Kamran Fertility Lahore"
+  description="Real Google reviews from patients of Dr. Kamran Saleem, a Lahore fertility specialist with 25 years' experience. Honest, unhurried, evidence-based care."
+>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MedicalWebPage",
+        "@id": "https://www.kamranfertility.com/success-stories#webpage",
+        "url": "https://www.kamranfertility.com/success-stories",
+        "name": "Patient Reviews & Success Stories",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://www.kamranfertility.com/#website" },
+        "about": { "@id": "https://www.kamranfertility.com/#clinic" },
+        "lastReviewed": "2026-11-04"
+      },
+      {
+        "@type": "MedicalClinic",
+        "@id": "https://www.kamranfertility.com/#clinic",
+        "name": "Kamran Fertility Clinic",
+        "url": "https://www.kamranfertility.com/",
+        "telephone": "+923148432789",
+        "address": { "@type": "PostalAddress", "addressLocality": "Lahore", "addressCountry": "PK" },
+        "review": reviews.map((r) => ({
+          "@type": "Review",
+          "author": { "@type": "Person", "name": r.name },
+          "reviewRating": { "@type": "Rating", "ratingValue": r.rating, "bestRating": 5 },
+          "reviewBody": r.text
+        }))
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.kamranfertility.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Success Stories", "item": "https://www.kamranfertility.com/success-stories" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": faqs.map((f) => ({
+          "@type": "Question",
+          "name": f.q,
+          "acceptedAnswer": { "@type": "Answer", "text": f.a }
+        }))
+      }
+    ]
+  })} />
+
+  <!-- Intro -->
+  <section class="bg-ice pb-12 pt-32 md:pb-16 md:pt-40">
+    <div class="mx-auto max-w-4xl px-5 sm:px-8">
+      <nav aria-label="Breadcrumb" class="text-sm text-body">
+        {breadcrumbs.map((c, i) => (
+          <>
+            {c.href ? <a href={c.href} class="hover:text-azure">{c.label}</a> : <span class="text-ink">{c.label}</span>}
+            {i < breadcrumbs.length - 1 && <span class="mx-2">/</span>}
+          </>
+        ))}
+      </nav>
+      <p class="mt-6 text-xs font-bold uppercase tracking-[0.14em] text-azure">Patient success stories</p>
+      <h1 class="mt-3 font-heading text-4xl font-extrabold leading-tight text-ink sm:text-5xl">
+        Fertility care in Lahore, in our patients' own words
+      </h1>
+      <p class="measure mt-5 text-lg leading-relaxed text-body">
+        For many couples, the first success is simply feeling heard. These are real Google reviews from patients of
+        <a href="/dr-kamran-saleem" class="font-semibold text-azure underline-offset-4 hover:underline">Dr. Kamran Saleem</a>,
+        shown exactly as written. They describe the consultation and care experience. Outcomes vary between individuals,
+        and no result is guaranteed.
+      </p>
+
+      <div class="mt-9 grid grid-cols-2 gap-y-5 border-t border-line pt-6 sm:grid-cols-4">
+        <div><span class="block font-heading text-2xl font-extrabold text-ink">6</span><span class="text-xs text-body">Google reviews shown, unedited</span></div>
+        <div><span class="block font-heading text-2xl font-extrabold text-ink">25 yrs</span><span class="text-xs text-body">In fertility &amp; reproductive health</span></div>
+        <div><span class="block font-heading text-2xl font-extrabold text-ink">3</span><span class="text-xs text-body">Lahore clinic locations</span></div>
+        <div><span class="block font-heading text-2xl font-extrabold text-ink">5.0</span><span class="text-xs text-body">Rating · 32 Marham reviews</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured review -->
+  <section class="bg-white pt-14 md:pt-20" aria-label="Featured patient review">
+    <div class="mx-auto max-w-4xl px-5 sm:px-8">
+      <figure class="rounded-[var(--r-lg)] bg-ink p-8 text-white shadow-lift sm:p-12">
+        <div class="flex gap-1 text-amber-400" aria-label={`${featured.rating} out of 5 stars`} role="img">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <svg viewBox="0 0 20 20" class={`h-5 w-5 fill-current ${i < featured.rating ? "" : "opacity-25"}`} aria-hidden="true"><path d={starPath} /></svg>
+          ))}
+        </div>
+        <blockquote class="mt-5 font-heading text-xl font-semibold leading-relaxed sm:text-2xl">
+          “{featured.text}”
+        </blockquote>
+        <figcaption class="mt-6 text-sm text-sky">{featured.name} · Google review</figcaption>
+        <p class="mt-5 text-sm text-white/70">
+          Related:
+          {featured.related.map(([label, href], i) => (
+            <>
+              <a href={href} class="font-semibold text-white underline underline-offset-4 hover:text-sky">{label}</a>{i < featured.related.length - 1 && " · "}
+            </>
+          ))}
+        </p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- All other reviews -->
+  <section class="bg-white py-14 md:py-20" aria-labelledby="more-reviews-h">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <h2 id="more-reviews-h" class="font-heading text-2xl font-bold text-ink sm:text-3xl">More patient reviews</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {others.map((r) => (
+          <article class="flex flex-col rounded-[var(--r-md)] border border-line bg-white p-6 shadow-soft">
+            <div class="flex gap-0.5 text-amber-400" aria-label={`${r.rating} out of 5 stars`} role="img">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <svg viewBox="0 0 20 20" class={`h-4 w-4 fill-current ${i < r.rating ? "" : "text-line"}`} aria-hidden="true"><path d={starPath} /></svg>
+              ))}
+            </div>
+            <blockquote class="mt-4 flex-1 leading-relaxed text-ink">“{r.text}”</blockquote>
+            <div class="mt-5 flex items-center gap-3 border-t border-line pt-4">
+              <span class="grid h-9 w-9 place-items-center rounded-full bg-ice font-heading text-sm font-bold text-azure" aria-hidden="true">{r.name.charAt(0)}</span>
+              <div>
+                <p class="font-heading text-sm font-bold leading-tight text-ink">{r.name}</p>
+                <p class="text-xs text-body">Google review</p>
+              </div>
+            </div>
+            <p class="mt-4 text-xs text-body">
+              Related:
+              {r.related.map(([label, href], i) => (
+                <>
+                  <a href={href} class="font-semibold text-azure underline-offset-4 hover:underline">{label}</a>{i < r.related.length - 1 && " · "}
+                </>
+              ))}
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Themes -->
+  <section class="bg-ice py-14 md:py-20" aria-labelledby="themes-h">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <h2 id="themes-h" class="font-heading text-2xl font-bold text-ink sm:text-3xl">What patients mention most</h2>
+      <p class="measure mt-3 text-body">Counted across the six reviews above, the same themes keep appearing.</p>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {themes.map((t) => (
+          <div class="rounded-[var(--r-md)] bg-white p-5">
+            <span class="block font-heading text-2xl font-extrabold text-navy">{t.n}</span>
+            <span class="text-sm text-body">{t.t}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust + verification -->
+  <section class="bg-white py-14 md:py-20" aria-labelledby="trust-h">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8">
+      <h2 id="trust-h" class="font-heading text-2xl font-bold text-ink sm:text-3xl">How we publish reviews</h2>
+      <p class="mt-4 leading-relaxed text-body">
+        We publish reviews exactly as patients wrote them, including the 4-star one, and we don't edit or select them to
+        change their meaning. They describe individual experiences of care. They are not a promise of any medical result.
+      </p>
+      <p class="mt-4 leading-relaxed text-body">
+        Check for yourself:
+        <a href={googleUrl} target="_blank" rel="noopener" class="font-semibold text-azure underline-offset-4 hover:underline">Kamran Fertility Clinic on Google</a>
+        &nbsp;·&nbsp;
+        <a href={marhamUrl} target="_blank" rel="noopener" class="font-semibold text-azure underline-offset-4 hover:underline">Dr. Kamran Saleem on Marham</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Next steps -->
+  <section class="bg-ice py-14 md:py-20" aria-labelledby="next-h">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <h2 id="next-h" class="font-heading text-2xl font-bold text-ink sm:text-3xl">Where to go next</h2>
+      <div class="mt-6 flex flex-wrap gap-3">
+        {[
+          ["Assessment & Diagnosis", "/services/assessment"],
+          ["Fertility Treatment", "/services/fertility-treatment"],
+          ["IVF", "/services/fertility-treatment/ivf"],
+          ["ICSI", "/services/fertility-treatment/icsi"],
+          ["IUI", "/services/fertility-treatment/iui"],
+          ["Support & Second Opinions", "/services/support"],
+          ["Dr. Kamran Saleem", "/dr-kamran-saleem"],
+          ["Locations", "/locations"],
+          ["Resources", "/resources"],
+        ].map(([label, href]) => (
+          <a href={href} class="rounded-full border border-line bg-white px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-azure hover:text-azure">{label}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <section class="bg-white py-14 md:py-20" id="faqs">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8">
+      <h2 class="text-center font-heading text-2xl font-bold text-ink sm:text-3xl">Frequently asked questions</h2>
+      <div class="mt-8 space-y-4">
+        {faqs.map((f) => (
+          <details class="group rounded-xl bg-ice p-5">
+            <summary class="cursor-pointer list-none font-heading font-bold text-ink">{f.q}</summary>
+            <p class="mt-3 leading-relaxed text-body">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CloseContact />
+</Layout>
