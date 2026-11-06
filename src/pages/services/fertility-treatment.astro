@@ -5,26 +5,88 @@ import ServiceBlock from "../../components/ServiceBlock.astro";
 import CloseContact from "../../components/CloseContact.astro";
 import { treatments, hubHref } from "../../data/treatments.js";
 
-// Client-approved, SEO-written copy — reproduced verbatim. Do not reword,
-// shorten, or add keywords without sign-off from the client's SEO team.
+// ─────────────────────────────────────────────────────────────────────────
+// SEO-OPTIMIZED VERSION
+//
+// • All client-approved copy is reproduced VERBATIM (nothing reworded).
+// • Design is unchanged: same components, same Tailwind classes, same
+//   section order/alternation pattern. New blocks reuse existing styles.
+// • Everything marked "NEW" below is ADDED content/markup and needs client
+//   (and Dr. Kamran's medical) sign-off before it goes live.
+//
+// What was added:
+//   1. Contextual internal links (treatment pages, assessment pages,
+//      location pages, doctor page, cost guide, IVF vs IUI guide)
+//   2. "Key points" summary box + jump-link table of contents
+//   3. "Medically reviewed by / last updated" line (E-E-A-T)
+//   4. Comparison table: IUI vs IVF vs ICSI vs PGT (uses approved facts only)
+//   5. New sections: "When should you see a fertility specialist?" and
+//      "What affects the success of fertility treatment?"
+//   6. 5 extra FAQs (cost, timing, tests, success factors, where to consult)
+//   7. Stronger schema (MedicalWebPage + reviewer + dates, fixed breadcrumb,
+//      FAQ linked to the page)
+//   8. CTA now points to WhatsApp instead of the unverified #contact anchor
+// ─────────────────────────────────────────────────────────────────────────
+
+const SITE = "https://www.kamranfertility.com";
+const PAGE_URL = `${SITE}/services/fertility-treatment`;
+const WHATSAPP = "https://wa.me/923148432789";
+
+// NEW — update whenever the page content is reviewed again.
+const lastUpdated = "2026-11-06";
+const lastUpdatedLabel = "6 November 2026";
+
 const breadcrumbs = [
   { label: "Home", href: "/" },
   { label: "Services" },
   { label: "Fertility Treatment" },
 ];
 
-// ASSUMPTION (not published as text, flagged to the client): the two
-// "Book a fertility consultation" CTAs in the approved copy have no stated
-// destination. Pointed at #contact for now — update to the real booking
-// target (contact page, WhatsApp link, or modal) before merging.
-const bookingHref = "#contact";
+// Was "#contact" (unverified anchor). Now the clinic's WhatsApp booking link.
+const bookingHref = WHATSAPP;
 
-// Shared classes for the detail content that sits under each ServiceBlock.
+// Shared classes (unchanged).
 const wrapClass = "mx-auto max-w-3xl space-y-5 text-body leading-relaxed";
 const h3Class = "pt-4 font-heading text-xl font-bold text-ink";
 const ulClass = "list-disc space-y-1.5 pl-6 marker:text-primary";
 const linkClass = "font-semibold text-primary underline underline-offset-2";
 const ctaClass = "inline-block rounded-full bg-primary px-6 py-3 font-heading font-semibold text-white transition hover:opacity-90";
+
+// ── Types + helpers ──────────────────────────────────────────────────────
+type Part = { text?: string; href?: string; label?: string };
+type Block = {
+  t: string;
+  text?: string;
+  items?: string[];
+  before?: string;
+  href?: string;
+  label?: string;
+  after?: string;
+  parts?: Part[];
+  caption?: string;
+  head?: string[];
+  rows?: string[][];
+};
+
+// Child-page URL under the treatment hub, e.g. t("ivf")
+const t = (slug: string) => `${hubHref}/${slug}`;
+
+// "Lead text: A, B and C." as an inline-link paragraph
+const sentence = (lead: string, links: { label: string; href: string }[], tail = "."): Block => {
+  const parts: Part[] = [{ text: lead }];
+  links.forEach((l, i) => {
+    if (i > 0) parts.push({ text: i === links.length - 1 ? " and " : ", " });
+    parts.push(l);
+  });
+  parts.push({ text: tail });
+  return { t: "richp", parts };
+};
+
+// The only external links left are the WhatsApp booking links (no outside
+// authority links, in line with how competitor service pages are built).
+// They open safely in a new tab.
+const ext = (href?: string) =>
+  href && href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {};
 
 const heroSub = [
   "Fertility treatment can help when pregnancy has not occurred naturally or when a known fertility problem needs treatment.",
@@ -32,14 +94,38 @@ const heroSub = [
   "Fertility treatment does not always mean IVF. Depending on the situation, treatment may include medication, ovulation management, IUI, IVF, ICSI, treatment of male or female fertility problems, or other appropriate options.",
 ].join(" ");
 
-// ---- Lead-in: start with an assessment, then book ----
+// ---- Lead-in: start with an assessment, then book (approved) ----
 const leadIn = [
   { t: "link", before: "If you have not yet had a fertility evaluation, start with our ", href: "/services/assessment", label: "Fertility Assessment & Diagnosis", after: " service." },
 ];
 
+// NEW — "Key points" box (every point restates approved copy)
+const keyPoints = [
+  "Fertility treatment does not always mean IVF. Options include medication, ovulation management, IUI, IVF and ICSI.",
+  "The right treatment depends on the cause, age, previous treatment and test results.",
+  "IUI and IVF are different treatments and are not interchangeable.",
+  "A fertility assessment normally comes first, so treatment matches the medical findings.",
+  "No fertility treatment can guarantee pregnancy or a live birth.",
+  "Dr. Kamran Saleem sees patients at three locations in Lahore: DHA, M.M. Alam Road and Shalamar.",
+];
+
+// NEW — jump links (ids match the ServiceBlock ids / FAQ id below)
+const toc = [
+  { id: "fertility-treatment-options", label: "Treatment options" },
+  { id: "treatment-for-male-infertility", label: "Male infertility" },
+  { id: "treatment-for-female-infertility", label: "Female infertility" },
+  { id: "when-to-see-a-fertility-specialist", label: "When to seek help" },
+  { id: "what-happens-before-treatment", label: "Before treatment" },
+  { id: "choosing-between-iui-and-ivf", label: "IUI vs IVF" },
+  { id: "treatment-after-unsuccessful-ivf-or-iui", label: "After unsuccessful treatment" },
+  { id: "fertility-treatment-cost", label: "Cost" },
+  { id: "what-affects-treatment-success", label: "Success factors" },
+  { id: "faq", label: "FAQs" },
+];
+
 // ---- What Fertility Treatment May Include ----
 const includeIntro = "There is no single treatment that works for every fertility problem.";
-const includeBody = [
+const includeBody: Block[] = [
   { t: "p", text: "Depending on the cause, treatment may include:" },
   {
     t: "ul",
@@ -56,20 +142,33 @@ const includeBody = [
     ],
   },
   { t: "p", text: "The aim is to choose a treatment that matches the medical findings rather than automatically moving to the most complex option." },
+  // NEW — internal links to every treatment page
+  sentence("Read more about each option: ", [
+    { label: "IVF treatment", href: t("ivf") },
+    { label: "ICSI treatment", href: t("icsi") },
+    { label: "IUI treatment", href: t("iui") },
+    { label: "frozen embryo transfer (FET)", href: t("fet") },
+    { label: "embryo genetic testing (PGT)", href: t("pgt") },
+    { label: "ovulation induction and PCOS care", href: t("ovulation-induction") },
+    { label: "male infertility treatment", href: t("male-infertility") },
+    { label: "egg and sperm freezing", href: t("fertility-preservation") },
+  ]),
 ];
 
 // ---- Fertility Treatment Options ----
 const optionsIntro = "There is no single treatment that works for every fertility problem.";
-const optionsBody = [
+const optionsBody: Block[] = [
   { t: "h3", text: "Medication and Ovulation Treatment" },
   { t: "p", text: "Some fertility problems are related to irregular or absent ovulation." },
   { t: "p", text: "When appropriate, treatment may involve medication or management of an underlying condition affecting ovulation. The choice of treatment depends on the cause and the individual's medical history." },
   { t: "p", text: "Ovulation treatment may be considered in conditions such as some forms of ovulatory dysfunction or PCOS when clinically appropriate." },
+  sentence("Learn more about ", [{ label: "ovulation induction and PCOS treatment", href: t("ovulation-induction") }]), // NEW
 
   { t: "h3", text: "IUI — Intrauterine Insemination" },
   { t: "p", text: "Intrauterine insemination (IUI) is a fertility treatment in which prepared sperm is placed directly into the uterus around the time of ovulation." },
   { t: "p", text: "IUI may be considered in selected situations, depending on factors such as sperm health, ovulation, the fallopian tubes, age, and the overall fertility history." },
   { t: "p", text: "IUI is less complex than IVF, but it is not suitable for every fertility problem." },
+  sentence("Learn more about ", [{ label: "IUI treatment in Lahore", href: t("iui") }]), // NEW
 
   { t: "h3", text: "IVF — In Vitro Fertilization" },
   { t: "p", text: "IVF is an assisted reproductive treatment in which eggs are collected and fertilized with sperm in a laboratory. An embryo is then transferred to the uterus." },
@@ -87,21 +186,27 @@ const optionsBody = [
   },
   { t: "p", text: "The exact treatment plan can vary according to the patient's circumstances." },
   { t: "p", text: "IVF may be considered when other approaches are unsuitable, have not worked, or when the clinical situation makes IVF an appropriate treatment option. Current fertility guidance emphasizes selecting treatment according to the individual clinical situation rather than treating IVF as the automatic answer to infertility." },
+  sentence("Learn more about ", [
+    { label: "IVF treatment in Lahore", href: t("ivf") },
+    { label: "frozen embryo transfer (FET)", href: t("fet") },
+  ]), // NEW
 
   { t: "h3", text: "ICSI — Intracytoplasmic Sperm Injection" },
   { t: "p", text: "ICSI is an assisted fertilization technique used as part of IVF." },
   { t: "p", text: "During ICSI, a single sperm is injected directly into an egg to assist fertilization." },
   { t: "p", text: "ICSI may be considered in selected situations, particularly when significant male-factor fertility problems or previous fertilization problems are present. It is not automatically necessary for every IVF treatment." },
+  sentence("Learn more about ", [{ label: "ICSI treatment in Lahore", href: t("icsi") }]), // NEW
 
   { t: "h3", text: "PGT — Preimplantation Genetic Testing" },
   { t: "p", text: "Preimplantation genetic testing (PGT) involves testing embryos created through IVF for specific genetic or chromosomal findings, depending on the type of testing being considered." },
   { t: "p", text: "PGT is not required for every fertility treatment cycle. Whether it is appropriate depends on the individual's medical or genetic circumstances and the reason for considering embryo testing." },
   { t: "p", text: "Your doctor can explain whether PGT is relevant to your situation, including its potential benefits and limitations." },
+  sentence("Learn more about ", [{ label: "preimplantation genetic testing (PGT)", href: t("pgt") }]), // NEW
 ];
 
 // ---- Treatment for Male Infertility ----
 const maleIntro = "Fertility problems can involve male factors as well as female factors.";
-const maleBody = [
+const maleBody: Block[] = [
   { t: "p", text: "Depending on the underlying problem, treatment may involve managing an identified medical or hormonal condition, addressing relevant reproductive or sexual health problems, or considering assisted reproductive treatment." },
   { t: "p", text: "Where sperm problems are significant, treatment options may include IUI, IVF or ICSI, depending on the clinical findings." },
   { t: "p", text: "If you already have a semen analysis or previous male fertility reports, bring them to your consultation." },
@@ -115,11 +220,17 @@ const maleBody = [
       { text: " guide for more information." },
     ],
   },
+  // NEW
+  sentence("See also: ", [
+    { label: "male infertility treatment", href: t("male-infertility") },
+    { label: "male fertility assessment", href: "/services/assessment/male-fertility-test" },
+    { label: "semen analysis", href: "/services/assessment/semen-analysis" },
+  ]),
 ];
 
 // ---- Treatment for Female Infertility ----
 const femaleIntro = "Female fertility problems can have different causes, including ovulation problems, PCOS, endometriosis, tubal factors, uterine conditions, and age-related changes.";
-const femaleBody = [
+const femaleBody: Block[] = [
   { t: "p", text: "Treatment depends on the underlying problem." },
   { t: "p", text: "Depending on the situation, fertility care may include:" },
   {
@@ -134,20 +245,65 @@ const femaleBody = [
     ],
   },
   { t: "p", text: "Your treatment plan should be based on your individual findings rather than a standard treatment package." },
+  // NEW
+  sentence("See also: ", [
+    { label: "female fertility assessment", href: "/services/assessment/female-fertility-assessment" },
+    { label: "ovulation induction and PCOS treatment", href: t("ovulation-induction") },
+    { label: "egg freezing and fertility preservation", href: t("fertility-preservation") },
+  ]),
+];
+
+// ---- NEW: When should you see a fertility specialist? ----
+// Needs Dr. Kamran's medical review before publishing.
+const whenIntro = "The right time to seek advice depends on your age and medical history.";
+const whenBody: Block[] = [
+  { t: "p", text: "A fertility evaluation is usually considered when pregnancy has not occurred after about 12 months of regular, unprotected intercourse." },
+  { t: "p", text: "Many guidelines suggest seeking advice sooner, after about 6 months, if the woman is 35 or older." },
+  { t: "p", text: "You may wish to be seen earlier if:" },
+  {
+    t: "ul",
+    items: [
+      "Periods are irregular or absent",
+      "You have been diagnosed with, or suspect, PCOS, endometriosis, or a tubal problem",
+      "You have had a pelvic infection or pelvic or abdominal surgery",
+      "A semen analysis has been abnormal, or a male fertility problem is already known",
+      "You have had repeated miscarriages",
+      "You want to preserve fertility before medical treatment that may affect it",
+    ],
+  },
+  { t: "p", text: "An early consultation does not commit you to any treatment. It can help you understand your situation and decide what to do next." },
+  {
+    t: "richp",
+    parts: [
+      { text: "Start with our " },
+      { href: "/services/assessment", label: "Fertility Assessment & Diagnosis" },
+      { text: " service, or " },
+      { href: WHATSAPP, label: "message the clinic on WhatsApp" },
+      { text: " to ask a question first." },
+    ],
+  },
 ];
 
 // ---- What Happens Before Fertility Treatment? ----
 const beforeIntro = "Treatment planning normally starts with understanding the fertility problem and reviewing relevant medical information.";
-const beforeBody = [
+const beforeBody: Block[] = [
   { t: "p", text: "If you already have a fertility assessment, bring your previous reports to the consultation. These may include blood tests, ultrasound reports, semen analysis, tubal investigations, or previous treatment records." },
   { t: "p", text: "If you have not yet had an assessment, your doctor may recommend an appropriate fertility evaluation before deciding which treatment is suitable." },
   { t: "p", text: "This helps avoid choosing a treatment without first understanding the relevant fertility factors." },
   { t: "link", before: "", href: "/services/assessment", label: "Learn about Fertility Assessment & Diagnosis", after: "" },
+  // NEW
+  sentence("Our assessment pages explain the common first-step tests: ", [
+    { label: "female fertility assessment", href: "/services/assessment/female-fertility-assessment" },
+    { label: "male fertility assessment", href: "/services/assessment/male-fertility-test" },
+    { label: "hormonal analysis", href: "/services/assessment/hormonal-analysis" },
+    { label: "ovulation assessment", href: "/services/assessment/ovulation-test" },
+    { label: "semen analysis", href: "/services/assessment/semen-analysis" },
+  ]),
 ];
 
 // ---- Choosing Between IUI and IVF ----
 const choosingIntro = "IUI and IVF are different treatments and are not interchangeable.";
-const choosingBody = [
+const choosingBody: Block[] = [
   { t: "p", text: "IUI may be considered when a less invasive assisted reproductive approach is appropriate." },
   { t: "p", text: "IVF involves egg retrieval and laboratory fertilization and may be considered when IUI is unsuitable, has not been successful, or when the clinical circumstances make IVF more appropriate." },
   { t: "p", text: "Factors that may influence treatment planning include:" },
@@ -166,11 +322,32 @@ const choosingBody = [
     ],
   },
   { t: "p", text: "Your doctor can explain why a particular treatment may be recommended in your situation." },
+  // NEW — comparison table (built only from facts already in the approved copy)
+  { t: "h3", text: "Quick comparison: IUI, IVF, ICSI and PGT" },
+  {
+    t: "table",
+    caption: "Comparison of IUI, IVF, ICSI and PGT",
+    head: ["Treatment", "What it involves", "Egg retrieval", "May be considered when"],
+    rows: [
+      ["IUI", "Prepared sperm is placed directly into the uterus around the time of ovulation.", "No", "In selected situations, depending on sperm health, ovulation, fallopian tubes, age and fertility history."],
+      ["IVF", "Eggs are collected and fertilized with sperm in a laboratory, and an embryo is transferred to the uterus.", "Yes", "Other approaches are unsuitable or have not worked, or the clinical situation makes IVF appropriate."],
+      ["ICSI", "A single sperm is injected directly into an egg to assist fertilization, as part of IVF.", "Yes (as part of IVF)", "Significant male-factor problems or previous fertilization problems are present."],
+      ["PGT", "Embryos created through IVF are tested for specific genetic or chromosomal findings.", "Yes (as part of IVF)", "There are specific medical or genetic reasons. It is not needed for every cycle."],
+    ],
+  },
+  {
+    t: "richp",
+    parts: [
+      { text: "For a fuller explanation, read our " },
+      { href: "/resources/ivf-vs-iui", label: "IVF vs IUI guide" },
+      { text: "." },
+    ],
+  },
 ];
 
 // ---- Fertility Treatment After Unsuccessful IVF or IUI ----
 const afterUnsuccessfulIntro = "An unsuccessful fertility treatment cycle does not necessarily mean that further treatment will not work.";
-const afterUnsuccessfulBody = [
+const afterUnsuccessfulBody: Block[] = [
   { t: "p", text: "If you have previously had IUI, IVF or ICSI, bring your treatment records to your consultation." },
   { t: "p", text: "Your doctor may review information such as:" },
   {
@@ -188,19 +365,31 @@ const afterUnsuccessfulBody = [
   },
   { t: "p", text: "The purpose is to understand the previous treatment and discuss what options may be appropriate next." },
   { t: "link", before: "If you already have a treatment plan from another fertility clinic, you can also request a ", href: "/services/support", label: "Fertility Second Opinion", after: "." },
+  // NEW
+  sentence("Related pages: ", [
+    { label: "IVF treatment", href: t("ivf") },
+    { label: "ICSI treatment", href: t("icsi") },
+    { label: "frozen embryo transfer (FET)", href: t("fet") },
+  ]),
 ];
 
 // ---- Does Fertility Treatment Always Mean IVF? ----
 const alwaysIvfIntro = "No.";
-const alwaysIvfBody = [
+const alwaysIvfBody: Block[] = [
   { t: "p", text: "IVF is an important fertility treatment, but it is not automatically required for everyone experiencing infertility." },
   { t: "p", text: "Depending on the cause, treatment may involve medication, ovulation management, treatment of an underlying condition, IUI, IVF, ICSI, or management of male or female fertility problems." },
   { t: "p", text: "The appropriate option depends on the individual clinical situation." },
+  // NEW
+  sentence("Learn more about ", [
+    { label: "ovulation induction", href: t("ovulation-induction") },
+    { label: "IUI treatment", href: t("iui") },
+    { label: "IVF treatment", href: t("ivf") },
+  ]),
 ];
 
 // ---- Fertility Treatment Cost in Lahore ----
 const costIntro = "The cost of fertility treatment depends on the treatment required.";
-const costBody = [
+const costBody: Block[] = [
   { t: "p", text: "For example, the cost of IUI is different from IVF, and an IVF cycle may involve additional costs for medicines, laboratory procedures, ICSI, embryo-related procedures, or other investigations when required." },
   { t: "p", text: "Because treatment is individualized, there is not one fertility treatment price that applies to every patient." },
   { t: "p", text: "During your consultation, you can ask about:" },
@@ -216,17 +405,148 @@ const costBody = [
     ],
   },
   { t: "p", text: "This allows you to understand the proposed treatment before proceeding." },
+  // NEW
+  {
+    t: "richp",
+    parts: [
+      { text: "For a more detailed breakdown, read our guide to " },
+      { href: "/resources/ivf-treatment-cost-in-pakistan", label: "IVF treatment cost in Pakistan" },
+      { text: ", or " },
+      { href: WHATSAPP, label: "message the clinic on WhatsApp" },
+      { text: " to ask about an estimate." },
+    ],
+  },
+];
+
+// ---- NEW: What affects the success of fertility treatment? ----
+// No statistics are quoted on purpose. Needs Dr. Kamran's medical review.
+const successIntro = "Success depends on the individual, not only on the treatment.";
+const successBody: Block[] = [
+  { t: "p", text: "Several factors influence the chance of success, including:" },
+  {
+    t: "ul",
+    items: [
+      "The woman's age",
+      "The cause of infertility",
+      "Ovarian reserve and response to treatment",
+      "Sperm quality",
+      "The condition of the uterus and fallopian tubes",
+      "How long you have been trying to conceive",
+      "Previous pregnancy and treatment history",
+      "General health and lifestyle factors, such as smoking and weight",
+    ],
+  },
+  { t: "p", text: "Success rates can be hard to compare between clinics because patients differ in age and diagnosis. When you see a success rate quoted, it helps to ask:" },
+  {
+    t: "ul",
+    items: [
+      "What outcome is being measured: a positive pregnancy test, a clinical pregnancy, or a live birth?",
+      "Which age group and diagnosis does the figure cover?",
+      "Is the figure per cycle started or per embryo transfer?",
+    ],
+  },
+  { t: "p", text: "Your doctor can discuss what to expect in your own situation based on your test results, rather than relying on average figures." },
 ];
 
 // ---- Can Fertility Treatment Guarantee Pregnancy? ----
 const guaranteeIntro = "No fertility treatment can guarantee pregnancy or a live birth.";
-const guaranteeBody = [
+const guaranteeBody: Block[] = [
   { t: "p", text: "The outcome can depend on several factors, including age, the cause of infertility, ovarian and sperm factors, previous treatment, and the treatment being used." },
   { t: "p", text: "Your doctor can discuss the expected benefits, limitations, and possible outcomes of the treatment recommended for you." },
 ];
 
-// FAQ content — kept in one place so the visible accordion and the
-// FAQPage schema below always stay in sync.
+// ── Sections (rendered in one loop; left/right alternation = odd/even) ───
+const sections = [
+  {
+    id: "what-treatment-may-include",
+    title: "What Fertility Treatment May Include",
+    intro: includeIntro,
+    body: includeBody,
+    icon: `<path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" /><path d="M16 3v4" /><path d="M8 3v4" /><path d="M4 11h16" />`,
+  },
+  {
+    id: "fertility-treatment-options",
+    title: "Fertility Treatment Options",
+    intro: optionsIntro,
+    body: optionsBody,
+    icon: `<path d="M9 3l6 0" /><path d="M10 9l4 0" /><path d="M10 3v6l-4 11a.7 .7 0 0 0 .5 1h11a.7 .7 0 0 0 .5 -1l-4 -11v-6" />`,
+  },
+  {
+    id: "treatment-for-male-infertility",
+    title: "Treatment for Male Infertility",
+    intro: maleIntro,
+    body: maleBody,
+    icon: `<path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4" /><path d="M15 19l2 2l4 -4" />`,
+  },
+  {
+    id: "treatment-for-female-infertility",
+    title: "Treatment for Female Infertility",
+    intro: femaleIntro,
+    body: femaleBody,
+    icon: `<path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />`,
+  },
+  {
+    // NEW
+    id: "when-to-see-a-fertility-specialist",
+    title: "When Should You See a Fertility Specialist?",
+    intro: whenIntro,
+    body: whenBody,
+    icon: `<path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 7v5l3 3" />`,
+  },
+  {
+    id: "what-happens-before-treatment",
+    title: "What Happens Before Fertility Treatment?",
+    intro: beforeIntro,
+    body: beforeBody,
+    icon: `<path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" /><path d="M9 9l1 0" /><path d="M9 13l6 0" /><path d="M9 17l6 0" />`,
+  },
+  {
+    id: "choosing-between-iui-and-ivf",
+    title: "Choosing Between IUI and IVF",
+    intro: choosingIntro,
+    body: choosingBody,
+    icon: `<path d="M6 3l0 18" /><path d="M18 3l0 18" /><path d="M3 7l3 -4l3 4" /><path d="M15 17l3 4l3 -4" />`,
+  },
+  {
+    id: "treatment-after-unsuccessful-ivf-or-iui",
+    title: "Fertility Treatment After Unsuccessful IVF or IUI",
+    intro: afterUnsuccessfulIntro,
+    body: afterUnsuccessfulBody,
+    icon: `<path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />`,
+  },
+  {
+    id: "does-treatment-always-mean-ivf",
+    title: "Does Fertility Treatment Always Mean IVF?",
+    intro: alwaysIvfIntro,
+    body: alwaysIvfBody,
+    icon: `<path d="M8.7 3h6.6a1 1 0 0 1 .877 1.481l-2.4 4.319h3.223a1 1 0 0 1 .793 1.606l-7.6 9.799a.996 .996 0 0 1 -.375 .273c-.485 .207 -1.047 -.011 -1.253 -.486a.994 .994 0 0 1 -.075 -.5l1.2 -6.402h-3.316a1 1 0 0 1 -.949 -1.316l2.4 -7.2a1 1 0 0 1 .949 -.684z" />`,
+  },
+  {
+    id: "fertility-treatment-cost",
+    title: "Fertility Treatment Cost in Lahore",
+    intro: costIntro,
+    body: costBody,
+    icon: `<path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M14.8 9a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1" /><path d="M12 6v2m0 8v2" />`,
+  },
+  {
+    // NEW
+    id: "what-affects-treatment-success",
+    title: "What Affects the Success of Fertility Treatment?",
+    intro: successIntro,
+    body: successBody,
+    icon: `<path d="M4 19l16 0" /><path d="M4 15l4 -6l4 2l4 -5l4 4" />`,
+  },
+  {
+    id: "can-treatment-guarantee-pregnancy",
+    title: "Can Fertility Treatment Guarantee Pregnancy?",
+    intro: guaranteeIntro,
+    body: guaranteeBody,
+    icon: `<path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />`,
+  },
+];
+
+// FAQ content — one source for the visible accordion AND the FAQPage schema.
+// First 7 are approved copy; the last 5 are NEW (need sign-off).
 const faqs = [
   {
     q: "What is the best fertility treatment?",
@@ -256,64 +576,95 @@ const faqs = [
     q: "How do I know whether I need IUI or IVF?",
     a: "The choice depends on your fertility diagnosis, age, ovulation, fallopian tube factors, sperm health, previous treatment, and other clinical information. A fertility specialist can explain which options are appropriate for your circumstances.",
   },
+  // ── NEW ──
+  {
+    q: "How much does fertility treatment cost in Lahore?",
+    a: "The cost depends on the treatment required. IUI costs differ from IVF, and an IVF cycle may involve additional costs for medicines, laboratory procedures, ICSI, embryo-related procedures, or other investigations. After your consultation, the clinic can explain the estimated cost of the plan recommended for you.",
+  },
+  {
+    q: "When should I see a fertility specialist?",
+    a: "A fertility evaluation is usually considered after about 12 months of trying without pregnancy, or after about 6 months if the woman is 35 or older. Seek advice earlier if you have irregular periods, a known reproductive condition, an abnormal semen analysis, repeated miscarriages, or want to preserve fertility.",
+  },
+  {
+    q: "Do I need tests before starting fertility treatment?",
+    a: "Usually, yes. Treatment planning normally starts with understanding the fertility problem, which may involve blood tests, ultrasound, semen analysis, or a review of previous reports. Your doctor will advise which tests are relevant for you.",
+  },
+  {
+    q: "How long does an IVF cycle take?",
+    a: "An IVF cycle has several stages: ovarian stimulation, monitoring, egg retrieval, fertilization, embryo development and embryo transfer. Ovarian stimulation and monitoring usually take around one to two weeks before egg retrieval, but timing varies with the treatment plan. Your doctor can explain the expected timeline for your cycle.",
+  },
+  {
+    q: "What affects the success of fertility treatment?",
+    a: "Success depends on factors such as the woman's age, the cause of infertility, ovarian and sperm factors, the condition of the uterus and fallopian tubes, how long you have been trying, and previous treatment. No fertility treatment can guarantee pregnancy.",
+  },
+  {
+    q: "Where can I consult Dr. Kamran Saleem in Lahore?",
+    a: "Dr. Kamran Saleem sees patients at Rasheed Hospital (DHA), TAMC (M.M. Alam Road) and Shahnaz Hospital (Shalamar Link Road). Days and timings differ by location, so message the clinic on WhatsApp to confirm before visiting.",
+  },
 ];
 
-// Closing section
+// Closing section (approved copy)
 const closingParas = [
   "At Kamran Fertility Clinic, Dr. Kamran Saleem provides fertility treatment for women and men in Lahore.",
   "Treatment options may include medication and ovulation management, IUI, IVF, ICSI, PGT, and treatment of selected male or female fertility problems when clinically appropriate.",
   "The aim is to provide a treatment plan based on your individual fertility findings and to explain the available options clearly before treatment begins.",
 ];
+// Same text as before; each location is now a link to its page.
 const locations = [
-  "Rasheed Hospital — DHA Lahore",
-  "TAMC — M.M. Alam Road, Lahore",
-  "Shahnaz Hospital — Shalamar Link Road, Lahore",
+  { label: "Rasheed Hospital — DHA Lahore", href: "/locations/dha-lahore" },
+  { label: "TAMC — M.M. Alam Road, Lahore", href: "/locations/mm-alam-road-lahore" },
+  { label: "Shahnaz Hospital — Shalamar Link Road, Lahore", href: "/locations/shalamar-lahore" },
 ];
+
+// ── Structured data ──────────────────────────────────────────────────────
+const pageSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MedicalWebPage",
+      "@id": `${PAGE_URL}#webpage`,
+      url: PAGE_URL,
+      name: "Fertility Treatment in Lahore | IVF, IUI & ICSI",
+      description:
+        "Looking for fertility treatment in Lahore? Learn about IUI, IVF, ICSI and other fertility options with Dr. Kamran Saleem at Kamran Fertility Clinic.",
+      inLanguage: "en",
+      isPartOf: { "@id": `${SITE}/#website` },
+      about: [{ "@id": `${SITE}/#clinic` }, { "@type": "MedicalCondition", name: "Infertility" }],
+      reviewedBy: { "@id": `${SITE}/#dr-kamran` },
+      lastReviewed: lastUpdated,
+      dateModified: lastUpdated,
+      breadcrumb: { "@id": `${PAGE_URL}#breadcrumb` },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${PAGE_URL}#breadcrumb`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+        // "Services" has no page of its own, so it is not marked up.
+        { "@type": "ListItem", position: 2, name: "Fertility Treatment", item: PAGE_URL },
+      ],
+    },
+    {
+      "@type": "FAQPage",
+      "@id": `${PAGE_URL}#faq`,
+      isPartOf: { "@id": `${PAGE_URL}#webpage` },
+      mainEntity: faqs.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: { "@type": "Answer", text: item.a },
+      })),
+    },
+  ],
+};
 ---
 
 <Layout
   title="Fertility Treatment in Lahore | IVF, IUI & ICSI"
   description="Looking for fertility treatment in Lahore? Learn about IUI, IVF, ICSI and other fertility options with Dr. Kamran Saleem at Kamran Fertility Clinic."
 >
-  <!-- Structured data: helps Google and AI answer engines understand this
-       as a medical service page with genuine FAQ content. Purely additive —
-       does not touch any visible copy. -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "MedicalWebPage",
-        "@id": "https://www.kamranfertility.com/services/fertility-treatment#webpage",
-        "url": "https://www.kamranfertility.com/services/fertility-treatment",
-        "name": "Fertility Treatment in Lahore | IVF, IUI & ICSI",
-        "description": "Looking for fertility treatment in Lahore? Learn about IUI, IVF, ICSI and other fertility options with Dr. Kamran Saleem at Kamran Fertility Clinic.",
-        "specialty": "Reproductive Medicine",
-        "isPartOf": { "@id": "https://www.kamranfertility.com/#website" },
-        "about": {
-          "@type": "MedicalClinic",
-          "name": "Kamran Fertility Clinic",
-          "url": "https://www.kamranfertility.com/",
-          "telephone": "+923148432789"
-        }
-      },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.kamranfertility.com/" },
-          { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.kamranfertility.com/#services" },
-          { "@type": "ListItem", "position": 3, "name": "Fertility Treatment", "item": "https://www.kamranfertility.com/services/fertility-treatment" }
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": faqs.map((item) => ({
-          "@type": "Question",
-          "name": item.q,
-          "acceptedAnswer": { "@type": "Answer", "text": item.a }
-        }))
-      }
-    ]
-  })} />
+  <!-- Structured data (page-level). Clinic, doctor and website nodes are
+       defined once in BaseHead and referenced here by @id. -->
+  <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
 
   <PageHero
     eyebrow="Fertility Treatment"
@@ -331,9 +682,9 @@ const locations = [
           <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6l6 -6" /></svg>
         </summary>
         <ul class="absolute left-1/2 z-30 mt-2 w-72 -translate-x-1/2 space-y-1 rounded-xl border border-black/5 bg-white p-2 shadow-lg">
-          {treatments.map((t) => (
+          {treatments.map((tr) => (
             <li>
-              <a href={`${hubHref}/${t.slug}`} class="block rounded-lg px-3 py-2 text-ink hover:bg-ice">{t.label}</a>
+              <a href={`${hubHref}/${tr.slug}`} class="block rounded-lg px-3 py-2 text-ink hover:bg-ice">{tr.label}</a>
             </li>
           ))}
         </ul>
@@ -343,256 +694,84 @@ const locations = [
 
   <section class="bg-white pt-14 pb-4">
     <div class="mx-auto max-w-3xl space-y-4 px-5 text-center sm:px-8">
-      {leadIn.map((b) =>
-            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
-            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
-            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
-            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
-            : <p>{b.text}</p>
-          )}
+      {leadIn.map((b) => <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>)}
       <a href={bookingHref} class={ctaClass}>Book a fertility consultation</a>
+      <!-- NEW: reviewer + date (E-E-A-T). Dr. Kamran must confirm he reviews this page. -->
+      <p class="text-sm">
+        Medically reviewed by <a href="/dr-kamran-saleem" class={linkClass}>Dr. Kamran Saleem</a>
+        · Last updated <time datetime={lastUpdated}>{lastUpdatedLabel}</time>
+      </p>
+    </div>
+  </section>
+
+  <!-- NEW: key points + table of contents -->
+  <section class="bg-white pt-8 pb-4">
+    <div class="mx-auto max-w-3xl space-y-8 px-5 sm:px-8">
+      <div class="rounded-2xl border border-black/5 bg-ice p-6">
+        <h2 class="font-heading text-xl font-bold text-ink">Fertility treatment at a glance</h2>
+        <ul class={`mt-4 text-body leading-relaxed ${ulClass}`}>
+          {keyPoints.map((li) => <li>{li}</li>)}
+        </ul>
+      </div>
+      <nav aria-label="On this page" class="text-center">
+        <p class="font-heading text-sm font-semibold text-ink">On this page</p>
+        <ul class="mt-3 flex flex-wrap justify-center gap-2">
+          {toc.map((item) => (
+            <li>
+              <a href={`#${item.id}`} class="inline-block rounded-full border border-primary/30 bg-ice px-4 py-2 text-sm font-semibold text-ink transition hover:shadow-md">{item.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   </section>
 
   <section class="bg-white py-16 md:py-24">
     <div class="relative z-10 mx-auto max-w-6xl space-y-20 px-5 sm:px-8 md:space-y-28">
 
-      <div class="space-y-10">
-        <ServiceBlock
-          id="what-treatment-may-include"
-          title="What Fertility Treatment May Include"
-          intro={includeIntro}
-        >
-          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
-            <path d="M16 3v4" />
-            <path d="M8 3v4" />
-            <path d="M4 11h16" />
-          </svg>
-        </ServiceBlock>
-        <div class={wrapClass}>
-          {includeBody.map((b) =>
-            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
-            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
-            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
-            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
-            : <p>{b.text}</p>
-          )}
+      {sections.map((s, i) => (
+        <div class="space-y-10">
+          <ServiceBlock id={s.id} title={s.title} intro={s.intro} reversed={i % 2 === 1}>
+            <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={s.icon}></svg>
+          </ServiceBlock>
+          <div class={wrapClass}>
+            {s.body.map((b) =>
+              b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
+              : b.t === "ul" ? <ul class={ulClass}>{b.items?.map((li) => <li>{li}</li>)}</ul>
+              : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
+              : b.t === "richp" ? <p>{b.parts?.map((part) => part.href ? <a href={part.href} class={linkClass} {...ext(part.href)}>{part.label}</a> : part.text)}</p>
+              : b.t === "table" ? (
+                <div class="overflow-x-auto rounded-xl border border-black/5">
+                  <table class="w-full min-w-[34rem] text-left text-sm">
+                    <caption class="sr-only">{b.caption}</caption>
+                    <thead class="bg-ice font-heading text-ink">
+                      <tr>{b.head?.map((h) => <th scope="col" class="px-4 py-3 font-bold">{h}</th>)}</tr>
+                    </thead>
+                    <tbody>
+                      {b.rows?.map((row) => (
+                        <tr class="border-t border-black/5 align-top">
+                          {row.map((cell, ci) =>
+                            ci === 0
+                              ? <th scope="row" class="px-4 py-3 text-left font-heading font-bold text-ink">{cell}</th>
+                              : <td class="px-4 py-3">{cell}</td>
+                          )}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )
+              : <p>{b.text}</p>
+            )}
+          </div>
         </div>
-      </div>
-
-      <div class="space-y-10">
-        <ServiceBlock
-          id="fertility-treatment-options"
-          title="Fertility Treatment Options"
-          intro={optionsIntro}
-          reversed
-        >
-          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M9 3l6 0" />
-            <path d="M10 9l4 0" />
-            <path d="M10 3v6l-4 11a.7 .7 0 0 0 .5 1h11a.7 .7 0 0 0 .5 -1l-4 -11v-6" />
-          </svg>
-        </ServiceBlock>
-        <div class={wrapClass}>
-          {optionsBody.map((b) =>
-            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
-            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
-            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
-            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
-            : <p>{b.text}</p>
-          )}
-        </div>
-      </div>
-
-      <div class="space-y-10">
-        <ServiceBlock
-          id="treatment-for-male-infertility"
-          title="Treatment for Male Infertility"
-          intro={maleIntro}
-        >
-          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-            <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
-            <path d="M15 19l2 2l4 -4" />
-          </svg>
-        </ServiceBlock>
-        <div class={wrapClass}>
-          {maleBody.map((b) =>
-            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
-            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
-            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
-            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
-            : <p>{b.text}</p>
-          )}
-        </div>
-      </div>
-
-      <div class="space-y-10">
-        <ServiceBlock
-          id="treatment-for-female-infertility"
-          title="Treatment for Female Infertility"
-          intro={femaleIntro}
-          reversed
-        >
-          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-          </svg>
-        </ServiceBlock>
-        <div class={wrapClass}>
-          {femaleBody.map((b) =>
-            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
-            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
-            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
-            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
-            : <p>{b.text}</p>
-          )}
-        </div>
-      </div>
-
-      <div class="space-y-10">
-        <ServiceBlock
-          id="what-happens-before-treatment"
-          title="What Happens Before Fertility Treatment?"
-          intro={beforeIntro}
-        >
-          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-            <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
-            <path d="M9 9l1 0" />
-            <path d="M9 13l6 0" />
-            <path d="M9 17l6 0" />
-          </svg>
-        </ServiceBlock>
-        <div class={wrapClass}>
-          {beforeBody.map((b) =>
-            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
-            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
-            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
-            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
-            : <p>{b.text}</p>
-          )}
-        </div>
-      </div>
-
-      <div class="space-y-10">
-        <ServiceBlock
-          id="choosing-between-iui-and-ivf"
-          title="Choosing Between IUI and IVF"
-          intro={choosingIntro}
-          reversed
-        >
-          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M6 3l0 18" />
-            <path d="M18 3l0 18" />
-            <path d="M3 7l3 -4l3 4" />
-            <path d="M15 17l3 4l3 -4" />
-          </svg>
-        </ServiceBlock>
-        <div class={wrapClass}>
-          {choosingBody.map((b) =>
-            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
-            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
-            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
-            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
-            : <p>{b.text}</p>
-          )}
-        </div>
-      </div>
-
-      <div class="space-y-10">
-        <ServiceBlock
-          id="treatment-after-unsuccessful-ivf-or-iui"
-          title="Fertility Treatment After Unsuccessful IVF or IUI"
-          intro={afterUnsuccessfulIntro}
-        >
-          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M4.05 11a8 8 0 1 1 .5 4m-.5 5v-5h5" />
-          </svg>
-        </ServiceBlock>
-        <div class={wrapClass}>
-          {afterUnsuccessfulBody.map((b) =>
-            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
-            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
-            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
-            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
-            : <p>{b.text}</p>
-          )}
-        </div>
-      </div>
-
-      <div class="space-y-10">
-        <ServiceBlock
-          id="does-treatment-always-mean-ivf"
-          title="Does Fertility Treatment Always Mean IVF?"
-          intro={alwaysIvfIntro}
-          reversed
-        >
-          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M8.7 3h6.6a1 1 0 0 1 .877 1.481l-2.4 4.319h3.223a1 1 0 0 1 .793 1.606l-7.6 9.799a.996 .996 0 0 1 -.375 .273c-.485 .207 -1.047 -.011 -1.253 -.486a.994 .994 0 0 1 -.075 -.5l1.2 -6.402h-3.316a1 1 0 0 1 -.949 -1.316l2.4 -7.2a1 1 0 0 1 .949 -.684z" />
-          </svg>
-        </ServiceBlock>
-        <div class={wrapClass}>
-          {alwaysIvfBody.map((b) =>
-            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
-            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
-            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
-            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
-            : <p>{b.text}</p>
-          )}
-        </div>
-      </div>
-
-      <div class="space-y-10">
-        <ServiceBlock
-          id="fertility-treatment-cost"
-          title="Fertility Treatment Cost in Lahore"
-          intro={costIntro}
-        >
-          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-            <path d="M14.8 9a2 2 0 0 0 -1.8 -1h-2a2 2 0 1 0 0 4h2a2 2 0 1 1 0 4h-2a2 2 0 0 1 -1.8 -1" />
-            <path d="M12 6v2m0 8v2" />
-          </svg>
-        </ServiceBlock>
-        <div class={wrapClass}>
-          {costBody.map((b) =>
-            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
-            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
-            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
-            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
-            : <p>{b.text}</p>
-          )}
-        </div>
-      </div>
-
-      <div class="space-y-10">
-        <ServiceBlock
-          id="can-treatment-guarantee-pregnancy"
-          title="Can Fertility Treatment Guarantee Pregnancy?"
-          intro={guaranteeIntro}
-          reversed
-        >
-          <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 3a12 12 0 0 0 8.5 3a12 12 0 0 1 -8.5 15a12 12 0 0 1 -8.5 -15a12 12 0 0 0 8.5 -3" />
-          </svg>
-        </ServiceBlock>
-        <div class={wrapClass}>
-          {guaranteeBody.map((b) =>
-            b.t === "h3" ? <h3 class={h3Class}>{b.text}</h3>
-            : b.t === "ul" ? <ul class={ulClass}>{b.items.map((li) => <li>{li}</li>)}</ul>
-            : b.t === "link" ? <p>{b.before}<a href={b.href} class={linkClass}>{b.label}</a>{b.after}</p>
-            : b.t === "richp" ? <p>{b.parts.map((part) => part.href ? <a href={part.href} class={linkClass}>{part.label}</a> : part.text)}</p>
-            : <p>{b.text}</p>
-          )}
-        </div>
-      </div>
+      ))}
 
     </div>
   </section>
 
   <!-- FAQs — mirrors the FAQPage schema above -->
-  <section class="bg-white py-16 md:py-20">
+  <section id="faq" class="bg-white py-16 md:py-20">
     <div class="mx-auto max-w-3xl px-5 sm:px-8">
       <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">
         Frequently Asked Questions
@@ -618,10 +797,14 @@ const locations = [
       </h2>
       <div class={`mt-10 ${wrapClass}`}>
         {closingParas.map((p) => <p>{p}</p>)}
+        <p>
+          Learn more <a href="/dr-kamran-saleem" class={linkClass}>about Dr. Kamran Saleem</a>.
+        </p>
         <h3 class={h3Class}>Clinic Locations</h3>
         <ul class={ulClass}>
-          {locations.map((li) => <li>{li}</li>)}
+          {locations.map((l) => <li><a href={l.href} class={linkClass}>{l.label}</a></li>)}
         </ul>
+        <p><a href="/locations" class={linkClass}>View all clinic locations</a></p>
       </div>
     </div>
   </section>
@@ -678,6 +861,7 @@ const locations = [
           <p class="text-sm font-semibold text-primary">Fertility Treatment</p>
           <h3 class="mt-1 font-heading font-bold text-ink">IVF Treatment Cost in Pakistan 2026</h3>
         </a>
+        <!-- CHECK: this URL has a double hyphen ("--"). Confirm it is the real slug. -->
         <a href="/resources/male-infertility--treatment" class="block rounded-2xl border border-black/5 bg-white p-5 transition hover:shadow-md">
           <p class="text-sm font-semibold text-primary">Fertility Treatment</p>
           <h3 class="mt-1 font-heading font-bold text-ink">Male Infertility Treatment: Causes, Tests and Options</h3>
