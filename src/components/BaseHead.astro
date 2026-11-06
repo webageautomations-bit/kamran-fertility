@@ -3,259 +3,238 @@ interface Props {
   title: string;
   description: string;
   image?: string;
+  imageAlt?: string;
 }
 const {
   title,
   description,
-  image = "/assets/logo.webp",
+  image = "/assets/logo.webp", // TODO: replace with a 1200x630 share image (doctor / clinic photo)
+  imageAlt = "Dr. Kamran Saleem fertility clinic, Lahore",
 } = Astro.props;
-// Self-referencing canonical: the current path resolved against the configured
-// `site` origin (astro.config.mjs), so every page points at its own absolute
-// https://www.kamranfertility.com URL. Falls back to the request origin only if
-// `site` is ever unset.
-const origin = Astro.site ?? new URL(Astro.url.origin);
-const canonicalURL = new URL(Astro.url.pathname, origin);
-const imageURL = new URL(image, origin);
 
-// Site-wide structured data (schema.org JSON-LD).
-// Describes the clinic, the doctor, all branch locations, the website, and
-// the FAQ content - included on every page via this shared head component.
-const schema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebSite",
-      "@id": "https://www.kamranfertility.com/#website",
-      "url": "https://www.kamranfertility.com/",
-      "name": "Dr. Kamran Saleem - Doctor-led fertility care in Lahore",
-      "description":
-        "Unhurried, evidence-based fertility consultations with Dr. Kamran Saleem in Lahore. Honest answers, clear options, and a plan built around your timeline and your values.",
-      "publisher": { "@id": "https://www.kamranfertility.com/#clinic" },
-      "inLanguage": "en",
-    },
-    {
-      "@type": ["MedicalClinic", "MedicalBusiness"],
-      "@id": "https://www.kamranfertility.com/#clinic",
-      "name": "Kamran Fertility Clinic",
-      "url": "https://www.kamranfertility.com/",
-      "logo": "https://www.kamranfertility.com/assets/logo.webp",
-      "image": "https://www.kamranfertility.com/assets/logo.webp",
-      "description":
-        "Doctor-led, evidence-based fertility care in Lahore - honest answers, clear options, and a plan built around your timeline and your values.",
-      "telephone": "+92-314-8432789",
-      "priceRange": "$$",
-      "medicalSpecialty": "Reproductive Medicine",
-      "founder": { "@id": "https://www.kamranfertility.com/#dr-kamran" },
-      "employee": { "@id": "https://www.kamranfertility.com/#dr-kamran" },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-          ],
-          "opens": "11:00",
-          "closes": "21:00",
-        },
-      ],
-      "sameAs": ["https://wa.me/923148432789"],
-      "department": [
-        { "@id": "https://www.kamranfertility.com/locations/dha-lahore#location" },
-        {
-          "@id": "https://www.kamranfertility.com/locations/mm-alam-road-lahore#location",
-        },
-        { "@id": "https://www.kamranfertility.com/locations/shalamar-lahore#location" },
-      ],
-      "areaServed": {
-        "@type": "City",
-        "name": "Lahore",
+const SITE = "https://www.kamranfertility.com";
+const origin = Astro.site ?? new URL(Astro.url.origin);
+
+// ── Canonical URL ─────────────────────────────────────────────────────────
+// FIX: the build was emitting "/index.html" as the homepage canonical, which
+// splits ranking signals between "/" and "/index.html". Normalise the path:
+//   "/index.html"                    -> "/"
+//   "/services/assessment/index.html"-> "/services/assessment"
+//   "/foo.html"                      -> "/foo"
+//   trailing slashes removed (except root) to match the site's URL style.
+let path = Astro.url.pathname
+  .replace(/\/index\.html$/, "/")
+  .replace(/\.html$/, "");
+if (path.length > 1) path = path.replace(/\/+$/, "");
+
+const canonicalURL = new URL(path, origin);
+const imageURL = new URL(image, origin);
+const isHome = path === "/";
+
+// ── Opening hours (per branch) ───────────────────────────────────────────
+// FIX: the old schema gave every branch "Mon-Sat 11:00-21:00", which does not
+// match the hours shown on the site. Hours below follow the "Locations" block
+// on the homepage. CONFIRM WITH THE CLINIC before publishing, especially DHA:
+// the site says "Daily 3-6pm" and also "Saturday & Sunday: Closed".
+const hours = (days: string[], opens: string, closes: string) => ({
+  "@type": "OpeningHoursSpecification",
+  dayOfWeek: days,
+  opens,
+  closes,
+});
+
+// ── Structured data (schema.org JSON-LD) ─────────────────────────────────
+const graph: Record<string, unknown>[] = [
+  {
+    "@type": "WebSite",
+    "@id": `${SITE}/#website`,
+    url: `${SITE}/`,
+    name: "Kamran Fertility Clinic",
+    alternateName: "Dr. Kamran Saleem",
+    description:
+      "Unhurried, evidence-based fertility consultations with Dr. Kamran Saleem in Lahore.",
+    publisher: { "@id": `${SITE}/#clinic` },
+    inLanguage: "en",
+  },
+  {
+    "@type": "MedicalClinic",
+    "@id": `${SITE}/#clinic`,
+    name: "Kamran Fertility Clinic",
+    url: `${SITE}/`,
+    logo: `${SITE}/assets/logo.webp`,
+    image: `${SITE}/assets/logo.webp`,
+    description:
+      "Doctor-led, evidence-based fertility care in Lahore: honest answers, clear options, and a plan built around your timeline and your values.",
+    telephone: "+92-314-8432789",
+    medicalSpecialty: "Reproductive Medicine",
+    founder: { "@id": `${SITE}/#dr-kamran` },
+    employee: { "@id": `${SITE}/#dr-kamran` },
+    // Clinic-level hours removed: hours differ by branch (see locations below).
+    // TODO: add real profiles (Google Business Profile, Facebook, Instagram,
+    // LinkedIn). A wa.me link is not a "sameAs" profile, so it was removed.
+    // sameAs: ["https://www.facebook.com/...", "https://www.instagram.com/..."],
+    department: [
+      { "@id": `${SITE}/locations/dha-lahore#location` },
+      { "@id": `${SITE}/locations/mm-alam-road-lahore#location` },
+      { "@id": `${SITE}/locations/shalamar-lahore#location` },
+    ],
+    areaServed: { "@type": "City", name: "Lahore" },
+  },
+  {
+    "@type": "Physician",
+    "@id": `${SITE}/#dr-kamran`,
+    name: "Dr. Kamran Saleem",
+    image: `${SITE}/assets/dr-kamran.webp`,
+    jobTitle: "Reproductive Health Specialist",
+    medicalSpecialty: "Reproductive Medicine",
+    hasCredential: [
+      {
+        "@type": "EducationalOccupationalCredential",
+        credentialCategory: "MBBS - Bachelor of Medicine, Bachelor of Surgery",
       },
-    },
-    {
-      "@type": "Physician",
-      "@id": "https://www.kamranfertility.com/#dr-kamran",
-      "name": "Dr. Kamran Saleem",
-      "image": "https://www.kamranfertility.com/assets/dr-kamran.webp",
-      "jobTitle": "Reproductive Health Specialist",
-      "medicalSpecialty": "Reproductive Medicine",
-      "hasCredential": [
-        {
-          "@type": "EducationalOccupationalCredential",
-          "credentialCategory":
-            "MBBS - Bachelor of Medicine, Bachelor of Surgery",
-        },
-        {
-          "@type": "EducationalOccupationalCredential",
-          "credentialCategory":
-            "Dip GUM & Ven (UK) - Diploma in Genitourinary Medicine and Venereology",
-        },
-      ],
-      "worksFor": { "@id": "https://www.kamranfertility.com/#clinic" },
-      "url": "https://www.kamranfertility.com/",
-    },
-    {
-      "@type": "MedicalClinic",
-      "@id": "https://www.kamranfertility.com/locations/dha-lahore#location",
-      "name": "Kamran Fertility Clinic - Rasheed Hospital, DHA Lahore",
-      "url": "https://www.kamranfertility.com/locations/dha-lahore",
-      "telephone": "+92-314-8432789",
-      "parentOrganization": { "@id": "https://www.kamranfertility.com/#clinic" },
-      "medicalSpecialty": "Reproductive Medicine",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Rasheed Hospital, Main Boulevard, DHA Defence",
-        "addressLocality": "Lahore",
-        "addressCountry": "PK",
+      {
+        "@type": "EducationalOccupationalCredential",
+        credentialCategory:
+          "Dip GUM & Ven (UK) - Diploma in Genitourinary Medicine and Venereology",
       },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-          ],
-          "opens": "11:00",
-          "closes": "21:00",
-        },
-      ],
+    ],
+    // TODO: add the PMDC registration number here as an `identifier` once
+    // confirmed, e.g. identifier: { "@type": "PropertyValue", name: "PMDC Registration No.", value: "..." }
+    worksFor: { "@id": `${SITE}/#clinic` },
+    // FIX: was the homepage; point to the doctor's own page.
+    url: `${SITE}/dr-kamran-saleem`,
+  },
+  {
+    "@type": "MedicalClinic",
+    "@id": `${SITE}/locations/dha-lahore#location`,
+    name: "Kamran Fertility Clinic - Rasheed Hospital, DHA Lahore",
+    url: `${SITE}/locations/dha-lahore`,
+    telephone: "+92-314-8432789",
+    parentOrganization: { "@id": `${SITE}/#clinic` },
+    medicalSpecialty: "Reproductive Medicine",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Rasheed Hospital, Main Boulevard, DHA Defence",
+      addressLocality: "Lahore",
+      addressRegion: "Punjab",
+      addressCountry: "PK",
     },
-    {
-      "@type": "MedicalClinic",
-      "@id": "https://www.kamranfertility.com/locations/mm-alam-road-lahore#location",
-      "name": "Kamran Fertility Clinic - TAMC, M.M. Alam Road",
-      "url": "https://www.kamranfertility.com/locations/mm-alam-road-lahore",
-      "telephone": "+92-314-8432789",
-      "parentOrganization": { "@id": "https://www.kamranfertility.com/#clinic" },
-      "medicalSpecialty": "Reproductive Medicine",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "TAMC, M.M. Alam Road",
-        "addressLocality": "Lahore",
-        "addressCountry": "PK",
+    // TODO: add geo coordinates: geo: { "@type": "GeoCoordinates", latitude: 0, longitude: 0 }
+    // CONFIRM: Mon-Fri assumed because the site also lists Sat/Sun as closed.
+    openingHoursSpecification: [
+      hours(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "15:00", "18:00"),
+    ],
+  },
+  {
+    "@type": "MedicalClinic",
+    "@id": `${SITE}/locations/mm-alam-road-lahore#location`,
+    name: "Kamran Fertility Clinic - TAMC, M.M. Alam Road",
+    url: `${SITE}/locations/mm-alam-road-lahore`,
+    telephone: "+92-314-8432789",
+    parentOrganization: { "@id": `${SITE}/#clinic` },
+    medicalSpecialty: "Reproductive Medicine",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "TAMC, M.M. Alam Road",
+      addressLocality: "Lahore",
+      addressRegion: "Punjab",
+      addressCountry: "PK",
+    },
+    // Wednesday only; other days are by appointment so they are not listed.
+    openingHoursSpecification: [hours(["Wednesday"], "12:00", "15:00")],
+  },
+  {
+    "@type": "MedicalClinic",
+    "@id": `${SITE}/locations/shalamar-lahore#location`,
+    name: "Kamran Fertility Clinic - Shahnaz Hospital, Shalamar",
+    url: `${SITE}/locations/shalamar-lahore`,
+    telephone: "+92-314-8432789",
+    parentOrganization: { "@id": `${SITE}/#clinic` },
+    medicalSpecialty: "Reproductive Medicine",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Shahnaz Hospital, Shalamar Link Road",
+      addressLocality: "Lahore",
+      addressRegion: "Punjab",
+      postalCode: "54000",
+      addressCountry: "PK",
+    },
+    openingHoursSpecification: [hours(["Monday", "Thursday"], "18:00", "21:00")],
+  },
+];
+
+// FIX: FAQPage markup must match FAQ content that is visible on the page.
+// The FAQ only appears on the homepage, so the markup is now homepage-only
+// (it was previously injected into every page).
+if (isHome) {
+  graph.push({
+    "@type": "FAQPage",
+    "@id": `${SITE}/#faq`,
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Do I need a confirmed diagnosis before booking?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "No. Many patients come in with questions, concerns, or previous reports. The consultation helps us understand your situation and explain appropriate next steps.",
+        },
       },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-          ],
-          "opens": "11:00",
-          "closes": "21:00",
+      {
+        "@type": "Question",
+        name: "What happens during the first consultation?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Dr. Kamran Saleem reviews your medical history, listens to your concerns, and discusses any prior tests. Options are explained clearly, with recommendations only when medically appropriate.",
         },
-      ],
-    },
-    {
-      "@type": "MedicalClinic",
-      "@id": "https://www.kamranfertility.com/locations/shalamar-lahore#location",
-      "name": "Kamran Fertility Clinic - Shahnaz Hospital, Shalamar",
-      "url": "https://www.kamranfertility.com/locations/shalamar-lahore",
-      "telephone": "+92-314-8432789",
-      "parentOrganization": { "@id": "https://www.kamranfertility.com/#clinic" },
-      "medicalSpecialty": "Reproductive Medicine",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Shahnaz Hospital, Shalamar Link Road",
-        "addressLocality": "Lahore",
-        "postalCode": "54000",
-        "addressCountry": "PK",
       },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-          ],
-          "opens": "11:00",
-          "closes": "21:00",
+      {
+        "@type": "Question",
+        name: "Do you recommend tests or treatments for everyone?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "No. Tests and treatments are recommended only when they're likely to provide useful information or benefit your care.",
         },
-      ],
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://www.kamranfertility.com/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Do I need a confirmed diagnosis before booking?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text":
-              "No. Many patients come in with questions, concerns, or previous reports. The consultation helps us understand your situation and explain appropriate next steps.",
-          },
+      },
+      {
+        "@type": "Question",
+        name: "Do you offer second opinions on previous treatments?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. We regularly review prior recommendations and help you understand your options moving forward.",
         },
-        {
-          "@type": "Question",
-          "name": "What happens during the first consultation?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text":
-              "Dr. Kamran Saleem reviews your medical history, listens to your concerns, and discusses any prior tests. Options are explained clearly, with recommendations only when medically appropriate.",
-          },
-        },
-        {
-          "@type": "Question",
-          "name": "Do you recommend tests or treatments for everyone?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text":
-              "No. Tests and treatments are recommended only when they're likely to provide useful information or benefit your care.",
-          },
-        },
-        {
-          "@type": "Question",
-          "name": "Do you offer second opinions on previous treatments?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text":
-              "Yes. We regularly review prior recommendations and help you understand your options moving forward.",
-          },
-        },
-      ],
-    },
-  ],
-};
+      },
+    ],
+  });
+}
+
+const schema = { "@context": "https://schema.org", "@graph": graph };
 ---
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="generator" content={Astro.generator} />
-<!-- Favicon (real cross-mark asset, not a placeholder) -->
+<!-- Favicon. TODO: also add /favicon.ico and a 180x180 apple-touch-icon -->
 <link rel="icon" type="image/png" href="/favicon.png" />
 <link rel="apple-touch-icon" href="/favicon.png" />
 <!-- Primary meta -->
 <title>{title}</title>
-<meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta name="robots" content="index, follow, max-image-preview:large" />
 <link rel="canonical" href={canonicalURL} />
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
+<meta property="og:site_name" content="Kamran Fertility Clinic" />
+<meta property="og:locale" content="en_PK" />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={imageURL} />
-<!-- Twitter -->
+<meta property="og:image:alt" content={imageAlt} />
+<!-- Twitter (twitter:url is not a real tag, removed) -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:url" content={canonicalURL} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={imageURL} />
+<meta name="twitter:image:alt" content={imageAlt} />
 <!-- Structured data (schema.org JSON-LD) -->
 <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 <!--
