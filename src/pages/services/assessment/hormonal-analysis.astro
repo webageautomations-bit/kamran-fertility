@@ -1,0 +1,479 @@
+---
+import TreatmentPage from "../../../components/TreatmentPage.astro";
+
+const CITY = "Lahore";
+
+const T = "/services/fertility-treatment";
+const A = "/services/assessment";
+const L = "/locations";
+
+const page = {
+  slug: "fertility-hormone-test",
+  name: "Fertility Hormone Test",
+  title: `Fertility Hormone Test in ${CITY} | Dr. Kamran Saleem`,
+  description: `Fertility hormone testing in ${CITY} with Dr. Kamran Saleem. Understand AMH, FSH, LH, progesterone and thyroid tests, including when they may be needed. Book a consultation.`,
+  eyebrow: "Fertility Hormone Test",
+  h1: `Fertility Hormone Test in ${CITY}`,
+  waText: `Hello, I would like to book a fertility hormone test consultation with Dr. Kamran Saleem in ${CITY}.`,
+  ctaLabel: "Book a consultation",
+
+  heroSub: [
+    `Hormones play an important role in ovulation, menstrual cycles and sperm production. Fertility hormone tests are blood tests that can help identify hormonal factors that may be affecting reproductive health.`,
+    `Dr. Kamran Saleem helps women, men and couples in ${CITY} understand which tests may be appropriate, when they should be performed and what the results may mean for their fertility assessment.`,
+  ].join(" "),
+
+  leadIn: [
+    {
+      rich: [
+        `Hormone testing is one part of a wider fertility assessment. Depending on your medical history, you may also need an ultrasound, semen analysis or other investigations. Learn about the wider process on our `,
+        ["Fertility Assessment and Diagnosis", A],
+        ` page. You can also explore our `,
+        ["female fertility assessment", `${A}/female-fertility-assessment`],
+        ` and `,
+        ["male fertility assessment", `${A}/male-fertility-test`],
+        ` pages.`,
+      ],
+    },
+  ],
+
+  sections: [
+    {
+      id: "what-is-a-fertility-hormone-test",
+      title: "What Is a Fertility Hormone Test?",
+      intro: "A blood test that measures hormones involved in reproductive health, ovulation and sperm production.",
+      icon: "flask",
+      body: [
+        "Hormones are chemical messengers that help regulate different functions in the body. In women, they help control menstrual cycles, ovulation and ovarian function. In men, hormones such as testosterone, FSH and LH are involved in reproductive function and sperm production.",
+        "If a hormone level is outside the expected range, it may help explain certain symptoms or guide further fertility investigations. However, a hormone test cannot diagnose infertility on its own. Results need to be interpreted alongside your age, medical history, symptoms and other relevant investigations.",
+        "You may hear terms such as female fertility hormone test, infertility hormone test, ovarian reserve test or AMH test. These terms are related, but they do not all refer to the same group of tests.",
+        {
+          rich: [
+            `A hormone test may be recommended as part of a `,
+            ["fertility assessment", A],
+            ` when there is a specific reason to investigate hormone levels.`,
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "who-should-consider-a-hormone-test",
+      title: "When to Consider a Fertility Hormone Test",
+      intro: "A complete hormone panel is not necessary for everyone. The right tests depend on your symptoms, history and fertility goals.",
+      icon: "clipboard",
+      body: [
+        "It may be helpful to discuss hormone testing with a fertility specialist if:",
+        {
+          ul: [
+            "Your periods are irregular, unusually long or short, or have stopped.",
+            "You have been trying to conceive for 12 months without success, or for 6 months if you are 35 or older.",
+            "You are over 40 and planning a pregnancy, or have a known condition that may affect fertility.",
+            "You have symptoms that may be associated with PCOS, such as irregular periods, acne or excess facial or body hair.",
+            "You have a known thyroid condition or symptoms that may suggest a thyroid problem.",
+            "You have been told that your prolactin level is raised, or you have symptoms that may require prolactin testing.",
+            "You are preparing for fertility treatment such as IVF or IUI.",
+            "Your partner has an abnormal semen analysis or symptoms that may suggest a hormonal problem.",
+            "You have experienced repeated pregnancy loss and your doctor considers specific investigations appropriate.",
+          ],
+        },
+        "You may need an earlier assessment if your periods are absent or irregular, you have a known reproductive health condition, or you have another reason to suspect a fertility problem. You do not always need to wait for the usual 6- or 12-month period.",
+      ],
+    },
+
+    {
+      id: "fertility-hormone-tests-at-a-glance",
+      title: "Which Hormone Tests Are Used for Fertility?",
+      intro: "Different tests answer different questions. Your doctor will decide which ones are relevant and when to perform them.",
+      icon: "compare",
+      body: [
+        {
+          ul: [
+            "AMH (anti-Müllerian hormone): An indirect marker of ovarian reserve, which reflects the pool of small follicles in the ovaries. It can usually be measured on any day of the menstrual cycle.",
+            "FSH (follicle-stimulating hormone): In women, it may help assess ovarian function when interpreted with other findings. In men, it helps assess hormonal signals involved in sperm production. Female testing is often performed early in the menstrual cycle.",
+            "Estradiol: The main form of oestrogen. It may be measured alongside FSH, commonly around cycle days 2 to 4 when an early-cycle assessment is needed.",
+            "LH (luteinising hormone): Plays a role in ovulation in women and supports reproductive hormone function in men. The timing of testing depends on the clinical question.",
+            "Progesterone: Can help assess whether ovulation has occurred. It is usually measured about 7 days before the expected next period, rather than automatically on day 21.",
+            "TSH (thyroid-stimulating hormone): Helps assess thyroid function. Thyroid problems can affect menstrual cycles and may be relevant when investigating fertility concerns.",
+            "Prolactin: May be checked when periods are irregular or absent, when there is unexpected breast milk production, or when symptoms or medical history suggest raised prolactin.",
+            "Testosterone: May be considered in women with signs of androgen excess, such as excess facial hair, and in men when symptoms or fertility findings suggest a hormonal problem.",
+          ],
+        },
+        "These are general guidelines, not a standard panel for every patient. The exact tests and their timing depend on your symptoms, medical history and the reason for testing. No single hormone result can confirm whether you will or will not become pregnant.",
+      ],
+    },
+
+    {
+      id: "amh-test",
+      title: `AMH Test in ${CITY}: Understanding Ovarian Reserve`,
+      intro: "AMH is an important marker of ovarian reserve, but it does not provide a complete picture of fertility.",
+      icon: "flask",
+      body: [
+        "AMH stands for anti-Müllerian hormone. It is produced by cells in small developing follicles in the ovaries. An AMH blood test provides an indirect indication of ovarian reserve, which refers to the pool of follicles available in the ovaries.",
+        "AMH levels generally change with age. The result can help a fertility specialist understand ovarian reserve and, in some treatment settings, estimate how the ovaries may respond to stimulation medicines.",
+        {
+          ul: [
+            "AMH can usually be tested on any day of the menstrual cycle.",
+            "Fasting is usually not required, but follow the instructions given by your doctor or laboratory.",
+            "Hormonal contraception may affect AMH levels in some women. Tell your doctor if you use it or have recently stopped.",
+            "AMH may help estimate ovarian response during fertility treatment, but it does not measure egg quality.",
+          ],
+        },
+        "**What AMH can and cannot tell you:** AMH is an indirect marker of ovarian reserve. It does not count the actual eggs remaining, measure egg quality or reliably predict whether you will conceive naturally. Age is an important factor when assessing reproductive potential. A low AMH result does not mean pregnancy is impossible, and a normal result does not guarantee pregnancy.",
+        "AMH should not be used on its own to decide whether someone can receive fertility treatment. It is also not recommended as a standalone fertility screening test for women who are not experiencing infertility. Results need to be interpreted according to age, clinical history, laboratory methods and other findings.",
+        {
+          rich: [
+            `For more information, read the `,
+            [
+              "American Society for Reproductive Medicine's guidance on ovarian reserve testing",
+              "https://www.asrm.org/practice-guidance/practice-committee-documents/testing-and-interpreting-measures-of-ovarian-reserve-a-committee-opinion-2020/",
+            ],
+            `. For a wider evaluation of reproductive health, see our `,
+            ["female fertility assessment", `${A}/female-fertility-assessment`],
+            ` page.`,
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "female-hormone-test-timing",
+      title: `Female Fertility Hormone Test in ${CITY}: When Should You Get Tested?`,
+      intro: "The correct timing depends on the hormone being measured and the reason for testing.",
+      icon: "calendar",
+      body: [
+        "Day 1 of your menstrual cycle is generally the first day of full menstrual bleeding, rather than light spotting.",
+        {
+          ul: [
+            "FSH and estradiol: Often measured together on days 2 to 4 of the menstrual cycle when an early-cycle assessment is needed.",
+            "Progesterone: Usually measured about 7 days before your next period is expected. In a regular 28-day cycle, this is approximately day 21. It is not day 21 for every woman.",
+            "AMH: Can usually be measured on any day of the cycle.",
+            "TSH: Can usually be measured on any day of the cycle.",
+            "Prolactin: May be collected in the morning. Your doctor or laboratory may advise avoiding strenuous exercise or other factors that can temporarily affect the result before testing.",
+            "LH: Timing depends on whether the doctor is assessing baseline hormone levels, ovulation or another clinical question.",
+          ],
+        },
+        "If your periods are very irregular or have stopped, your doctor may recommend a different testing schedule. Do not choose test dates based only on a standard cycle calendar.",
+        {
+          rich: [
+            `To learn more about how ovulation is assessed, visit our `,
+            ["ovulation assessment", `${A}/ovulation-test`],
+            ` page.`,
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "pcos-hormone-test",
+      title: `PCOS Hormone Test in ${CITY}`,
+      intro: "No single blood test can confirm polycystic ovary syndrome (PCOS).",
+      icon: "compare",
+      body: [
+        "PCOS is a hormonal condition that can affect ovulation and menstrual cycles. A doctor usually considers a combination of your menstrual history, symptoms, signs of raised androgen levels and, when appropriate, ultrasound findings.",
+        "Depending on your symptoms, blood tests may include testosterone and other androgen measurements. Thyroid and prolactin tests may also be considered to check for other conditions that can cause similar symptoms.",
+        "Some women with PCOS have higher AMH or LH levels, but neither result can diagnose PCOS on its own. Your doctor will interpret the findings alongside your clinical history.",
+        {
+          rich: [
+            `PCOS does not mean that pregnancy is impossible. Many women with PCOS conceive, sometimes with medical support. Learn more about `,
+            ["ovulation induction", `${T}/ovulation-induction`],
+            ` and the role of ovulation assessment on our `,
+            ["ovulation assessment", `${A}/ovulation-test`],
+            ` page.`,
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "male-fertility-hormone-test",
+      title: `Male Fertility Hormone Test in ${CITY}`,
+      intro: "Male fertility assessment may include hormone testing when there is a clinical reason to investigate it.",
+      icon: "compare",
+      body: [
+        "Male fertility can be affected by several factors, including sperm production, reproductive hormones and general health. A semen analysis is usually the first investigation for assessing sperm count, movement and other semen characteristics. Hormone testing answers a different question and does not replace semen analysis.",
+        "A doctor may recommend hormone testing when:",
+        {
+          ul: [
+            "A semen analysis shows a very low sperm count or no sperm.",
+            "There are symptoms such as low sex drive or erectile problems.",
+            "There is a history of testicular injury, surgery or a condition that may affect hormone production.",
+            "The examination or medical history suggests a possible hormonal problem.",
+          ],
+        },
+        "Tests may include testosterone, FSH and LH. Testosterone is generally measured in the morning. If the result is low, a repeat measurement may be needed to confirm it. Tell your doctor if you use testosterone treatment, anabolic steroids or other medicines that may affect reproductive hormones, as these can reduce the body's own hormone signals and affect sperm production.",
+        {
+          rich: [
+            `For a broader review, visit our `,
+            ["male fertility assessment", `${A}/male-fertility-test`],
+            ` page or our `,
+            ["fertility assessment and diagnosis", A],
+            ` page.`,
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "hormone-tests-before-treatment",
+      title: "Hormone Tests Before IVF or IUI",
+      intro: "Hormone results can help with treatment planning, but they cannot guarantee or predict an individual treatment outcome.",
+      icon: "flask",
+      body: [
+        {
+          rich: [
+            `If you are considering fertility treatment such as `,
+            ["IVF", T],
+            ` or `,
+            ["IUI", T],
+            `, tests such as AMH may help your doctor estimate how your ovaries could respond to stimulation medicines. An ultrasound scan and other investigations may also be needed.`,
+          ],
+        },
+        "Your doctor considers your age, medical history, previous treatment, ultrasound findings and your partner's semen results when discussing a treatment plan.",
+        "Hormone levels cannot tell you with certainty whether IVF or IUI will be successful. They are one part of treatment planning, not a promise of pregnancy.",
+      ],
+    },
+
+    {
+      id: "how-we-choose-tests",
+      title: "How Dr. Kamran Saleem Decides Which Tests You Need",
+      intro: "Fertility hormone testing should be based on your individual needs, not an automatic panel.",
+      icon: "clipboard",
+      body: [
+        "During your consultation, Dr. Kamran Saleem may review:",
+        {
+          ul: [
+            "Your age and reproductive goals.",
+            "Your menstrual history and usual cycle length.",
+            "How long you have been trying to conceive.",
+            "Your pregnancy history, including any previous miscarriages.",
+            "Your symptoms, medical conditions and medicines.",
+            "Previous blood test results and ultrasound reports.",
+            "Your partner's semen analysis, where relevant.",
+            "Whether you are considering fertility treatment such as IVF or IUI.",
+          ],
+        },
+        "This assessment helps identify which tests may be useful, when they should be performed and whether any earlier results can be used. It can also help avoid unnecessary investigations.",
+        {
+          rich: [
+            `Learn more about the overall process on our `,
+            ["fertility assessment and diagnosis", A],
+            ` page.`,
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "what-to-expect",
+      title: "What to Expect During a Fertility Hormone Test Consultation",
+      intro: "The process starts with understanding your concerns and deciding which investigations are appropriate.",
+      icon: "calendar",
+      body: [
+        {
+          ul: [
+            "Consultation: Dr. Kamran Saleem discusses your menstrual or reproductive history, symptoms, medicines, how long you have been trying to conceive and any previous investigations.",
+            "Test planning: If hormone testing is appropriate, you receive guidance on which tests to consider and when to have them.",
+            "Blood sample: The sample is collected at a laboratory. A routine blood draw usually takes only a few minutes.",
+            "Report review: Your results are considered alongside your history and any other relevant investigations.",
+            "Next steps: Depending on the findings, you may need further assessment, treatment, follow-up or reassurance.",
+          ],
+        },
+        "It is normal to feel nervous about fertility investigations. You can bring your partner or a family member to your consultation if you wish.",
+      ],
+    },
+
+    {
+      id: "how-to-prepare",
+      title: "How to Prepare for Your Fertility Hormone Test",
+      intro: "Having your medical information and previous reports ready can help your doctor interpret the results.",
+      icon: "clipboard",
+      body: [
+        "Before your consultation or test, it may help to prepare:",
+        {
+          ul: [
+            "The first day of your last period and your usual menstrual cycle length.",
+            "A list of medicines, vitamins and supplements you take.",
+            "Details of any hormonal contraception you currently use or have recently stopped.",
+            "Previous hormone reports and ultrasound results.",
+            "Any earlier semen analysis reports, if relevant.",
+            "Details of previous fertility treatment or pregnancy history.",
+          ],
+        },
+        "Most fertility hormone tests do not require fasting, but some tests may have specific collection instructions. Confirm these with your doctor or laboratory before your appointment. Do not stop prescribed medicines without medical advice.",
+        "Tell your doctor if you are breastfeeding or have recently experienced a pregnancy or miscarriage, as this information may affect how some hormone results are interpreted.",
+      ],
+    },
+
+    {
+      id: "understanding-your-results",
+      title: "Understanding Your Fertility Hormone Test Results",
+      intro: "A result outside the laboratory reference range does not automatically mean that you are infertile.",
+      icon: "compare",
+      body: [
+        "Hormone levels can vary according to age, menstrual cycle timing, medical conditions, medicines and the laboratory method used. Your doctor interprets the results alongside your symptoms, medical history and other investigations, such as an ultrasound or semen analysis.",
+        "Sometimes a result needs to be repeated or investigated further before a conclusion can be reached.",
+        "Depending on the findings, possible next steps may include:",
+        {
+          ul: [
+            "Repeating a test when confirmation is needed.",
+            "Further assessment of thyroid function or prolactin when indicated.",
+            "Reviewing ovulation and ovarian reserve.",
+            "An ultrasound or assessment of the fallopian tubes, if appropriate.",
+            "Reviewing an abnormal semen analysis or considering male hormone testing.",
+            "Discussing fertility treatment options when they are clinically appropriate.",
+          ],
+        },
+        {
+          rich: [
+            `Not every abnormal result requires treatment. Sometimes further assessment or monitoring is the appropriate next step. If treatment is recommended, you can explore our `,
+            ["fertility treatment services", T],
+            ` page.`,
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "cost-and-reports",
+      title: `Fertility Hormone Test Cost in ${CITY}`,
+      intro: "The total cost depends on the tests recommended and the laboratory where they are performed.",
+      icon: "clipboard",
+      body: [
+        "The consultation fee and laboratory test charges are separate. The cost of one test, such as AMH, will differ from the cost of several tests ordered together. The tests you need depend on your medical history and the reason for assessment.",
+        "You can ask about the consultation fee and expected laboratory charges before proceeding. The blood sample is collected at a laboratory, and the clinic can guide you about where to have the tests performed.",
+        "If you already have recent reports from another laboratory, bring the complete reports to your appointment. Your doctor can review them and advise whether any tests need to be repeated. Laboratory charges and report times vary by test and provider.",
+      ],
+    },
+
+    {
+      id: "where-to-see-dr-kamran",
+      title: `Where to See Dr. Kamran Saleem in ${CITY}`,
+      intro: `Consultations are available at three locations in ${CITY}.`,
+      icon: "calendar",
+      body: [
+        {
+          ul: [
+            "Rasheed Hospital: Main Boulevard, DHA Defence, Lahore.",
+            "TAMC: M.M. Alam Road, Lahore.",
+            "Shahnaz Hospital: Shalamar Link Road, Lahore.",
+          ],
+        },
+        {
+          rich: [
+            `For location information and directions, visit our `,
+            ["locations page", L],
+            `. You can also read more `,
+            ["about Dr. Kamran Saleem", "/dr-kamran-saleem"],
+            `. Please confirm the consultation day and time when booking, as schedules may differ between locations.`,
+          ],
+        },
+        "Women, men and couples are welcome to discuss fertility concerns. You do not need to have a confirmed diagnosis before speaking to a fertility specialist.",
+      ],
+    },
+  ],
+
+  faqs: [
+    {
+      q: "What is a fertility hormone test?",
+      a: "A fertility hormone test is a blood test that measures hormones involved in reproductive health. Depending on your history, it may help investigate ovulation, ovarian reserve, irregular periods or possible male hormonal problems.",
+    },
+    {
+      q: "What is an AMH test (AMH test kya hota hai)?",
+      a: "AMH stands for anti-Müllerian hormone. It is produced by small follicles in the ovaries. The blood test provides an indirect indication of ovarian reserve. It does not measure egg quality or tell you on its own whether you will become pregnant naturally.",
+    },
+    {
+      q: "Which hormone tests are used for female fertility?",
+      a: "Depending on your medical history, tests may include AMH, FSH, LH, estradiol, progesterone, TSH and prolactin. Not every woman needs all these tests. Your doctor recommends tests according to your symptoms and the reason for assessment.",
+    },
+    {
+      q: "Which day of my menstrual cycle should I have a hormone test?",
+      a: "It depends on the test. FSH and estradiol are often measured on days 2 to 4 when an early-cycle assessment is needed. Progesterone is usually measured about 7 days before your next period is expected. AMH and TSH can usually be measured on any day.",
+    },
+    {
+      q: "Can I have an AMH test during my period?",
+      a: "Yes. AMH can usually be measured at any point in your menstrual cycle, including during your period. Follow the instructions given by your doctor and laboratory.",
+    },
+    {
+      q: "Does a low AMH mean I cannot get pregnant?",
+      a: "No. A low AMH result may indicate a lower ovarian reserve, but it does not measure egg quality or rule out pregnancy. Your age, medical history and other test results also matter.",
+    },
+    {
+      q: "What is a normal AMH level for my age?",
+      a: "AMH levels vary with age and laboratory methods. There is no single number that can reliably determine whether you will become pregnant. Your doctor should interpret the result using your age, medical history and the laboratory's reference range.",
+    },
+    {
+      q: "Can hormone tests diagnose PCOS?",
+      a: "No single hormone test can diagnose PCOS. A doctor considers your menstrual history, symptoms, signs of raised androgen levels and, when appropriate, ultrasound findings. Blood tests may also help rule out other conditions.",
+    },
+    {
+      q: "Do I need a hormone test if my periods are regular?",
+      a: "Not necessarily. Regular periods can be a sign that you are ovulating, but testing may still be considered if your symptoms, medical history or fertility treatment plan provide a reason.",
+    },
+    {
+      q: "Do men need hormone tests for fertility?",
+      a: "Some men do. Hormone testing may be recommended when a semen analysis is abnormal or symptoms suggest a hormonal problem. Semen analysis is usually the first investigation.",
+    },
+    {
+      q: "Can I have hormone tests before IVF?",
+      a: "Yes. Tests such as AMH may help your doctor estimate how your ovaries could respond to stimulation medicines. The tests you need depend on your age, medical history, ultrasound findings and treatment plan.",
+    },
+    {
+      q: "Do I need to fast before a fertility hormone test?",
+      a: "Most fertility hormone tests do not require fasting, but some tests may have specific collection instructions. Confirm the requirements with your doctor or laboratory before testing.",
+    },
+    {
+      q: "Should I stop my medicines before hormone testing?",
+      a: "No. Do not stop prescribed medicines without medical advice. Tell your doctor about your medicines, supplements and any hormonal contraception you use or have recently stopped.",
+    },
+    {
+      q: "Where do I have the fertility hormone blood test done?",
+      a: "The blood sample is collected at a laboratory. The clinic can guide you about where to have the tests performed when you arrange your consultation. You can also bring suitable reports from previous tests.",
+    },
+    {
+      q: "Can I bring hormone reports from another laboratory?",
+      a: "Yes. Bring the complete reports, including the laboratory name, test date and reference ranges. Your doctor can review them and advise whether any tests need to be repeated.",
+    },
+    {
+      q: "How long do fertility hormone test results take?",
+      a: "The time varies according to the test and laboratory. Ask the laboratory for the expected report time when arranging your blood test.",
+    },
+    {
+      q: "Does a fertility hormone blood test hurt?",
+      a: "It is a routine blood draw. You may feel a brief pinch when the needle is inserted, and sample collection usually takes only a few minutes.",
+    },
+  ],
+
+  closingHeading: `Book a Fertility Hormone Test in ${CITY}`,
+
+  closingParas: [
+    `Fertility hormone testing may help investigate irregular periods, possible ovulation problems, ovarian reserve or male hormonal concerns. The right tests depend on your individual situation, and a large hormone panel is not necessary for everyone.`,
+    `Dr. Kamran Saleem can review your history and previous reports, discuss which investigations may be appropriate and explain what the results mean. You can ask about consultation and laboratory costs before proceeding.`,
+  ],
+
+  resources: [
+    {
+      href: "/resources/hormone-test--for-fertility",
+      category: "Fertility Assessment",
+      title: "Hormone Test for Fertility",
+    },
+    {
+      href: "/resources/pcos-and-fertility",
+      category: "Fertility Assessment",
+      title: "PCOS and Fertility",
+    },
+    {
+      href: "/resources/ovulation-test",
+      category: "Fertility Assessment",
+      title: "Ovulation Test: How to Track Your Cycle",
+    },
+  ],
+
+  close: {
+    heading: "Not Sure Which Fertility Hormone Test You Need?",
+    body: "Discuss your menstrual history, symptoms and previous reports with Dr. Kamran Saleem to understand which tests may be appropriate and where to start.",
+    cta: "Book a consultation",
+  },
+};
+---
+
+<TreatmentPage {...page} />

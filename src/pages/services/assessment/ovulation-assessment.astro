@@ -1,0 +1,272 @@
+
+---
+import TreatmentPage from "../../../components/TreatmentPage.astro";
+
+const T = "/services/fertility-treatment";
+const A = "/services/assessment";
+
+const page = {
+  slug: "ovulation-assessment",
+  name: "Ovulation Assessment",
+  title: "Ovulation Assessment in Lahore | Dr. Kamran Saleem",
+  description:
+    "Need an ovulation assessment in Lahore? Dr. Kamran Saleem reviews irregular periods, cycle history and relevant tests to assess ovulation and fertility.",
+  eyebrow: "Ovulation Assessment in Lahore",
+  h1: "Ovulation Assessment in Lahore",
+  waText:
+    "Hello, I would like to enquire about an ovulation assessment with Dr. Kamran Saleem.",
+  ctaLabel: "Book an ovulation assessment",
+
+  heroSub: [
+    "If you are trying to conceive, irregular periods or uncertainty about ovulation can make it difficult to know when your fertile days occur. An ovulation assessment helps evaluate whether you are likely to be ovulating and whether further tests are needed.",
+    "Dr. Kamran Saleem reviews your menstrual cycle, symptoms, medical history and any previous test results. Depending on your circumstances, the assessment may include blood tests or an ultrasound. Not every patient needs every investigation.",
+  ].join(" "),
+
+  leadIn: [
+    {
+      rich: [
+        "Ovulation assessment is one part of a complete fertility evaluation. The appropriate tests depend on your age, menstrual cycle, symptoms and previous results. Learn more about our ",
+        ["female fertility assessment", `${A}/female-fertility-assessment`],
+        " service, or read our guide to ",
+        ["home ovulation tests and cycle tracking", "/resources/ovulation-test"],
+        ".",
+      ],
+    },
+  ],
+
+  sections: [
+    {
+      id: "what-is-ovulation-assessment",
+      title: "What Is an Ovulation Assessment?",
+      intro:
+        "An ovulation assessment helps determine whether ovulation is occurring and whether its timing may be affecting your chances of conception.",
+      icon: "calendar",
+      body: [
+        "Ovulation is the release of an egg from an ovary. It usually occurs once during a menstrual cycle, although the timing can vary. The days leading up to ovulation are important because sperm can survive in the reproductive tract for several days, while an egg can usually be fertilised for a shorter period after release.",
+        "A regular menstrual cycle often suggests that ovulation is occurring, but it does not confirm it in every case. Likewise, irregular periods do not always mean that ovulation is absent. Reviewing your cycle pattern alongside relevant investigations can help clarify what is happening.",
+        "The purpose of an ovulation assessment is not simply to order tests. It is to identify which information is useful for your individual situation and whether any further fertility evaluation is appropriate.",
+      ],
+    },
+
+    {
+      id: "when-to-get-ovulation-assessment",
+      title: "When Should You Get an Ovulation Assessment?",
+      intro:
+        "Consider discussing an ovulation assessment with a fertility specialist if your periods are irregular, absent or difficult to predict, particularly when you are trying to conceive.",
+      icon: "clipboard",
+      body: [
+        { ul: [
+          "Your periods are frequently irregular or vary considerably from month to month",
+          "Your cycles are consistently shorter than about 21 days or longer than about 35 days",
+          "You have missed periods or have gone three months without a period and are not pregnant",
+          "Home ovulation tests repeatedly show unclear or unexpected results",
+          "You have PCOS or a known thyroid or hormonal condition",
+          "You are trying to conceive and are concerned that you may not be ovulating regularly",
+          "You have been trying to conceive for 12 months, or for 6 months if you are aged 35 or older",
+        ] },
+        "These patterns do not establish a diagnosis on their own. A clinician will consider your age, health history, symptoms and how long you have been trying to conceive before recommending investigations.",
+      ],
+    },
+
+    {
+      id: "tests-to-check-ovulation",
+      title: "Tests Used to Check Ovulation",
+      intro:
+        "There is no single test that is necessary for everyone. The method depends on the question the clinician needs to answer.",
+      icon: "compare",
+      body: [
+        { ul: [
+          "Menstrual cycle review: Your period dates and cycle pattern help identify whether your cycles are regular and when ovulation may occur.",
+          "Urine LH test: A home ovulation predictor kit detects the rise in luteinising hormone (LH) that usually occurs before ovulation. It can help estimate the fertile window but does not confirm that an egg was released.",
+          "Progesterone blood test: A blood test taken at the appropriate time in the second half of the cycle can help establish whether ovulation has probably occurred. It is usually timed about a week before the expected next period, rather than automatically on day 21.",
+          "Pelvic ultrasound: An ultrasound may be recommended to assess the ovaries and other pelvic structures. In selected cases, repeat scans may be used to monitor follicle development.",
+          "Other hormone tests: Tests such as TSH, prolactin, FSH or LH may be considered when your history or symptoms suggest a hormonal cause. AMH is used in the assessment of ovarian reserve; it does not independently confirm whether ovulation has occurred.",
+        ] },
+        "The results need to be interpreted together with your cycle history. For example, a positive LH test indicates an LH surge, but it does not prove that ovulation took place. Your clinician can advise whether progesterone testing or ultrasound would provide more useful information.",
+      ],
+    },
+
+    {
+      id: "home-ovulation-test",
+      title: "Home Ovulation Tests: What They Can and Cannot Tell You",
+      intro:
+        "Home ovulation predictor kits can help identify a possible fertile window, but they are not a complete fertility assessment.",
+      icon: "flask",
+      body: [
+        "Most urine ovulation kits detect LH, a hormone that rises shortly before ovulation. A positive result usually means that ovulation may occur within the next day or two, although timing varies.",
+        { ul: [
+          "Follow the instructions supplied with your particular test kit.",
+          "Choose when to start testing according to your usual cycle length and the manufacturer's guidance.",
+          "Try to test at a consistent time and follow the kit's advice about fluid intake before testing.",
+          "Record the dates and results so you can discuss the pattern at your appointment.",
+          "If you have irregular cycles or PCOS, ask a clinician how to interpret repeated, unclear or multiple positive results.",
+        ] },
+        "A positive LH result is not proof of egg release. If you need confirmation of ovulation, your clinician may recommend a progesterone blood test or another appropriate investigation.",
+        {
+          rich: [
+            "For more detail, read our guide to ",
+            ["how to use an ovulation test kit", "/resources/ovulation-test"],
+            ".",
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "causes-of-irregular-ovulation",
+      title: "What Can Cause Irregular or Absent Ovulation?",
+      intro:
+        "Several health and lifestyle factors can affect the hormones involved in ovulation.",
+      icon: "activity",
+      body: [
+        { ul: [
+          "Polycystic ovary syndrome (PCOS), which can interfere with regular ovulation",
+          "Thyroid disorders that affect menstrual cycle regulation",
+          "Raised prolactin levels",
+          "Significant weight changes or inadequate energy intake",
+          "Very intense exercise or prolonged physical stress",
+          "Changes in ovarian function, including those associated with age",
+          "Certain medicines or changes in hormonal contraception",
+        ] },
+        "The cause cannot be identified from symptoms alone. Your clinician may recommend selected blood tests, an ultrasound or other investigations based on your medical history.",
+        {
+          rich: [
+            "You can also read about ",
+            ["PCOS and fertility", "/resources/pcos-and-fertility"],
+            " and our ",
+            ["fertility hormone testing", `${A}/hormonal-analysis`],
+            " service.",
+          ],
+        },
+      ],
+    },
+
+    {
+      id: "preparing-for-ovulation-assessment",
+      title: "How to Prepare for Your Ovulation Assessment",
+      intro:
+        "Bringing a few details to your appointment can help make the consultation more focused.",
+      icon: "route",
+      body: [
+        { ul: [
+          "Note the first day of your recent menstrual periods and your usual cycle length.",
+          "Bring previous ultrasound reports and relevant blood test results.",
+          "Bring photographs or records of home ovulation test results, if you have used them.",
+          "Make a list of medicines and supplements you currently take.",
+          "Mention any history of PCOS, thyroid problems, pelvic conditions or fertility treatment.",
+          "Write down any questions about your cycle, fertile days or difficulty conceiving.",
+        ] },
+        "Some investigations need to be performed at a particular stage of the menstrual cycle. If a test needs specific timing, the clinic can explain when to arrange it.",
+      ],
+    },
+
+    {
+      id: "what-happens-after-assessment",
+      title: "What Happens After an Ovulation Assessment?",
+      intro:
+        "The next step depends on your results and whether another factor may be affecting conception.",
+      icon: "route",
+      body: [
+        "Dr. Kamran Saleem reviews the available information and explains what the findings may mean. If the results suggest irregular or absent ovulation, the next step is to consider possible causes and whether further assessment or treatment is appropriate.",
+        { ul: [
+          "An explanation of your menstrual cycle and investigation findings",
+          "Advice on understanding your likely fertile window",
+          "Recommendations for further tests, if they are clinically appropriate",
+          "Discussion of treatment options if an ovulation disorder is identified",
+          "Consideration of your partner's fertility assessment when appropriate",
+        ] },
+        {
+          rich: [
+            "For a broader evaluation, explore our ",
+            ["female fertility assessment", `${A}/female-fertility-assessment`],
+            " and ",
+            ["male fertility assessment", `${A}/male-fertility-test`],
+            " pages. If ovulation treatment is recommended, read about ",
+            ["ovulation induction and PCOS treatment", `${T}/ovulation-induction`],
+            ".",
+          ],
+        },
+      ],
+    },
+  ],
+
+  faqs: [
+    {
+      q: "What is an ovulation assessment?",
+      a: "An ovulation assessment is a clinical evaluation of whether ovulation is likely to be occurring and whether its timing may be affecting conception. It may include a review of your menstrual cycle, home ovulation test results, progesterone testing or ultrasound when appropriate.",
+    },
+    {
+      q: "How can I check if I am ovulating?",
+      a: "Cycle patterns, cervical mucus changes and urine LH kits can provide clues about ovulation. A progesterone blood test timed appropriately in your cycle can help confirm whether ovulation probably occurred. Ultrasound may also be used in selected cases.",
+    },
+    {
+      q: "Can an ovulation test kit confirm ovulation?",
+      a: "No. Most home ovulation kits detect the LH surge that usually occurs before ovulation. They help estimate when ovulation may happen but do not prove that an egg was released.",
+    },
+    {
+      q: "Which blood test confirms ovulation?",
+      a: "A progesterone blood test can help establish whether ovulation probably occurred. It needs to be timed according to your menstrual cycle, usually about a week before your expected next period. A fixed day is not suitable for everyone.",
+    },
+    {
+      q: "When should progesterone be tested?",
+      a: "Progesterone is generally measured in the middle of the luteal phase, approximately seven days before the expected next period. The correct date depends on your cycle length and ovulation timing.",
+    },
+    {
+      q: "Can I have irregular periods and still ovulate?",
+      a: "Yes. Some women with irregular periods still ovulate, but the timing may vary. Others may ovulate infrequently or not at all. Your cycle history and, when needed, investigations can help clarify the pattern.",
+    },
+    {
+      q: "Can PCOS affect ovulation?",
+      a: "Yes. PCOS can interfere with regular ovulation and may cause irregular or missed periods. The effect varies between individuals, so assessment should consider your symptoms, history and relevant investigations.",
+    },
+    {
+      q: "Do I need an ultrasound to check ovulation?",
+      a: "Not everyone needs an ultrasound. It may be recommended when the clinician needs to assess the ovaries, examine follicle development or investigate another possible cause of fertility difficulty.",
+    },
+    {
+      q: "What happens if I am not ovulating regularly?",
+      a: "The next step is to look for a possible cause. Depending on the findings, management may involve addressing an underlying hormonal or health condition or discussing medicines that support ovulation. Treatment should be selected by a clinician.",
+    },
+    {
+      q: "When should I see a fertility specialist?",
+      a: "Consider an earlier appointment if your periods are absent or persistently irregular, or if you have a known condition such as PCOS. If you have been trying to conceive without success, assessment is generally recommended after 12 months if you are under 35, or after 6 months if you are 35 or older.",
+    },
+    {
+      q: "Can my partner be assessed at the same time?",
+      a: "Yes. Fertility concerns can involve either partner or both. A male fertility assessment and semen analysis may be recommended as part of the couple's evaluation.",
+    },
+  ],
+
+  closingHeading: "Ovulation Assessment with Dr. Kamran Saleem",
+  closingParas: [
+    "If you have irregular periods, unclear ovulation test results or concerns about your ability to conceive, an assessment can help identify which questions need to be investigated. Dr. Kamran Saleem reviews your history and available reports before advising on appropriate next steps.",
+    "The investigations recommended will depend on your individual circumstances. You can ask the clinic about consultation fees and any separate investigation costs before confirming your appointment.",
+  ],
+
+  resources: [
+    {
+      href: "/resources/ovulation-test",
+      category: "Fertility Guide",
+      title: "Home Ovulation Tests: How to Track Your Cycle",
+    },
+    {
+      href: "/resources/pcos-and-fertility",
+      category: "Fertility Guide",
+      title: "PCOS and Fertility",
+    },
+    {
+      href: "/resources/hormone-test--for-fertility",
+      category: "Fertility Guide",
+      title: "Hormone Tests for Fertility",
+    },
+  ],
+
+  close: {
+    heading: "Need an Ovulation Assessment in Lahore?",
+    body: "Share your recent period dates, symptoms and any previous test results with the clinic when enquiring about an appointment with Dr. Kamran Saleem.",
+    cta: "Book an ovulation assessment",
+  },
+};
+---
+
+<TreatmentPage {...page} />

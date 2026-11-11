@@ -1,0 +1,152 @@
+---
+import TreatmentPage from "../../../components/TreatmentPage.astro";
+
+const T = "/services/fertility-treatment";
+const A = "/services/assessment";
+
+const page = {
+  slug: "female-fertility-assessment",
+  name: "Female Fertility Assessment",
+  title: "Female Fertility Assessment in Lahore | Dr. Kamran Saleem",
+  description: "Female fertility assessment in Lahore with Dr. Kamran Saleem: ovulation, ovarian reserve, ultrasound and tubal evaluation, with a clear plan for next steps.",
+  eyebrow: "Female Fertility Assessment in Lahore",
+  h1: "Female Fertility Assessment in Lahore",
+  waText: "Hello, I would like to book a female fertility assessment with Dr. Kamran Saleem.",
+  ctaLabel: "Book a female fertility assessment",
+  heroSub: [
+    "A female fertility assessment is a structured clinical evaluation of the factors that influence conception: ovulation, ovarian reserve, hormones, the uterus and the fallopian tubes.",
+    "With Dr. Kamran Saleem, the assessment is built around your history and your questions, so you understand what is being checked, why it matters and what to do next.",
+  ].join(" "),
+  leadIn: [
+    { rich: ["Our female fertility assessment is one part of a complete fertility evaluation for couples. The investigations included depend on your age, cycle pattern, symptoms and earlier results. See the full ", ["Fertility Assessment & Diagnosis", A], " pathway, or read our guide to ", ["fertility assessment in Lahore", "/resources/fertility-assessment-in-lahore"], "."] },
+  ],
+  sections: [
+    {
+      id: "what-female-assessment-includes",
+      title: "What a Female Fertility Assessment Includes",
+      intro: "The assessment starts with a detailed consultation and moves to targeted investigations only where they are useful.",
+      icon: "clipboard",
+      body: [
+        "Your first visit focuses on understanding the full picture. Dr. Kamran Saleem reviews your history, examines any previous reports and decides which parts of the assessment will answer your specific questions.",
+        { ul: [
+          "Menstrual history and cycle regularity, including signs of irregular or absent ovulation",
+          "Pregnancy history, including miscarriages and any earlier fertility evaluation or treatment",
+          "Medical and surgical history, current medicines and relevant family history",
+          "Pelvic or transvaginal ultrasound to assess the uterus, ovaries and antral follicle count",
+          "Ovarian reserve assessment, usually combining AMH with the antral follicle count",
+          "Hormonal evaluation, such as FSH, LH, TSH and prolactin, when indicated",
+          "Fallopian tube evaluation when your history suggests it is needed",
+          "Lifestyle review, including weight, smoking and supplements",
+        ] },
+      ],
+    },
+    {
+      id: "when-to-book-assessment",
+      title: "When to Book a Female Fertility Assessment",
+      intro: "An early assessment can save time, especially if age or a known condition is a concern.",
+      icon: "calendar",
+      body: [
+        { ul: [
+          "You have been trying to conceive for 12 months without success, or 6 months if you are 35 or older",
+          "Your periods are irregular, very infrequent or absent",
+          "You have a history of pelvic infection, pelvic surgery, endometriosis, fibroids or PCOS",
+          "You have had two or more pregnancy losses",
+          "You have a known thyroid, hormonal or reproductive condition",
+          "You are planning ahead because of age or a medical treatment that may affect fertility",
+        ] },
+        "If you are over 35 or already have a known concern, it is reasonable to seek an assessment earlier rather than waiting a full year.",
+      ],
+    },
+    {
+      id: "ovulation-and-ovarian-reserve",
+      title: "Ovulation and Ovarian Reserve Assessment",
+      intro: "Two of the most important questions in a female assessment are whether you ovulate regularly and how many eggs remain.",
+      icon: "flask",
+      body: [
+        "Ovulation is assessed through your cycle history, ultrasound follicle monitoring and, where appropriate, progesterone levels in the second half of the cycle. This helps identify conditions such as PCOS or thyroid-related ovulation problems.",
+        "Ovarian reserve describes the quantity of eggs remaining. It is assessed with AMH and an ultrasound antral follicle count, and it helps guide the pace and type of treatment. It does not predict egg quality or guarantee success on its own.",
+        { rich: ["Related assessments: ", ["hormonal analysis", `${A}/hormonal-analysis`], " and ", ["ovulation assessment", `${A}/ovulation-test`], "."] },
+      ],
+    },
+    {
+      id: "uterus-and-tubes",
+      title: "Uterus and Fallopian Tube Evaluation",
+      intro: "Conception also depends on a healthy uterine cavity and open fallopian tubes.",
+      icon: "route",
+      body: [
+        "Ultrasound can identify fibroids, polyps, ovarian cysts and some structural differences of the uterus. If more detail is needed, the clinician may recommend a further imaging or tubal patency assessment.",
+        "Tubal evaluation is not needed for everyone. It is considered when there is a history of pelvic infection, surgery, endometriosis or when the results of other assessments point towards it. The method is chosen individually, and the clinician will explain what to expect beforehand.",
+      ],
+    },
+    {
+      id: "common-female-factors",
+      title: "Conditions the Assessment Can Help Identify",
+      intro: "Several overlapping factors can affect female fertility, and sometimes no single cause is found.",
+      icon: "compare",
+      body: [
+        { ul: [
+          "Ovulation disorders, including PCOS and thyroid disease",
+          "Reduced ovarian reserve, which becomes more common with age",
+          "Blocked or damaged fallopian tubes, for example after infection or surgery",
+          "Uterine conditions such as fibroids or polyps",
+          "Endometriosis",
+          "Unexplained infertility, when assessment findings are normal",
+        ] },
+        { rich: ["Learn more in ", ["Female Infertility: Treatment and Next Steps", "/resources/female-infertility-treatment"], " and ", ["PCOS and Fertility", "/resources/pcos-and-fertility"], "."] },
+      ],
+    },
+    {
+      id: "both-partners",
+      title: "Assessing Both Partners Together",
+      intro: "Male factors contribute in a significant share of couples, so a complete evaluation includes both partners.",
+      icon: "compare",
+      body: [
+        "A semen analysis is a simple, early step that is usually arranged alongside the female assessment, so that important information is not missed and the plan is based on the full picture.",
+        { rich: ["See the partner pathway: ", ["male fertility assessment", `${A}/male-fertility-test`], ", ", ["semen analysis", `${A}/semen-analysis`], " and ", ["male infertility assessment", `${A}/male-infertility`], "."] },
+      ],
+    },
+    {
+      id: "after-female-assessment",
+      title: "What Happens After Your Assessment",
+      intro: "You leave with clear findings and a practical plan, not just a set of reports.",
+      icon: "route",
+      body: [
+        { ul: [
+          "A review of every finding in plain language",
+          "A decision on whether further assessment is needed",
+          "Recommended options, which may include monitoring, medication, IUI, IVF or referral if indicated",
+          "A clear explanation of expected fees and follow-up",
+        ] },
+        { rich: ["If treatment is likely to help, you can explore our ", ["fertility treatment", T], " services and discuss which option fits your circumstances."] },
+      ],
+    },
+  ],
+  faqs: [
+    { q: "What is a female fertility assessment?", a: "It is a clinical evaluation of the factors that affect conception, including your history, ovulation, ovarian reserve, ultrasound findings and, when needed, the fallopian tubes and hormones." },
+    { q: "Do all women need the same fertility assessment?", a: "No. The assessment is tailored to your age, history, symptoms and previous findings, so some women need fewer investigations than others." },
+    { q: "How long does a female fertility assessment take?", a: "The consultation and ultrasound can often be completed in one visit. Hormonal results or additional investigations may need a follow-up appointment, which the clinician will explain." },
+    { q: "Can I bring reports from another clinic?", a: "Yes. Bring previous reports, scans and a list of current medicines so they can be reviewed and unnecessary repeat investigations avoided." },
+    { q: "Is a fertility assessment painful?", a: "Most of the assessment involves a conversation, blood sampling and an ultrasound, which are usually well tolerated. If your tubes need to be evaluated, you may feel cramping, and the clinician will explain the process first." },
+    { q: "When should I see a fertility specialist?", a: "After 12 months of trying if you are under 35, or after 6 months if you are 35 or older. See a specialist sooner if you have irregular periods, a known reproductive condition or repeated pregnancy loss." },
+    { q: "Should my partner be assessed too?", a: "Usually yes. Fertility evaluation considers both partners, and a semen analysis is a straightforward early step." },
+    { q: "Does a normal assessment guarantee pregnancy?", a: "No assessment can guarantee pregnancy. It clarifies what is and is not affecting your fertility and helps guide the next decision." },
+  ],
+  closingHeading: "Female Fertility Assessment with Dr. Kamran Saleem",
+  closingParas: [
+    "Dr. Kamran Saleem will review your history and available reports, explain which parts of the assessment are appropriate for you and outline realistic next steps. The investigations and plan depend on your individual circumstances.",
+    "You can ask about consultation fees and any separate investigation costs before confirming your appointment.",
+  ],
+  resources: [
+    { href: "/resources/fertility-assessment-in-lahore", category: "Fertility Assessment", title: "Fertility Assessment in Lahore" },
+    { href: "/resources/female-infertility-treatment", category: "Fertility Assessment", title: "Female Infertility: Treatment and Next Steps" },
+    { href: "/resources/pcos-and-fertility", category: "Fertility Assessment", title: "PCOS and Fertility" },
+  ],
+  close: {
+    heading: "Ready to Book Your Female Fertility Assessment?",
+    body: "Share your cycle history, symptoms or previous reports when booking, so your assessment can focus on your questions from the first visit.",
+    cta: "Book a female fertility assessment",
+  },
+};
+---
+
+<TreatmentPage {...page} />

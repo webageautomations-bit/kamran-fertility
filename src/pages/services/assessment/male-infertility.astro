@@ -1,0 +1,262 @@
+---
+import TreatmentPage from "../../../components/TreatmentPage.astro";
+
+const A = "/services/assessment";
+const T = "/services/fertility-treatment";
+
+const page = {
+  slug: "male-infertility-assessment",
+  name: "Male Infertility Assessment",
+  title: "Male Infertility Assessment in Lahore | Dr. Kamran Saleem",
+  description:
+    "Male infertility assessment in Lahore with Dr. Kamran Saleem: semen analysis, hormone tests, infection screening and clear next steps. Book privately.",
+  eyebrow: "Male Fertility Assessment & Diagnosis",
+  h1: "Male Infertility Assessment in Lahore",
+  waText: "Hello, I would like to book a confidential male infertility assessment with Dr. Kamran Saleem.",
+  ctaLabel: "Book a confidential assessment",
+  heroSub: [
+    "A male infertility assessment finds out whether a male factor is behind a couple’s difficulty conceiving.",
+    "At Kamran Fertility Clinic in Lahore, Dr. Kamran Saleem reviews your history, semen analysis, hormones and genital-tract infections in complete confidence, then explains what the results mean and what to do next.",
+  ].join(" "),
+  leadIn: [
+    { rich: ["Already have a semen analysis? Bring it. If not, we will tell you which tests are worth doing first. You can read about the ", ["male fertility test", `${A}/male-fertility-test`], ", ", ["semen analysis", `${A}/semen-analysis`], " and ", ["hormonal analysis", `${A}/hormonal-analysis`], " before you come."] },
+  ],
+  sections: [
+    {
+      id: "what-is-a-male-infertility-assessment",
+      title: "What Is a Male Infertility Assessment?",
+      intro: "It is a medical evaluation of the factors that affect a man’s ability to contribute to a pregnancy.",
+      icon: "document",
+      body: [
+        "Male fertility depends on healthy sperm being made, being able to move, having a normal structure, being regulated by the right hormones and being delivered successfully. An assessment looks at each of these.",
+        "It usually starts with a conversation and a medical history, and may include a physical examination, a semen analysis, hormone tests and other investigations. The aim is not simply to label a semen report normal or abnormal. It is to understand the result in the context of your overall health, and to decide what, if anything, needs to happen next.",
+        "A man can feel completely well, have normal sexual function and still have a sperm problem, which is why a proper assessment matters.",
+      ],
+    },
+    {
+      id: "when-to-see-a-male-fertility-specialist",
+      title: "When to See a Male Fertility Specialist",
+      intro: "Do not wait for your partner to be tested first. An early assessment is simple, private and often reassuring.",
+      icon: "heart",
+      body: [
+        "Consider an assessment if you have been trying to conceive for 12 months without success, or six months if your partner is 35 or older. Come sooner if you have:",
+        { ul: [
+          "A previous semen analysis showing a low count, poor movement or abnormal shape",
+          "A diagnosis of low sperm count or no sperm in the semen",
+          "A history of undescended testes, testicular injury, torsion, surgery or mumps after puberty",
+          "Testicular pain, swelling, a lump or a heavy feeling in the scrotum",
+          "Erectile difficulty, ejaculation problems or reduced desire",
+          "A past genital infection, or a wish for confidential STI screening",
+          "Previous fertility treatment that did not give the result expected",
+          "Use of anabolic steroids or testosterone",
+        ] },
+        "You do not need a confirmed diagnosis or a referral. You can bring existing reports, or simply start with a conversation.",
+      ],
+    },
+    {
+      id: "what-the-assessment-includes",
+      title: "What a Male Infertility Assessment Includes",
+      intro: "Every step has a reason, and not every man needs every test.",
+      icon: "bolt",
+      body: [
+        "Dr. Kamran begins with your history: how long you have been trying, previous pregnancies, illnesses, infections, operations, medicines, supplements, smoking, work and lifestyle. He asks about sexual function, testicular pain or swelling and any past genital or urinary infection. A physical examination is advised when your history and symptoms call for it, and checks the testes and the structures around them.",
+        "He then reviews any reports you bring and advises which further tests are likely to change your plan. Depending on your findings, these may include:",
+        { ul: [
+          "Semen analysis: sperm count, movement, shape and volume. This is the core test, and it is almost always the first one.",
+          "Hormone tests: FSH, LH, testosterone and sometimes prolactin, when the semen result or your symptoms suggest a hormonal cause",
+          "Scrotal ultrasound with Doppler: to look for a varicocele or a testicular abnormality, when there is swelling, pain or an abnormal finding",
+          "Infection screening: urine, semen or swab tests where your history or symptoms suggest it",
+          "Genetic testing: for a very low count or no sperm in the semen",
+          "Sperm DNA fragmentation testing: in selected cases only",
+        ] },
+        "We recommend tests that give useful information and avoid unnecessary ones.",
+      ],
+    },
+    {
+      id: "semen-analysis-results",
+      title: "Semen Analysis: What Is Measured and What Is Normal",
+      intro: "Reference values describe the lower end seen in fertile men. They are a guide, not a pass-or-fail line.",
+      icon: "flask",
+      body: [
+        "In the WHO manual’s 6th edition (2021), the lower reference limits, taken from the 5th percentile of fertile men, are about:",
+        { ul: [
+          "Semen volume: 1.4 mL",
+          "Sperm concentration: 16 million per mL",
+          "Total sperm number: 39 million per ejaculate",
+          "Total motility: 42%",
+          "Progressive motility: 30%",
+          "Normal shape (morphology): 4%",
+          "Vitality (live sperm): 54%",
+        ] },
+        "A man below one of these figures can still father a child, and a man within them can still have a problem. Results change from sample to sample with illness, fever and the length of abstinence, so a single abnormal result is usually repeated before any conclusion is drawn.",
+        { rich: ["Our guide to ", ["understanding a semen analysis", "/resources/understanding-a-semen-analysis"], " explains each measurement, and our ", ["semen analysis service", `${A}/semen-analysis`], " covers the test itself."] },
+      ],
+    },
+    {
+      id: "abnormal-semen-analysis",
+      title: "What an Abnormal Semen Analysis Can Mean",
+      intro: "An abnormal result does not mean you cannot have children.",
+      icon: "refresh",
+      body: [
+        "Terms you may see on a report include:",
+        { ul: [
+          "Oligozoospermia: a low sperm concentration",
+          "Asthenozoospermia: reduced sperm movement",
+          "Teratozoospermia: a higher proportion of sperm with an atypical shape",
+          "Azoospermia: no sperm detected in the ejaculate, which needs further assessment to find out whether the cause is a blockage or reduced sperm production",
+          "Low semen volume: which may need further evaluation, especially with other abnormal findings",
+        ] },
+        "These labels describe a pattern. They are not a verdict on whether pregnancy is possible. Dr. Kamran interprets the whole report alongside your history, examination and your partner’s fertility.",
+      ],
+    },
+    {
+      id: "hormone-tests",
+      title: "Hormone Tests in Male Infertility",
+      intro: "Hormones control sperm production, so they are checked when the picture suggests a hormonal cause.",
+      icon: "bolt",
+      body: [
+        { ul: [
+          "FSH: reflects the signal that drives sperm production",
+          "LH: regulates testosterone production",
+          "Testosterone: assessed with symptoms, usually from early-morning blood samples",
+          "Prolactin: checked when symptoms or other results suggest a prolactin problem",
+        ] },
+        "Not every man needs hormone tests. The decision depends on your symptoms, examination and semen analysis.",
+        "An important point for men who want children: external testosterone (injections, gels or other testosterone-containing products) and anabolic steroids can suppress the body’s natural hormonal signals and reduce sperm production, sometimes for months. If you are trying to conceive, speak to a doctor before using them.",
+        { rich: ["More detail is on our ", ["hormonal analysis", `${A}/hormonal-analysis`], " page."] },
+      ],
+    },
+    {
+      id: "infection-and-sti-screening",
+      title: "Infection Screening and Confidential STI Testing",
+      intro: "Many infections cause no symptoms, but some can affect sperm transport and fertility.",
+      icon: "shield",
+      body: [
+        "Dr. Kamran Saleem has a postgraduate Diploma in Genito-Urinary Medicine and Venereology (UK), so questions about infections and sexual health can be discussed privately and without judgement.",
+        "Screening is not routine for every man. It is offered where your history, symptoms or planned treatment make it relevant, and may include tests for chlamydia, gonorrhoea, syphilis, HIV and hepatitis B and C, and urine or semen cultures where appropriate. Untreated infection can cause inflammation of the epididymis or scarring of the sperm-carrying tubes, and it also matters for your partner’s health and for treatment planning. Some of these tests are also commonly advised before assisted fertility treatment.",
+        "Antibiotics are not a treatment for every semen problem. They are used when an infection is confirmed or clinically suspected, not as a guess.",
+      ],
+    },
+    {
+      id: "possible-causes",
+      title: "What the Assessment Looks For: Possible Causes",
+      intro: "In some men more than one factor is involved, and in some no cause is found.",
+      icon: "document",
+      body: [
+        { ul: [
+          "Problems with sperm production: testicular damage, previous infection, undescended testes or certain medical conditions",
+          "Hormonal imbalance: low testosterone, abnormal FSH or LH, or raised prolactin",
+          "Varicocele: enlarged veins around the testicle, associated with abnormal semen in some men",
+          "Blockage: in the tubes that carry sperm, which can cause azoospermia even when sperm are being made",
+          "Infection and inflammation of the urinary or reproductive tract",
+          "Genetic causes: chromosomal changes or Y-chromosome microdeletions, mainly in severe cases",
+          "Erectile or ejaculation problems, including retrograde ejaculation",
+          "Medicines and lifestyle: anabolic steroids, testosterone products, some cancer treatments, heavy alcohol, smoking and prolonged heat exposure",
+        ] },
+        "When no clear cause is identified, the condition may be described as unexplained or idiopathic male infertility. Identifying a cause needs an individual assessment rather than reliance on symptoms or a single test.",
+      ],
+    },
+    {
+      id: "erectile-and-ejaculation-problems",
+      title: "Erectile and Ejaculation Problems",
+      intro: "Sexual difficulties are common, treatable and a normal part of a male fertility consultation.",
+      icon: "heart",
+      body: [
+        "Erectile dysfunction does not by itself mean a low sperm count, but it can make conception difficult, and it sometimes points to diabetes, high blood pressure or a hormonal problem. Premature, delayed, absent and retrograde ejaculation, where semen passes into the bladder, are also assessed. Treatment depends on the cause.",
+      ],
+    },
+    {
+      id: "after-your-results",
+      title: "What Happens After Your Results",
+      intro: "The next step depends on what the tests show and on the circumstances of both partners.",
+      icon: "compare",
+      body: [
+        "Your results are explained in plain language, with clear next steps. Depending on the findings, that may mean:",
+        { ul: [
+          "Repeating a test to confirm a result",
+          "Further investigations before a clear explanation can be given",
+          "Treating an identified cause, such as an infection or hormonal problem",
+          "Lifestyle changes, with a repeat semen analysis after about three months, because sperm production takes roughly that long",
+          "Discussing assisted options such as IUI, IVF or ICSI, or surgical options such as varicocele repair or sperm retrieval, when they are appropriate",
+        ] },
+        { rich: ["Treatment is not the same for every man. For the options themselves, see our ", ["male infertility treatment", `${T}/male-infertility`], " page."] },
+      ],
+    },
+    {
+      id: "assessing-both-partners",
+      title: "Why Both Partners Should Be Assessed",
+      intro: "Fertility is shared, and assessing only one partner can leave important information unexplored.",
+      icon: "user",
+      body: [
+        "Male factors contribute to difficulty conceiving in a large share of couples, but female factors, or a combination of both, are just as common. A female assessment looks at ovulation, reproductive hormones, the uterus and the fallopian tubes. You do not need to bring your partner to your first consultation, although a joint assessment often gives the clearest answers.",
+        { rich: ["See our ", ["female fertility assessment", `${A}/female-fertility-assessment`], " for the partner pathway."] },
+      ],
+    },
+    {
+      id: "prepare-and-cost",
+      title: "Preparing for Your Consultation, and Costs",
+      intro: "A little preparation makes the first visit more useful, and the fee is confirmed before you come.",
+      icon: "document",
+      body: [
+        "Bring any previous semen analysis, hormone results, ultrasound reports, a list of your medicines and supplements, and details of past conditions or operations.",
+        "If you are providing a semen sample, an abstinence period of about two to seven days is usually advised. Collect the whole sample in the container supplied and follow the laboratory’s instructions on delivery time. Tell us about any fever or illness in the last three months, because it can affect the result.",
+        "Cost depends on what you need. The consultation fee is confirmed before you visit. Tests such as semen analysis, hormone panels or ultrasound are priced separately and only recommended when they are likely to change your care. Message the clinic on WhatsApp for the current fee.",
+      ],
+    },
+    {
+      id: "confidential-care",
+      title: "Confidential, Respectful Care",
+      intro: "Many men delay getting help because of embarrassment. There is no reason to.",
+      icon: "shield",
+      body: [
+        "Assessment is private and focused on practical answers. Your results and discussions are confidential, and reports are given to you and shared only with your consent.",
+      ],
+    },
+    {
+      id: "consultation-locations",
+      title: "Male Infertility Assessment Locations in Lahore",
+      intro: "Dr. Kamran Saleem sees patients at three Lahore locations.",
+      icon: "user",
+      body: [
+        { ul: [
+          "Rasheed Hospital: Main Boulevard, DHA Defence, Lahore",
+          "TAMC: M.M. Alam Road, Lahore",
+          "Shahnaz Hospital: Shalamar Link Road, Lahore 54000",
+        ] },
+        "Consultation days differ by location, so message the clinic to confirm the day and place before you visit.",
+        { rich: ["Location details: ", ["DHA Lahore", "/locations/dha-lahore"], ", ", ["M.M. Alam Road", "/locations/mm-alam-road-lahore"], " and ", ["Shalamar", "/locations/shalamar-lahore"], "."] },
+      ],
+    },
+  ],
+  faqs: [
+    { q: "What is included in a male infertility assessment?", a: "A review of your medical and fertility history, a physical examination where appropriate, a semen analysis and selected tests such as hormone blood tests, a scrotal ultrasound or infection screening. The exact assessment depends on your history and findings, and not every man needs every test." },
+    { q: "Is semen analysis enough to diagnose male infertility?", a: "Not always. A semen analysis is the most important first test, but it measures only sperm count, movement, shape and volume. Your doctor also considers your history, examination, hormone levels and other results to understand the possible cause of the difficulty." },
+    { q: "What is a normal semen analysis result?", a: "In the WHO 6th edition manual (2021), the lower reference limits are about 1.4 mL semen volume, 16 million sperm per millilitre, 39 million sperm in total, 42% total motility, 30% progressive motility, 4% normal shape and 54% live sperm. These are reference limits rather than a pass-or-fail mark, and results are interpreted alongside your history." },
+    { q: "Does an abnormal semen analysis mean I am infertile?", a: "No. An abnormal result does not automatically mean pregnancy is impossible. Semen results vary from sample to sample, so an abnormal result is usually repeated, and your doctor interprets it together with your history and your partner’s fertility." },
+    { q: "Can I have a normal semen analysis and still have fertility problems?", a: "Yes. A semen analysis does not measure every aspect of fertility. Other factors, such as sexual function, problems with semen delivery, the female partner’s fertility or less common sperm problems, may still need to be considered." },
+    { q: "How do I prepare for a semen analysis?", a: "Usually two to seven days of abstinence before the sample, collected completely in the container supplied and delivered to the laboratory within the time they specify. Tell your doctor about any fever or illness in the last three months and all medicines and supplements you take, because these can affect the result." },
+    { q: "When should a man have a fertility assessment?", a: "After 12 months of trying to conceive without success, or six months if your partner is 35 or older. Come sooner if you have had testicular problems, infections, surgery, erectile or ejaculation difficulties, a previous abnormal semen analysis or have used anabolic steroids or testosterone." },
+    { q: "Should my partner also be assessed?", a: "Yes, it is usually helpful. Difficulty conceiving can involve male factors, female factors or both, and assessing only one partner can leave important information unexplored. You do not need to bring your partner to your first consultation." },
+    { q: "Do I need a referral or a previous semen analysis?", a: "No. You do not need a referral or a confirmed diagnosis. If you have previous reports, bring them. If you have none, the doctor will advise which tests are worth doing first." },
+    { q: "Is my assessment confidential?", a: "Yes. Your consultation, results and any infection screening are handled privately, and reports are given to you and shared only with your consent. Many men delay seeking help because of embarrassment, and the clinic aims to make the process respectful and free of judgement." },
+  ],
+  closingHeading: "Male Infertility Assessment in Lahore With Dr. Kamran Saleem",
+  closingParas: [
+    "At Kamran Fertility Clinic, Dr. Kamran Saleem provides private male infertility assessments in Lahore, including semen analysis interpretation, hormone assessment, infection screening and genito-urinary health.",
+    "The aim is to find out what is actually affecting your fertility, explain it clearly and recommend only the next steps that are likely to help.",
+  ],
+  resources: [
+    { href: "/resources/male-fertility-test", category: "Diagnosis", title: "Male Fertility Test: What It Involves and What the Results Mean" },
+    { href: "/resources/understanding-a-semen-analysis", category: "Diagnosis", title: "Understanding a Semen Analysis" },
+    { href: "/resources/male-infertility--treatment", category: "Fertility Treatment", title: "Male Infertility Treatment: Causes, Tests and Options" },
+    { href: "/resources/andrologist-in-lahore", category: "Male Fertility", title: "Andrologist in Lahore: Male Fertility, Sexual & Reproductive Health Guide" },
+  ],
+  close: {
+    heading: "Ready to Find Out What Is Going On?",
+    body: "Bring any previous semen analysis or hormone reports. If you have none, we will tell you which tests are worth doing first.",
+    cta: "Book a Confidential Assessment",
+  },
+};
+---
+
+<TreatmentPage {...page} />
