@@ -4,7 +4,7 @@ description: "Learn about infertility treatment in Lahore, fertility testing, IU
 publishDate: 2026-08-18
 category: Fertility Treatment
 readingTime: 9 min read
-cover: /assets/resources/infertility-treatment-in-lahore.jpg
+cover: /assets/infertility-treatment-in-lahore.jpg
 
 ---
 
