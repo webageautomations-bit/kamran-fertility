@@ -4,7 +4,7 @@ description: "Considering a fertility treatment second opinion? Learn when it ma
 publishDate: 2026-09-08
 category: Second Opinions
 readingTime: 8 min read
-cover: /assets/resources/fertility-treatment-second-opinion.jpg
+cover: /assets/fertility-treatment-second-opinion.jpg
 ---
 
 ## Do I Need a Second Opinion Before Starting Fertility Treatment?
