@@ -4,7 +4,7 @@ description: "Looking for the right IVF center in Lahore? Learn what to check be
 publishDate: 2026-08-18
 category: Fertility Treatment
 readingTime: 7 min read
-cover: /assets/how-to-choose-the-right-ivf-center-in-lahore.jpeg
+cover: /assets/ivf-center-in-lahore.jpg
 ---
 
 ## How to Choose the Right IVF Center in Lahore
