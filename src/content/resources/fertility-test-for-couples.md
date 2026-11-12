@@ -4,7 +4,7 @@ description: "Learn which fertility tests couples need, including AMH, semen ana
 publishDate: 2026-10-30
 category: Fertility Testing
 readingTime: 22 min read
-cover: /assets/resources/fertility-tests-for-couples.jpg
+cover: /assets/fertility-tests-for-couples.jpg
 ---
 
 ## Fertility Tests for Couples: Which Tests You Need, When, and What the Results Mean
