@@ -4,7 +4,7 @@ description: "Does PCOS cause infertility? A Lahore fertility specialist explain
 publishDate: 2026-08-18
 category: Women's health
 readingTime: 8 min read
-cover: /assets/resources/pcos-and-fertility.jpg
+cover: /assets/pcos-and-fertility.jpg
 ---
 
 # PCOS and Fertility: Can You Get Pregnant with PCOS?
