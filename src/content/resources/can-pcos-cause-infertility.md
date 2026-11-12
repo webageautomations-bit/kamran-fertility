@@ -4,7 +4,7 @@ description: "Can PCOS cause infertility? Learn how it disrupts ovulation, the 2
 publishDate: 2026-10-23
 category: PCOS & Ovulation Induction
 readingTime: 16 min read
-cover: /assets/resources/can-pcos-cause-infertility.jpg
+cover: /assets/can-pcos-cause-infertility.jpg
 ---
 
 ## Can PCOS Cause Infertility? An Evidence-Based Guide to Causes, Diagnosis, Treatment and Pregnancy Outcomes
