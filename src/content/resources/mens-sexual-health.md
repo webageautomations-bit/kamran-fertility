@@ -4,7 +4,7 @@ description: "Learn about men's sexual health, common sexual problems, causes, t
 publishDate: 2026-09-23
 category: Men's Health
 readingTime: 10 min read
-cover: /assets/resources/men-sexual-health.jpg
+cover: /assets/men-sexual-health.jpg
 ---
 
 ## Men's Sexual Health: Common Problems, Causes, Treatment and Prevention
