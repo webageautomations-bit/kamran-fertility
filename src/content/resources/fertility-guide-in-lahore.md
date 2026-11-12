@@ -4,7 +4,7 @@ description: "A fertility guide for couples in Lahore: causes of infertility in 
 publishDate: 2026-10-29
 category: Fertility Treatment
 readingTime: 13 min read
-cover: /assets/resources/fertility-guide-in-lahore.jpg
+cover: /assets/fertility-guide-in-lahore.jpg
 ---
 
 ## Fertility Guide in Lahore: Causes, Tests and Treatment Options for Couples
