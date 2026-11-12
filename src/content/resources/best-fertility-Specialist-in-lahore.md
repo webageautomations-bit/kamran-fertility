@@ -4,7 +4,7 @@ description: "A practical guide to choosing the best fertility specialist in Lah
 publishDate: 2026-08-26
 category: Fertility Treatment
 readingTime: 14 min read
-cover: /assets/resources/best-fertility-specialist-in-lahore.jpeg
+cover: /assets/best-fertility-specialist-in-lahore.jpeg
 ---
 
 ## Best Fertility Specialist in Lahore: How to Choose the Right Doctor
