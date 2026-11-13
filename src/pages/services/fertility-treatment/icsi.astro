@@ -1,176 +1,377 @@
 ---
-import TreatmentPage from "../../../components/TreatmentPage.astro";
-
+// src/pages/services/fertility-treatment/icsi.astro
+// Uses the site's own menu/footer via Layout. Match the import path + props to TreatmentPage.astro.
+import Layout from "../../../layouts/Layout.astro";
+const base = "https://www.kamranfertility.com";
 const T = "/services/fertility-treatment";
+const url = `${base}${T}/icsi`;
+const title = "ICSI Treatment in Lahore | Advanced Sperm Injection | Dr. Kamran Saleem";
+const description = "Leading ICSI treatment in Lahore by UK-qualified specialist Dr. Kamran Saleem (25+ yrs exp). High 70%-80% fertilization rates for male infertility, low sperm count & failed IVF across DHA, MM Alam Rd & Shalamar.";
+const wa = "https://wa.me/923148432789?text=" + encodeURIComponent("Hello, I would like to book an ICSI consultation with Dr. Kamran Saleem.");
 
-const page = {
-  slug: "icsi",
-  name: "ICSI Treatment",
-  title: "ICSI Treatment in Lahore | Procedure, Cost & Success",
-  description:
-    "ICSI treatment in Lahore: how sperm injection works, who needs it, risks, success factors and cost, explained by Dr. Kamran Saleem. Book a consultation.",
-  eyebrow: "ICSI Treatment",
-  h1: "ICSI Treatment in Lahore",
-  waText: "Hello, I would like to book an ICSI consultation with Dr. Kamran Saleem.",
-  ctaLabel: "Book an ICSI consultation",
-  heroSub: [
-    "Intracytoplasmic sperm injection (ICSI) is a laboratory technique used within IVF, in which a single sperm is injected directly into a mature egg to help fertilization happen.",
-    "At Kamran Fertility Clinic, Dr. Kamran Saleem recommends ICSI where it is likely to help, mainly in male-factor infertility or after fertilization problems, and explains clearly when standard IVF is the better choice.",
-  ].join(" "),
-  leadIn: [
-    { rich: ["ICSI decisions depend heavily on semen results. If you do not have a recent report, see our ", ["semen analysis guide", "/resources/understanding-a-semen-analysis"], " or start with ", ["Fertility Assessment & Diagnosis", "/services/assessment"], "."] },
+const icons = {
+  flask: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3"/>',
+  inject: '<path d="M4 20l9-9M13 11l-2-2 5-5 4 4-5 5zM3 21l2-1"/>',
+  bolt: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+  target: '<circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>',
+  cells: '<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><circle cx="12" cy="16" r="3"/>',
+  merge: '<circle cx="9" cy="12" r="5"/><path d="M14 12h7M18 9l3 3-3 3"/>',
+  heart: '<path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/>',
+  check: '<path d="M5 12l5 5 9-10"/>',
+  clip: '<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h6"/>',
+};
+
+const toc = [["what-is-icsi","What is ICSI"],["icsi-vs-ivf","ICSI vs IVF"],["who-needs-icsi","Who needs ICSI"],["sperm-selection","Sperm selection"],["icsi-process","Step by step"],["success-rates","Success rates"],["ethics","Ethics"],["cost","Cost"],["faq","FAQ"]];
+
+const overview = [
+  { l: "Tests & Diagnosis", h: "#who-needs-icsi", art: '<rect x="37" y="14" width="26" height="7" rx="3" fill="#3b82f6" stroke="#0b1f4b" stroke-width="2"/><rect x="39" y="19" width="22" height="64" rx="11" fill="#e0eeff" stroke="#0b1f4b" stroke-width="3"/><rect x="42" y="44" width="16" height="36" rx="8" fill="#4cc9f0"/><circle cx="47" cy="56" r="2.5" fill="#ffffff"/><circle cx="54" cy="66" r="2" fill="#ffffff"/><circle cx="48" cy="74" r="2.5" fill="#ffffff"/>' },
+  { l: "Ovarian Stimulation", h: "#step-1", art: '<g transform="rotate(-40 52 46)"><rect x="30" y="39" width="38" height="14" rx="3" fill="#fff" stroke="#0b1f4b" stroke-width="2.5"/><rect x="44" y="39" width="14" height="14" fill="#3b82f6" stroke="#0b1f4b" stroke-width="2"/><rect x="68" y="43" width="14" height="6" fill="#fff" stroke="#0b1f4b" stroke-width="2.5"/><rect x="82" y="37" width="4" height="18" rx="2" fill="#0b1f4b"/><path d="M30 46H16" stroke="#0b1f4b" stroke-width="2"/></g><rect x="22" y="76" width="26" height="11" rx="5.5" fill="#fff" stroke="#0b1f4b" stroke-width="2.5"/><path d="M35 76v11" stroke="#0b1f4b" stroke-width="2"/><rect x="54" y="80" width="22" height="10" rx="5" fill="#0b1f4b"/>' },
+  { l: "Egg Retrieval", h: "#step-2", art: '<circle cx="50" cy="50" r="32" fill="#fff" opacity=".75"/><circle cx="50" cy="50" r="18" fill="#60a5fa" stroke="#2563eb" stroke-width="2"/><circle cx="50" cy="50" r="7" fill="#0b1f4b"/>' },
+  { l: "Sperm Processing", h: "#step-2", art: '<circle cx="50" cy="50" r="40" fill="#3b82f6"/><g fill="#fff"><ellipse cx="30" cy="34" rx="6" ry="4"/><ellipse cx="62" cy="48" rx="6" ry="4"/><ellipse cx="34" cy="66" rx="6" ry="4"/></g><g stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"><path d="M36 34q8-6 14 0t14 0"/><path d="M68 48q8-6 12 0"/><path d="M40 66q8-6 14 0t12 0"/></g>' },
+  { l: "ICSI Injection", h: "#step-4", art: '<circle cx="50" cy="50" r="38" fill="#fff" stroke="#2563eb" stroke-width="5"/><circle cx="44" cy="52" r="11" fill="#fff" stroke="#0b1f4b" stroke-width="2"/><circle cx="44" cy="52" r="3.5" fill="#0b1f4b"/><path d="M62 38l11-6M64 48l13-2M62 58l11 5" stroke="#0b1f4b" stroke-width="1.8" stroke-linecap="round"/>' },
+  { l: "Embryo Culture & Transfer", h: "#step-5", art: '<circle cx="50" cy="50" r="38" fill="#fff" opacity=".7"/><g fill="#93c5fd" stroke="#2563eb" stroke-width="2"><circle cx="36" cy="38" r="11"/><circle cx="60" cy="34" r="11"/><circle cx="68" cy="56" r="11"/><circle cx="46" cy="66" r="11"/><circle cx="31" cy="58" r="11"/><circle cx="50" cy="50" r="11"/></g><g fill="#0b1f4b"><circle cx="36" cy="38" r="4"/><circle cx="60" cy="34" r="4"/><circle cx="68" cy="56" r="4"/><circle cx="46" cy="66" r="4"/><circle cx="31" cy="58" r="4"/><circle cx="50" cy="50" r="4"/></g>' },
+];
+
+const steps = [
+  { t: "Ovarian stimulation", time: "10–12 days", icon: "inject", d: "Daily FSH/LH injections grow several follicles. Scans every 2–3 days and hormone tests guide the dose. At 18–20 mm a trigger shot (hCG or GnRH agonist) matures the eggs." },
+  { t: "Egg retrieval & semen processing", time: "Day 0", icon: "target", d: `Retrieval 34–36 hours after the trigger, under light sedation. The same day the male partner gives a sample, or sperm is surgically retrieved (<a href="${T}/male-infertility">PESA or Micro-TESE</a>), then processed to isolate the best motile sperm.` },
+  { t: "Egg preparation (denudation)", time: "2–4 hours later", icon: "flask", d: "Surrounding cumulus cells are gently removed so the embryologist can confirm each egg is mature (MII) and ready for injection." },
+  { t: "ICSI micro-injection", time: "1–2 minutes per egg", icon: "merge", d: "A single selected sperm is immobilized, drawn into an ultra-fine needle and injected into the center of the egg, away from the polar body to protect maternal chromosomes." },
+  { t: "Embryo culture & grading", time: "Day 1 to 5/6", icon: "cells", d: `Fertilization is checked 16–18 hours later (two pronuclei). Embryos grow to blastocyst and are graded on expansion, inner cell mass and trophectoderm. <a href="${T}/pgt">Genetic testing (PGT)</a> is available where indicated.` },
+  { t: "Embryo transfer or freezing", time: "Day 5 or later", icon: "heart", d: `One or two high-grade blastocysts are transferred under ultrasound, or vitrified for <a href="${T}/fet">Frozen Embryo Transfer (FET)</a> in a later, prepared cycle. Progesterone supports the lining.` },
+  { t: "Pregnancy test", time: "12–14 days after transfer", icon: "check", d: "A quantitative blood Beta-hCG test confirms the result. The whole journey takes about four to six weeks." },
+];
+
+const compare = [
+  ["Fertilization", "Many sperm placed near the egg; natural penetration", "One selected sperm injected into the egg"],
+  ["Sperm needed", "50,000–100,000 motile, normal sperm per egg", "One viable sperm per mature egg"],
+  ["Best suited to", "Tubal factor, endometriosis, unexplained infertility with normal sperm", "Severe male factor, azoospermia, high DNA fragmentation, prior IVF failure"],
+  ["Egg preparation", "Cumulus cells left intact", "Cumulus cells removed (denudation)"],
+  ["Average fertilization", "50% – 65%", "70% – 80% per mature egg"],
+  ["Total fertilization failure", "5% – 10% in unselected cases", "Under 1% – 3% in experienced laboratories"],
+];
+
+const male = [
+  ["Low sperm count (oligozoospermia)", "Below 15 million/ml, or under 39 million per ejaculate"],
+  ["Poor motility (asthenozoospermia)", "Under 32% progressively motile sperm"],
+  ["Abnormal shape (teratozoospermia)", "Under 4% normal forms (strict Kruger criteria)"],
+  ["Severe OAT syndrome", "Count, motility and shape all reduced together"],
+  ["High DNA fragmentation", "DFI above 25–30%"],
+  ["Anti-sperm antibodies", "Antibodies immobilize sperm or block egg binding"],
+  ["Retrograde ejaculation / spinal injury", "Sperm from post-ejaculatory urine or electro-ejaculation"],
+];
+
+const who = [
+  ["Azoospermia: obstructive", `Vasectomy, absent vas deferens or blockage. Sperm retrieved by PESA or MESA. See <a href="/services/assessment/male-infertility">male infertility assessment</a>.`, "target"],
+  ["Azoospermia: non-obstructive", "Testicular failure, Klinefelter syndrome or Y-microdeletions. Sperm retrieved by TESA or Micro-TESE.", "cells"],
+  ["Previous IVF fertilization problems", "Under 30% fertilization or complete failure in a conventional IVF cycle.", "flask"],
+  ["Genetic embryo testing", "ICSI is needed before an embryo biopsy so extra sperm do not contaminate the DNA result.", "clip"],
+  ["Frozen eggs", `Freezing and thawing hardens the egg shell, so natural sperm penetration is difficult. See <a href="${T}/fertility-preservation">egg freezing</a>.`, "heart"],
+  ["Few eggs available", "With low AMH or advanced age, ICSI gives every mature egg the best chance of fertilizing.", "merge"],
+];
+
+const select = [
+  ["PICSI", "Hyaluronan-binding selection. Only mature sperm with intact DNA bind to the hyaluronan dots, which may reduce miscarriage and improve blastocyst formation.", "check"],
+  ["IMSI", "Ultra-high magnification (up to 6,000x) reveals subtle defects in the sperm head, such as nuclear vacuoles, before injection.", "target"],
+  ["Micro-TESE", "An operating microscope finds rare sperm in testicular tissue for non-obstructive azoospermia. Isolation can take 2 to 4 hours.", "cells"],
+];
+
+const rates = [
+  ["Under 35", "75% – 82%", "45% – 55%", "38% – 42%", "68% – 75%"],
+  ["35 – 37", "72% – 78%", "38% – 45%", "28% – 32%", "55% – 62%"],
+  ["38 – 40", "70% – 75%", "28% – 35%", "18% – 22%", "38% – 45%"],
+  ["41 – 42", "65% – 70%", "15% – 22%", "8% – 12%", "20% – 25%"],
+  ["Over 42", "60% – 65%", "Under 10%", "2% – 5%", "Under 12%"],
+];
+
+const faqs = [
+  ["Is ICSI more successful than standard IVF?", "ICSI gives higher fertilization rates (70% to 80%) in male factor infertility, low sperm count or prior IVF fertilization failure. If semen parameters are completely normal, ICSI and standard IVF produce equivalent live birth rates."],
+  ["Does the ICSI procedure hurt the egg?", "The injection needle is ultra-fine, about 7 microns wide. In experienced laboratories, egg damage is rare, occurring in roughly 2% to 3% of mature eggs or fewer."],
+  ["What is the difference between ICSI and Micro-TESE ICSI?", "Standard ICSI uses sperm from an ejaculated sample. Micro-TESE ICSI is for men with non-obstructive azoospermia, where a microscopic surgical biopsy extracts rare sperm directly from testicular tissue."],
+  ["Are babies born through ICSI healthy?", "Decades of research on children born through assisted reproduction show most are healthy. The small increase in congenital conditions (under 1%) is mainly linked to underlying parental genetic factors rather than the procedure."],
+  ["How long does the ICSI procedure take in the laboratory?", "Injection takes about 1 to 2 minutes per mature egg. A group of 10 to 15 eggs is usually injected within 20 to 30 minutes."],
+  ["Can ICSI be combined with genetic testing?", "Yes. ICSI is used before PGT embryo biopsy to avoid contamination from extra sperm stuck to the egg shell."],
+];
+
+const treatments = [
+  ["IVF Treatment", "ivf", "The full treatment ICSI is performed within."],
+  ["IUI", "iui", "Prepared sperm placed in the uterus at ovulation."],
+  ["Frozen Embryo Transfer", "fet", "Thawed embryos transferred in a prepared cycle."],
+  ["Embryo Genetic Testing (PGT)", "pgt", "Embryo testing before transfer in selected cases."],
+  ["Male Infertility Treatment", "male-infertility", "Testing and treatment for low count, varicocele and hormonal causes."],
+  ["Egg & Sperm Freezing", "fertility-preservation", "Freezing before cancer treatment, surgery or planned delay."],
+];
+
+const locations = [
+  ["Rasheed Hospital", "Main Boulevard, DHA Defence", "Daily 3:00pm–6:00pm (Sat & Sun closed)", "/locations/dha-lahore"],
+  ["TAMC", "M.M. Alam Road, Gulberg", "Wednesday 12:00pm–3:00pm, other days by appointment", "/locations/mm-alam-road-lahore"],
+  ["Shahnaz Hospital", "Shalamar Link Road", "Monday & Thursday 6:00pm–9:00pm", "/locations/shalamar-lahore"],
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "MedicalWebPage", "@id": url, url, name: title, description, inLanguage: "en-PK", lastReviewed: "2026-11",
+      reviewedBy: { "@type": "Physician", name: "Dr. Kamran Saleem" }, about: { "@id": url + "#procedure" } },
+    { "@type": "MedicalProcedure", "@id": url + "#procedure", name: "Intracytoplasmic Sperm Injection (ICSI)", alternateName: "ICSI Treatment Lahore",
+      description: "A fertility treatment in which a single selected sperm is injected directly into a mature egg to achieve fertilization in severe male infertility or after previous IVF fertilization failure.",
+      bodyLocation: "Reproductive System", relevantSpecialty: { "@type": "MedicalSpecialty", name: "Reproductive Endocrinology and Infertility" },
+      performedBy: { "@type": "Physician", name: "Dr. Kamran Saleem", alumniOf: "University of Liverpool", identifier: "PMDC Registered" } },
+    { "@type": "BreadcrumbList", itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: base + "/" },
+      { "@type": "ListItem", position: 2, name: "Fertility Treatment", item: base + T },
+      { "@type": "ListItem", position: 3, name: "ICSI Treatment", item: url } ] },
+    { "@type": "FAQPage", mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) },
   ],
-  sections: [
-    {
-      id: "what-is-icsi",
-      title: "What Is ICSI (Intracytoplasmic Sperm Injection)?",
-      intro: "ICSI is not a separate treatment cycle. It is a fertilization method used inside an IVF cycle.",
-      icon: "flask",
-      body: [
-        { rich: ["In conventional ", ["IVF", `${T}/ivf`], ", thousands of prepared sperm are placed around each egg and one fertilizes it on its own. In ICSI, an embryologist selects one healthy-looking sperm under a high-powered microscope and injects it directly into the egg using a very fine glass needle."] },
-        "Everything else in the cycle is the same as IVF: ovarian stimulation, egg retrieval, embryo culture and embryo transfer. The difference is only in how fertilization is achieved in the laboratory.",
-      ],
-    },
-    {
-      id: "when-is-icsi-recommended",
-      title: "When Is ICSI Recommended?",
-      intro: "ICSI is most useful when sperm are unlikely to fertilize an egg unaided.",
-      icon: "user",
-      body: [
-        "ICSI may be advised in situations such as:",
-        { ul: [
-          "Severely low sperm count (oligozoospermia)",
-          "Poor sperm movement (asthenozoospermia) or markedly abnormal shape (teratozoospermia)",
-          "No sperm in the ejaculate (azoospermia), with sperm retrieved surgically from the epididymis or testis",
-          "Previous IVF cycles with very low or failed fertilization",
-          "Limited quantity of frozen sperm, or thawed frozen eggs",
-          "Embryo genetic testing (PGT) cycles, to avoid contamination from extra sperm DNA",
-          "Selected cases of antisperm antibodies or high sperm DNA damage",
-        ] },
-        "ICSI is not automatically better for everyone. In couples without a male-factor problem, studies have not shown that routine ICSI improves live birth rates over conventional IVF, and it adds cost and a laboratory step. Dr. Kamran recommends it when there is a clear reason.",
-      ],
-    },
-    {
-      id: "icsi-procedure-step-by-step",
-      title: "The ICSI Procedure Step by Step",
-      intro: "The patient experience of an ICSI cycle is the same as IVF; the difference happens in the laboratory.",
-      icon: "calendar",
-      body: [
-        { h3: "1. Stimulation and egg retrieval" },
-        "As in IVF, daily injections encourage several eggs to mature. They are collected under sedation with an ultrasound-guided needle.",
-        { h3: "2. Egg preparation" },
-        "The surrounding cells are removed so the embryologist can check egg maturity. Only mature eggs can be injected.",
-        { h3: "3. Sperm selection" },
-        "A sperm sample (fresh, frozen or surgically retrieved) is prepared, and the best-looking motile sperm is chosen for each egg.",
-        { h3: "4. Injection" },
-        "One sperm is placed inside each mature egg. This takes only seconds per egg.",
-        { h3: "5. Fertilization check and embryo culture" },
-        "Fertilization is checked the next day, 16 to 18 hours after injection. Fertilized eggs are grown as embryos for several days and graded.",
-        { h3: "6. Embryo transfer and pregnancy test" },
-        { rich: ["The best embryo is transferred to the uterus, and spare embryos can be frozen (see ", ["Frozen Embryo Transfer", `${T}/fet`], "). A blood pregnancy test follows about 10 to 14 days later."] },
-      ],
-    },
-    {
-      id: "icsi-and-male-infertility",
-      title: "ICSI and Male Infertility: Sperm Retrieval Options",
-      intro: "ICSI makes pregnancy possible for many men who previously had no treatment options.",
-      icon: "heart",
-      body: [
-        "Even a few viable sperm can be enough for ICSI. When no sperm are found in the ejaculate, they may be retrieved by a short surgical procedure:",
-        { ul: [
-          "PESA or TESA: needle aspiration of sperm from the epididymis or testis",
-          "Micro-TESE: microsurgical sperm retrieval from the testis, mainly in non-obstructive azoospermia",
-        ] },
-        { rich: ["Surgical retrieval is performed by an experienced urological surgeon and coordinated with your ICSI cycle. Dr. Kamran will explain whether this is likely to be needed after your tests; see our ", ["male infertility treatment", `${T}/male-infertility`], " page for the wider picture."] },
-      ],
-    },
-    {
-      id: "icsi-vs-ivf",
-      title: "ICSI vs IVF: What Is the Difference?",
-      intro: "Both involve the same cycle. The question is how fertilization is done.",
-      icon: "compare",
-      body: [
-        { ul: [
-          "Conventional IVF: eggs and prepared sperm are placed together and fertilize naturally in the dish. Suitable when sperm quality is adequate.",
-          "ICSI: one sperm is injected into each mature egg. Used when sperm count, movement or shape make unaided fertilization unlikely, or when fertilization has failed before.",
-          "Some centres split eggs between IVF and ICSI when it is unclear which will work, to avoid total fertilization failure.",
-        ] },
-        { rich: ["Whichever is chosen, the stimulation, retrieval and transfer stages are the same. See the full ", ["IVF process", `${T}/ivf`], " for details."] },
-      ],
-    },
-    {
-      id: "icsi-success-rates",
-      title: "ICSI Success Rates: What to Expect",
-      intro: "Successful fertilization is not the same as pregnancy, and ICSI does not overcome every problem.",
-      icon: "shield",
-      body: [
-        "ICSI mainly improves the chance that eggs fertilize. Whether that becomes a live birth depends on what happens afterwards, so the same factors that govern IVF success apply:",
-        { ul: [
-          "The woman's age at egg collection, which remains the strongest factor",
-          "The number and maturity of eggs retrieved",
-          "Embryo quality and blastocyst development",
-          "Sperm source (ejaculated or surgically retrieved) and sperm DNA quality",
-          "Uterine receptivity",
-        ] },
-        "Fertilization failure is uncommon with ICSI but can still happen, for example if eggs are immature or sperm are unable to activate the egg. Dr. Kamran will give you an honest individual estimate and will not promise a result.",
-      ],
-    },
-    {
-      id: "icsi-safety-and-genetics",
-      title: "Is ICSI Safe? Risks and Genetic Considerations",
-      intro: "Most children born after ICSI are healthy, but some risks and genetic questions deserve a frank conversation.",
-      icon: "shield",
-      body: [
-        "ICSI carries the usual IVF risks, such as ovarian hyperstimulation, multiple pregnancy and retrieval-related complications. It adds a small chance that an egg is damaged during injection.",
-        "Some studies report a slightly higher rate of certain birth defects after IVF and ICSI compared with natural conception. It is hard to separate the effect of the treatment from the underlying infertility, and the absolute risk remains low.",
-        "More importantly, severe male infertility can be linked to genetic causes, such as chromosomal changes or Y-chromosome microdeletions, which can be passed to sons. When sperm counts are very low or absent, genetic tests and counseling are discussed before ICSI.",
-      ],
-    },
-    {
-      id: "icsi-cost-in-lahore",
-      title: "ICSI Cost in Lahore: What to Ask",
-      intro: "ICSI is usually priced as part of an IVF cycle, so the total depends on the whole plan.",
-      icon: "coin",
-      body: [
-        "Ask any clinic to itemize:",
-        { ul: [
-          "The IVF cycle itself, including medication, monitoring and retrieval",
-          "The ICSI laboratory fee, charged per cycle",
-          "Surgical sperm retrieval, if needed",
-          "Embryo freezing and storage",
-          "Genetic testing, if recommended",
-        ] },
-        "You will receive an itemized estimate during your consultation, so you can compare before you commit.",
-      ],
-    },
-  ],
-  faqs: [
-    { q: "What is ICSI treatment?", a: "ICSI (intracytoplasmic sperm injection) is a technique in which a single sperm is injected directly into a mature egg during an IVF cycle, to help fertilization occur." },
-    { q: "Is ICSI better than IVF?", a: "Not for everyone. ICSI helps when sperm quality is poor or fertilization has failed before. When the male factor is normal, routine ICSI has not been shown to improve live birth rates." },
-    { q: "Is ICSI the same as test tube baby treatment?", a: "ICSI is a variation of test tube baby (IVF) treatment. The cycle is the same, but fertilization is done by injecting one sperm into each egg." },
-    { q: "Does ICSI hurt?", a: "The injection itself is done on eggs in the laboratory, so you do not feel it. Your experience is that of an IVF cycle: injections, egg retrieval under sedation, and embryo transfer." },
-    { q: "Are ICSI babies healthy?", a: "Most are. Studies suggest a small increase in certain congenital and genetic risks compared with natural conception, partly because of the underlying male infertility. Genetic counseling is advised in severe cases." },
-    { q: "Can ICSI work with a very low sperm count or no sperm?", a: "Often, yes. Even a few viable sperm can be enough, and sperm can sometimes be retrieved surgically in azoospermia. Success depends on the cause and the quality of the sperm retrieved." },
-    { q: "Can ICSI be done with frozen sperm?", a: "Yes. Frozen sperm, including sperm retrieved surgically and frozen in advance, can be used for ICSI. Post-thaw sperm survival is checked in the laboratory." },
-    { q: "How long after ICSI can I take a pregnancy test?", a: "A blood test is usually done about 10 to 14 days after embryo transfer. Testing earlier at home may give an unreliable result." },
-  ],
-  closingHeading: "ICSI Treatment in Lahore With Dr. Kamran Saleem",
-  closingParas: [
-    "At Kamran Fertility Clinic, Dr. Kamran Saleem provides ICSI treatment planning for couples in Lahore, building on 25 years of experience in male and female fertility, semen analysis interpretation and hormone assessment.",
-    "ICSI is recommended when your results justify it, not as an automatic add-on, and the reasons are explained in plain language.",
-    "Where surgical sperm retrieval or specialist laboratory work is needed, we are open about what is done in the clinic and what is coordinated with partner services.",
-  ],
-  resources: [
-    { href: "/resources/icsi-treatment-in-lahore", category: "Fertility Treatment", title: "ICSI Treatment in Lahore: Procedure, Cost, Benefits and Success Factors" },
-    { href: "/resources/male-infertility--treatment", category: "Fertility Treatment", title: "Male Infertility Treatment: Causes, Tests and Options" },
-    { href: "/resources/understanding-a-semen-analysis", category: "Male Fertility", title: "Understanding a Semen Analysis" },
-  ],
-  close: {
-    heading: "Wondering Whether You Need ICSI?",
-    body: "Bring your semen analysis and any previous IVF records to your consultation, so the decision is based on your results.",
-    cta: "Book an ICSI Consultation",
-  },
 };
 ---
+<Layout title={title} description={description}>
+<div class="ivf">
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+<main>
+<section class="hero"><div class="w hgrid">
+  <div>
+    <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href={T}>Fertility Treatment</a> / ICSI Treatment</nav>
+    <p class="eye">Doctor-led · Evidence-based · Lahore</p>
+    <h1>ICSI Treatment in Lahore</h1>
+    <p class="sub">Intracytoplasmic Sperm Injection (ICSI) is an advanced form of <a href={`${T}/ivf`}>IVF</a> in which one healthy sperm is selected under high magnification and injected directly into a mature egg. It is the leading option for male infertility, low sperm count and previous fertilization failure, and Dr. Kamran Saleem recommends it only when your results call for it.</p>
+    <p><a class="btn" href={wa}>Book an ICSI consultation</a> <a class="btn ghost" href="#icsi-process">See the process</a></p>
+    <p class="mini">Not sure yet? Start with a <a href="/services/assessment/semen-analysis">semen analysis</a> or <a href="/services/assessment">fertility assessment</a>.</p>
+  </div>
+  <div class="hside">
+    <ul class="facts">
+      <li><b>70–80%</b> fertilization per mature egg</li>
+      <li><b>1–2</b> minutes to inject each egg</li>
+      <li><b>25+</b> years in reproductive health</li>
+      <li><b>3</b> Lahore locations</li>
+    </ul>
+  </div>
+</div></section>
 
-<TreatmentPage {...page} />
+<div class="w layout">
+  <aside class="toc" aria-label="On this page"><p>On this page</p>
+    {toc.map(([id, l]) => <a href={`#${id}`}>{l}</a>)}
+    <a class="btn sm" href={wa}>Book now</a>
+  </aside>
+  <div class="content">
+    <p class="review"><b>Medically reviewed:</b> Dr. Kamran Saleem (MBBS 1988; Diploma, University of Liverpool 1998; PMDC registered) · Last review November 2026 · <a href="/dr-kamran-saleem">About the doctor</a></p>
+
+    <section id="what-is-icsi">
+      <h2>What Is ICSI and How Does It Work?</h2>
+      <p>In ICSI, an embryologist uses a fine glass needle under a high-power microscope to place a single sperm into the center (cytoplasm) of each mature egg. Fertilization no longer depends on the sperm swimming to and penetrating the egg, so even a very small number of healthy sperm can be enough.</p>
+      <p>ICSI is a laboratory step inside an <a href={`${T}/ivf`}>IVF cycle</a>: stimulation, egg retrieval and embryo transfer are the same. It is used for severe male factor infertility, low count or motility, abnormal sperm shape, surgically retrieved sperm and earlier unexplained fertilization failure.</p>
+    </section>
+
+    <section id="icsi-vs-ivf">
+      <h2>ICSI vs Conventional IVF</h2>
+      <p>The difference lies in how the sperm and egg meet in the laboratory.</p>
+      <div class="tw"><table>
+        <thead><tr><th></th><th>Conventional IVF</th><th>ICSI</th></tr></thead>
+        <tbody>{compare.map(r => <tr><th scope="row">{r[0]}</th><td>{r[1]}</td><td>{r[2]}</td></tr>)}</tbody>
+      </table></div>
+      <p class="note">If semen parameters are normal, ICSI does not improve live birth rates. See <a href="/resources/ivf-vs-iui">IVF vs IUI</a> and <a href={`${T}/iui`}>IUI treatment</a> for simpler options.</p>
+    </section>
+
+    <section id="who-needs-icsi">
+      <h2>Who Needs ICSI Treatment?</h2>
+      <p>Male factor contributes to over half of subfertility cases. ICSI is indicated when semen analysis falls below WHO 6th edition reference values, such as:</p>
+      <div class="tw"><table>
+        <thead><tr><th>Condition</th><th>Typical finding</th></tr></thead>
+        <tbody>{male.map(r => <tr><td>{r[0]}</td><td>{r[1]}</td></tr>)}</tbody>
+      </table></div>
+      <p>Other situations where ICSI is recommended:</p>
+      <div class="cards">
+        {who.map(([h, p, i]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p set:html={p} /></div>)}
+      </div>
+      <p class="note">Learn more about <a href={`${T}/male-infertility`}>male infertility treatment</a>.</p>
+    </section>
+
+    <section id="sperm-selection">
+      <h2>Advanced Sperm Selection Technologies</h2>
+      <p>Beyond standard visual selection, ICSI can use extra tools to pick the healthiest sperm.</p>
+      <div class="cards">
+        {select.map(([h, p, i]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p>{p}</p></div>)}
+      </div>
+    </section>
+
+    <section id="icsi-process">
+      <h2>The ICSI Process, Step by Step</h2>
+      <p>The journey takes about four to six weeks from the first tests to the pregnancy test.</p>
+      <div class="ovwrap">
+        <p class="ovtitle">ICSI Process at a Glance</p>
+        <div class="ovrow">
+          {overview.map((o, i) => (
+            <>
+              <a class="ov" href={o.h}>
+                <span class="ovl">{o.l}</span>
+                <span class="disc"><svg viewBox="0 0 100 100" set:html={o.art} /></span>
+                <span class="ovn">{i + 1}</span>
+              </a>
+              {i < overview.length - 1 ? <span class="chev" aria-hidden="true"><svg viewBox="0 0 36 22"><path d="M3 3l7 8-7 8M14 3l7 8-7 8M25 3l7 8-7 8" /></svg></span> : null}
+            </>
+          ))}
+        </div>
+        <p class="ovhint">Select a stage to jump to its full explanation below.</p>
+      </div>
+      <ol class="steps">
+        {steps.map((s, i) => (
+          <li class="step" id={`step-${i + 1}`}>
+            <div class="media"><span class="ph"><svg viewBox="0 0 24 24" set:html={icons[s.icon]} /></span></div>
+            <div class="body"><span class="num">Step {i + 1} · {s.time}</span><h3>{s.t}</h3><p set:html={s.d} /></div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section id="success-rates">
+      <h2>ICSI Success Rates by Age</h2>
+      <p>ICSI overcomes fertilization barriers, but live birth still depends mainly on the woman's age, ovarian reserve and embryo quality.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Age</th><th>Fertilization per mature egg</th><th>Blastocyst rate (Day 5)</th><th>Live birth per cycle</th><th>Live birth over 3 cycles</th></tr></thead>
+        <tbody>{rates.map(r => <tr>{r.map(c => <td>{c}</td>)}</tr>)}</tbody>
+      </table></div>
+      <p class="note">Figures are for treatment with the couple's own eggs and sperm. Outcomes vary and no result is guaranteed. For the complete IVF picture see <a href={`${T}/ivf`}>IVF treatment</a>.</p>
+    </section>
+
+    <section id="ethics">
+      <h2>Ethical and Legal Compliance in Pakistan</h2>
+      <p>Treatment follows Pakistani law and Federal Shariat Court rulings on assisted reproduction.</p>
+      <ul class="tick">
+        <li>Only the husband's sperm and the wife's eggs are used, within a lawful marriage</li>
+        <li>Donor eggs, donor sperm and surrogacy are not offered</li>
+        <li>Double-witness identity verification at every laboratory stage, from sperm processing to embryo transfer</li>
+      </ul>
+    </section>
+
+    <section id="cost">
+      <h2>ICSI Cost in Lahore: Transparent Fees</h2>
+      <p>Fees are explained upfront in an unhurried 45 to 60 minute consultation. For a wider view see <a href="/resources/ivf-treatment-cost-in-pakistan">IVF treatment cost in Pakistan</a>.</p>
+      <div class="cols">
+        <div class="card"><h3>No hidden fees</h3><ul class="tick"><li>Stimulation monitoring and scans</li><li>Egg retrieval</li><li>Embryology laboratory and ICSI injection</li><li>Embryo transfer</li></ul></div>
+        <div class="card"><h3>Itemized separately</h3><ul class="tick"><li>Surgical sperm retrieval (PESA, Micro-TESE)</li><li>Embryo freezing and storage</li><li>Genetic testing, if needed</li><li>Stimulation medication</li></ul></div>
+      </div>
+      <p class="note">We recommend ICSI only when semen results or prior treatment history call for it, so you do not pay for a procedure you do not need.</p>
+    </section>
+
+    <section id="faq">
+      <h2>Frequently Asked Questions</h2>
+      {faqs.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
+    </section>
+  </div>
+</div>
+
+<section class="band"><div class="w">
+  <h2>Related fertility treatments</h2>
+  <div class="cards c3">
+    {treatments.map(([n, s, d]) => <a class="card link" href={`${T}/${s}`}><h3>{n}</h3><p>{d}</p></a>)}
+  </div>
+  <p><a href={T}>See all fertility treatments →</a> · <a href="/services/support">Support &amp; Second Opinions</a> · <a href="/resources/ivf-treatment-in-lahore">IVF in Lahore guide</a></p>
+</div></section>
+
+<section class="cta"><div class="w">
+  <h2>Schedule Your Unhurried Consultation</h2>
+  <p>If you have male factor subfertility, low sperm count or earlier unsuccessful cycles, expert guidance is the first step. Message us on WhatsApp at +92 314 8432789.</p>
+  <a class="btn" href={wa}>Book an ICSI Consultation</a>
+  <div class="cards c3 locs">
+    {locations.map(([n, a, h, l]) => <a class="card link" href={l}><h3>{n}</h3><p>{a}</p><p class="hrs">{h}</p></a>)}
+  </div>
+</div></section>
+</main>
+<p class="legal w">Medical disclaimer: this page is for general education and is not a substitute for professional medical advice. Outcomes vary and no result is guaranteed. © 2026 Dr. Kamran Saleem.</p>
+</div>
+</Layout>
+
+<style is:global>
+  .ivf{--c-primary:#2563eb;--c-dark:#0b1f4b;--c-accent:#4cc9f0;--c-tint:#eef5ff;--c-bg:#fff;--c-text:#1e2a4a;--c-muted:#5b6b8c;--c-line:#dbe6f6;
+    margin:0;background:var(--c-bg);color:var(--c-text);font:16px/1.7 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .ivf *{box-sizing:border-box}
+  .ivf a{color:var(--c-primary)}
+  .ivf .w{max-width:1120px;margin:0 auto;padding:0 20px}
+  .ivf h1,.ivf h2,.ivf h3{line-height:1.2;color:var(--c-dark);margin:0 0 .5em}
+  .ivf h2{font-size:clamp(24px,3vw,32px);margin-top:0}
+  .ivf .btn{display:inline-block;background:linear-gradient(135deg,#3b82f6,#1d4ed8);box-shadow:0 6px 14px rgba(29,78,216,.28);color:#fff;padding:13px 24px;border-radius:999px;font-weight:600;text-decoration:none}
+  .ivf .btn.sm{padding:8px 16px;font-size:14px}
+  .ivf .btn.ghost{background:transparent;border:1.5px solid #fff;color:#fff}
+  .ivf .hero{background:linear-gradient(135deg,var(--c-dark),var(--c-primary));color:#fff;padding:48px 0 56px}
+  .ivf .hero h1{color:#fff;font-size:clamp(32px,5vw,48px)}
+  .ivf .hero a{color:#fff}
+  .ivf .hgrid{display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:center}
+  .ivf .crumb{font-size:13px;opacity:.85;margin-bottom:14px}
+  .ivf .eye{text-transform:uppercase;letter-spacing:.12em;font-size:12.5px;font-weight:700;color:var(--c-accent);margin:0 0 6px}
+  .ivf .sub{opacity:.92}.ivf .mini{font-size:13.5px;opacity:.85}
+  .ivf .hside img{width:100%;height:auto;border-radius:18px;margin-bottom:14px}
+  .ivf .facts{list-style:none;margin:0;padding:18px 22px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:16px}
+  .ivf .facts li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.15);font-size:14.5px}
+  .ivf .facts li:last-child{border:0}.ivf .facts b{font-size:20px;margin-right:6px}
+  .ivf .layout{display:grid;grid-template-columns:210px 1fr;gap:44px;padding-top:36px;padding-bottom:20px}
+  .ivf .toc{position:sticky;top:76px;align-self:start;display:flex;flex-direction:column;gap:2px;font-size:14px}
+  .ivf .toc p{margin:0 0 6px;font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:.1em;color:var(--c-muted)}
+  .ivf .toc a:not(.btn){text-decoration:none;color:var(--c-text);padding:5px 0 5px 12px;border-left:2px solid var(--c-line)}
+  .ivf .toc a:not(.btn):hover{border-color:var(--c-accent);color:var(--c-primary)}
+  .ivf .toc .btn{margin-top:14px;text-align:center}
+  .ivf .content section{padding:0 0 44px;scroll-margin-top:84px}
+  .ivf .review{background:var(--c-tint);border-radius:12px;padding:14px 18px;font-size:13.5px;color:var(--c-muted);margin:0 0 32px}
+  .ivf .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:20px 0}
+  .ivf .content .cards{grid-template-columns:repeat(3,1fr)}
+  .ivf .c3{grid-template-columns:repeat(3,1fr)}
+  .ivf .card{background:#fff;border:1px solid var(--c-line);border-radius:16px;padding:20px}
+  .ivf .card h3{font-size:17px;margin-bottom:6px}.ivf .card p{margin:0;font-size:14.5px;color:var(--c-muted)}
+  .ivf .card.link{text-decoration:none;color:inherit;transition:.15s}
+  .ivf .card.link:hover{border-color:var(--c-accent);transform:translateY(-2px)}
+  .ivf .hrs{margin-top:6px!important;font-size:13px!important}
+  .ivf .ic,.ivf .ph{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--c-tint);margin-bottom:10px}
+  .ivf svg{width:26px;height:26px;fill:none;stroke:var(--c-primary);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .ivf .tw{overflow-x:auto;border:1px solid var(--c-line);border-radius:14px;margin:18px 0}
+  .ivf table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px}
+  .ivf th{background:var(--c-primary);color:#fff;text-align:left;padding:12px 14px}
+  .ivf th a{color:#fff}
+  .ivf td,.ivf tbody th{padding:11px 14px;border-top:1px solid var(--c-line)}
+  .ivf tbody th{background:var(--c-tint);color:var(--c-dark)}
+  .ivf tbody tr:nth-child(even) td{background:#f5f9ff}
+  .ivf .steps{list-style:none;margin:24px 0 0;padding:0;position:relative}
+  .ivf .steps:before{content:"";position:absolute;left:109px;top:20px;bottom:20px;width:2px;background:var(--c-line)}
+  .ivf .step{display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:center;margin-bottom:22px;position:relative}
+  .ivf .step .media{height:150px;border-radius:16px;overflow:hidden;background:var(--c-tint);display:grid;place-items:center}
+  .ivf .step .media img{width:100%;height:100%;object-fit:cover}
+  .ivf .step .ph{width:76px;height:76px;margin:0;background:#fff}.ivf .step .ph svg{width:38px;height:38px}
+  .ivf .num{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-primary)}
+  .ivf .step h3{margin:2px 0 6px}.ivf .step p{margin:0;color:var(--c-muted)}
+  .ivf .cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
+  .ivf .tick{list-style:none;padding:0;margin:12px 0}
+  .ivf .tick li{position:relative;padding:5px 0 5px 28px}
+  .ivf .tick li:before{content:"✓";position:absolute;left:0;color:var(--c-primary);font-weight:700}
+  .ivf .callout{background:var(--c-tint);border-left:4px solid var(--c-accent);border-radius:12px;padding:18px 20px;font-size:15px}
+  .ivf .note{font-size:14px;color:var(--c-muted)}
+  .ivf details{border:1px solid var(--c-line);border-radius:12px;padding:14px 18px;margin-top:10px}
+  .ivf summary{cursor:pointer;font-weight:600;color:var(--c-dark)}
+  .ivf details p{margin:10px 0 0;color:var(--c-muted)}
+  .ivf .band{background:var(--c-tint);padding:48px 0}
+  .ivf .cta{background:var(--c-dark);color:#fff;padding:56px 0;text-align:center}
+  .ivf .cta h2{color:#fff}.ivf .cta .card{text-align:left;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
+  .ivf .cta .card h3{color:#fff}.ivf .cta .card p{color:#cdd9f5}.ivf .cta .locs{margin-top:34px}
+  .ivf .ovwrap{--peach:#dbeafe;--coral:#2563eb;background:#f5f9ff;border:1px solid #dbe6f6;border-radius:22px;padding:28px 18px 20px;margin:24px 0 34px;text-align:center}
+  .ivf .ovtitle{margin:0 0 22px;font-size:clamp(20px,3vw,28px);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--c-primary)}
+  .ivf .ovrow{display:flex;align-items:flex-start;justify-content:center;gap:4px}
+  .ivf .ov{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:12px;text-decoration:none;color:var(--c-dark);position:relative}
+  .ivf .ovl{font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.3;min-height:30px;display:flex;align-items:center}
+  .ivf .disc{width:118px;height:118px;max-width:100%;border-radius:50%;background:var(--peach);border:5px solid #fff;box-shadow:0 0 0 2px var(--peach),0 8px 18px rgba(37,99,235,.18);display:grid;place-items:center;overflow:hidden;transition:transform .2s,box-shadow .2s}
+  .ivf .disc svg{width:100%;height:100%;stroke:none;fill:none;stroke-width:1}
+  .ivf .ov:hover .disc,.ivf .ov:focus-visible .disc{transform:translateY(-4px) scale(1.04);box-shadow:0 0 0 2px var(--coral),0 12px 22px rgba(37,99,235,.3)}
+  .ivf .ovn{width:26px;height:26px;border-radius:50%;background:var(--coral);color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center;margin-top:-22px;margin-left:80px;border:2px solid #fff}
+  .ivf .chev{flex:0 0 auto;align-self:flex-start;margin-top:72px}
+  .ivf .chev svg{width:34px;height:22px;stroke:var(--coral);stroke-width:3.2;fill:none}
+  .ivf .legal{font-size:13px;color:var(--c-muted);padding-bottom:28px}
+  .ivf .ovhint{margin:16px 0 0;font-size:13px;color:var(--c-muted)}
+  @media(max-width:900px){
+    .ivf .hgrid,.ivf .layout,.ivf .cols,.ivf .cards,.ivf .content .cards,.ivf .c3{grid-template-columns:1fr}
+    .ivf .toc{position:static;flex-direction:row;flex-wrap:wrap;gap:6px}.ivf .toc p{width:100%}
+    .ivf .toc a:not(.btn){border:1px solid var(--c-line);border-radius:999px;padding:4px 12px}
+    .ivf .step{grid-template-columns:1fr;gap:12px}.ivf .steps:before{display:none}
+    .ivf .step .media{height:130px}
+    .ivf .ovrow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px 8px}
+    .ivf .chev{display:none}.ivf .disc{width:96px;height:96px}.ivf .ovn{margin-left:66px}
+  }
+  @media(max-width:520px){
+    .ivf .ovrow{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
