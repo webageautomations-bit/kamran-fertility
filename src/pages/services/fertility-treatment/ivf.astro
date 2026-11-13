@@ -1,6 +1,8 @@
 ---
 // src/pages/services/fertility-treatment/ivf.astro
-// Self-contained designed page: no imports needed. Colors are the --c-* variables in <style>.
+// Uses the site's own menu/footer via Layout. Fix the import path + props to match TreatmentPage.astro.
+// Colors are the --c-* variables in <style>.
+import Layout from "../../../layouts/Layout.astro";
 // Photos: set `image` (and `alt`) on any step, or `heroImage`, to a file in /public/assets/. Icons show until then.
 const base = "https://www.kamranfertility.com";
 const T = "/services/fertility-treatment";
@@ -40,12 +42,12 @@ const steps = [
 ];
 
 const overview = [
-  { l: "Tests & Diagnosis", h: "#step-1", art: '<rect x="37" y="14" width="26" height="7" rx="3" fill="#6fbf5f" stroke="#3b8f3b" stroke-width="2"/><rect x="39" y="19" width="22" height="64" rx="11" fill="#d6f3cf" stroke="#3b8f3b" stroke-width="3"/><rect x="42" y="44" width="16" height="36" rx="8" fill="#8fdc7a"/><circle cx="47" cy="56" r="2.5" fill="#e8fadf"/><circle cx="54" cy="66" r="2" fill="#e8fadf"/><circle cx="48" cy="74" r="2.5" fill="#e8fadf"/>' },
-  { l: "Ovarian Stimulation", h: "#step-2", art: '<g transform="rotate(-40 52 46)"><rect x="30" y="39" width="38" height="14" rx="3" fill="#fff" stroke="#222" stroke-width="2.5"/><rect x="44" y="39" width="14" height="14" fill="#e2706f" stroke="#222" stroke-width="2"/><rect x="68" y="43" width="14" height="6" fill="#fff" stroke="#222" stroke-width="2.5"/><rect x="82" y="37" width="4" height="18" rx="2" fill="#222"/><path d="M30 46H16" stroke="#222" stroke-width="2"/></g><rect x="22" y="76" width="26" height="11" rx="5.5" fill="#fff" stroke="#222" stroke-width="2.5"/><path d="M35 76v11" stroke="#222" stroke-width="2"/><rect x="54" y="80" width="22" height="10" rx="5" fill="#222"/>' },
-  { l: "Egg Retrieval", h: "#step-4", art: '<circle cx="50" cy="50" r="32" fill="#fff" opacity=".75"/><circle cx="50" cy="50" r="18" fill="#e78fa3" stroke="#d1708a" stroke-width="2"/><circle cx="50" cy="50" r="7" fill="#2a2a2a"/>' },
-  { l: "Sperm Collection", h: "#step-4", art: '<circle cx="50" cy="50" r="40" fill="#7fc6cf"/><g fill="#fff"><ellipse cx="30" cy="34" rx="6" ry="4"/><ellipse cx="62" cy="48" rx="6" ry="4"/><ellipse cx="34" cy="66" rx="6" ry="4"/></g><g stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"><path d="M36 34q8-6 14 0t14 0"/><path d="M68 48q8-6 12 0"/><path d="M40 66q8-6 14 0t12 0"/></g>' },
-  { l: "Fertilization", h: "#step-5", art: '<circle cx="50" cy="50" r="38" fill="#fff" stroke="#6bb6d6" stroke-width="5"/><circle cx="44" cy="52" r="11" fill="#fff" stroke="#333" stroke-width="2"/><circle cx="44" cy="52" r="3.5" fill="#333"/><path d="M62 38l11-6M64 48l13-2M62 58l11 5" stroke="#333" stroke-width="1.8" stroke-linecap="round"/>' },
-  { l: "Embryo Transfer", h: "#step-7", art: '<circle cx="50" cy="50" r="38" fill="#fff" opacity=".7"/><g fill="#f0a3b3" stroke="#d8708a" stroke-width="2"><circle cx="36" cy="38" r="11"/><circle cx="60" cy="34" r="11"/><circle cx="68" cy="56" r="11"/><circle cx="46" cy="66" r="11"/><circle cx="31" cy="58" r="11"/><circle cx="50" cy="50" r="11"/></g><g fill="#333"><circle cx="36" cy="38" r="4"/><circle cx="60" cy="34" r="4"/><circle cx="68" cy="56" r="4"/><circle cx="46" cy="66" r="4"/><circle cx="31" cy="58" r="4"/><circle cx="50" cy="50" r="4"/></g>' },
+  { l: "Tests & Diagnosis", h: "#step-1", art: '<rect x="37" y="14" width="26" height="7" rx="3" fill="#3b82f6" stroke="#0b1f4b" stroke-width="2"/><rect x="39" y="19" width="22" height="64" rx="11" fill="#e0eeff" stroke="#0b1f4b" stroke-width="3"/><rect x="42" y="44" width="16" height="36" rx="8" fill="#4cc9f0"/><circle cx="47" cy="56" r="2.5" fill="#ffffff"/><circle cx="54" cy="66" r="2" fill="#ffffff"/><circle cx="48" cy="74" r="2.5" fill="#ffffff"/>' },
+  { l: "Ovarian Stimulation", h: "#step-2", art: '<g transform="rotate(-40 52 46)"><rect x="30" y="39" width="38" height="14" rx="3" fill="#fff" stroke="#0b1f4b" stroke-width="2.5"/><rect x="44" y="39" width="14" height="14" fill="#3b82f6" stroke="#0b1f4b" stroke-width="2"/><rect x="68" y="43" width="14" height="6" fill="#fff" stroke="#0b1f4b" stroke-width="2.5"/><rect x="82" y="37" width="4" height="18" rx="2" fill="#0b1f4b"/><path d="M30 46H16" stroke="#0b1f4b" stroke-width="2"/></g><rect x="22" y="76" width="26" height="11" rx="5.5" fill="#fff" stroke="#0b1f4b" stroke-width="2.5"/><path d="M35 76v11" stroke="#0b1f4b" stroke-width="2"/><rect x="54" y="80" width="22" height="10" rx="5" fill="#0b1f4b"/>' },
+  { l: "Egg Retrieval", h: "#step-4", art: '<circle cx="50" cy="50" r="32" fill="#fff" opacity=".75"/><circle cx="50" cy="50" r="18" fill="#60a5fa" stroke="#2563eb" stroke-width="2"/><circle cx="50" cy="50" r="7" fill="#0b1f4b"/>' },
+  { l: "Sperm Collection", h: "#step-4", art: '<circle cx="50" cy="50" r="40" fill="#3b82f6"/><g fill="#fff"><ellipse cx="30" cy="34" rx="6" ry="4"/><ellipse cx="62" cy="48" rx="6" ry="4"/><ellipse cx="34" cy="66" rx="6" ry="4"/></g><g stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"><path d="M36 34q8-6 14 0t14 0"/><path d="M68 48q8-6 12 0"/><path d="M40 66q8-6 14 0t12 0"/></g>' },
+  { l: "Fertilization", h: "#step-5", art: '<circle cx="50" cy="50" r="38" fill="#fff" stroke="#2563eb" stroke-width="5"/><circle cx="44" cy="52" r="11" fill="#fff" stroke="#0b1f4b" stroke-width="2"/><circle cx="44" cy="52" r="3.5" fill="#0b1f4b"/><path d="M62 38l11-6M64 48l13-2M62 58l11 5" stroke="#0b1f4b" stroke-width="1.8" stroke-linecap="round"/>' },
+  { l: "Embryo Transfer", h: "#step-7", art: '<circle cx="50" cy="50" r="38" fill="#fff" opacity=".7"/><g fill="#93c5fd" stroke="#2563eb" stroke-width="2"><circle cx="36" cy="38" r="11"/><circle cx="60" cy="34" r="11"/><circle cx="68" cy="56" r="11"/><circle cx="46" cy="66" r="11"/><circle cx="31" cy="58" r="11"/><circle cx="50" cy="50" r="11"/></g><g fill="#0b1f4b"><circle cx="36" cy="38" r="4"/><circle cx="60" cy="34" r="4"/><circle cx="68" cy="56" r="4"/><circle cx="46" cy="66" r="4"/><circle cx="31" cy="58" r="4"/><circle cx="50" cy="50" r="4"/></g>' },
 ];
 
 const who = [
@@ -123,28 +125,9 @@ const schema = {
   ],
 };
 ---
-<!doctype html>
-<html lang="en-PK">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <link rel="canonical" href={url} />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:url" content={url} />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content={`${base}/assets/logo.webp`} />
-  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-</head>
-<body class="ivf">
-<header class="top"><div class="w bar">
-  <a class="brand" href="/">Kamran Fertility Clinic</a>
-  <nav aria-label="Main"><a href="/services/assessment">Assessment</a><a href={T}>Treatment</a><a href="/services/support">Second Opinions</a><a href="/locations">Locations</a><a href="/resources">Resources</a><a href="/dr-kamran-saleem">About</a></nav>
-  <a class="btn sm" href={wa}>Book consultation</a>
-</div></header>
+<Layout title={title} description={description}>
+<div class="ivf">
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
 <main>
 <section class="hero"><div class="w hgrid">
@@ -327,27 +310,19 @@ const schema = {
 </div></section>
 </main>
 
-<footer><div class="w">
-  <p>Doctor-led, evidence-based fertility care in Lahore. <a href="tel:+923148432789">+92 314 8432789</a> · Mon–Sat 11:00am–9:00pm on WhatsApp.</p>
-  <p><a href="/services/assessment">Assessment &amp; Diagnosis</a> · <a href={T}>Fertility Treatment</a> · <a href="/services/support">Support &amp; Second Opinions</a> · <a href="/locations">Locations</a> · <a href="/resources">Resources</a></p>
-  <p class="mini">Medical disclaimer: this page is for general education and is not a substitute for professional medical advice. Outcomes vary and no result is guaranteed. © 2026 Dr. Kamran Saleem.</p>
-</div></footer>
-</body>
-</html>
+<p class="legal w">Medical disclaimer: this page is for general education and is not a substitute for professional medical advice. Outcomes vary and no result is guaranteed. © 2026 Dr. Kamran Saleem.</p>
+</div>
+</Layout>
 
 <style is:global>
-  .ivf{--c-primary:#0f5c63;--c-dark:#0b3b40;--c-accent:#c8964a;--c-tint:#eaf3f2;--c-bg:#fff;--c-text:#23383a;--c-muted:#5d7073;--c-line:#dfe8e6;
-    margin:0;background:var(--c-bg);color:var(--c-text);font:16px/1.7 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .ivf{--c-primary:#2563eb;--c-dark:#0b1f4b;--c-accent:#4cc9f0;--c-tint:#eef5ff;--c-bg:#fff;--c-text:#1e2a4a;--c-muted:#5b6b8c;--c-line:#dbe6f6;
+    margin:0;background:var(--c-bg);color:var(--c-text);font:16px/1.7 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
   .ivf *{box-sizing:border-box}
   .ivf a{color:var(--c-primary)}
   .ivf .w{max-width:1120px;margin:0 auto;padding:0 20px}
   .ivf h1,.ivf h2,.ivf h3{line-height:1.2;color:var(--c-dark);margin:0 0 .5em}
   .ivf h2{font-size:clamp(24px,3vw,32px);margin-top:0}
-  .ivf .top{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--c-line)}
-  .ivf .bar{display:flex;align-items:center;gap:20px;justify-content:space-between;padding-top:12px;padding-bottom:12px}
-  .ivf .brand{font-weight:700;text-decoration:none;color:var(--c-primary)}
-  .ivf .top nav a{margin-right:16px;font-size:14px;text-decoration:none;color:var(--c-text)}
-  .ivf .btn{display:inline-block;background:var(--c-accent);color:#fff;padding:13px 24px;border-radius:999px;font-weight:600;text-decoration:none}
+  .ivf .btn{display:inline-block;background:linear-gradient(135deg,#3b82f6,#1d4ed8);box-shadow:0 6px 14px rgba(29,78,216,.28);color:#fff;padding:13px 24px;border-radius:999px;font-weight:600;text-decoration:none}
   .ivf .btn.sm{padding:8px 16px;font-size:14px}
   .ivf .btn.ghost{background:transparent;border:1.5px solid #fff;color:#fff}
   .ivf .hero{background:linear-gradient(135deg,var(--c-dark),var(--c-primary));color:#fff;padding:48px 0 56px}
@@ -385,19 +360,19 @@ const schema = {
   .ivf th a{color:#fff}
   .ivf td,.ivf tbody th{padding:11px 14px;border-top:1px solid var(--c-line)}
   .ivf tbody th{background:var(--c-tint);color:var(--c-dark)}
-  .ivf tbody tr:nth-child(even) td{background:#f7fbfa}
+  .ivf tbody tr:nth-child(even) td{background:#f5f9ff}
   .ivf .steps{list-style:none;margin:24px 0 0;padding:0;position:relative}
   .ivf .steps:before{content:"";position:absolute;left:109px;top:20px;bottom:20px;width:2px;background:var(--c-line)}
   .ivf .step{display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:center;margin-bottom:22px;position:relative}
   .ivf .step .media{height:150px;border-radius:16px;overflow:hidden;background:var(--c-tint);display:grid;place-items:center}
   .ivf .step .media img{width:100%;height:100%;object-fit:cover}
   .ivf .step .ph{width:76px;height:76px;margin:0;background:#fff}.ivf .step .ph svg{width:38px;height:38px}
-  .ivf .num{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-accent)}
+  .ivf .num{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-primary)}
   .ivf .step h3{margin:2px 0 6px}.ivf .step p{margin:0;color:var(--c-muted)}
   .ivf .cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
   .ivf .tick{list-style:none;padding:0;margin:12px 0}
   .ivf .tick li{position:relative;padding:5px 0 5px 28px}
-  .ivf .tick li:before{content:"✓";position:absolute;left:0;color:var(--c-accent);font-weight:700}
+  .ivf .tick li:before{content:"✓";position:absolute;left:0;color:var(--c-primary);font-weight:700}
   .ivf .callout{background:var(--c-tint);border-left:4px solid var(--c-accent);border-radius:12px;padding:18px 20px;font-size:15px}
   .ivf .note{font-size:14px;color:var(--c-muted)}
   .ivf details{border:1px solid var(--c-line);border-radius:12px;padding:14px 18px;margin-top:10px}
@@ -406,26 +381,26 @@ const schema = {
   .ivf .band{background:var(--c-tint);padding:48px 0}
   .ivf .cta{background:var(--c-dark);color:#fff;padding:56px 0;text-align:center}
   .ivf .cta h2{color:#fff}.ivf .cta .card{text-align:left;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
-  .ivf .cta .card h3{color:#fff}.ivf .cta .card p{color:#cfe0e0}.ivf .cta .locs{margin-top:34px}
-  .ivf footer{padding:28px 0;font-size:14px;color:var(--c-muted)}
-  .ivf .ovwrap{--peach:#f6d6c4;--coral:#e0714f;background:#fffdf3;border:1px solid #f1e6cf;border-radius:22px;padding:28px 18px 20px;margin:24px 0 34px;text-align:center}
+  .ivf .cta .card h3{color:#fff}.ivf .cta .card p{color:#cdd9f5}.ivf .cta .locs{margin-top:34px}
+  .ivf .ovwrap{--peach:#dbeafe;--coral:#2563eb;background:#f5f9ff;border:1px solid #dbe6f6;border-radius:22px;padding:28px 18px 20px;margin:24px 0 34px;text-align:center}
   .ivf .ovtitle{margin:0 0 22px;font-size:clamp(20px,3vw,28px);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--c-primary)}
   .ivf .ovrow{display:flex;align-items:flex-start;justify-content:center;gap:4px}
   .ivf .ov{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:12px;text-decoration:none;color:var(--c-dark);position:relative}
   .ivf .ovl{font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.3;min-height:30px;display:flex;align-items:center}
-  .ivf .disc{width:118px;height:118px;max-width:100%;border-radius:50%;background:var(--peach);border:5px solid #fff;box-shadow:0 0 0 2px var(--peach),0 8px 18px rgba(224,113,79,.18);display:grid;place-items:center;overflow:hidden;transition:transform .2s,box-shadow .2s}
+  .ivf .disc{width:118px;height:118px;max-width:100%;border-radius:50%;background:var(--peach);border:5px solid #fff;box-shadow:0 0 0 2px var(--peach),0 8px 18px rgba(37,99,235,.18);display:grid;place-items:center;overflow:hidden;transition:transform .2s,box-shadow .2s}
   .ivf .disc svg{width:100%;height:100%;stroke:none;fill:none;stroke-width:1}
-  .ivf .ov:hover .disc,.ivf .ov:focus-visible .disc{transform:translateY(-4px) scale(1.04);box-shadow:0 0 0 2px var(--coral),0 12px 22px rgba(224,113,79,.3)}
+  .ivf .ov:hover .disc,.ivf .ov:focus-visible .disc{transform:translateY(-4px) scale(1.04);box-shadow:0 0 0 2px var(--coral),0 12px 22px rgba(37,99,235,.3)}
   .ivf .ovn{width:26px;height:26px;border-radius:50%;background:var(--coral);color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center;margin-top:-22px;margin-left:80px;border:2px solid #fff}
   .ivf .chev{flex:0 0 auto;align-self:flex-start;margin-top:72px}
   .ivf .chev svg{width:34px;height:22px;stroke:var(--coral);stroke-width:3.2;fill:none}
+  .ivf .legal{font-size:13px;color:var(--c-muted);padding-bottom:28px}
   .ivf .ovhint{margin:16px 0 0;font-size:13px;color:var(--c-muted)}
   @media(max-width:900px){
     .ivf .hgrid,.ivf .layout,.ivf .cols,.ivf .cards,.ivf .content .cards,.ivf .c3{grid-template-columns:1fr}
     .ivf .toc{position:static;flex-direction:row;flex-wrap:wrap;gap:6px}.ivf .toc p{width:100%}
     .ivf .toc a:not(.btn){border:1px solid var(--c-line);border-radius:999px;padding:4px 12px}
     .ivf .step{grid-template-columns:1fr;gap:12px}.ivf .steps:before{display:none}
-    .ivf .step .media{height:130px}.ivf .top nav{display:none}
+    .ivf .step .media{height:130px}
     .ivf .ovrow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px 8px}
     .ivf .chev{display:none}.ivf .disc{width:96px;height:96px}.ivf .ovn{margin-left:66px}
   }
