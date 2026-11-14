@@ -1,14 +1,14 @@
 ---
-// src/pages/services/assessment/male-fertility-test.astro
+// src/pages/services/assessment/male-fertility-assessment.astro
 // Uses the site's own menu/footer via Layout. Match the import path + props to TreatmentPage.astro.
 import Layout from "../../../layouts/Layout.astro";
 const base = "https://www.kamranfertility.com";
 const S = "/services/assessment";
 const T = "/services/fertility-treatment";
-const url = `${base}${S}/male-fertility-test`;
-const title = "Male Fertility Test in Lahore | Semen Analysis | Dr. Kamran";
-const description = "Confidential male fertility test in Lahore: WHO semen analysis, varicocele exam, hormone & DNA tests with Dr. Kamran Saleem. DHA, Gulberg & Shalamar.";
-const wa = "https://wa.me/923148432789?text=" + encodeURIComponent("Hello, I would like to book a confidential male fertility test with Dr. Kamran Saleem.");
+const url = `${base}${S}/male-fertility-assessment`;
+const title = "Male Fertility Assessment Lahore | Semen Test | Dr. Kamran";
+const description = "Confidential male fertility assessment in Lahore: WHO semen analysis, varicocele exam, hormone & DNA tests with Dr. Kamran Saleem. DHA, Gulberg & Shalamar.";
+const wa = "https://wa.me/923148432789?text=" + encodeURIComponent("Hello, I would like to book a confidential male fertility assessment with Dr. Kamran Saleem.");
 
 const icons = {
   flask: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3"/>',
@@ -121,13 +121,13 @@ const schema = {
   "@graph": [
     { "@type": "MedicalWebPage", "@id": url, url, name: title, description, inLanguage: "en-PK",
       reviewedBy: { "@type": "Physician", name: "Dr. Kamran Saleem" },
-      about: { "@type": "MedicalTest", name: "Male Fertility Test", usedToDiagnose: { "@type": "MedicalCondition", name: "Male infertility" } } },
+      about: { "@type": "MedicalTest", name: "Male Fertility Assessment", usedToDiagnose: { "@type": "MedicalCondition", name: "Male infertility" } } },
     { "@type": "MedicalClinic", "@id": base + "/#clinic", name: "Kamran Fertility Clinic", url: base, telephone: "+923148432789",
       location: ["Rasheed Hospital (DHA Defence)", "TAMC (M.M. Alam Road, Gulberg)", "Shahnaz Hospital (Shalamar Link Road)"].map(n => ({ "@type": "Place", name: n, address: { "@type": "PostalAddress", addressLocality: "Lahore", addressRegion: "Punjab", addressCountry: "PK" } })) },
     { "@type": "BreadcrumbList", itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: base + "/" },
       { "@type": "ListItem", position: 2, name: "Fertility Assessment", item: base + S },
-      { "@type": "ListItem", position: 3, name: "Male Fertility Test", item: url } ] },
+      { "@type": "ListItem", position: 3, name: "Male Fertility Assessment", item: url } ] },
     { "@type": "FAQPage", mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) },
   ],
 };
@@ -138,9 +138,9 @@ const schema = {
 <main>
 <section class="hero"><div class="w hgrid">
   <div>
-    <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href={S}>Fertility Assessment</a> / Male Fertility Test</nav>
+    <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href={S}>Fertility Assessment</a> / Male Fertility Assessment</nav>
     <p class="eye">Confidential · Evidence-based · Lahore</p>
-    <h1>Male Fertility Test in Lahore</h1>
+    <h1>Male Fertility Assessment in Lahore</h1>
     <p class="sub">A supportive, non-judgmental and strictly confidential evaluation of your reproductive history, physical health, endocrine balance and sperm parameters, led by Dr. Kamran Saleem. Male factors contribute to roughly 40% to 50% of couples' difficulty conceiving, and most can be understood with the right tests.</p>
     <p><a class="btn" href={wa}>Book a confidential assessment</a> <a class="btn ghost" href="#matrix">See what is tested</a></p>
     <p class="mini">Confidential WhatsApp +92 314 8432789 · Also see the partner's <a href="/services/assessment/female-fertility-assessment">Female Fertility Assessment</a></p>
