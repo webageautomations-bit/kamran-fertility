@@ -1,16 +1,22 @@
 ---
 import { treatments, hubHref } from "../data/treatments.js";
 
+// Renamed treatment slugs: old slug -> new slug. Keeps the menu correct even if
+// src/data/treatments.js still has the old value. Remove once treatments.js is updated.
+const slugRedirects: Record<string, string> = {
+  "ovulation-induction": "pcos",
+};
+
 // Treatment pages shown under "Fertility Treatment" (built from src/data/treatments.js).
 const treatmentLinks = treatments.map((t) => ({
   label: t.label,
-  href: `${hubHref}/${t.slug}`,
+  href: `${hubHref}/${slugRedirects[t.slug] ?? t.slug}`,
 }));
 
 // Assessment pages shown under "Assessment & Diagnosis".
 const assessmentLinks = [
   { label: "Female Fertility Assessment", href: "/services/assessment/female-fertility-assessment" },
-  { label: "Male Fertility Assessment", href: "/services/assessment/male-fertility-test" },
+  { label: "Male Fertility Test", href: "/services/assessment/male-fertility-test" },
   { label: "Hormonal Analysis", href: "/services/assessment/hormonal-analysis" },
   { label: "Ovulation Assessment", href: "/services/assessment/ovulation-assessment" },
   { label: "Semen Analysis", href: "/services/assessment/semen-analysis" },
