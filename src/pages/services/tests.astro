@@ -1,0 +1,635 @@
+---
+/**
+ * src/pages/services/tests.astro  →  /services/tests
+ *
+ * ASSUMPTIONS TO CHECK (I could not see your repo files):
+ *  1. Layout import path + props (title, description) – match what assessment.astro uses.
+ *  2. Every URL in `L` below – fix slugs in ONE place if they differ.
+ *  3. WHATSAPP number.
+ *
+ * Blocks marked "ADDED" are gap-fills. Everything else is your original copy, unchanged.
+ */
+import Layout from '../../layouts/Layout.astro';
+
+const WHATSAPP = 'https://wa.me/92XXXXXXXXXX'; // TODO: real number
+
+const L = {
+  assessHub: '/services/assessment',
+  femaleAssess: '/services/assessment/female-fertility-assessment',
+  maleAssess: '/services/assessment/male-fertility-assessment',
+  hormonal: '/services/tests/hormonal-analysis',
+  ovulation: '/services/tests/ovulation-tracking',
+  semen: '/services/tests/semen-analysis',
+  treatHub: '/services/fertility-treatment',
+  ivf: '/services/fertility-treatment/ivf-treatment',
+  icsi: '/services/fertility-treatment/icsi-treatment',
+  iui: '/services/fertility-treatment/iui-treatment',
+  fet: '/services/fertility-treatment/frozen-embryo-transfer',
+  pgt: '/services/fertility-treatment/embryo-genetic-testing',
+  pcos: '/services/fertility-treatment/ovulation-induction-pcos',
+  maleTx: '/services/fertility-treatment/male-infertility-treatment',
+  freezing: '/services/fertility-treatment/fertility-preservation',
+  support: '/services/support',
+  locations: '/locations',
+  contact: '/contact',
+};
+
+const title = 'Fertility Tests in Lahore: Semen Analysis, AMH & HSG | Kamran Fertility';
+const description =
+  'Fertility diagnostic tests in Lahore with Dr. Kamran Saleem: WHO 6th Edition semen analysis, sperm DFI, AMH, hormone panels and HSG/HyCoSy tubal tests. Clear fees, no unnecessary tests.';
+
+const jump = [
+  ['overview', 'Test overview'],
+  ['why-test', 'Why test'],
+  ['male-tests', 'Male tests'],
+  ['female-tests', 'Female tests'],
+  ['preparation', 'Preparation'],
+  ['results-to-treatment', 'Results to treatment'],
+  ['fees', 'Fees'],
+  ['faq', 'FAQ'],
+];
+
+const overview = [
+  ['Semen analysis (WHO 6th Ed.)', 'Male', '2–5 days abstinence', 'Within 24 hours', '#semen-analysis'],
+  ['Sperm DNA fragmentation (DFI)', 'Male', '2–5 days abstinence', '2–3 working days', '#sperm-dfi'],
+  ['Semen culture & sensitivity', 'Male', 'When infection signs are present', '—', '#semen-culture'],
+  ['Male hormonal panel', 'Male', 'Severe oligo/azoospermia', 'Within 24 hours', '#male-hormones'],
+  ['AMH (ovarian reserve)', 'Female', 'Any day of the cycle', '2–3 working days', '#ovarian-reserve'],
+  ['FSH, LH, Estradiol, TSH, Prolactin', 'Female', 'FSH/LH/E2 on cycle day 2 or 3', 'Within 24 hours', '#ovarian-reserve'],
+  ['Ovulation tracking', 'Female', 'Across the cycle', '—', '#ovulation-tracking'],
+  ['HSG or HyCoSy (tubal patency)', 'Female', 'Cycle days 6–10', 'Same visit', '#tubal-patency'],
+];
+
+const who = [
+  ['Semen Volume', '≥ 1.4 mL', 'Low volume (< 1.4 mL) indicates ejaculatory duct obstruction, retrograde ejaculation, or congenital absence of vas deferens (CBAVD).'],
+  ['Sperm Concentration', '≥ 16 million/mL', 'Concentrations below 16 M/mL indicate Oligozoospermia; absence of sperm indicates Azoospermia.'],
+  ['Total Sperm Number', '≥ 39 million/ejaculate', 'Reflects overall testicular sperm production capacity.'],
+  ['Total Motility (PR + NP)', '≥ 42%', 'Percentage of moving sperm; values below 42% indicate Asthenozoospermia.'],
+  ['Progressive Motility (PR)', '≥ 30%', 'Sperm moving actively in a forward direction; essential for unassisted tubal migration.'],
+  ['Normal Kruger Morphology', '≥ 4.0% strict normal forms', 'Structural integrity of sperm head, midpiece, and tail; values < 4% indicate Teratozoospermia.'],
+  ['Vitality (Live Sperm)', '≥ 54% membrane intact', 'Differentiates live immotile sperm from dead sperm in severe asthenozoospermia cases.'],
+  ['Leukocyte Count (WBCs)', '< 1.0 million/mL', 'Elevated white blood cells (> 1.0 M/mL) indicate Leukocytospermia (active reproductive tract infection or inflammation).'],
+];
+
+const matrix = [
+  ['Normal Diagnostic Profile', 'Normal AMH, patent tubes (HSG), regular ovulatory cycles.', 'Normal WHO parameters (TMSC > 15M, Motility > 42%, DFI < 15%).', 'Expectant Management or 3–6 cycles of Ovulation Induction + Timed Intercourse.', L.pcos],
+  ['Mild Female Anovulation / Mild Male Factor', 'PCOS / Anovulation, normal tubal patency.', 'Mild Oligo/Asthenozoospermia (TMSC 10M–15M).', '3–4 cycles of Ovulation Induction + Intrauterine Insemination (IUI).', L.iui],
+  ['Bilateral Tubal Blockage', 'Occluded fallopian tubes on HSG/HyCoSy, normal/diminished reserve.', 'Normal or mild male factor.', 'In Vitro Fertilization (IVF) (bypasses fallopian tubes entirely).', L.ivf],
+  ['Severe Male Factor Infertility', 'Normal or variable ovarian reserve.', 'Severe Oligo/Astheno/Teratozoospermia (TMSC < 5M, DFI > 30%).', 'Intracytoplasmic Sperm Injection (ICSI) or PICSI/IMSI.', L.icsi],
+  ['Azoospermia (Zero Sperm in Ejaculate)', 'Normal ovulatory function and reserve.', 'Complete absence of ejaculated sperm.', 'Hormonal evaluation + Surgical Sperm Retrieval (Micro-TESE / TESA) combined with ICSI.', L.maleTx],
+];
+
+const faq = [
+  ['How soon can we expect semen analysis and blood test results?', 'At Kamran Fertility Clinic, routine WHO 6th Edition semen analysis and basal hormonal test results (FSH, LH, Prolactin, TSH) are typically available within 24 hours. Advanced testing such as Sperm DNA Fragmentation Index (DFI) and AMH results are processed within 2 to 3 working days.'],
+  ['Is a Hysterosalpingogram (HSG) tubal X-ray painful?', 'Most women experience mild to moderate lower abdominal cramping during contrast injection, similar to menstrual cramps, lasting for 5 to 10 minutes. Taking a mild prescribed analgesic 30 to 45 minutes prior to the procedure significantly reduces discomfort. Our clinic also offers HyCoSy ultrasound screening as a comfortable alternative.'],
+  ['Why is AMH considered a superior marker for ovarian reserve compared to FSH?', 'FSH levels fluctuate significantly from month to month and must be tested strictly on Cycle Day 2 or 3. In contrast, Anti-Müllerian Hormone (AMH) is continuously produced by small antral follicles, maintaining stable serum concentrations throughout the menstrual cycle. AMH provides a highly reliable, consistent reflection of total remaining ovarian egg supply.'],
+  ['Can a single abnormal semen analysis confirm male infertility?', 'No. Sperm production (spermatogenesis) operates on a 74-day cycle and is sensitive to recent illnesses, fever, emotional stress, medications, or heat exposure. If an initial semen analysis shows abnormal parameters, Dr. Kamran Saleem recommends repeating the test after 2 to 4 weeks with strict 2–5 days abstinence to confirm clinical findings.'],
+  // ADDED
+  ['Do both partners need to be tested?', 'Yes. Male and female partners are evaluated together from the first consultation, because male factor contributes to roughly 40% to 50% of fertility challenges. Testing only one partner can leave the real cause undiscovered.'],
+  ['Do I need every test on this page?', 'No. Tests are chosen from your history and examination, and only those that change your treatment decision are ordered. Most couples need a small core set: semen analysis, AMH with basal hormones, and a tubal check.'],
+  ['Which test is done on which day of the cycle?', 'Semen analysis can be done any day after 2–5 days of abstinence. AMH can be drawn on any day. FSH, LH and Estradiol are drawn on cycle day 2 or 3. HSG or HyCoSy is done on days 6 to 10. Mid-luteal progesterone is drawn about 7 days before your expected period.'],
+  ['When should we see a specialist?', 'After 12 months of trying, or after 6 months if the woman is 35 or older. Do not wait if the woman is 40 or older, if cycles are very irregular or absent, or if there is a known history of PCOS, endometriosis, pelvic infection, pelvic surgery, repeated miscarriage, or a previous abnormal semen analysis.'],
+];
+
+const related = [
+  ['Female Fertility Assessment', L.femaleAssess, 'Full evaluation for the female partner: history, examination and plan.'],
+  ['Male Fertility Assessment', L.maleAssess, 'Full evaluation for the male partner, including tests and examination.'],
+  ['IVF Treatment', L.ivf, 'Our detailed guide on complete In Vitro Fertilization (IVF) treatment pathways.'],
+  ['ICSI Treatment', L.icsi, 'Our clinical overview on Intracytoplasmic Sperm Injection (ICSI) for male factor infertility.'],
+  ['IUI Treatment', L.iui, 'Our guide on Intrauterine Insemination (IUI) protocols and success rates.'],
+  ['Frozen Embryo Transfer (FET)', L.fet, 'Transfer of frozen embryos in a prepared cycle.'],
+  ['Embryo Genetic Testing (PGT)', L.pgt, 'Genetic screening of embryos when it is clinically indicated.'],
+  ['Ovulation Induction & PCOS', L.pcos, 'Treatment for anovulation and PCOS-related infertility.'],
+  ['Male Infertility Treatment', L.maleTx, 'Our specialized resource on Azoospermia management and Micro-TESE surgical sperm retrieval.'],
+  ['Egg & Sperm Freezing', L.freezing, 'Preserve fertility before treatment or for later family planning.'],
+  ['Support & Second Opinions', L.support, 'Bring your existing reports for an independent review.'],
+  ['All fertility treatments', L.treatHub, 'Our comprehensive guide on advanced fertility treatments and reproductive care in Lahore.'],
+];
+
+const base = new URL(Astro.url.pathname, Astro.site ?? 'https://www.kamranfertility.com').href;
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'MedicalWebPage',
+      '@id': base + '#page',
+      url: base,
+      name: 'Fertility Diagnostic Tests in Lahore: Semen Analysis, AMH & Tubal Screening',
+      description:
+        'Comprehensive fertility testing in Lahore led by Dr. Kamran Saleem. WHO 6th Edition semen analysis, Sperm DFI, AMH testing, HSG tubal patency X-rays, and hormonal evaluation.',
+      inLanguage: 'en',
+      about: { '@type': 'MedicalProcedure', name: 'Fertility diagnostic testing' },
+      reviewedBy: { '@type': 'Physician', name: 'Dr. Kamran Saleem' },
+      mainEntity: { '@id': base + '#faq' },
+      breadcrumb: { '@id': base + '#breadcrumb' },
+    },
+    {
+      '@type': 'MedicalClinic',
+      name: 'Kamran Fertility Clinic',
+      medicalSpecialty: 'Reproductive Endocrinology & Male Infertility',
+      areaServed: 'Lahore, Pakistan',
+      department: [
+        { '@type': 'MedicalClinic', name: 'Rasheed Hospital, DHA Defence Phase 5/6' },
+        { '@type': 'MedicalClinic', name: 'TAMC Clinic, M.M. Alam Road, Gulberg III' },
+        { '@type': 'MedicalClinic', name: 'Shahnaz Hospital, Shalamar Link Road' },
+      ],
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': base + '#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', base).href },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: new URL('/services', base).href },
+        { '@type': 'ListItem', position: 3, name: 'Fertility Tests', item: base },
+      ],
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': base + '#faq',
+      mainEntity: faq.map(([q, a]) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    },
+  ],
+};
+---
+
+<Layout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <main class="ft">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Home</a><span aria-hidden="true">/</span>
+          <a href="/services">Services</a><span aria-hidden="true">/</span>
+          <span aria-current="page">Fertility Tests</span>
+        </nav>
+
+        <p class="eyebrow"><span class="eyebrow-line"></span>Tests and diagnosis</p>
+        <h1>
+          Fertility Diagnostic Tests in Lahore
+          <span class="h1-sub">Comprehensive Clinical Guide, WHO Parameters &amp; Cost Transparency</span>
+        </h1>
+
+        <div class="byline">
+          <p><strong>Medically reviewed by:</strong> Dr. Kamran Saleem (MBBS 1988, UK Dip GUM &amp; Ven Univ. of Liverpool 1998; PMDC Registered; 25+ Years Experience)</p>
+          <p><strong>Clinical standards compliance:</strong> American Society for Reproductive Medicine (ASRM), European Society of Human Reproduction and Embryology (ESHRE), WHO 6th Edition Laboratory Manual, and PMDC/PMC Standards</p>
+          <p><strong>Practice locations:</strong> Rasheed Hospital (DHA Defence Phase 5/6) | TAMC Clinic (M.M. Alam Road, Gulberg III) | Shahnaz Hospital (Shalamar Link Road)</p>
+        </div>
+
+        <div class="answer" id="what-are-fertility-tests">
+          <h2>What are Fertility Diagnostic Tests?</h2>
+          <p>
+            Fertility diagnostic tests are a targeted battery of clinical laboratory investigations, hormonal assays, and specialized imaging procedures designed to evaluate both male and female reproductive health. A complete fertility assessment includes a WHO 6th Edition semen analysis and sperm DNA fragmentation index (DFI) for men, alongside Anti-Müllerian Hormone (AMH) testing, baseline gonadotropin panels (FSH, LH, Estradiol), transvaginal ultrasound antral follicle count (AFC), and tubal patency screening (HSG or HyCoSy) for women. At Kamran Fertility Clinic in Lahore, diagnostic evaluation is conducted with clinical restraint—ordering only medically necessary tests to identify the precise root cause of subfertility without imposing unneeded financial burden.
+          </p>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn btn-primary" href={L.contact}>Book a consultation</a>
+          <a class="btn btn-ghost" href={WHATSAPP} rel="noopener">Speak to us first on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- JUMP NAV -->
+    <nav class="jump" aria-label="On this page">
+      <div class="wrap jump-inner">
+        {jump.map(([id, label]) => <a href={`#${id}`}>{label}</a>)}
+      </div>
+    </nav>
+
+    <!-- ADDED: where tests sit in the journey -->
+    <section class="sec">
+      <div class="wrap">
+        <h2>Where tests fit in your fertility journey</h2>
+        <p class="lead">
+          An <a href={L.assessHub}>assessment</a> is the full evaluation of each partner. Tests are the individual investigations used within it. Your diagnosis is the conclusion Dr. Kamran explains once the results are in, and it decides which <a href={L.treatHub}>treatment</a> makes sense.
+        </p>
+        <ol class="journey">
+          <li><a href={L.assessHub}><strong>Assessment</strong><span>History, examination and plan for each partner</span></a></li>
+          <li class="here"><strong>Tests</strong><span>The investigations on this page</span></li>
+          <li><strong>Diagnosis</strong><span>Explained in your results consultation</span></li>
+          <li><a href={L.treatHub}><strong>Treatment</strong><span>IUI, IVF, ICSI and more, only if needed</span></a></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ADDED: overview table -->
+    <section class="sec sec-tint" id="overview">
+      <div class="wrap">
+        <h2>Fertility tests at a glance</h2>
+        <p class="lead">Every test on this page, who it is for, and when it needs to be done.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Test</th><th>For</th><th>Timing</th><th>Results</th></tr></thead>
+            <tbody>
+              {overview.map(([t, who, timing, res, href]) => (
+                <tr>
+                  <td><a href={href}>{t}</a></td><td>{who}</td><td>{timing}</td><td>{res}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="note">Individual guides: <a href={L.semen}>Semen analysis</a>, <a href={L.hormonal}>Hormonal analysis</a> and <a href={L.ovulation}>Ovulation tracking</a>.</p>
+      </div>
+    </section>
+
+    <!-- 1 -->
+    <section class="sec" id="why-test">
+      <div class="wrap">
+        <h2>1. The Clinical Importance of Purposeful Fertility Diagnostics</h2>
+        <p>Achieving conception requires a synchronized sequence of biological events: mature egg release, adequate sperm count and motility, patent fallopian tubes, and a receptive uterine lining. When a couple experiences difficulty conceiving after 12 months of regular, unprotected intercourse (or 6 months if the female partner is aged 35 or older), systematic diagnostic testing is essential.</p>
+        <p>At Kamran Fertility Clinic, Dr. Kamran Saleem approaches reproductive diagnostics with strict medical integrity. Rather than subjecting couples to exhaustive, repetitive, or non-evidence-based testing panels, our diagnostic strategy is guided by three core principles:</p>
+        <div class="grid3">
+          <div class="card"><h3>Targeted Investigation</h3><p>Diagnostic tests are selected based on medical history, physical evaluation, and clinical indications—ensuring every investigation yields actionable diagnostic value.</p></div>
+          <div class="card"><h3>Dual-Partner Concurrent Testing</h3><p>Male and female partners are evaluated simultaneously from the first consultation, recognizing that male factor subfertility contributes to approximately 40% to 50% of all reproductive challenges.</p></div>
+          <div class="card"><h3>Diagnostic Precision First</h3><p>Establishing an accurate diagnosis before initiating treatment prevents costly, unnecessary interventions and allows for personalized protocol selection (e.g., distinguishing candidates for Ovulation Induction/IUI from those requiring ICSI or Micro-TESE).</p></div>
+        </div>
+
+        <!-- ADDED -->
+        <div class="callout">
+          <h3>Who should not wait for the 12-month mark</h3>
+          <p>Book an earlier consultation if the woman is 40 or older, periods are very irregular or absent, or there is a history of PCOS, endometriosis, pelvic infection or surgery, repeated miscarriage, cancer treatment, or a previous abnormal semen analysis. If you are planning fertility preservation, see <a href={L.freezing}>Egg &amp; Sperm Freezing</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 MALE -->
+    <section class="sec sec-tint" id="male-tests">
+      <div class="wrap">
+        <h2>2. Male Fertility Diagnostic Suite: WHO 6th Edition Standards &amp; Advanced Sperm Testing</h2>
+        <p>Male reproductive health requires accurate, standardized laboratory evaluation. As a specialist holding a UK Diploma in Genito-Urinary Medicine (GUM) &amp; Venereology from the University of Liverpool, Dr. Kamran Saleem provides specialized expertise in evaluating sperm function, reproductive tract infections, and male endocrine disorders. Start with the <a href={L.maleAssess}>Male Fertility Assessment</a>.</p>
+
+        <ol class="flow">
+          <li><strong>Step 1: WHO 6th Ed Semen Analysis</strong><span>Volume, Concentration, Motility, Strict Kruger Morphology</span></li>
+          <li><strong>Step 2: Advanced Sperm DFI</strong><span>SCSA/TUNEL Assay for Chromatin Integrity &amp; Oxidative Damage</span></li>
+          <li><strong>Step 3: Male Hormonal &amp; Scrotal Doppler</strong><span>Serum Testosterone, FSH, LH &amp; Varicocele Ultrasound Evaluation</span></li>
+        </ol>
+
+        <h3 id="semen-analysis">A. Semen Analysis (WHO 6th Edition Laboratory Manual Standards)</h3>
+        <p>Semen analysis remains the cornerstone of male fertility evaluation. Our diagnostic laboratory adheres strictly to the WHO 6th Edition (2021) guidelines, utilizing standardized counting chambers and Kruger strict morphology criteria. <a href={L.semen}>Read the full semen analysis guide</a>.</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Semen Parameter</th><th>WHO 6th Edition Reference Limit</th><th>Clinical Significance &amp; Diagnostic Interpretation</th></tr></thead>
+            <tbody>
+              {who.map(([p, r, s]) => <tr><th scope="row">{p}</th><td class="nowrap">{r}</td><td>{s}</td></tr>)}
+            </tbody>
+          </table>
+        </div>
+
+        <h3 id="sperm-dfi">B. Sperm DNA Fragmentation Index (DFI) Testing</h3>
+        <p>Standard semen analysis evaluates sperm count and movement but does not assess genetic material integrity. Sperm DNA Fragmentation Index (DFI) measures single- and double-strand DNA breaks within the sperm head using advanced assays (SCSA, TUNEL, or Sperm Chromatin Dispersion).</p>
+        <div class="grid3">
+          <div class="card tier ok"><h4>Normal DFI (&lt; 15%)</h4><p>High genetic integrity; excellent prognosis for natural conception, IUI, and conventional IVF.</p></div>
+          <div class="card tier mid"><h4>Moderate DFI (15% to 30%)</h4><p>Mild to moderate chromatin damage; lifestyle modification, antioxidant therapy, and varicocele treatment advised.</p></div>
+          <div class="card tier high"><h4>High DFI (&gt; 30%)</h4><p>Significant DNA damage linked to recurrent unexplained IVF/ICSI fertilization failure, poor blastocyst development, and early pregnancy loss. Indicates the need for specialized sperm selection techniques (PICSI/IMSI) or testicular sperm extraction (TESA). See <a href={L.icsi}>ICSI</a>.</p></div>
+        </div>
+
+        <h3 id="semen-culture">C. Semen Culture &amp; Sensitivity Testing</h3>
+        <p>Given Dr. Kamran Saleem’s specialized background in Genito-Urinary Medicine, semen culture testing is performed whenever leukocytospermia, altered semen pH, or symptoms of urogenital infection are detected. Identifying and treating subclinical bacterial infections (such as Ureaplasma, Mycoplasma, or E. coli) with targeted antibiotics restores sperm motility and prevents infection transmission.</p>
+
+        <h3 id="male-hormones">D. Male Reproductive Hormonal Panel &amp; Scrotal Doppler Ultrasound</h3>
+        <p>When severe oligozoospermia or azoospermia is diagnosed, secondary blood testing and imaging are performed:</p>
+        <ul class="ticks">
+          <li><strong>Serum Testosterone, FSH, LH, and Prolactin:</strong> Differentiates Obstructive Azoospermia (OA) (normal hormones, physical blockage) from Non-Obstructive Azoospermia (NOA) (elevated FSH/LH indicating primary testicular failure, or low FSH/LH indicating hypogonadotropic hypogonadism).</li>
+          <li><strong>Scrotal Color Doppler Ultrasound:</strong> Evaluates testicular volume, detects epididymal cysts or vas deferens absence, and identifies subclinical varicoceles (dilated scrotal veins that elevate testicular temperature and impair spermatogenesis).</li>
+        </ul>
+
+        <!-- ADDED -->
+        <h3 id="male-genetic">E. Genetic Tests for Severe Male Factor</h3>
+        <p>When a man has azoospermia or a very low sperm count, a genetic blood test may be advised before treatment. A karyotype checks the chromosomes, and a Y-chromosome microdeletion test looks for missing segments that control sperm production. If the vas deferens is absent (CBAVD), CFTR gene testing is considered. These results affect what is possible with <a href={L.maleTx}>surgical sperm retrieval</a> and whether <a href={L.pgt}>embryo genetic testing (PGT)</a> is worth discussing.</p>
+      </div>
+    </section>
+
+    <!-- 3 FEMALE -->
+    <section class="sec" id="female-tests">
+      <div class="wrap">
+        <h2>3. Female Fertility Diagnostic Suite: Ovarian Reserve, Hormones &amp; Pelvic Imaging</h2>
+        <p>Female reproductive diagnostics evaluate ovarian egg quantity and quality, ovulatory regularity, fallopian tube patency, and uterine cavity receptivity. Start with the <a href={L.femaleAssess}>Female Fertility Assessment</a>.</p>
+
+        <ol class="flow">
+          <li><strong>Phase 1: Ovarian Reserve &amp; Basal Hormones</strong><span>AMH Blood Test + Day 2/3 FSH, LH &amp; E2</span></li>
+          <li><strong>Phase 2: Tubal Patency Screening</strong><span>HSG X-Ray or 3D/4D HyCoSy Scan</span></li>
+          <li><strong>Phase 3: Pelvic Ultrasound &amp; Ovulation</strong><span>Transvaginal Ultrasound (AFC &amp; Cavity)</span></li>
+        </ol>
+
+        <h3 id="ovarian-reserve">A. Ovarian Reserve Evaluation (AMH, Basal Hormones &amp; AFC)</h3>
+        <p>Assessing ovarian reserve provides vital prognostic insight into a woman's remaining egg supply and expected response to fertility medications. <a href={L.hormonal}>Read the full hormonal analysis guide</a>.</p>
+        <p><strong>Serum Anti-Müllerian Hormone (AMH):</strong> AMH is produced by small antral follicles in the ovaries and can be tested on any day of the menstrual cycle (unaffected by hormonal contraceptives or cycle phase).</p>
+        <div class="grid3">
+          <div class="card tier ok"><h4>Optimal Reserve (1.5 to 4.0 ng/mL)</h4><p>Normal egg supply; predicts good response to Ovulation Induction and IVF stimulation.</p></div>
+          <div class="card tier mid"><h4>High Reserve (&gt; 4.0 to 7.0+ ng/mL)</h4><p>Characteristic of Polycystic Ovary Syndrome (PCOS); requires low-dose stimulation protocols to prevent Ovarian Hyperstimulation Syndrome (OHSS). See <a href={L.pcos}>Ovulation Induction &amp; PCOS</a>.</p></div>
+          <div class="card tier high"><h4>Diminished Ovarian Reserve (DOR) (&lt; 1.0 ng/mL)</h4><p>Reduced egg quantity; indicates the need for timely intervention and individualized stimulation protocols.</p></div>
+        </div>
+        <h4 class="mt">Cycle Day 2 or 3 Basal Hormonal Panel</h4>
+        <ul class="ticks">
+          <li><strong>Follicle-Stimulating Hormone (FSH) &amp; Luteinizing Hormone (LH):</strong> Basal FSH &gt; 10–12 IU/L suggests declining ovarian responsiveness; an LH-to-FSH ratio &gt; 2:1 is indicative of PCOS.</li>
+          <li><strong>Serum Estradiol (E2):</strong> Baseline estrogen levels &lt; 50 pg/mL confirm ovarian quiescence prior to starting stimulation.</li>
+          <li><strong>Antral Follicle Count (AFC) via Transvaginal Ultrasound:</strong> Performed on Cycle Day 2, 3, or 4 to physically count visible 2mm–10mm resting follicles in both ovaries. An AFC of 10 to 20 total antral follicles reflects healthy reserve.</li>
+        </ul>
+
+        <!-- ADDED -->
+        <h3 id="ovulation-tracking">B. Ovulation Tracking</h3>
+        <p>Ovulation tracking confirms whether, and when, you release an egg. Depending on your cycle, it can combine cycle charting, home LH kits, and the mid-luteal progesterone blood test described below. It is also used to time <a href={L.iui}>IUI</a> and to monitor response during <a href={L.pcos}>ovulation induction</a>. <a href={L.ovulation}>Read the full ovulation tracking guide</a>.</p>
+
+        <h3 id="tubal-patency">C. Fallopian Tube Patency &amp; Pelvic Screening (HSG &amp; HyCoSy)</h3>
+        <p>Unobstructed, healthy fallopian tubes are required for natural conception and IUI, as fertilization takes place within the ampullary region of the tube.</p>
+        <div class="grid2">
+          <div class="card"><h4>Hysterosalpingogram (HSG)</h4><p>A specialized diagnostic fluoroscopic X-ray performed between Cycle Days 6 and 10. Radio-opaque contrast dye is gently instilled through the cervix into the uterine cavity, taking real-time images as the dye fills the uterus, flows through the fallopian tubes, and spills into the peritoneal cavity. HSG confirms tubal patency and identifies uterine cavity abnormalities (such as endometrial polyps, submucosal fibroids, or uterine septa).</p></div>
+          <div class="card"><h4>Hysterosalpingo-Contrast Sonography (HyCoSy)</h4><p>An advanced, comfortable 3D/4D transvaginal ultrasound alternative that uses a specialized microbubble foam contrast agent to visualize tubal flow without X-ray radiation exposure.</p></div>
+        </div>
+
+        <h3 id="endocrine">D. Endocrine, Ovulatory &amp; Metabolic Screening</h3>
+        <ul class="ticks">
+          <li><strong>Day 21 Serum Progesterone (Mid-Luteal Phase):</strong> Tested 7 days prior to anticipated menstruation (Day 21 of a 28-day cycle). A value &gt; 10 ng/mL confirms successful ovulation and adequate luteal phase corpus luteum function.</li>
+          <li><strong>Serum Thyroid-Stimulating Hormone (TSH) &amp; Prolactin:</strong> Subclinical hypothyroidism (TSH &gt; 2.5 mIU/L) or hyperprolactinemia (elevated prolactin) directly interferes with pulsatile GnRH secretion, causing anovulation or luteal phase defect.</li>
+          <li><strong>Fasting Insulin &amp; Glucose Ratio:</strong> Evaluates insulin resistance in women with PCOS, guiding targeted metabolic treatment with Metformin or Myo-Inositol.</li>
+        </ul>
+
+        <!-- ADDED -->
+        <h3 id="pre-treatment">E. Pre-Treatment Screening</h3>
+        <p>Before IUI, IVF or ICSI, the clinic may also check blood group, blood count, rubella immunity, and screening for HIV, hepatitis B, hepatitis C and syphilis in both partners, and other tests such as vitamin D only where clinically indicated. This protects you, your partner and any future pregnancy, and is part of safe treatment rather than a search for the cause of infertility.</p>
+      </div>
+    </section>
+
+    <!-- 4 PREP -->
+    <section class="sec sec-tint" id="preparation">
+      <div class="wrap">
+        <h2>4. Patient Preparation Guidelines &amp; Test Execution Protocol</h2>
+        <p>To ensure absolute accuracy and prevent test invalidation, patients should follow standardized preparation instructions:</p>
+        <div class="grid2">
+          <div class="card">
+            <h3>Male Preparation Guidelines (Semen Analysis &amp; DFI)</h3>
+            <ul class="ticks">
+              <li><strong>Abstinence Window:</strong> Strictly 2 to 5 days of ejaculatory abstinence prior to sample collection. Abstinence periods &lt; 2 days may artificially lower sperm volume and count; abstinence &gt; 5 days leads to sperm accumulation, reduced motility, and increased DNA fragmentation.</li>
+              <li><strong>Collection Protocols:</strong> Samples are collected on-site in dedicated, private collection suites across our DHA Defence, Gulberg, or Shalamar clinics into sterile, non-toxic containers.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Female Preparation Guidelines (Bloods, Imaging &amp; HSG)</h3>
+            <ul class="ticks">
+              <li><strong>Basal Hormone Testing:</strong> Serum FSH, LH, and Estradiol MUST be drawn strictly on Cycle Day 2 or 3 of natural menstrual bleeding.</li>
+              <li><strong>AMH Testing:</strong> Can be drawn on any calendar day regardless of menstrual cycle phase.</li>
+              <li><strong>HSG / HyCoSy Procedure Window:</strong> Scheduled strictly between Cycle Days 6 and 10 (after menstrual bleeding has completely stopped, but prior to ovulation) to ensure the uterine lining is thin and prevent accidental disruption of an early unconfirmed pregnancy.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 MATRIX -->
+    <section class="sec" id="results-to-treatment">
+      <div class="wrap">
+        <h2>5. Diagnostic Decision Matrix &amp; Treatment Matching</h2>
+        <p>Following comprehensive diagnostic evaluation, Dr. Kamran Saleem analyzes all findings during a dedicated 45–60 minute consultation to map out an evidence-based treatment pathway:</p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Diagnostic Findings Profile</th><th>Primary Female Findings</th><th>Primary Male Findings</th><th>Recommended Clinical Pathway</th></tr></thead>
+            <tbody>
+              {matrix.map(([a, b, c, d, href]) => (
+                <tr><th scope="row">{a}</th><td>{b}</td><td>{c}</td><td>{d} <a class="more" href={href}>Learn more</a></td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <!-- ADDED -->
+        <p class="note">If tests show no clear cause, the diagnosis is unexplained infertility. This is common and does not mean treatment will fail. Dr. Kamran will go through the options with you, including <a href={L.iui}>IUI</a> and <a href={L.ivf}>IVF</a>. You can also bring your reports for a <a href={L.support}>second opinion</a>.</p>
+      </div>
+    </section>
+
+    <!-- 6 FEES -->
+    <section class="sec sec-tint" id="fees">
+      <div class="wrap">
+        <h2>6. Itemized Fee Transparency &amp; Diagnostic Package Guidelines in Lahore</h2>
+        <p>At Kamran Fertility Clinic, financial transparency is a foundational value. Diagnostic pricing is fully disclosed prior to testing:</p>
+        <ul class="ticks">
+          <li><strong>Individual Test Guidelines:</strong> Semen analysis, individual hormone assays (AMH, TSH, Prolactin), and pelvic ultrasounds carry fixed, transparent fee structures.</li>
+          <li><strong>Comprehensive Diagnostic Bundles:</strong> Bundled male and female diagnostic panels offer cost savings compared to ordering tests individually.</li>
+          <li><strong>No Unnecessary Tests:</strong> Dr. Kamran Saleem orders only tests that directly inform clinical decision-making, ensuring patients do not spend money on redundant or non-validated investigations.</li>
+        </ul>
+        <!-- ADDED: fee CTA (no prices invented) -->
+        <div class="cta-row">
+          <a class="btn btn-primary" href={WHATSAPP} rel="noopener">Ask for the current fee list on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 FAQ -->
+    <section class="sec" id="faq">
+      <div class="wrap narrow">
+        <h2>7. Frequently Asked Questions (FAQ)</h2>
+        <div class="faq">
+          {faq.map(([q, a], i) => (
+            <details>
+              <summary>Q{i + 1}: {q}</summary>
+              <p>{a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 LINKS (rendered as real links; original schema section moved to JSON-LD above) -->
+    <section class="sec sec-tint" id="related">
+      <div class="wrap">
+        <h2>Related services and next steps</h2>
+        <p class="lead">Once your tests are done, these pages explain your options.</p>
+        <div class="grid3 links">
+          {related.map(([name, href, blurb]) => (
+            <a class="card linkcard" href={href}><h3>{name}</h3><p>{blurb}</p></a>
+          ))}
+        </div>
+        <h3 class="mt">Lahore practice locations</h3>
+        <ul class="ticks">
+          <li><a href={L.locations}>Rasheed Hospital (DHA Defence Phase 5/6)</a></li>
+          <li><a href={L.locations}>TAMC Clinic (M.M. Alam Road, Gulberg III)</a></li>
+          <li><a href={L.locations}>Shahnaz Hospital (Shalamar Link Road)</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 10 CTA -->
+    <section class="sec cta-band" id="book">
+      <div class="wrap narrow">
+        <h2>10. Schedule Your Unhurried Consultation with Dr. Kamran Saleem</h2>
+        <p>Accurate fertility diagnosis begins with a dedicated, compassionate consultation focused entirely on your health history and reproductive goals.</p>
+        <p>Dr. Kamran Saleem provides unhurried, 45 to 60-minute initial consultations to review prior reports, order targeted investigations, and explain diagnostic findings with complete transparency.</p>
+        <ol class="flow on-dark">
+          <li><strong>Step 1: Unhurried Consult</strong><span>45–60 min review with doctor</span></li>
+          <li><strong>Step 2: Targeted Testing</strong><span>WHO 6th Ed Semen / AMH / HSG</span></li>
+          <li><strong>Step 3: Clear Medical Plan</strong><span>Honest diagnostic review &amp; options</span></li>
+        </ol>
+        <h3>How to Schedule Your Diagnostic Visit</h3>
+        <p><strong>Direct Consultation Booking:</strong> Contact Kamran Fertility Clinic via WhatsApp.</p>
+        <div class="cta-row center">
+          <a class="btn btn-light" href={WHATSAPP} rel="noopener">Book on WhatsApp</a>
+          <a class="btn btn-outline" href={L.contact}>Other ways to contact us</a>
+        </div>
+        <h3>Clinic Facilities Across Lahore</h3>
+        <ul class="plain">
+          <li>DHA Defence: Rasheed Hospital (Phase 5/6)</li>
+          <li>Gulberg III: TAMC Clinic, M.M. Alam Road</li>
+          <li>Shalamar: Shahnaz Hospital, Link Road</li>
+        </ul>
+        <p><strong>What to Bring:</strong> Please bring any prior medical records, ultrasound scans, semen analysis reports, or blood test results to your appointment for a thorough clinical review.</p>
+      </div>
+    </section>
+
+    <!-- ADDED -->
+    <section class="sec disclaimer">
+      <div class="wrap narrow">
+        <p>This page is for general information and is not a substitute for medical advice. Reference ranges are guides, and your results are interpreted together with your history and examination. Fees, availability and turnaround times may change; please confirm with the clinic.</p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .ft {
+    --navy: #0f1b44;
+    --ink: #3a4663;
+    --blue: #2563eb;
+    --blue-dark: #1d4ed8;
+    --sky: #eaf3ff;
+    --line: #d9e5f6;
+    --ok: #16a34a;
+    --mid: #d97706;
+    --high: #dc2626;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 1.0625rem;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; }
+  .narrow { max-width: 820px; }
+  .ft a { color: var(--blue-dark); text-underline-offset: 3px; }
+  .ft a:focus-visible, .ft summary:focus-visible, .btn:focus-visible { outline: 3px solid #93c5fd; outline-offset: 3px; border-radius: 6px; }
+
+  h1, h2, h3, h4 { color: var(--navy); line-height: 1.2; letter-spacing: -0.01em; }
+  h1 { font-size: clamp(2rem, 4.6vw, 3.4rem); font-weight: 800; margin: 0.5rem 0 1.5rem; max-width: 22ch; }
+  .h1-sub { display: block; margin-top: 0.75rem; font-size: clamp(1.05rem, 2vw, 1.35rem); font-weight: 500; color: var(--blue-dark); letter-spacing: 0; max-width: 40ch; }
+  h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 750; margin: 0 0 1rem; }
+  h3 { font-size: 1.25rem; margin: 2.25rem 0 0.5rem; scroll-margin-top: 90px; }
+  h4 { font-size: 1.05rem; margin: 0 0 0.35rem; }
+  p { margin: 0 0 1rem; max-width: 75ch; }
+  .lead { font-size: 1.15rem; }
+  .mt { margin-top: 1.75rem; }
+
+  .sec { padding: 4.5rem 0; scroll-margin-top: 70px; }
+  .sec-tint { background: linear-gradient(180deg, #f3f8ff, #eaf3ff); }
+
+  /* hero */
+  .hero { padding: 2.5rem 0 3.5rem; background: radial-gradient(900px 400px at 85% 0%, #dcebff 0%, transparent 70%), linear-gradient(180deg, #f6faff, #eaf3ff); }
+  .crumbs { display: flex; gap: 0.5rem; font-size: 0.9rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .crumbs a { color: var(--ink); }
+  .eyebrow { display: flex; align-items: center; gap: 0.75rem; color: var(--blue-dark); font-weight: 600; margin: 0; }
+  .eyebrow-line { width: 36px; height: 2px; background: var(--blue); display: inline-block; }
+  .byline { border-left: 3px solid var(--blue); padding-left: 1.1rem; margin-bottom: 2rem; font-size: 0.97rem; }
+  .byline p { margin: 0 0 0.4rem; }
+  .answer { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 1.75rem 2rem; box-shadow: 0 12px 40px rgba(37, 99, 235, 0.08); }
+  .answer h2 { font-size: 1.35rem; }
+  .answer p { margin: 0; }
+
+  /* buttons */
+  .cta-row { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.75rem; }
+  .cta-row.center { justify-content: center; }
+  .btn { display: inline-flex; align-items: center; padding: 0.85rem 1.6rem; border-radius: 999px; font-weight: 600; text-decoration: none !important; transition: transform 0.15s, box-shadow 0.15s; }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: #fff !important; box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3); }
+  .btn-ghost { background: #fff; color: var(--navy) !important; border: 1px solid var(--line); }
+  .btn-light { background: #fff; color: var(--navy) !important; }
+  .btn-outline { border: 1.5px solid rgba(255, 255, 255, 0.7); color: #fff !important; }
+
+  /* jump nav */
+  .jump { position: sticky; top: 0; z-index: 20; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  .jump-inner { display: flex; gap: 0.25rem; overflow-x: auto; padding-top: 0.5rem; padding-bottom: 0.5rem; scrollbar-width: thin; }
+  .jump a { white-space: nowrap; padding: 0.4rem 0.9rem; border-radius: 999px; font-size: 0.93rem; font-weight: 500; text-decoration: none; color: var(--ink); }
+  .jump a:hover { background: var(--sky); color: var(--blue-dark); }
+
+  /* journey (a true sequence) */
+  .journey { list-style: none; counter-reset: j; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; padding: 0; margin: 1.5rem 0 0; }
+  .journey li { counter-increment: j; position: relative; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 1.1rem 1.2rem; }
+  .journey li::before { content: counter(j); display: inline-grid; place-items: center; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--sky); color: var(--blue-dark); font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .journey li.here { border-color: var(--blue); box-shadow: 0 8px 24px rgba(37, 99, 235, 0.15); }
+  .journey li.here::before { background: var(--blue); color: #fff; }
+  .journey a { text-decoration: none; display: block; color: inherit; }
+  .journey strong { display: block; color: var(--navy); }
+  .journey span { font-size: 0.93rem; }
+
+  /* flow strips */
+  .flow { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; padding: 0; margin: 1.5rem 0 0.5rem; }
+  .flow li { background: #fff; border: 1px solid var(--line); border-top: 3px solid var(--blue); border-radius: 12px; padding: 1rem 1.1rem; }
+  .flow strong { display: block; color: var(--navy); }
+  .flow span { font-size: 0.93rem; }
+  .flow.on-dark li { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.25); border-top-color: #93c5fd; }
+  .flow.on-dark strong { color: #fff; }
+
+  /* cards */
+  .grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin: 1.25rem 0; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin: 1.25rem 0; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 1.4rem 1.5rem; }
+  .card h3 { margin: 0 0 0.5rem; font-size: 1.15rem; }
+  .card p:last-child { margin-bottom: 0; }
+  .tier { border-left-width: 5px; }
+  .tier.ok { border-left-color: var(--ok); }
+  .tier.mid { border-left-color: var(--mid); }
+  .tier.high { border-left-color: var(--high); }
+  .linkcard { text-decoration: none; color: inherit !important; display: block; transition: border-color 0.15s, transform 0.15s; }
+  .linkcard:hover { border-color: var(--blue); transform: translateY(-2px); }
+  .linkcard p { font-size: 0.95rem; }
+  .callout { background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--blue); border-radius: 14px; padding: 1.25rem 1.5rem; margin-top: 2rem; }
+  .callout h3 { margin-top: 0; font-size: 1.1rem; }
+  .callout p { margin: 0; }
+
+  /* tables */
+  .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 16px; background: #fff; margin: 1.25rem 0; }
+  table { width: 100%; border-collapse: collapse; min-width: 640px; font-size: 0.97rem; }
+  th, td { padding: 0.85rem 1rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+  thead th { background: var(--navy); color: #fff; font-weight: 600; }
+  tbody th { color: var(--navy); font-weight: 600; }
+  tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+  .nowrap { white-space: nowrap; }
+  .more { white-space: nowrap; font-weight: 600; }
+  .note { font-size: 0.97rem; }
+
+  /* lists */
+  .ticks { list-style: none; padding: 0; margin: 0.75rem 0 1rem; display: grid; gap: 0.75rem; }
+  .ticks li { position: relative; padding-left: 1.7rem; max-width: 78ch; }
+  .ticks li::before { content: ''; position: absolute; left: 0; top: 0.55em; width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 4px var(--sky); }
+  .plain { padding-left: 1.2rem; }
+
+  /* FAQ */
+  .faq { display: grid; gap: 0.75rem; }
+  details { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 0 1.25rem; }
+  details[open] { border-color: var(--blue); }
+  summary { cursor: pointer; font-weight: 650; color: var(--navy); padding: 1.1rem 0; list-style: none; display: flex; justify-content: space-between; gap: 1rem; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: '+'; font-size: 1.4rem; line-height: 1; color: var(--blue); }
+  details[open] summary::after { content: '–'; }
+  details p { padding-bottom: 1.1rem; margin: 0; }
+
+  /* final CTA */
+  .cta-band { background: linear-gradient(135deg, #0f1b44, #1e40af); color: #dbe7ff; }
+  .cta-band h2, .cta-band h3 { color: #fff; }
+  .cta-band a:not(.btn) { color: #bfdbfe; }
+
+  .disclaimer { padding: 2rem 0 3rem; font-size: 0.88rem; }
+  .disclaimer p { margin: 0 auto; }
+
+  @media (max-width: 860px) {
+    .grid3, .grid2, .flow, .journey { grid-template-columns: 1fr; }
+    .sec { padding: 3rem 0; }
+    .answer { padding: 1.25rem; }
+    h1 { max-width: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .linkcard { transition: none; }
+    .btn:hover, .linkcard:hover { transform: none; }
+  }
+  @media print { .jump, .cta-row { display: none; } }
+</style>
