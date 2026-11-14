@@ -13,18 +13,23 @@ const treatmentLinks = treatments.map((t) => ({
   href: `${hubHref}/${slugRedirects[t.slug] ?? t.slug}`,
 }));
 
-// Assessment pages shown under "Assessment & Diagnosis".
+// Assessment pages shown under "Assessment".
 const assessmentLinks = [
   { label: "Female Fertility Assessment", href: "/services/assessment/female-fertility-assessment" },
   { label: "Male Fertility Assessment", href: "/services/assessment/male-fertility-assessment" },
-  { label: "Hormonal Analysis", href: "/services/assessment/hormonal-analysis" },
-  { label: "Ovulation Assessment", href: "/services/assessment/ovulation-assessment" },
-  { label: "Semen Analysis", href: "/services/assessment/semen-analysis" },
-  { label: "Male Infertility Assessment", href: "/services/assessment/male-infertility" },
+];
+
+// Test pages shown under "Tests".
+const testLinks = [
+  { label: "Hormonal Analysis", href: "/services/tests/hormonal-analysis" },
+  { label: "Ovulation Tracking", href: "/services/tests/ovulation-tracking" },
+  { label: "Semen Analysis", href: "/services/tests/semen-analysis" },
+  { label: "All Fertility Tests", href: "/services/tests" },
 ];
 
 const services = [
-  { label: "Assessment & Diagnosis", href: "/services/assessment", children: assessmentLinks },
+  { label: "Assessment", href: "/services/assessment", children: assessmentLinks },
+  { label: "Tests", href: "/services/tests", children: testLinks },
   { label: "Fertility Treatment", href: hubHref, children: treatmentLinks },
   { label: "Support & Second Opinions", href: "/services/support", children: [] },
 ];
@@ -81,7 +86,7 @@ const locationsOpen = currentPath.startsWith("/locations");
         <a href="/" class="nav-link">Home</a>
       </li>
 
-      <!-- Services dropdown (two columns + bottom row) -->
+      <!-- Services dropdown (three columns + bottom row) -->
       <li class="group relative">
         <button
           type="button"
@@ -106,12 +111,12 @@ const locationsOpen = currentPath.startsWith("/locations");
           </svg>
         </button>
         <div
-          class="invisible absolute left-1/2 top-full z-50 w-[36rem] -translate-x-1/2 translate-y-1 pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
+          class="invisible absolute left-0 top-full z-50 w-[46rem] translate-y-1 pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100"
         >
           <div
             class="overflow-hidden rounded-[var(--r-md)] border border-line bg-white p-3 shadow-[var(--shadow-soft)]"
           >
-            <div class="grid grid-cols-2 gap-x-4">
+            <div class="grid grid-cols-3 gap-x-4">
               {
                 serviceColumns.map((s) => (
                   <div>
