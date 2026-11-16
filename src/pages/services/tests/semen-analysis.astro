@@ -1,132 +1,535 @@
 ---
-import TreatmentPage from "../../../components/TreatmentPage.astro";
+// src/pages/services/tests/semen-analysis.astro
+// Uses the site's own menu/footer via Layout. Match the import path + props to your other pages.
+import Layout from "../../../layouts/Layout.astro";
+const base = "https://www.kamranfertility.com";
+const TS = "/services/tests";
+const AS = "/services/assessment";
+const TR = "/services/fertility-treatment";
+const url = `${base}${TS}/semen-analysis`;
+const title = "Semen Analysis Test Lahore | WHO Standard | Dr. Kamran";
+const description = "Confidential semen analysis test in Lahore to WHO 6th Edition standards. Private collection rooms, DFI testing and reports in 24 hours. Book on WhatsApp.";
+const phone = "+92 314 8432789";
+const wa = "https://wa.me/923148432789?text=" + encodeURIComponent("Hello, I would like to book a semen analysis test at Kamran Fertility Clinic.");
 
-const T = "/services/fertility-treatment";
-const A = "/services/assessment";
+const a = (h, t) => `<a href="${h}">${t}</a>`;
+const L = {
+  hormone: a(`${TS}/male-fertility-hormone-test`, "male fertility hormone test"),
+  hormoneCap: a(`${TS}/male-fertility-hormone-test`, "Male Fertility Hormone Testing"),
+  hub: a(TS, "fertility tests"),
+  hormonal: a(`${TS}/hormonal-analysis`, "hormonal analysis"),
+  ovulation: a(`${TS}/ovulation-tracking`, "ovulation tracking"),
+  mAssess: a(`${AS}/male-fertility-assessment`, "Male Fertility Assessment"),
+  fAssess: a(`${AS}/female-fertility-assessment`, "female fertility assessment"),
+  mTreat: a(`${TR}/male-infertility`, "male infertility treatment"),
+  icsi: a(`${TR}/icsi`, "ICSI Treatment"),
+  iui: a(`${TR}/iui`, "IUI Treatment"),
+  ivf: a(`${TR}/ivf`, "IVF"),
+  freeze: a(`${TR}/fertility-preservation`, "sperm freezing"),
+  second: a("/services/support", "second opinion"),
+};
 
-const page = {
-  slug: "semen-analysis",
-  name: "Semen Analysis Assessment",
-  title: "Semen Analysis Test & Report Review | Kamran Fertility Clinic",
-  description: "Book a semen analysis consultation or report review with Dr. Kamran Saleem. Understand sample instructions, sperm count, motility, morphology and next steps.",
-  eyebrow: "Semen Analysis Assessment",
-  h1: "Semen Analysis Assessment and Report Review",
-  waText: "Hello, I would like to book a semen analysis assessment with Dr. Kamran Saleem.",
-  ctaLabel: "Book an assessment",
-  heroSub: [
-    "A semen analysis evaluates features of a semen sample, such as sperm count, motility and shape, that may be relevant to fertility.",
-    "The consultation can help you understand the test process, review an existing report, and discuss whether further evaluation is needed.",
-  ].join(" "),
-  leadIn: [
-    { rich: ["This assessment is part of a wider fertility evaluation. The tests selected depend on your history, symptoms and previous results. Explore the related ", ["Fertility Assessment & Diagnosis", A], " pathway, or read the educational guide ", ["Understanding a Semen Analysis", "/resources/understanding-a-semen-analysis"], "."] },
+const icons = {
+  flask: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3"/>',
+  shield: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+  lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  tag: '<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+  room: '<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M14 12h.01M8 21V9h8"/>',
+  dna: '<path d="M7 3c0 6 10 6 10 12s-10 6-10 6M17 3c0 6-10 6-10 12M8 8h8M8 16h8"/>',
+  bug: '<ellipse cx="12" cy="13" rx="5" ry="7"/><path d="M12 6V3M7 10L3 8M17 10l4-2M7 16l-4 2M17 16l4 2"/>',
+  bolt: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+  target: '<circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>',
+  cells: '<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><circle cx="12" cy="16" r="3"/>',
+  heart: '<path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/>',
+  check: '<path d="M5 12l5 5 9-10"/>',
+  clip: '<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h6"/>',
+  alert: '<path d="M12 3l10 18H2zM12 10v5M12 18h.01"/>',
+  scan: '<path d="M4 8V5a1 1 0 011-1h3M16 4h3a1 1 0 011 1v3M20 16v3a1 1 0 01-1 1h-3M8 20H5a1 1 0 01-1-1v-3M4 12h16"/>',
+  chat: '<path d="M4 5h16v11H9l-5 4z"/>',
+};
+
+const toc = [["book","Book your test"],["when","When to test"],["parameters","WHO parameters"],["advanced","Advanced tests"],["preparation","Preparation"],["pathways","Next steps"],["cost","Cost & turnaround"],["related","Related care"],["faq","FAQ"],["locations","Locations"]];
+
+// WHO limits strip
+const who = [["1.4","mL","Volume"],["16","M/mL","Concentration"],["39","M","Total count"],["42","%","Total motility"],["30","%","Progressive"],["4","%","Normal forms"]];
+
+// 1. Why book (original)
+const why = [
+  ["Direct Specialist Oversight", "Reports are interpreted by a physician with specialist UK training in male reproductive tract health.", "user"],
+  ["Private On-Site Collection Facilities", "Dedicated, comfortable collection rooms at our DHA Defence, M.M. Alam Road, and Shalamar locations ensure privacy and immediate laboratory processing.", "lock"],
+  ["Transparent Pricing & No Hidden Fees", "Upfront fee transparency with no pressure for unneeded procedures.", "tag"],
+  ["Fast Report Delivery", "Detailed diagnostic reports are delivered within 24 hours via secure PDF or direct WhatsApp messaging.", "clock"],
+];
+
+// Booking journey (service-oriented addition)
+const journey = [
+  ["Message us on WhatsApp", `Contact our team on ${phone} to book and confirm sample timing and availability.`, "chat"],
+  ["Choose your clinic", "DHA Defence, M.M. Alam Road or Shalamar Link Road, whichever suits you.", "room"],
+  ["Abstain 2 to 5 days", "Follow the abstinence window so your result reflects your true baseline.", "clock"],
+  ["Give your sample", "Private collection room on site, then a 30-minute liquefaction phase before examination.", "flask"],
+  ["Report and consultation", "Report within 24 hours, then an unhurried consultation with Dr. Kamran Saleem.", "check"],
+];
+
+// When to test (gap fill, consistent with clinic tests page)
+const when = [
+  ["Trying for 12 months or more", "Couples who have not conceived after 12 months of regular, unprotected intercourse should test both partners.", "clock"],
+  ["Partner aged 35 or older", "Do not wait 12 months. Testing after 6 months is advised, and the male partner is tested at the same time.", "heart"],
+  ["A baseline before planning", "A semen analysis is a reliable baseline if you are planning a pregnancy or want to know where you stand.", "clip"],
+  ["Before IUI, IVF or ICSI", `A current report is needed to choose between ${L.iui}, ${L.ivf} and ${L.icsi}.`, "target"],
+  ["Earlier abnormal result", "A previous abnormal semen analysis, or one that was never explained, should be repeated and reviewed.", "alert"],
+  ["Recurrent miscarriage or failed cycles", "Unexplained early pregnancy loss or failed IUI/IVF cycles point towards advanced testing such as DFI.", "dna"],
+];
+
+// 2. Parameters (original, cleaned)
+const params = [
+  ["Ejaculate Volume", "≥ 1.4 mL", "Assesses seminal vesicle and prostate gland fluid production. Low volume (< 1.4 mL) may indicate retrograde ejaculation or ductal obstruction."],
+  ["Sperm Concentration", "≥ 16 million/mL", "Measures the density of sperm per milliliter. Concentrations below 16 M/mL signal Oligozoospermia."],
+  ["Total Sperm Count", "≥ 39 million per ejaculate", "The total number of sperm present in the entire sample, calculated by multiplying volume by concentration."],
+  ["Total Motility", "≥ 42% (Progressive + Non-Progressive)", "Evaluates the percentage of moving sperm. Motility below 42% indicates Asthenozoospermia."],
+  ["Progressive Motility (PR)", "≥ 30%", "Measures sperm swimming actively in a forward direction, necessary to navigate the female reproductive tract."],
+  ["Strict Morphology (Kruger)", "≥ 4% Normal Forms", "Analyzes the precise shape of sperm head, midpiece, and tail. Normal forms below 4% indicate Teratozoospermia."],
+  ["Vitality (Live Sperm)", "≥ 54% Membrane-Intact", "Differentiates live immotile sperm from dead sperm cells in samples with low overall motility."],
+  ["pH Level", "≥ 7.2", "Normal alkaline pH protects sperm from acidic vaginal secretions."],
+  ["Leukocytes (WBCs)", "< 1.0 million/mL", "Elevated white blood cells (≥ 1.0 M/mL) indicate Leukocytospermia, suggesting active infection or inflammation."],
+];
+
+const terms = [
+  ["Normozoospermia", "All parameters (volume, count, motility, and morphology) meet or exceed WHO lower limits.", "check"],
+  ["Oligozoospermia", "Sperm concentration is below 16 million/mL.", "alert"],
+  ["Asthenozoospermia", "Progressive motility is below 30% or total motility is below 42%.", "bolt"],
+  ["Teratozoospermia", "Normal sperm morphology is below 4% by Kruger strict criteria.", "cells"],
+  ["Oligoasthenoteratozoospermia (OAT)", "A combination of low count, poor motility, and abnormal morphology, often pointing toward testicular, hormonal, or varicocele-related factors.", "target"],
+  ["Azoospermia", `Complete absence of sperm in the ejaculate after centrifugation. Requires further distinction between Obstructive Azoospermia (OA) and Non-Obstructive Azoospermia (NOA) via ${L.mAssess}.`, "scan"],
+];
+
+// TMSC guide (gap fill, values as used on the clinic tests page)
+const tmsc = [
+  ["Above 15 million", "Normal profile", "Natural conception or a few cycles of timed intercourse, with the female partner assessed.", "ok"],
+  ["10 to 15 million", "Mild male factor", `Lifestyle and antioxidants, with ${L.iui} considered.`, "mild"],
+  ["Below 5 million", "Severe male factor", `${L.icsi}, often with sperm DFI testing.`, "sev"],
+];
+
+// 3. Advanced
+const dfi = [
+  ["DFI < 15%", "Optimal DNA Integrity", `Excellent fertility potential; suitable for natural conception or ${L.iui}.`, "ok"],
+  ["DFI 15% - 30%", "Moderate DNA Damage", "Mild to moderate reduction in fertility potential. Managed with antioxidant therapy, lifestyle adjustments, and repeat testing.", "mild"],
+  ["DFI > 30%", "High DNA Fragmentation", `Significant chromatin damage. Indicates reduced success with natural conception or standard IVF. Couples are advised toward ${L.icsi} combined with specialized sperm selection techniques.`, "sev"],
+];
+
+// 4. Preparation (original)
+const prep = [
+  ["Ejaculatory Abstinence Window", "Maintain 2 to 5 days of sexual abstinence prior to testing. Abstinence shorter than 2 days reduces sample volume and sperm count; abstinence longer than 5 days leads to reduced sperm motility and increased DNA fragmentation.", "clock"],
+  ["Hygiene & Collection", "Wash hands and genital area thoroughly with plain water before sample collection. Collect the ejaculate directly into the sterile specimen container provided by our laboratory.", "flask"],
+  ["Complete Sample Capture", "Ensure the entire ejaculate is captured in the cup. The initial portion of the ejaculate contains the highest concentration of motile sperm.", "check"],
+];
+
+const facilities = [
+  ["On-Site Collection Rooms", "Private, quiet, and hygienic collection rooms are available at our DHA Defence, M.M. Alam Road, and Shalamar Link Road centers.", "room"],
+  ["Home Collection Protocol", "If you prefer collecting at home, the sample must be kept at body temperature (in an inner pocket) and delivered to our laboratory within 30 to 60 minutes of ejaculation.", "user"],
+  ["Laboratory Processing", "The sample undergoes a mandatory 30-minute liquefaction phase before density-gradient processing and microscopic examination.", "flask"],
+  ["Report Turnaround & Costs", "Complete diagnostic reports are finalized within 24 hours. Consultation and testing fees are fully transparent and communicated prior to booking.", "clock"],
+];
+
+// Gap fill: things that change the result
+const affect = [
+  ["Fever or recent illness", "Sperm take about 74 days to develop, so a fever or illness in recent months can lower a result. Tell the doctor, and expect a repeat test."],
+  ["Medicines, supplements and steroids", "Testosterone, anabolic steroids and some medicines suppress sperm production. Declare everything you take."],
+  ["Heat exposure", "Hot baths, saunas, long hours with a laptop on the lap and tight underwear can raise testicular temperature."],
+  ["Smoking, alcohol and weight", "These lower sperm quality and are among the easiest factors to change."],
+  ["Lubricants, soap and ordinary condoms", "These can harm sperm. Use only the sterile container from our laboratory unless a special collection condom is given to you."],
+  ["Incomplete sample", "If any part of the sample is lost, tell the laboratory. The first portion carries the most motile sperm."],
+];
+
+// 5. Pathways (original diagram as flow)
+const pathways = [
+  ["Normal Parameters (Normozoospermia)", "Expectant Management / Female Partner Assessment", `Start your partner's ${L.fAssess}.`, "ok"],
+  ["Mild/Moderate Factors (Low Count/Motility)", "Lifestyle & Antioxidants / Consider IUI", `See ${L.iui}.`, "mild"],
+  ["Severe Factors or High DFI (> 30%)", "ICSI (Intracytoplasmic Sperm Injection)", `See ${L.icsi}.`, "sev"],
+  ["Zero Sperm Detected (Azoospermia)", "Hormone Profile & Surgical Retrieval (Micro-TESE / TESA)", `See the ${L.hormone} and ${L.mTreat}.`, "zero"],
+];
+
+const turnaround = [
+  ["Semen analysis (WHO 6th Edition)", "Within 24 hours", "2 to 5 days abstinence"],
+  ["Sperm DNA fragmentation (DFI)", "2 to 3 working days", "2 to 5 days abstinence"],
+  ["Semen culture & sensitivity", "Confirmed when booking", "When infection signs are present"],
+  ["Male hormone blood tests", "Within 24 hours", "Morning blood draw, no abstinence needed"],
+];
+
+const related = [
+  ["All Fertility Tests", TS, "Every male and female diagnostic test we offer, with timing and turnaround."],
+  ["Male Fertility Hormone Test", `${TS}/male-fertility-hormone-test`, "Testosterone, FSH, LH, prolactin, estradiol and TSH for low count or no sperm."],
+  ["Hormonal Analysis", `${TS}/hormonal-analysis`, "AMH, FSH, LH and thyroid testing, including the female panel."],
+  ["Ovulation Tracking", `${TS}/ovulation-tracking`, "The matching test for your partner: when and whether she ovulates."],
+  ["Male Fertility Assessment", `${AS}/male-fertility-assessment`, "The full evaluation: history, examination and tests for the male partner."],
+  ["Female Fertility Assessment", `${AS}/female-fertility-assessment`, "The matching evaluation for your partner."],
+  ["Male Infertility Treatment", `${TR}/male-infertility`, "Medical therapy, varicocele care and surgical sperm retrieval."],
+  ["ICSI Treatment", `${TR}/icsi`, "One sperm injected into each egg, for severe male factor or high DFI."],
+  ["IUI Treatment", `${TR}/iui`, "Washed sperm placed in the uterus for mild male factor."],
+  ["IVF Treatment", `${TR}/ivf`, "The full cycle in which ICSI is performed."],
+  ["Egg & Sperm Freezing", `${TR}/fertility-preservation`, "Store sperm before treatment, surgery or for later family planning."],
+  ["Support & Second Opinions", "/services/support", "Bring an existing semen report for an independent review."],
+];
+
+const faqs = [
+  ["How do I book a semen analysis test at Kamran Fertility Clinic?", `You can book your test by contacting our clinical team directly via WhatsApp at ${phone}. Our staff will confirm your preferred clinic location (DHA Defence, M.M. Alam Road, or Shalamar) and guide you through the required 2–5 day abstinence window.`],
+  ["Why is a 2 to 5 day abstinence period required before the test?", "An abstinence period of 2 to 5 days provides the ideal balance for laboratory analysis. Less than 2 days of abstinence may result in lower sperm count and ejaculate volume, while more than 5 days can decrease sperm motility and increase cellular debris and DNA fragmentation."],
+  ["Can I collect my semen sample at home?", "Yes, home collection is permitted provided you live close to the clinic. The sample must be collected into a sterile container provided by the clinic and delivered to the laboratory within 30 to 60 minutes while kept close to body temperature."],
+  ["What is the difference between standard semen analysis and a DFI test?", "A standard semen analysis measures visible physical parameters under a microscope, such as count, motility, and shape. A Sperm DNA Fragmentation Index (DFI) test analyzes the genetic integrity inside the sperm nucleus, which helps explain recurrent pregnancy loss or IVF failures despite normal basic semen parameters."],
+  ["What happens if no sperm are found in my semen sample?", `If initial analysis shows no sperm (Azoospermia), the sample is centrifuged and re-examined. If confirmed, Dr. Kamran Saleem will conduct a thorough medical evaluation, including reproductive hormone tests and physical examination, to determine whether sperm can be retrieved surgically via TESA or Micro-TESE. See the ${L.hormone}.`],
+  ["How much does a semen analysis cost in Lahore?", `Testing fees are fixed and fully communicated before you book, with no hidden charges and no pressure for unneeded procedures. Message the team on WhatsApp (${phone}) for the current fee for semen analysis, DFI or a combined package.`],
+  ["What is a normal sperm count?", "Under WHO 6th Edition limits, a normal semen sample has a concentration of at least 16 million/mL and at least 39 million sperm in total, with total motility of at least 42% and normal forms of at least 4%. These are lower reference limits, not averages, and your result is always read together with your history and examination."],
+  ["How long does it take to get semen analysis results?", "Semen analysis reports are finalized within 24 hours and sent by secure PDF or WhatsApp. Sperm DFI results take 2 to 3 working days."],
+  ["Can one abnormal semen analysis confirm male infertility?", "No. Sperm production takes about 74 days and is sensitive to illness, fever, stress, medicines and heat. If the first result is abnormal, Dr. Kamran advises repeating the test after 2 to 4 weeks with 2 to 5 days of abstinence before drawing conclusions."],
+  ["Is a semen analysis confidential?", "Yes. Collection takes place in private rooms, and your report is delivered only to you through secure PDF or WhatsApp and reviewed with the doctor in a private consultation."],
+  ["Does a semen analysis show an infection?", "A high white cell count (leukocytes of 1.0 million/mL or more) suggests infection or inflammation. A semen culture and sensitivity test then identifies the bacteria so that targeted antibiotics can be given."],
+  ["What tests follow an abnormal semen analysis?", `Depending on the pattern, Dr. Kamran may advise a repeat semen analysis, sperm DFI, semen culture, a ${L.hormone}, a scrotal Doppler ultrasound for varicocele, and genetic tests for severe male factor. The ${L.mAssess} brings these together.`],
+  ["How can I improve my sperm count?", "Stop smoking, limit alcohol, keep a healthy weight, avoid heat exposure and tell the doctor about any medicine or supplement you use. Varicocele and infection are treatable, and antioxidants are used only when advised. Avoid outside testosterone or steroids, which can switch off sperm production."],
+  ["Should my partner also be tested?", `Yes. Male factor contributes to roughly 40% to 50% of fertility difficulties, so both partners are evaluated together. See ${L.fAssess}, ${L.hormonal} and ${L.ovulation} for your partner.`],
+];
+
+const locations = [
+  ["DHA Defence (Phase 5/6): Rasheed Hospital", "Main Boulevard, Defence, Lahore", "Daily 3:00 PM - 6:00 PM (Closed Saturday & Sunday)", "/locations/dha-lahore"],
+  ["Gulberg: TAMC Clinic", "M.M. Alam Road, Lahore", "Wednesday 12:00 PM - 3:00 PM (other days by appointment / on-call)", "/locations/mm-alam-road-lahore"],
+  ["Shalamar: Shahnaz Hospital", "Shalamar Link Road, Lahore", "Monday & Thursday 6:00 PM - 9:00 PM (other days closed)", "/locations/shalamar-lahore"],
+];
+
+const strip = (s) => s.replace(/<[^>]+>/g, "");
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "MedicalWebPage", "@id": url, url, name: title, description, inLanguage: "en-PK",
+      reviewedBy: { "@type": "Physician", name: "Dr. Kamran Saleem" },
+      about: { "@type": "MedicalTest", name: "Semen Analysis", usedToDiagnose: [{ "@type": "MedicalCondition", name: "Male infertility" }, { "@type": "MedicalCondition", name: "Oligozoospermia" }, { "@type": "MedicalCondition", name: "Azoospermia" }] } },
+    { "@type": "MedicalClinic", "@id": base + "/#clinic", name: "Kamran Fertility Clinic", url: base, telephone: "+923148432789",
+      location: ["Rasheed Hospital (DHA Defence)", "TAMC (M.M. Alam Road, Gulberg)", "Shahnaz Hospital (Shalamar Link Road)"].map(n => ({ "@type": "Place", name: n, address: { "@type": "PostalAddress", addressLocality: "Lahore", addressRegion: "Punjab", addressCountry: "PK" } })) },
+    { "@type": "HowTo", name: "How to prepare for a semen analysis test", step: prep.map(([n, t]) => ({ "@type": "HowToStep", name: n, text: t })) },
+    { "@type": "BreadcrumbList", itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: base + "/" },
+      { "@type": "ListItem", position: 2, name: "Services", item: base + "/services" },
+      { "@type": "ListItem", position: 3, name: "Fertility Tests", item: base + TS },
+      { "@type": "ListItem", position: 4, name: "Semen Analysis", item: url } ] },
+    { "@type": "FAQPage", mainEntity: faqs.map(([q, ans]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(ans) } })) },
   ],
-  sections: [
-    {
-      id: "semen-analysis-purpose",
-      title: "What a Semen Analysis Evaluates",
-      intro: "The laboratory examines a semen sample using defined methods and reports several characteristics.",
-      icon: "flask",
-      body: [
-        "A semen analysis commonly reports semen volume, sperm concentration or count, movement (motility) and shape (morphology). The report should be interpreted using the laboratory’s own reference information and your clinical history.",
-        "The test is one part of a fertility evaluation. It does not by itself prove or rule out the ability to conceive.",
-      ],
-    },
-    {
-      id: "understanding-report-terms",
-      title: "Common Terms in a Semen Report",
-      intro: "Reports use technical words that can be confusing without context.",
-      icon: "compare",
-      body: [
-        { ul: [
-          "Volume: the amount of semen in the sample",
-          "Concentration and total count: how many sperm are present",
-          "Motility: the proportion of sperm that move, and how they move",
-          "Morphology: the proportion of sperm with a typical shape",
-          "Other findings such as pH, liquefaction, white blood cells or sperm agglutination, depending on the laboratory",
-        ] },
-        { rich: ["For a plain-language explanation, read ", ["Understanding a Semen Analysis", "/resources/understanding-a-semen-analysis"], "."] },
-      ],
-    },
-    {
-      id: "when-semen-analysis",
-      title: "When a Semen Analysis May Be Requested",
-      intro: "It is often considered when investigating difficulty conceiving or a known male reproductive concern.",
-      icon: "calendar",
-      body: [
-        { ul: [
-          "As part of an initial fertility evaluation, usually after 12 months of trying without conception",
-          "Sooner when a partner is 35 or older or there is a known concern",
-          "After a previous result that needs review",
-          "When a clinician is assessing a relevant medical history",
-          "To help decide whether further male fertility investigations are needed",
-        ] },
-      ],
-    },
-    {
-      id: "sample-preparation",
-      title: "Preparing to Provide a Sample",
-      intro: "Follow the specific collection and abstinence instructions given by the laboratory.",
-      icon: "clipboard",
-      body: [
-        { ul: [
-          "Confirm the recommended abstinence period with the testing laboratory",
-          "Use the collection container and method supplied or approved by the laboratory",
-          "Tell the laboratory if any of the sample was lost during collection",
-          "Follow instructions for delivery time and temperature",
-          "Report recent fever or illness and relevant medicines",
-        ] },
-        "Samples that are incomplete, delayed or collected without following instructions can affect the result. If anything went wrong, tell the laboratory so the report can be read correctly.",
-      ],
-    },
-    {
-      id: "reviewing-semen-report",
-      title: "How the Report Is Reviewed",
-      intro: "A clinician considers the pattern of findings rather than one number in isolation.",
-      icon: "compare",
-      body: [
-        "Semen parameters can vary between samples. Depending on the result and clinical context, repeat analysis or additional evaluation may be discussed.",
-        { rich: ["For a broader work-up, see ", ["male infertility assessment", `${A}/male-infertility`], ". Other relevant pages include ", ["male fertility testing", `${A}/male-fertility-test`], " and ", ["hormonal analysis", `${A}/hormonal-analysis`], ". For educational background, read ", ["Male Fertility Test: What to Know", "/resources/male-fertility-test"], "."] },
-      ],
-    },
-    {
-      id: "after-semen-analysis",
-      title: "What Happens After the Result",
-      intro: "The next step depends on the report and the rest of your fertility evaluation.",
-      icon: "route",
-      body: [
-        { ul: [
-          "A result within the laboratory range may lead to a focus on other parts of the evaluation",
-          "A borderline or abnormal result may lead to a repeat test",
-          "Persistent abnormal findings may lead to examination, hormone tests or further investigation",
-        ] },
-        { rich: ["A partner may also benefit from a ", ["female fertility assessment", `${A}/female-fertility-test`], " or ", ["ovulation test", `${A}/ovulation-test`], ". If treatment becomes relevant, see our ", ["fertility treatment", T], " services."] },
-      ],
-    },
-  ],
-  faqs: [
-    { q: "Does an abnormal semen analysis mean I cannot have children?", a: "Not necessarily. Results need to be interpreted in context, and further evaluation may clarify what they mean." },
-    { q: "How should I prepare for semen analysis?", a: "Follow the laboratory’s instructions about abstinence, collection and sample delivery. Requirements can vary by laboratory." },
-    { q: "Can a semen analysis diagnose every cause of infertility?", a: "No. It evaluates the sample but may not identify every underlying cause. Further assessment may be recommended." },
-    { q: "Why might I need to repeat a semen analysis?", a: "Semen parameters vary from one sample to another, so a clinician may ask for a repeat test before drawing conclusions from one result." },
-    { q: "How long does it take to get semen analysis results?", a: "This depends on the laboratory. Ask when you provide the sample, and bring the full report for review." },
-    { q: "Can I get a report reviewed without a new test?", a: "Yes. Bring your existing report, including the laboratory name and date, and the clinician can discuss what it may mean and whether more testing is needed." },
-  ],
-  closingHeading: "Semen Analysis Review with Dr. Kamran Saleem",
-  closingParas: [
-    "Dr. Kamran Saleem can review your history and available reports, discuss whether this assessment is appropriate, and explain possible next steps. The exact tests and plan depend on your individual circumstances.",
-    "You can ask about the consultation and any separate test fees before confirming an appointment.",
-  ],
-  resources: [
-    { href: "/resources/understanding-a-semen-analysis", category: "Fertility Assessment", title: "Understanding a Semen Analysis" },
-    { href: "/resources/male-fertility-test", category: "Fertility Assessment", title: "Male Fertility Test" },
-    { href: "/resources/male--infertility-consultation", category: "Fertility Assessment", title: "Male Infertility Consultation" },
-  ],
-  close: {
-    heading: "Need Help Choosing the Right Assessment?",
-    body: "Bring your previous semen report and share your history when booking so the consultation can focus on your questions.",
-    cta: "Book an assessment",
-  },
 };
 ---
+<Layout title={title} description={description}>
+<div class="ivf">
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+<main>
+<section class="hero"><div class="w hgrid">
+  <div>
+    <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/services">Services</a> / <a href={TS}>Fertility Tests</a> / Semen Analysis</nav>
+    <p class="eye">Confidential · WHO 6th Edition · Lahore</p>
+    <h1>Semen Analysis Test in Lahore</h1>
+    <p class="lead">WHO diagnostic standards, Sperm DFI &amp; patient privacy.</p>
+    <p class="sub">Book a private semen analysis test (sperm count test) at Kamran Fertility Clinic. Reports are interpreted by Dr. Kamran Saleem and delivered within 24 hours, with clear guidance for male fertility planning.</p>
+    <p class="actions"><a class="btn" href={wa}>Book on WhatsApp</a> <a class="btn ghost" href="#parameters">See WHO parameters</a></p>
+    <p class="mini">Direct appointment &amp; test booking: <a href="tel:+923148432789">{phone}</a></p>
+  </div>
+  <div class="hside">
+    <div class="lensbox">
+      <svg class="lens" viewBox="0 0 200 200" aria-hidden="true">
+        <defs><radialGradient id="lg" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#dbeafe"/><stop offset="1" stop-color="#93c5fd"/></radialGradient></defs>
+        <circle cx="100" cy="100" r="92" fill="url(#lg)" stroke="#ffffff" stroke-width="6"/>
+        <circle cx="100" cy="100" r="78" fill="none" stroke="#2563eb" stroke-opacity=".25" stroke-width="2" stroke-dasharray="3 6"/>
+        <g fill="#0b1f4b" stroke="#0b1f4b" stroke-width="2" stroke-linecap="round">
+          <ellipse cx="70" cy="78" rx="6" ry="4" transform="rotate(-25 70 78)"/><path d="M64 81q-10 8-6 18t-4 16" fill="none"/>
+          <ellipse cx="118" cy="62" rx="6" ry="4" transform="rotate(20 118 62)"/><path d="M124 64q12 4 14 14t10 14" fill="none"/>
+          <ellipse cx="128" cy="118" rx="6" ry="4" transform="rotate(-10 128 118)"/><path d="M122 120q-12 6-12 16t-12 14" fill="none"/>
+          <ellipse cx="82" cy="136" rx="6" ry="4" transform="rotate(35 82 136)"/><path d="M77 140q-10 2-14 12" fill="none"/>
+        </g>
+      </svg>
+    </div>
+    <ul class="facts">
+      <li><b>24 h</b> report delivery</li>
+      <li><b>2-5 days</b> abstinence before the test</li>
+      <li><b>3</b> private collection rooms in Lahore</li>
+    </ul>
+  </div>
+</div></section>
 
-<TreatmentPage {...page} />
+<div class="w"><div class="stats" aria-label="WHO 6th Edition lower reference limits">
+  <p class="statlab">WHO 6th Edition lower reference limits</p>
+  <div class="statgrid">{who.map(([n, u, l]) => <div class="stat"><b>≥ {n}<small>{u}</small></b><span>{l}</span></div>)}</div>
+</div></div>
+
+<div class="w layout">
+  <aside class="toc" aria-label="On this page"><p>On this page</p>
+    {toc.map(([id, l]) => <a href={`#${id}`}>{l}</a>)}
+    <a class="btn sm" href={wa}>Book now</a>
+  </aside>
+  <div class="content">
+    <p class="review"><b>Clinical supervision &amp; interpretation:</b> Dr. Kamran Saleem (MBBS 1988, UK Dip GUM &amp; Ven Univ. of Liverpool 1998; PMDC Registered; 25+ years experience in reproductive health) · <a href="/dr-kamran-saleem">About the doctor</a></p>
+
+    <section id="book">
+      <p class="kick">Booking</p>
+      <h2>Book Your Confidential Semen Analysis Test</h2>
+      <div class="snippet"><h3>How to Book a Semen Analysis Test in Lahore?</h3>
+        <p>You can schedule a confidential semen analysis test at Kamran Fertility Clinic by contacting our team directly on WhatsApp ({phone}). Testing is conducted under strict WHO diagnostic standards with private on-site collection rooms across DHA Defence, Gulberg M.M. Alam Road, and Shalamar Link Road. Reports are interpreted by Dr. Kamran Saleem (UK Dip GUM &amp; Ven, Univ. of Liverpool) and delivered within 24 hours to provide clear, actionable guidance for male fertility planning.</p></div>
+      <p>A semen analysis is the essential starting point for evaluating male fertility. Whether you are actively planning a pregnancy, investigating why conceiving is taking longer than expected, or seeking a reliable baseline assessment, our clinic provides a professional, discreet, and stress-free environment.</p>
+      <p>Under the medical leadership of Dr. Kamran Saleem, who holds a UK Postgraduate Diploma in Genito-Urinary Medicine &amp; Venereology from the University of Liverpool, every semen evaluation is conducted with clinical precision and complete confidentiality. It is the first step of the <a href={`${AS}/male-fertility-assessment`}>Male Fertility Assessment</a> and one of our <a href={TS}>fertility tests</a>.</p>
+      <h3 class="sh">Why Book Your Test at Kamran Fertility Clinic?</h3>
+      <div class="cards c2">
+        {why.map(([h, p, i]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p>{p}</p></div>)}
+      </div>
+      <p>To schedule your semen analysis test or speak with our team regarding sample timing and availability, message us on WhatsApp ({phone}).</p>
+      <h3 class="sh">How your visit works</h3>
+      <ol class="tl">
+        {journey.map(([h, p, i], n) => <li><span class="dot">{n + 1}</span><div><h4>{h}</h4><p>{p}</p></div></li>)}
+      </ol>
+    </section>
+
+    <section id="when">
+      <p class="kick">Who should test</p>
+      <h2>When Should You Get a Semen Analysis?</h2>
+      <p>A semen analysis is the first test for the male partner. Do not wait if any of these apply:</p>
+      <div class="cards">
+        {when.map(([h, p, i]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p set:html={p} /></div>)}
+      </div>
+    </section>
+
+    <section id="parameters">
+      <p class="kick">Reference values</p>
+      <h2>Standard Semen Analysis: WHO Reference Parameters</h2>
+      <p>A standard semen analysis evaluates the physical and microscopic characteristics of the ejaculate to determine sperm quantity, movement, and structure. Our laboratory strictly follows the World Health Organization (WHO) 6th Edition Laboratory Manual reference criteria.</p>
+      <h3 class="sh">WHO 6th Edition Diagnostic Reference Table</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Semen Parameter</th><th>WHO 6th Edition Lower Reference Limit</th><th>Clinical Significance &amp; Medical Interpretation</th></tr></thead>
+        <tbody>{params.map(r => <tr><th scope="row">{r[0]}</th><td><span class="pill">{r[1]}</span></td><td>{r[2]}</td></tr>)}</tbody>
+      </table></div>
+      <h3 class="sh">Clinical Understanding of Standard Findings</h3>
+      <div class="cards">
+        {terms.map(([h, p, i]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p set:html={p} /></div>)}
+      </div>
+      <h3 class="sh">Total motile sperm count (TMSC): how Dr. Kamran reads the numbers together</h3>
+      <p>Count, motility and volume are combined into a total motile sperm count, which helps decide the pathway. These are guide values, not a diagnosis.</p>
+      <div class="bands">
+        {tmsc.map(([n, h, p, c]) => <div class={`band ${c}`}><b>{n}</b><h4>{h}</h4><p set:html={p} /></div>)}
+      </div>
+      <p class="note">One result is a snapshot, not a verdict. Your report is always read together with your history and examination.</p>
+    </section>
+
+    <section id="advanced">
+      <p class="kick">Beyond the basics</p>
+      <h2>Advanced Male Fertility Diagnostic Services</h2>
+      <p>While a standard semen analysis provides basic measurements of count and motility, advanced testing evaluates sperm genetic integrity and biological health. These specialized services are recommended for couples experiencing unexplained subfertility, recurrent early pregnancy loss, or prior failed IUI/IVF cycles.</p>
+      <h3 class="sh">A. Sperm DNA Fragmentation Index (DFI)</h3>
+      <p>Standard microscopic analysis checks sperm appearance, but it cannot assess the DNA payload packaged inside the sperm head. High DNA fragmentation can cause fertilization failure, poor blastocyst development, or early miscarriage even when basic sperm count and motility appear normal.</p>
+      <div class="bands">
+        {dfi.map(([n, h, p, c]) => <div class={`band ${c}`}><b>{n}</b><h4>{h}</h4><p set:html={p} /></div>)}
+      </div>
+      <h3 class="sh">B. Semen Culture &amp; Sensitivity</h3>
+      <p>Drawing directly on Dr. Kamran Saleem’s specialist background in Genito-Urinary Medicine (Univ. of Liverpool), semen culture testing identifies hidden bacterial infections in the prostate, seminal vesicles, or urethra.</p>
+      <ul class="tick">
+        <li><b>Clinical Purpose:</b> Asymptomatic infections cause elevated white blood cells (Leukocytospermia) and oxidative stress, damaging sperm cell membranes.</li>
+        <li><b>Targeted Treatment:</b> Antibiotic therapy based on culture sensitivity resolves infection and restores sperm parameters before initiating assisted reproductive treatments.</li>
+      </ul>
+      <h3 class="sh">C. Male Reproductive Hormone Evaluation</h3>
+      <p>When semen analysis reveals severe oligospermia or azoospermia, blood testing for key male hormones is essential.</p>
+      <ul class="tick">
+        <li><b>Serum Testosterone, FSH, LH, and Prolactin:</b> Helps differentiate testicular failure from pituitary signaling deficiencies. Learn more on our dedicated <a href={`${TS}/male-fertility-hormone-test`}>Male Fertility Hormone Testing</a> page.</li>
+      </ul>
+      <h3 class="sh">D. Scrotal Doppler Ultrasound &amp; Genetic Tests for Severe Male Factor</h3>
+      <p>For azoospermia or a very low count, a scrotal colour Doppler ultrasound checks testicular volume and detects varicocele, cysts or an absent vas deferens. A karyotype and a Y-chromosome microdeletion test may be advised, and CFTR testing if the vas deferens is absent. These results shape what is possible with <a href={`${TR}/male-infertility`}>surgical sperm retrieval</a>.</p>
+    </section>
+
+    <section id="preparation">
+      <p class="kick">Preparation</p>
+      <h2>Laboratory Standards, Preparation &amp; Sample Processing</h2>
+      <p>To ensure absolute diagnostic accuracy, proper sample preparation and handling are mandatory.</p>
+      <h3 class="sh">Step-by-Step Patient Preparation Rules</h3>
+      <ol class="steps">
+        {prep.map(([h, d, i], n) => (
+          <li class="step"><span class="ph"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><div><span class="num">Step {n + 1}</span><h3>{h}</h3><p>{d}</p></div></li>
+        ))}
+      </ol>
+      <h3 class="sh">Sample Collection Facilities &amp; Turnaround Times</h3>
+      <div class="cards c2">
+        {facilities.map(([h, p, i]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p>{p}</p></div>)}
+      </div>
+      <h3 class="sh">What can change your semen analysis result</h3>
+      <div class="cards">
+        {affect.map(([h, p]) => <div class="card"><h3>{h}</h3><p>{p}</p></div>)}
+      </div>
+    </section>
+
+    <section id="pathways">
+      <p class="kick">After your result</p>
+      <h2>Diagnostic Pathways &amp; Next Medical Steps</h2>
+      <p>Following your test, Dr. Kamran Saleem reviews the report during a 45–60 minute unhurried consultation to outline clear, personalized recommendations:</p>
+      <div class="flow">
+        <div class="froot">Semen Analysis Results</div>
+        <div class="fgrid">
+          {pathways.map(([c, o, l, k]) => <div class={`fnode ${k}`}><span class="fc">{c}</span><span class="fa">→</span><b>{o}</b><p set:html={l} /></div>)}
+        </div>
+      </div>
+      <p class="note">If the first result is abnormal, the test is usually repeated after 2 to 4 weeks. Bring existing reports for a <a href="/services/support">second opinion</a> if you have already been told something is wrong.</p>
+    </section>
+
+    <section id="cost">
+      <p class="kick">Fees &amp; turnaround</p>
+      <h2>Semen Analysis Cost in Lahore &amp; Report Turnaround</h2>
+      <p>Consultation and testing fees are fully transparent and communicated prior to booking. There are no hidden fees and no pressure for unneeded procedures. Message us on WhatsApp ({phone}) for the current fee for a semen analysis, a DFI test or a combined package.</p>
+      <div class="tw"><table class="slim">
+        <thead><tr><th>Test</th><th>Report ready</th><th>Preparation</th></tr></thead>
+        <tbody>{turnaround.map(r => <tr><th scope="row">{r[0]}</th><td><b>{r[1]}</b></td><td>{r[2]}</td></tr>)}</tbody>
+      </table></div>
+    </section>
+
+    <section id="related">
+      <p class="kick">Keep reading</p>
+      <h2>Related Fertility Tests &amp; Male Fertility Care</h2>
+      <p>A semen analysis is the first step. These pages cover the other tests, the full assessment and the treatments that may follow.</p>
+      <div class="cards">
+        {related.map(([n, h, d]) => <a class="card link" href={h}><h3>{n}</h3><p>{d}</p></a>)}
+      </div>
+    </section>
+
+    <section id="faq">
+      <p class="kick">Questions</p>
+      <h2>Frequently Asked Questions</h2>
+      {faqs.map(([q, ans]) => <details><summary>{q}</summary><p set:html={ans} /></details>)}
+      <p class="note">This page is for general information and is not a substitute for medical advice. Reference ranges are guides, and your results are interpreted together with your history and examination.</p>
+    </section>
+  </div>
+</div>
+
+<section class="cta" id="locations"><div class="w">
+  <h2>Schedule Your Semen Analysis Test Today</h2>
+  <p>Taking the first step in fertility testing should be straightforward, private, and supported by experienced clinical care. Message our team on {phone} to schedule your test or arrange a consultation with Dr. Kamran Saleem.</p>
+  <a class="btn" href={wa}>Book via WhatsApp</a>
+  <div class="cards c3 locs">
+    {locations.map(([n, ad, h, l]) => <a class="card link" href={l}><h3>{n}</h3><p>{ad}</p><p class="hrs">{h}</p></a>)}
+  </div>
+  <p style="margin-top:22px"><a style="color:#fff" href={TS}>All fertility tests</a> · <a style="color:#fff" href={`${TS}/male-fertility-hormone-test`}>Male hormone test</a> · <a style="color:#fff" href={AS}>Assessment</a> · <a style="color:#fff" href={TR}>Fertility treatment</a> · <a style="color:#fff" href="/services/support">Second opinions</a></p>
+</div></section>
+</main>
+</div>
+</Layout>
+
+<style is:global>
+  .ivf{--c-primary:#2563eb;--c-dark:#0b1f4b;--c-accent:#4cc9f0;--c-tint:#eef5ff;--c-bg:#fff;--c-text:#1e2a4a;--c-muted:#5b6b8c;--c-line:#dbe6f6;--ok:#16a34a;--mild:#d97706;--sev:#dc2626;--zero:#7c3aed;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    margin:0;background:var(--c-bg);color:var(--c-text);font:16px/1.75 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .ivf *{box-sizing:border-box}
+  .ivf a{color:var(--c-primary)}
+  .ivf .w{max-width:1120px;margin:0 auto;padding:0 20px}
+  .ivf h1,.ivf h2,.ivf h3,.ivf h4{line-height:1.2;color:var(--c-dark);margin:0 0 .5em}
+  .ivf h1,.ivf h2{font-family:var(--serif);font-weight:700;letter-spacing:-.01em}
+  .ivf h2{font-size:clamp(26px,3.2vw,36px);margin-top:0}
+  .ivf .kick{margin:0 0 8px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--c-primary)}
+  .ivf .sh{font-size:20px;margin:30px 0 12px}
+  .ivf .btn{display:inline-block;background:linear-gradient(135deg,#3b82f6,#1d4ed8);box-shadow:0 8px 18px rgba(29,78,216,.28);color:#fff;padding:14px 26px;border-radius:999px;font-weight:600;text-decoration:none;transition:transform .15s}
+  .ivf .btn:hover{transform:translateY(-2px)}
+  .ivf .btn.sm{padding:9px 18px;font-size:14px}
+  .ivf .btn.ghost{background:transparent;box-shadow:none;border:1.5px solid rgba(255,255,255,.7);color:#fff}
+  .ivf .hero{background:radial-gradient(900px 420px at 85% 0,rgba(76,201,240,.28),transparent 60%),linear-gradient(135deg,#071538,var(--c-primary));color:#fff;padding:56px 0 96px}
+  .ivf .hero h1{color:#fff;font-size:clamp(34px,5.2vw,54px);margin-bottom:.25em}
+  .ivf .hero a{color:#fff}
+  .ivf .hgrid{display:grid;grid-template-columns:1.35fr 1fr;gap:44px;align-items:center}
+  .ivf .crumb{font-size:13px;opacity:.85;margin-bottom:16px}
+  .ivf .eye{text-transform:uppercase;letter-spacing:.14em;font-size:12.5px;font-weight:700;color:var(--c-accent);margin:0 0 8px}
+  .ivf .lead{font-family:var(--serif);font-size:clamp(19px,2.2vw,24px);font-style:italic;opacity:.95;margin:0 0 14px}
+  .ivf .sub{opacity:.92;max-width:58ch}.ivf .mini{font-size:14px;opacity:.88}
+  .ivf .actions{margin:22px 0 14px;display:flex;gap:12px;flex-wrap:wrap}
+  .ivf .hside{display:grid;gap:16px}
+  .ivf .lensbox{width:min(260px,70%);margin:0 auto;filter:drop-shadow(0 18px 30px rgba(0,0,0,.3))}
+  .ivf svg.lens{width:100%;height:auto;stroke:none;fill:none}
+  .ivf .facts{list-style:none;margin:0;padding:16px 22px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:18px;backdrop-filter:blur(6px)}
+  .ivf .facts li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.15);font-size:14.5px}
+  .ivf .facts li:last-child{border:0}.ivf .facts b{font-size:20px;margin-right:6px}
+  .ivf .stats{margin-top:-52px;position:relative;z-index:2;background:#fff;border:1px solid var(--c-line);border-radius:22px;box-shadow:0 20px 46px rgba(11,31,75,.14);padding:20px 24px 22px}
+  .ivf .statlab{margin:0 0 12px;text-align:center;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c-muted)}
+  .ivf .statgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+  .ivf .stat{text-align:center;padding:6px 4px;border-left:1px solid var(--c-line)}
+  .ivf .stat:first-child{border:0}
+  .ivf .stat b{display:block;font-family:var(--serif);font-size:clamp(24px,2.6vw,32px);color:var(--c-primary);line-height:1.1}
+  .ivf .stat small{font-size:.45em;margin-left:3px;color:var(--c-muted);font-family:Inter,system-ui,sans-serif;font-weight:600}
+  .ivf .stat span{font-size:12.5px;color:var(--c-muted)}
+  .ivf .layout{display:grid;grid-template-columns:210px 1fr;gap:48px;padding-top:44px;padding-bottom:20px}
+  .ivf .toc{position:sticky;top:76px;align-self:start;display:flex;flex-direction:column;gap:2px;font-size:14px}
+  .ivf .toc p{margin:0 0 6px;font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:.1em;color:var(--c-muted)}
+  .ivf .toc a:not(.btn){text-decoration:none;color:var(--c-text);padding:5px 0 5px 12px;border-left:2px solid var(--c-line)}
+  .ivf .toc a:not(.btn):hover{border-color:var(--c-accent);color:var(--c-primary)}
+  .ivf .toc .btn{margin-top:14px;text-align:center}
+  .ivf .content section{padding:0 0 56px;scroll-margin-top:84px}
+  .ivf .review{background:var(--c-tint);border-radius:14px;padding:14px 18px;font-size:13.5px;color:var(--c-muted);margin:0 0 36px}
+  .ivf .snippet{background:linear-gradient(180deg,#f5f9ff,#eef5ff);border:1px solid var(--c-line);border-left:5px solid var(--c-accent);border-radius:16px;padding:20px 24px;margin:18px 0 22px}
+  .ivf .snippet h3{font-size:18px;margin-bottom:8px}.ivf .snippet p{margin:0}
+  .ivf .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:20px 0}
+  .ivf .content .cards{grid-template-columns:repeat(3,1fr)}
+  .ivf .content .cards.c2{grid-template-columns:repeat(2,1fr)}
+  .ivf .c3{grid-template-columns:repeat(3,1fr)}
+  .ivf .card{background:#fff;border:1px solid var(--c-line);border-radius:18px;padding:22px;box-shadow:0 1px 0 rgba(11,31,75,.03);transition:box-shadow .2s,transform .2s}
+  .ivf .card:hover{box-shadow:0 12px 28px rgba(11,31,75,.09)}
+  .ivf .card h3{font-size:17px;margin-bottom:6px}.ivf .card p{margin:0;font-size:14.5px;color:var(--c-muted)}
+  .ivf .card.link{text-decoration:none;color:inherit}
+  .ivf .card.link:hover{border-color:var(--c-accent);transform:translateY(-3px)}
+  .ivf .hrs{margin-top:6px!important;font-size:13px!important}
+  .ivf .ic,.ivf .ph{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--c-tint);margin-bottom:12px}
+  .ivf svg{width:26px;height:26px;fill:none;stroke:var(--c-primary);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .ivf .tw{overflow-x:auto;border:1px solid var(--c-line);border-radius:16px;margin:18px 0;box-shadow:0 8px 24px rgba(11,31,75,.05)}
+  .ivf table{border-collapse:collapse;width:100%;min-width:720px;font-size:14.5px}
+  .ivf table.slim{min-width:560px}
+  .ivf th{background:var(--c-dark);color:#fff;text-align:left;padding:13px 16px;font-size:13px;letter-spacing:.04em}
+  .ivf td,.ivf tbody th{padding:13px 16px;border-top:1px solid var(--c-line);vertical-align:top}
+  .ivf tbody th{background:var(--c-tint);color:var(--c-dark);font-size:14.5px;letter-spacing:0}
+  .ivf tbody tr:nth-child(even) td{background:#f8fbff}
+  .ivf .pill{display:inline-block;background:#e7f0ff;color:#1d4ed8;border-radius:999px;padding:3px 12px;font-weight:700;font-size:13.5px;white-space:nowrap}
+  .ivf .bands{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:18px 0}
+  .ivf .band{border:1px solid var(--c-line);border-top:5px solid var(--c-line);border-radius:16px;padding:18px 20px;background:#fff}
+  .ivf .band b{font-family:var(--serif);font-size:22px;color:var(--c-dark)}
+  .ivf .band h4{font-size:14px;text-transform:uppercase;letter-spacing:.06em;margin:4px 0 8px}
+  .ivf .band p{margin:0;font-size:14.5px;color:var(--c-muted)}
+  .ivf .band.ok{border-top-color:var(--ok)}.ivf .band.ok h4{color:var(--ok)}
+  .ivf .band.mild{border-top-color:var(--mild)}.ivf .band.mild h4{color:var(--mild)}
+  .ivf .band.sev{border-top-color:var(--sev)}.ivf .band.sev h4{color:var(--sev)}
+  .ivf .tl{list-style:none;margin:16px 0 0;padding:0;position:relative}
+  .ivf .tl:before{content:"";position:absolute;left:19px;top:14px;bottom:14px;width:2px;background:var(--c-line)}
+  .ivf .tl li{display:grid;grid-template-columns:40px 1fr;gap:16px;margin-bottom:18px;position:relative}
+  .ivf .tl .dot{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:#fff;font-weight:700;display:grid;place-items:center;box-shadow:0 0 0 5px #fff}
+  .ivf .tl h4{margin:6px 0 2px;font-size:17px}.ivf .tl p{margin:0;color:var(--c-muted);font-size:14.5px}
+  .ivf .steps{list-style:none;margin:16px 0 0;padding:0;display:grid;gap:14px}
+  .ivf .step{display:grid;grid-template-columns:64px 1fr;gap:18px;align-items:start;background:var(--c-tint);border-radius:18px;padding:20px}
+  .ivf .step .ph{width:56px;height:56px;margin:0;background:#fff}.ivf .step .ph svg{width:30px;height:30px}
+  .ivf .num{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-primary)}
+  .ivf .step h3{margin:2px 0 6px;font-size:18px}.ivf .step p{margin:0;color:var(--c-muted)}
+  .ivf .tick{list-style:none;padding:0;margin:12px 0}
+  .ivf .tick li{position:relative;padding:6px 0 6px 28px}
+  .ivf .tick li:before{content:"✓";position:absolute;left:0;color:var(--c-primary);font-weight:700}
+  .ivf .flow{margin:22px 0}
+  .ivf .froot{width:max-content;max-width:100%;margin:0 auto;background:var(--c-dark);color:#fff;padding:12px 28px;border-radius:999px;font-weight:700;letter-spacing:.04em;position:relative}
+  .ivf .froot:after{content:"";position:absolute;left:50%;top:100%;width:2px;height:22px;background:var(--c-line)}
+  .ivf .fgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
+  .ivf .fnode{border:1px solid var(--c-line);border-top:5px solid var(--c-line);border-radius:16px;padding:16px;background:#fff;display:flex;flex-direction:column;gap:6px}
+  .ivf .fnode .fc{font-size:12.5px;font-weight:700;color:var(--c-muted);text-transform:uppercase;letter-spacing:.05em}
+  .ivf .fnode .fa{color:var(--c-muted);line-height:1}
+  .ivf .fnode b{color:var(--c-dark);font-size:15.5px;line-height:1.35}
+  .ivf .fnode p{margin:auto 0 0;font-size:13.5px;color:var(--c-muted);padding-top:8px}
+  .ivf .fnode.ok{border-top-color:var(--ok)}.ivf .fnode.mild{border-top-color:var(--mild)}.ivf .fnode.sev{border-top-color:var(--sev)}.ivf .fnode.zero{border-top-color:var(--zero)}
+  .ivf .note{font-size:14px;color:var(--c-muted)}
+  .ivf details{border:1px solid var(--c-line);border-radius:14px;padding:16px 20px;margin-top:10px;background:#fff}
+  .ivf details[open]{box-shadow:0 8px 22px rgba(11,31,75,.07)}
+  .ivf summary{cursor:pointer;font-weight:600;color:var(--c-dark)}
+  .ivf details p{margin:10px 0 0;color:var(--c-muted)}
+  .ivf .cta{background:radial-gradient(800px 360px at 15% 0,rgba(76,201,240,.18),transparent 60%),var(--c-dark);color:#fff;padding:64px 0;text-align:center}
+  .ivf .cta h2{color:#fff}.ivf .cta p{max-width:62ch;margin-left:auto;margin-right:auto}
+  .ivf .cta .card{text-align:left;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
+  .ivf .cta .card h3{color:#fff}.ivf .cta .card p{color:#cdd9f5;max-width:none}.ivf .cta .locs{margin-top:34px}
+  @media(max-width:900px){
+    .ivf .hgrid,.ivf .layout,.ivf .cards,.ivf .content .cards,.ivf .content .cards.c2,.ivf .c3,.ivf .bands{grid-template-columns:1fr}
+    .ivf .fgrid{grid-template-columns:1fr 1fr}
+    .ivf .statgrid{grid-template-columns:repeat(3,1fr);gap:14px 8px}.ivf .stat:nth-child(4){border-left:0}
+    .ivf .toc{position:static;flex-direction:row;flex-wrap:wrap;gap:6px}.ivf .toc p{width:100%}
+    .ivf .toc a:not(.btn){border:1px solid var(--c-line);border-radius:999px;padding:4px 12px}
+    .ivf .hero{padding-bottom:84px}
+  }
+  @media(max-width:520px){
+    .ivf .fgrid{grid-template-columns:1fr}
+    .ivf .step{grid-template-columns:1fr}
+  }
+  .ivf .content h3{font-size:19px}.ivf .card h3{font-size:17px}.ivf .content .sh{font-size:20px}
+  .ivf .content .card p+p{margin-top:8px}
+</style>
