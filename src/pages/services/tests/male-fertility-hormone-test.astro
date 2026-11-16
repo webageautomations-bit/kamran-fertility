@@ -1,0 +1,435 @@
+---
+// src/pages/services/tests/male-fertility-hormone-test.astro
+// TEST page (lives under /services/tests). Uses the site's own menu/footer via Layout.
+import Layout from "../../../layouts/Layout.astro";
+const base = "https://www.kamranfertility.com";
+const TS = "/services/tests";
+const AS = "/services/assessment";
+const TR = "/services/fertility-treatment";
+const url = `${base}${TS}/male-fertility-hormone-test`;
+const title = "Male Fertility Hormone Test Lahore | Prices | Dr. Kamran";
+const description = "Male fertility hormone test in Lahore: testosterone, FSH, LH & prolactin. Confidential, from PKR 4,000, reports in 24 hours with Dr. Kamran Saleem.";
+const wa = "https://wa.me/923148432789?text=" + encodeURIComponent("Hello, I would like to book a male fertility hormone test with Dr. Kamran Saleem.");
+
+// Internal link shortcuts (menu URLs)
+const a = (h, t) => `<a href="${h}">${t}</a>`;
+const L = {
+  semen: a(`${TS}/semen-analysis`, "semen analysis"),
+  hormonal: a(`${TS}/hormonal-analysis`, "hormonal analysis"),
+  hub: a(TS, "fertility tests"),
+  mAssess: a(`${AS}/male-fertility-assessment`, "male fertility assessment"),
+  fAssess: a(`${AS}/female-fertility-assessment`, "female fertility assessment"),
+  mTreat: a(`${TR}/male-infertility`, "male infertility treatment"),
+  icsi: a(`${TR}/icsi`, "ICSI"),
+  iui: a(`${TR}/iui`, "IUI"),
+  ivf: a(`${TR}/ivf`, "IVF"),
+  second: a("/services/support", "second opinion"),
+};
+
+const icons = {
+  flask: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3"/>',
+  inject: '<path d="M4 20l9-9M13 11l-2-2 5-5 4 4-5 5zM3 21l2-1"/>',
+  bolt: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+  target: '<circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>',
+  cells: '<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><circle cx="12" cy="16" r="3"/>',
+  merge: '<circle cx="9" cy="12" r="5"/><path d="M14 12h7M18 9l3 3-3 3"/>',
+  heart: '<path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/>',
+  check: '<path d="M5 12l5 5 9-10"/>',
+  clip: '<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h6"/>',
+  alert: '<path d="M12 3l10 18H2zM12 10v5M12 18h.01"/>',
+};
+
+const toc = [["services","Test services"],["why","Why it matters"],["profile","Hormones tested"],["who-needs","Who needs it"],["test-process","How it works"],["results","Results guide"],["preparation","Preparation"],["pathways","Next steps"],["pricing","Prices"],["related","Related care"],["faq","FAQ"],["locations","Book"]];
+
+const overview = [
+  { l: "Book Your Test", h: "#preparation", art: '<rect x="37" y="14" width="26" height="7" rx="3" fill="#3b82f6" stroke="#0b1f4b" stroke-width="2"/><rect x="39" y="19" width="22" height="64" rx="11" fill="#e0eeff" stroke="#0b1f4b" stroke-width="3"/><rect x="42" y="44" width="16" height="36" rx="8" fill="#4cc9f0"/><circle cx="47" cy="56" r="2.5" fill="#ffffff"/><circle cx="54" cy="66" r="2" fill="#ffffff"/><circle cx="48" cy="74" r="2.5" fill="#ffffff"/>' },
+  { l: "Morning Blood Draw", h: "#preparation", art: '<g transform="rotate(-40 52 46)"><rect x="30" y="39" width="38" height="14" rx="3" fill="#fff" stroke="#0b1f4b" stroke-width="2.5"/><rect x="44" y="39" width="14" height="14" fill="#3b82f6" stroke="#0b1f4b" stroke-width="2"/><rect x="68" y="43" width="14" height="6" fill="#fff" stroke="#0b1f4b" stroke-width="2.5"/><rect x="82" y="37" width="4" height="18" rx="2" fill="#0b1f4b"/><path d="M30 46H16" stroke="#0b1f4b" stroke-width="2"/></g><rect x="22" y="76" width="26" height="11" rx="5.5" fill="#fff" stroke="#0b1f4b" stroke-width="2.5"/><path d="M35 76v11" stroke="#0b1f4b" stroke-width="2"/><rect x="54" y="80" width="22" height="10" rx="5" fill="#0b1f4b"/>' },
+  { l: "Laboratory Testing", h: "#profile", art: '<circle cx="50" cy="50" r="38" fill="#fff" stroke="#2563eb" stroke-width="5"/><circle cx="44" cy="52" r="11" fill="#fff" stroke="#0b1f4b" stroke-width="2"/><circle cx="44" cy="52" r="3.5" fill="#0b1f4b"/><path d="M62 38l11-6M64 48l13-2M62 58l11 5" stroke="#0b1f4b" stroke-width="1.8" stroke-linecap="round"/>' },
+  { l: "Report in 24 Hours", h: "#pricing", art: '<circle cx="50" cy="50" r="32" fill="#fff" opacity=".75"/><circle cx="50" cy="50" r="18" fill="#60a5fa" stroke="#2563eb" stroke-width="2"/><circle cx="50" cy="50" r="7" fill="#0b1f4b"/>' },
+  { l: "Consultation & Plan", h: "#pathways", art: '<circle cx="50" cy="50" r="40" fill="#3b82f6"/><g fill="#fff"><ellipse cx="30" cy="34" rx="6" ry="4"/><ellipse cx="62" cy="48" rx="6" ry="4"/><ellipse cx="34" cy="66" rx="6" ry="4"/></g><g stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"><path d="M36 34q8-6 14 0t14 0"/><path d="M68 48q8-6 12 0"/><path d="M40 66q8-6 14 0t12 0"/></g>' },
+];
+
+// Service cards (service-oriented summary of the test)
+const services = [
+  ["Single male hormone test", `Test one marker, such as testosterone or FSH, when your doctor or an earlier report points to a specific question. Individual tests start from PKR 4,000.`, "inject"],
+  ["Complete male fertility hormone profile", `Serum testosterone (total and free), FSH, LH, prolactin, estradiol and TSH read together, so Dr. Kamran Saleem can see where in the system the problem lies. The bundled profile costs PKR 8,000–12,000.`, "flask"],
+  ["Hormones read with semen analysis", `Hormone results mean most beside a ${L.semen}. The two tests together show whether low sperm count is a testicular or a signalling problem. Part of a full ${L.mAssess}.`, "merge"],
+];
+
+// Section 1: three clinical questions (original content)
+const why = [
+  ["Is your brain sending the proper signals to stimulate sperm production?", "Evaluated via FSH and LH.", "target"],
+  ["Are your testicles producing sufficient fuel for healthy sperm development?", "Evaluated via Total and Free Testosterone.", "bolt"],
+  ["Are hidden hormone imbalances blocking your reproductive potential?", "Evaluated via Prolactin, Estradiol, and Thyroid TSH.", "alert"],
+];
+
+// Section 2: profile A-F (original content)
+const profile = [
+  ["A. Serum Testosterone (Total & Free): The Main Engine of Male Fertility",
+   "Testosterone is the primary male reproductive hormone produced by the Leydig cells in the testicles. It is essential for sperm cell maturation, physical energy, and male reproductive vitality.",
+   ["<b>Total Testosterone:</b> Measures the overall quantity of testosterone circulating in your blood.", "<b>Free Testosterone:</b> Measures the active, unbound fraction of testosterone available directly for cellular use.", "<b>Clinical Significance:</b> Low testosterone (Hypogonadism) can lead to fatigue, reduced drive, and decreased sperm count. Crucially, taking exogenous artificial testosterone gels or injections shuts down natural pituitary signaling, causing complete cessation of sperm production. Dr. Kamran Saleem utilizes natural hormone-restoration protocols to stimulate endogenous testosterone safely."], "bolt"],
+  ["B. Follicle-Stimulating Hormone (FSH): The Sperm Production Command Signal",
+   "Follicle-Stimulating Hormone is secreted by the anterior pituitary gland in the brain. It acts directly on the Sertoli cells within the seminiferous tubules of the testicles, signaling them to produce mature sperm cells.",
+   ["<b>Elevated FSH Levels:</b> Significantly high FSH indicates that the pituitary gland is sending intense signals, but the testicular tissue has reduced capacity to respond (primary testicular failure or Non-Obstructive Azoospermia).", "<b>Low FSH Levels:</b> Abnormally low FSH indicates a lack of pituitary stimulation (hypogonadotropic hypogonadism). This condition is highly responsive to medical therapy, often restoring natural sperm production without surgery."], "target"],
+  ["C. Luteinizing Hormone (LH): The Testosterone Trigger Signal",
+   "Luteinizing Hormone is also secreted by the pituitary gland. Its primary function in men is to stimulate the Leydig cells inside the testicles to synthesize natural testosterone.",
+   ["<b>FSH and LH Dual Analysis:</b> Evaluating FSH and LH together enables Dr. Kamran Saleem to pinpoint the exact site of hormonal dysregulation, whether it originates in the brain or within the testicles."], "cells"],
+  ["D. Serum Prolactin: The Hidden Hormone Regulator",
+   "Prolactin is a pituitary hormone present in small quantities in healthy men.",
+   ["<b>Impact of Elevated Prolactin (Hyperprolactinemia):</b> High prolactin suppresses GnRH secretion, leading to reduced LH and FSH release. This suppresses testosterone production and halts normal spermatogenesis. Elevated prolactin is readily identified via blood testing and managed effectively with targeted oral medications."], "alert"],
+  ["E. Serum Estradiol (E2): Male Estrogen Regulation",
+   "Men naturally convert a small percentage of testosterone into estrogen (Estradiol) via the aromatase enzyme.",
+   ["<b>Why Estradiol Balance Matters:</b> Elevated body mass index or increased aromatase activity can elevate Estradiol levels. High Estradiol triggers negative feedback in the brain, suppressing natural FSH and LH secretion. Balancing Estradiol levels restores normal gonadotropin release."], "heart"],
+  ["F. Thyroid-Stimulating Hormone (TSH): Metabolic Hormone Control",
+   "Both hypothyroidism and hyperthyroidism impair male reproductive health, altering sperm motility and structural morphology. Normalizing TSH is vital for optimal fertility.",
+   [], "check"],
+];
+
+const who = [
+  ["Low sperm count", `Oligozoospermia (low count) or poor motility on a ${L.semen} report is a common reason to test hormones.`, "alert"],
+  ["No sperm in the sample", "Azoospermia needs hormones, an examination and often imaging to find the cause.", "target"],
+  ["Low drive, tiredness or erection concerns", "These can be signs of low testosterone or another hormone problem.", "bolt"],
+  ["Testosterone, steroid or supplement use", "Outside testosterone can switch off natural sperm production. Tell the doctor about every product you use.", "inject"],
+  ["Unexplained infertility", "When the couple's other tests are normal, male hormones are one of the next places to look.", "heart"],
+  ["Abnormal earlier tests", "A previous abnormal semen analysis or hormone result that has not been explained.", "clip"],
+];
+
+// Section 3: reference table (original content)
+const reference = [
+  ["Total Testosterone", "300 - 1,000 ng/dL (10.4 - 34.7 nmol/L)", "Hypogonadism; pituitary insufficiency or Leydig cell fatigue.", "Exogenous hormone use or rare adrenal conditions.", "Pituitary stimulation (hCG/hMG or selective modulators)."],
+  ["Follicle-Stimulating Hormone (FSH)", "1.5 - 12.4 mIU/mL", "Pituitary gland failure (Hypogonadotropic Hypogonadism).", "Primary testicular tissue resistance or Non-Obstructive Azoospermia.", "Gonadotropin therapy if low; Micro-TESE evaluation if high with azoospermia."],
+  ["Luteinizing Hormone (LH)", "1.7 - 8.6 mIU/mL", "Insufficient pituitary drive for testosterone synthesis.", "Primary Leydig cell insufficiency.", "Targeted medical hormone restoration."],
+  ["Serum Prolactin", "2.0 - 18.0 ng/mL", "Normal finding; no clinical concern.", "Hyperprolactinemia; suppresses GnRH, FSH, LH, and testosterone.", "Oral dopamine agonist therapy (Cabergoline)."],
+  ["Serum Estradiol (E2)", "10 - 40 pg/mL", "Low clinical impact.", "Excessive aromatization; suppresses pituitary gonadotropin release.", "Low-dose aromatase inhibitor therapy (Anastrozole)."],
+  ["Thyroid (TSH)", "0.5 - 4.0 mIU/L", "Hyperthyroidism; affects metabolic rate and sperm morphology.", "Hypothyroidism; reduces sperm motility and vitality.", "Thyroid hormone optimization (Levothyroxine)."],
+];
+
+// Section 4: preparation (original content)
+const prep = [
+  ["Schedule Morning Blood Draw (8:00 AM - 10:00 AM)", "Serum testosterone exhibits a pronounced diurnal rhythm, peaking in the early morning. Blood samples drawn before 10:00 AM reflect true basal hormone concentrations."],
+  ["No Prior Abstinence Period Needed", "Unlike semen analysis, hormone blood draws do not require a specific abstinence period and can be performed on any day."],
+  ["Fasting Requirements", "An 8-hour overnight fast is recommended if your panel includes Fasting Glucose or Insulin alongside reproductive hormones. Water is permitted."],
+  ["Rest Prior to Prolactin Sampling", "Physical exertion or emotional stress immediately before blood sampling can transiently elevate prolactin. Arrive 15 minutes early to rest comfortably before your draw."],
+  ["Disclose Supplements & Medications", "Inform Dr. Kamran Saleem of all nutritional, athletic, or prescription supplements, as certain products contain unlabelled hormonal compounds."],
+];
+
+// Section 5: pathways (original content + internal links)
+const pathways = [
+  ["Pathway 1: Low Pituitary Drive (Hypogonadotropic Hypogonadism)", `When FSH and LH are low, the testicles lack the signal to produce sperm. Targeted gonadotropin injections (hCG/hMG) stimulate natural spermatogenesis, often enabling natural pregnancy without ART. See ${L.mTreat}.`, "target"],
+  ["Pathway 2: High FSH with Zero Sperm (Non-Obstructive Azoospermia)", `When FSH is elevated alongside azoospermia, testicular tissue is working under strain. Dr. Kamran Saleem evaluates patients for Micro-TESE (microscopic testicular sperm extraction) to isolate viable sperm for ${L.icsi}.`, "alert"],
+  ["Pathway 3: Normal Hormones with Zero Sperm (Obstructive Azoospermia)", `When hormone levels are normal but no sperm is present in the semen sample, a physical obstruction is present. Sperm is retrieved via minor needle aspiration (TESA) for use in ${L.icsi}.`, "merge"],
+  ["Normal Hormones with Low Sperm Count", `Normal hormones show the pituitary-testicular signal is working. Other causes then need a look, such as varicocele, sperm DNA damage or oxidative stress. Start with a ${L.semen} and the ${L.mAssess}. Mild problems may be treated with ${L.iui}.`, "check"],
+];
+
+const prices = [
+  ["Individual hormone test", "From PKR 4,000", "One marker, for a specific question"],
+  ["Comprehensive male fertility profile", "PKR 8,000 - 12,000", "Testosterone, FSH, LH, prolactin, estradiol and TSH"],
+  ["Report delivery", "Within 24 hours", "Secure digital channels or WhatsApp, for review during your consultation"],
+];
+
+// Topical-authority cluster: tests first, then assessment, then treatment
+const related = [
+  ["All Fertility Tests", TS, "Every male and female diagnostic test we offer, with timing and turnaround."],
+  ["Semen Analysis", `${TS}/semen-analysis`, "WHO 6th Edition semen analysis: count, motility, morphology."],
+  ["Hormonal Analysis", `${TS}/hormonal-analysis`, "AMH, FSH, LH, estradiol and thyroid testing, including the female panel."],
+  ["Ovulation Tracking", `${TS}/ovulation-tracking`, "Test for your partner: confirm if and when she ovulates."],
+  ["Male Fertility Assessment", `${AS}/male-fertility-assessment`, "The full evaluation for the male partner: history, examination and tests."],
+  ["Female Fertility Assessment", `${AS}/female-fertility-assessment`, "The matching evaluation for your partner."],
+  ["Male Infertility Treatment", `${TR}/male-infertility`, "Azoospermia management, medical therapy and Micro-TESE sperm retrieval."],
+  ["ICSI Treatment", `${TR}/icsi`, "One sperm injected into each egg, including surgically retrieved sperm."],
+  ["IUI Treatment", `${TR}/iui`, "Washed sperm placed in the uterus for mild problems."],
+  ["IVF Treatment", `${TR}/ivf`, "The full cycle in which ICSI is performed."],
+  ["Egg & Sperm Freezing", `${TR}/fertility-preservation`, "Preserve sperm before treatment or for later family planning."],
+  ["Support & Second Opinions", "/services/support", "Bring existing reports for an independent review."],
+];
+
+// FAQ: original 4 + service-oriented additions
+const faqs = [
+  ["What is the cost of a male fertility hormone test in Lahore?", "Male fertility hormone test pricing in Lahore ranges from PKR 4,000 for individual tests to PKR 8,000-12,000 for comprehensive male fertility profiles. Kamran Fertility Clinic provides transparent pricing and certified laboratory accuracy."],
+  ["Why does testosterone testing require an early morning blood draw?", "Testosterone levels naturally fluctuate throughout the day, reaching peak concentration between 8:00 AM and 10:00 AM. Afternoon samples may yield misleadingly low values."],
+  ["Can low testosterone cause low sperm count?", "Yes. Testosterone is vital for sperm development. However, taking exogenous testosterone injections or gels shuts down natural sperm production. Low testosterone in men seeking fertility must be managed with medications that stimulate natural internal production."],
+  ["What if my hormone levels are completely normal but my sperm count is low?", `Normal hormone levels confirm proper pituitary-testicular signaling. Low sperm count with normal hormones may indicate varicocele, physical duct obstruction, high sperm DNA fragmentation, or localized oxidative stress. A ${L.semen} and the ${L.mAssess} look at these causes.`],
+  ["Do I need to abstain before a male fertility hormone test?", "No. Unlike a semen analysis, a hormone blood test does not need an abstinence period and can be done on any day, preferably in the morning."],
+  ["Do I need to fast for the test?", "Only if your panel includes fasting glucose or insulin. In that case an 8-hour overnight fast is recommended, and water is allowed."],
+  ["How long do male hormone test results take?", "Complete hormone reports are dispatched within 24 hours via secure digital channels or WhatsApp, for review during your consultation."],
+  ["Which comes first, a hormone test or a semen analysis?", `Most men start with a ${L.semen}. The male fertility hormone test is added when the count is low, there is no sperm, or symptoms suggest a hormone problem.`],
+  ["Should my partner also be tested?", `Yes. Fertility is a shared issue, so ${L.hormonal} and a ${L.fAssess} for your partner alongside yours avoid delay.`],
+];
+
+const locations = [
+  ["DHA Defence (Phase 5/6): Rasheed Hospital", "Main Boulevard, Defence, Lahore", "Daily 3:00 PM - 6:00 PM (Closed Saturday & Sunday)", "/locations/dha-lahore"],
+  ["Gulberg: TAMC", "M.M. Alam Road, Lahore", "Wednesday 12:00 PM - 3:00 PM (other days by appointment / on-call)", "/locations/mm-alam-road-lahore"],
+  ["Shalamar: Shahnaz Hospital", "Shalamar Link Road, Lahore", "Monday & Thursday 6:00 PM - 9:00 PM (other days closed)", "/locations/shalamar-lahore"],
+];
+
+const strip = (s) => s.replace(/<[^>]+>/g, "");
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "MedicalWebPage", "@id": url, url, name: title, description, inLanguage: "en-PK",
+      reviewedBy: { "@type": "Physician", name: "Dr. Kamran Saleem" },
+      about: { "@type": "MedicalTest", name: "Male Fertility Hormone Test", usedToDiagnose: [{ "@type": "MedicalCondition", name: "Male infertility" }, { "@type": "MedicalCondition", name: "Hypogonadism" }, { "@type": "MedicalCondition", name: "Azoospermia" }] } },
+    { "@type": "MedicalClinic", "@id": base + "/#clinic", name: "Kamran Fertility Clinic", url: base, telephone: "+923148432789",
+      location: ["Rasheed Hospital (DHA Defence)", "TAMC (M.M. Alam Road, Gulberg)", "Shahnaz Hospital (Shalamar Link Road)"].map(n => ({ "@type": "Place", name: n, address: { "@type": "PostalAddress", addressLocality: "Lahore", addressRegion: "Punjab", addressCountry: "PK" } })) },
+    { "@type": "BreadcrumbList", itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: base + "/" },
+      { "@type": "ListItem", position: 2, name: "Services", item: base + "/services" },
+      { "@type": "ListItem", position: 3, name: "Fertility Tests", item: base + TS },
+      { "@type": "ListItem", position: 4, name: "Male Fertility Hormone Test", item: url } ] },
+    { "@type": "FAQPage", mainEntity: faqs.map(([q, ans]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(ans) } })) },
+  ],
+};
+---
+<Layout title={title} description={description}>
+<div class="ivf">
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+<main>
+<section class="hero"><div class="w hgrid">
+  <div>
+    <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/services">Services</a> / <a href={TS}>Fertility Tests</a> / Male Fertility Hormone Test</nav>
+    <p class="eye">Confidential · Doctor-led · Lahore</p>
+    <h1>Male Fertility Hormone Test in Lahore</h1>
+    <p class="sub">Testosterone, FSH, LH, Prolactin &amp; Male Reproductive Health Profile. A male fertility hormone test is a blood panel that shows how the brain and testicles are working together to make sperm. At Kamran Fertility Clinic, Dr. Kamran Saleem reads your results to find out whether a hormonal cause is behind low sperm count or male infertility.</p>
+    <p><a class="btn" href={wa}>Book a male hormone test</a> <a class="btn ghost" href="#profile">See the hormones tested</a></p>
+    <p class="mini">Also see: <a href={`${TS}/semen-analysis`}>semen analysis</a> · <a href={`${TS}/hormonal-analysis`}>hormonal analysis</a> · <a href={TS}>all fertility tests</a></p>
+  </div>
+  <div class="hside">
+    <ul class="facts">
+      <li><b>From PKR 4,000</b> per test</li>
+      <li><b>24 h</b> report delivery</li>
+      <li><b>8-10 AM</b> best time for the blood draw</li>
+      <li><b>100%</b> confidential, 3 Lahore locations</li>
+    </ul>
+  </div>
+</div></section>
+
+<div class="w layout">
+  <aside class="toc" aria-label="On this page"><p>On this page</p>
+    {toc.map(([id, l]) => <a href={`#${id}`}>{l}</a>)}
+    <a class="btn sm" href={wa}>Book now</a>
+  </aside>
+  <div class="content">
+    <p class="review"><b>Medically reviewed by</b> Dr. Kamran Saleem (MBBS 1988; UK Dip GUM &amp; Ven, University of Liverpool 1998; PMDC registered) · 25+ years clinical reproductive experience · Standards: ASRM, ESHRE and WHO 6th Edition diagnostic guidelines · <a href="/dr-kamran-saleem">About the doctor</a></p>
+
+    <section id="services">
+      <h2>Male Fertility Hormone Test Services in Lahore</h2>
+      <p><b>What is a male fertility hormone test?</b> It is a specialized diagnostic blood panel that evaluates key hormones controlling sperm production, reproductive health, and testicular function. The essential profile includes Serum Testosterone (total and free), Follicle-Stimulating Hormone (FSH), Luteinizing Hormone (LH), Serum Prolactin, Estradiol (E2), and Thyroid-Stimulating Hormone (TSH).</p>
+      <p>In Lahore, the male fertility hormone test provides crucial diagnostic answers for low sperm count (oligozoospermia), zero sperm count (azoospermia), poor motility, and reproductive health concerns, allowing Dr. Kamran Saleem to pinpoint whether fertility challenges stem from pituitary signaling issues, testicular failure, or hormonal blockages. It is one of the <a href={TS}>fertility tests</a> we offer.</p>
+      <div class="cards">
+        {services.map(([h, p, i]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p set:html={p} /></div>)}
+      </div>
+    </section>
+
+    <section id="why">
+      <h2>Why Male Fertility Hormone Testing Matters</h2>
+      <p>Sperm creation (spermatogenesis) is driven by a delicate hormonal messaging system between the brain (hypothalamus and pituitary gland) and the male reproductive system. When hormone signals are weak, imbalanced, or missing entirely, sperm production can slow down dramatically or stop completely.</p>
+      <p>At Kamran Fertility Clinic, under the expert direction of Dr. Kamran Saleem, male fertility evaluations go far beyond a basic <a href={`${TS}/semen-analysis`}>semen analysis</a>. Holding a post-graduate UK Diploma in Genito-Urinary Medicine (GUM) &amp; Venereology from the University of Liverpool, Dr. Kamran brings specialized international authority to male reproductive health in a private, supportive, and unhurried setting.</p>
+      <p>Male hormone testing helps answer three essential clinical questions in clear, simple terms:</p>
+      <div class="cards">
+        {why.map(([h, p, i], n) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{n + 1}. {h}</h3><p>{p}</p></div>)}
+      </div>
+    </section>
+
+    <section id="profile">
+      <h2>Comprehensive Male Fertility Hormone Test Profile</h2>
+      <p>Each hormone performs a unique role in male reproductive health. Below is the clear clinical breakdown of every marker evaluated in our Lahore laboratories:</p>
+      <div class="stack">
+        {profile.map(([h, p, bullets, i]) => (
+          <div class="card hcard"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><div><h3>{h}</h3><p>{p}</p>{bullets.length ? <ul class="tick">{bullets.map(b => <li set:html={b} />)}</ul> : null}</div></div>
+        ))}
+      </div>
+      <p class="note">Women have their own panel: see <a href={`${TS}/hormonal-analysis`}>hormonal analysis</a> for AMH, FSH, LH, estradiol and thyroid testing.</p>
+    </section>
+
+    <section id="who-needs">
+      <h2>Who Needs a Male Fertility Hormone Test?</h2>
+      <p>The test is not needed for every man. It is most useful in these situations:</p>
+      <div class="cards">
+        {who.map(([h, p, i]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p set:html={p} /></div>)}
+      </div>
+    </section>
+
+    <section id="test-process">
+      <h2>How the Male Hormone Test Works</h2>
+      <div class="ovwrap">
+        <p class="ovtitle">Your Test at a Glance</p>
+        <div class="ovrow">
+          {overview.map((o, i) => (
+            <>
+              <a class="ov" href={o.h}>
+                <span class="ovl">{o.l}</span>
+                <span class="disc"><svg viewBox="0 0 100 100" set:html={o.art} /></span>
+                <span class="ovn">{i + 1}</span>
+              </a>
+              {i < overview.length - 1 ? <span class="chev" aria-hidden="true"><svg viewBox="0 0 36 22"><path d="M3 3l7 8-7 8M14 3l7 8-7 8M25 3l7 8-7 8" /></svg></span> : null}
+            </>
+          ))}
+        </div>
+        <p class="ovhint">Contact our team on WhatsApp to confirm where and when to give your sample.</p>
+      </div>
+    </section>
+
+    <section id="results">
+      <h2>Diagnostic Reference Table &amp; Clinical Interpretation Matrix</h2>
+      <p>Understanding your lab results is straightforward with our structured reference guide:</p>
+      <div class="tw"><table>
+        <thead><tr><th>Hormone Test</th><th>Healthy Reference Range</th><th>Clinical Meaning of Low Levels</th><th>Clinical Meaning of High Levels</th><th>Primary Treatment Protocol</th></tr></thead>
+        <tbody>{reference.map(r => <tr><th scope="row">{r[0]}</th><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td><td>{r[4]}</td></tr>)}</tbody>
+      </table></div>
+      <p class="note">Each laboratory prints its own reference range, and one abnormal number is not a diagnosis. Results are read together with your <a href={`${TS}/semen-analysis`}>semen analysis</a>, history and examination.</p>
+    </section>
+
+    <section id="preparation">
+      <h2>Simple Patient Preparation &amp; Testing Instructions</h2>
+      <p>Following proper testing preparation ensures maximum accuracy for your diagnostic panel:</p>
+      <ol class="steps">
+        {prep.map(([h, d], i) => (
+          <li class="step">
+            <div class="media"><span class="ph"><svg viewBox="0 0 24 24" set:html={icons[['clip','inject','flask','bolt','check'][i]]} /></span></div>
+            <div class="body"><span class="num">Step {i + 1}</span><h3>{h}</h3><p>{d}</p></div>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section id="pathways">
+      <h2>Diagnostic Pathways &amp; Personalized Treatment Design</h2>
+      <p>At Kamran Fertility Clinic, diagnostic results directly inform personalized medical management. Dr. Kamran explains your results in an unhurried consultation. These are common patterns, not automatic treatment decisions.</p>
+      <div class="cols">
+        {pathways.map(([h, p, i]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p set:html={p} /></div>)}
+      </div>
+    </section>
+
+    <section id="pricing">
+      <h2>Transparent Package Fees &amp; Fast Result Turnaround in Lahore</h2>
+      <p>We prioritize financial transparency and rapid diagnostic delivery. Clear package pricing means upfront pricing for individual tests and bundled male fertility hormone profiles, and the team confirms the exact amount when you book.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Service</th><th>Price</th><th>What it includes</th></tr></thead>
+        <tbody>{prices.map(r => <tr><th scope="row">{r[0]}</th><td><b>{r[1]}</b></td><td>{r[2]}</td></tr>)}</tbody>
+      </table></div>
+      <p class="note"><b>24-Hour Digital Delivery:</b> complete hormone reports are dispatched within 24 hours via secure digital channels or WhatsApp for review during your consultation.</p>
+    </section>
+
+    <section id="related">
+      <h2>Related Fertility Tests &amp; Male Fertility Care</h2>
+      <p>The male fertility hormone test is one part of a complete evaluation. These pages cover the other tests, the assessment and the treatments that may follow.</p>
+      <div class="cards">
+        {related.map(([n, h, d]) => <a class="card link" href={h}><h3>{n}</h3><p>{d}</p></a>)}
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2>Frequently Asked Questions</h2>
+      {faqs.map(([q, ans]) => <details><summary>{q}</summary><p set:html={ans} /></details>)}
+    </section>
+  </div>
+</div>
+
+<section class="cta" id="locations"><div class="w">
+  <h2>Book Your Male Fertility Hormone Test in Lahore</h2>
+  <p>Dr. Kamran Saleem provides confidential, unhurried 45-60 minute consultations across three practice locations in Lahore. Contact our medical team via WhatsApp to schedule your test and consultation. Please bring any prior semen analysis or blood test reports.</p>
+  <a class="btn" href={wa}>Message us on WhatsApp</a>
+  <div class="cards c3 locs">
+    {locations.map(([n, ad, h, l]) => <a class="card link" href={l}><h3>{n}</h3><p>{ad}</p><p class="hrs">{h}</p></a>)}
+  </div>
+  <p style="margin-top:22px"><a style="color:#fff" href={TS}>All fertility tests</a> · <a style="color:#fff" href={AS}>Assessment</a> · <a style="color:#fff" href={TR}>Fertility treatment</a> · <a style="color:#fff" href="/services/support">Second opinions</a></p>
+</div></section>
+</main>
+</div>
+</Layout>
+
+<style is:global>
+  .ivf{--c-primary:#2563eb;--c-dark:#0b1f4b;--c-accent:#4cc9f0;--c-tint:#eef5ff;--c-bg:#fff;--c-text:#1e2a4a;--c-muted:#5b6b8c;--c-line:#dbe6f6;
+    margin:0;background:var(--c-bg);color:var(--c-text);font:16px/1.7 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .ivf *{box-sizing:border-box}
+  .ivf a{color:var(--c-primary)}
+  .ivf .w{max-width:1120px;margin:0 auto;padding:0 20px}
+  .ivf h1,.ivf h2,.ivf h3{line-height:1.2;color:var(--c-dark);margin:0 0 .5em}
+  .ivf h2{font-size:clamp(24px,3vw,32px);margin-top:0}
+  .ivf .btn{display:inline-block;background:linear-gradient(135deg,#3b82f6,#1d4ed8);box-shadow:0 6px 14px rgba(29,78,216,.28);color:#fff;padding:13px 24px;border-radius:999px;font-weight:600;text-decoration:none}
+  .ivf .btn.sm{padding:8px 16px;font-size:14px}
+  .ivf .btn.ghost{background:transparent;border:1.5px solid #fff;color:#fff}
+  .ivf .hero{background:linear-gradient(135deg,var(--c-dark),var(--c-primary));color:#fff;padding:48px 0 56px}
+  .ivf .hero h1{color:#fff;font-size:clamp(32px,5vw,48px)}
+  .ivf .hero a{color:#fff}
+  .ivf .hgrid{display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:center}
+  .ivf .crumb{font-size:13px;opacity:.85;margin-bottom:14px}
+  .ivf .eye{text-transform:uppercase;letter-spacing:.12em;font-size:12.5px;font-weight:700;color:var(--c-accent);margin:0 0 6px}
+  .ivf .sub{opacity:.92}.ivf .mini{font-size:13.5px;opacity:.85}
+  .ivf .facts{list-style:none;margin:0;padding:18px 22px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:16px}
+  .ivf .facts li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.15);font-size:14.5px}
+  .ivf .facts li:last-child{border:0}.ivf .facts b{font-size:20px;margin-right:6px}
+  .ivf .layout{display:grid;grid-template-columns:210px 1fr;gap:44px;padding-top:36px;padding-bottom:20px}
+  .ivf .toc{position:sticky;top:76px;align-self:start;display:flex;flex-direction:column;gap:2px;font-size:14px}
+  .ivf .toc p{margin:0 0 6px;font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:.1em;color:var(--c-muted)}
+  .ivf .toc a:not(.btn){text-decoration:none;color:var(--c-text);padding:5px 0 5px 12px;border-left:2px solid var(--c-line)}
+  .ivf .toc a:not(.btn):hover{border-color:var(--c-accent);color:var(--c-primary)}
+  .ivf .toc .btn{margin-top:14px;text-align:center}
+  .ivf .content section{padding:0 0 44px;scroll-margin-top:84px}
+  .ivf .review{background:var(--c-tint);border-radius:12px;padding:14px 18px;font-size:13.5px;color:var(--c-muted);margin:0 0 32px}
+  .ivf .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:20px 0}
+  .ivf .content .cards{grid-template-columns:repeat(3,1fr)}
+  .ivf .c3{grid-template-columns:repeat(3,1fr)}
+  .ivf .card{background:#fff;border:1px solid var(--c-line);border-radius:16px;padding:20px}
+  .ivf .card h3{font-size:17px;margin-bottom:6px}.ivf .card p{margin:0;font-size:14.5px;color:var(--c-muted)}
+  .ivf .card.link{text-decoration:none;color:inherit;transition:.15s}
+  .ivf .card.link:hover{border-color:var(--c-accent);transform:translateY(-2px)}
+  .ivf .hrs{margin-top:6px!important;font-size:13px!important}
+  .ivf .stack{display:grid;gap:16px;margin:20px 0}
+  .ivf .hcard{display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start}
+  .ivf .hcard .ic{margin:0}
+  .ivf .hcard .tick{margin:10px 0 0}.ivf .hcard .tick li{font-size:14.5px;color:var(--c-muted)}.ivf .hcard .tick li b{color:var(--c-dark)}
+  .ivf .ic,.ivf .ph{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--c-tint);margin-bottom:10px}
+  .ivf svg{width:26px;height:26px;fill:none;stroke:var(--c-primary);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .ivf .tw{overflow-x:auto;border:1px solid var(--c-line);border-radius:14px;margin:18px 0}
+  .ivf table{border-collapse:collapse;width:100%;min-width:780px;font-size:14.5px}
+  .ivf th{background:var(--c-primary);color:#fff;text-align:left;padding:12px 14px}
+  .ivf td,.ivf tbody th{padding:11px 14px;border-top:1px solid var(--c-line)}
+  .ivf tbody th{background:var(--c-tint);color:var(--c-dark)}
+  .ivf tbody tr:nth-child(even) td{background:#f5f9ff}
+  .ivf .steps{list-style:none;margin:24px 0 0;padding:0;position:relative}
+  .ivf .steps:before{content:"";position:absolute;left:109px;top:20px;bottom:20px;width:2px;background:var(--c-line)}
+  .ivf .step{display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:center;margin-bottom:22px;position:relative}
+  .ivf .step .media{height:150px;border-radius:16px;overflow:hidden;background:var(--c-tint);display:grid;place-items:center}
+  .ivf .step .ph{width:76px;height:76px;margin:0;background:#fff}.ivf .step .ph svg{width:38px;height:38px}
+  .ivf .num{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-primary)}
+  .ivf .step h3{margin:2px 0 6px}.ivf .step p{margin:0;color:var(--c-muted)}
+  .ivf .cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
+  .ivf .tick{list-style:none;padding:0;margin:12px 0}
+  .ivf .tick li{position:relative;padding:5px 0 5px 28px}
+  .ivf .tick li:before{content:"✓";position:absolute;left:0;color:var(--c-primary);font-weight:700}
+  .ivf .note{font-size:14px;color:var(--c-muted)}
+  .ivf details{border:1px solid var(--c-line);border-radius:12px;padding:14px 18px;margin-top:10px}
+  .ivf summary{cursor:pointer;font-weight:600;color:var(--c-dark)}
+  .ivf details p{margin:10px 0 0;color:var(--c-muted)}
+  .ivf .cta{background:var(--c-dark);color:#fff;padding:56px 0;text-align:center}
+  .ivf .cta h2{color:#fff}.ivf .cta .card{text-align:left;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
+  .ivf .cta .card h3{color:#fff}.ivf .cta .card p{color:#cdd9f5}.ivf .cta .locs{margin-top:34px}
+  .ivf .ovwrap{--peach:#dbeafe;--coral:#2563eb;background:#f5f9ff;border:1px solid #dbe6f6;border-radius:22px;padding:28px 18px 20px;margin:24px 0 34px;text-align:center}
+  .ivf .ovtitle{margin:0 0 22px;font-size:clamp(20px,3vw,28px);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--c-primary)}
+  .ivf .ovrow{display:flex;align-items:flex-start;justify-content:center;gap:4px}
+  .ivf .ov{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:12px;text-decoration:none;color:var(--c-dark);position:relative}
+  .ivf .ovl{font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.3;min-height:30px;display:flex;align-items:center}
+  .ivf .disc{width:118px;height:118px;max-width:100%;border-radius:50%;background:var(--peach);border:5px solid #fff;box-shadow:0 0 0 2px var(--peach),0 8px 18px rgba(37,99,235,.18);display:grid;place-items:center;overflow:hidden;transition:transform .2s,box-shadow .2s}
+  .ivf .disc svg{width:100%;height:100%;stroke:none;fill:none;stroke-width:1}
+  .ivf .ov:hover .disc,.ivf .ov:focus-visible .disc{transform:translateY(-4px) scale(1.04);box-shadow:0 0 0 2px var(--coral),0 12px 22px rgba(37,99,235,.3)}
+  .ivf .ovn{width:26px;height:26px;border-radius:50%;background:var(--coral);color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center;margin-top:-22px;margin-left:80px;border:2px solid #fff}
+  .ivf .chev{flex:0 0 auto;align-self:flex-start;margin-top:72px}
+  .ivf .chev svg{width:34px;height:22px;stroke:var(--coral);stroke-width:3.2;fill:none}
+  .ivf .ovhint{margin:16px 0 0;font-size:13px;color:var(--c-muted)}
+  @media(max-width:900px){
+    .ivf .hgrid,.ivf .layout,.ivf .cols,.ivf .cards,.ivf .content .cards,.ivf .c3{grid-template-columns:1fr}
+    .ivf .toc{position:static;flex-direction:row;flex-wrap:wrap;gap:6px}.ivf .toc p{width:100%}
+    .ivf .toc a:not(.btn){border:1px solid var(--c-line);border-radius:999px;padding:4px 12px}
+    .ivf .step{grid-template-columns:1fr;gap:12px}.ivf .steps:before{display:none}
+    .ivf .step .media{height:130px}
+    .ivf .hcard{grid-template-columns:1fr}
+    .ivf .ovrow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px 8px}
+    .ivf .chev{display:none}.ivf .disc{width:96px;height:96px}.ivf .ovn{margin-left:66px}
+  }
+  @media(max-width:520px){
+    .ivf .ovrow{grid-template-columns:repeat(2,1fr)}
+  }
+  .ivf .content h3{font-size:19px}.ivf .card h3{font-size:17px}
+  .ivf .content .card p+p{margin-top:8px}
+</style>
