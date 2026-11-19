@@ -1,7 +1,12 @@
 ---
-// src/pages/services/fertility-treatment/index.astro  (adjust to your routing)
-// Same Layout + tokens as the location and assessment pages. Match the import path to your site.
+// src/pages/services/fertility-treatment/index.astro
+// Import path below assumes this file is at src/pages/services/fertility-treatment/index.astro (3 levels deep).
 import Layout from "../../../layouts/Layout.astro";
+
+type Pair = [string, string];
+type Tri = [string, string, string];
+type Quad = [string, string, string, string];
+
 const base = "https://www.kamranfertility.com";
 const S = "/services/assessment";
 const T = "/services/fertility-treatment";
@@ -10,7 +15,7 @@ const title = "Fertility Treatment in Lahore | IVF, ICSI, IUI | Dr. Kamran Salee
 const description = "Fertility treatment in Lahore with Dr. Kamran Saleem: ovulation induction, IUI, IVF, ICSI, FET and freezing for men and women. Book a consultation.";
 const wa = "https://wa.me/923148432789?text=" + encodeURIComponent("Hello, I would like to book a fertility treatment consultation with Dr. Kamran Saleem.");
 
-const icons = {
+const icons: Record<string, string> = {
   clip: '<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h6"/>',
   heart: '<path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/>',
   target: '<circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>',
@@ -24,7 +29,7 @@ const icons = {
   coin: '<circle cx="12" cy="12" r="9"/><path d="M14.5 9a3 3 0 00-5 1.5c0 3 5 1.5 5 4.5a3 3 0 01-5 1.5M12 6v2M12 16v2"/>',
 };
 
-const art = {
+const art: Record<string, string> = {
   ovulation: '<circle cx="50" cy="50" r="38" fill="#fff" opacity=".7"/><g transform="rotate(-35 50 50)"><rect x="28" y="40" width="44" height="20" rx="10" fill="#fff" stroke="#2563eb" stroke-width="3"/><rect x="50" y="40" width="22" height="20" rx="10" fill="#60a5fa" stroke="#2563eb" stroke-width="3"/></g>',
   iui: '<path d="M26 26h48c0 22-10 36-24 48C36 62 26 48 26 26z" fill="#fff" stroke="#2563eb" stroke-width="3"/><circle cx="50" cy="46" r="7" fill="#60a5fa" stroke="#2563eb" stroke-width="2"/><g fill="#0b1f4b"><circle cx="38" cy="36" r="2.5"/><circle cx="62" cy="38" r="2.5"/><circle cx="46" cy="62" r="2.5"/><circle cx="56" cy="30" r="2.5"/></g>',
   ivf: '<ellipse cx="50" cy="58" rx="36" ry="14" fill="#fff" stroke="#2563eb" stroke-width="3"/><ellipse cx="50" cy="48" rx="36" ry="14" fill="#e0eeff" stroke="#2563eb" stroke-width="3"/><circle cx="50" cy="48" r="9" fill="#fff" stroke="#2563eb" stroke-width="2"/><circle cx="50" cy="48" r="3.5" fill="#0b1f4b"/><g fill="#0b1f4b"><circle cx="30" cy="46" r="2"/><circle cx="68" cy="52" r="2"/><circle cx="62" cy="42" r="2"/></g>',
@@ -36,16 +41,17 @@ const art = {
   female: '<circle cx="50" cy="50" r="38" fill="#fff" opacity=".7"/><g fill="#93c5fd" stroke="#2563eb" stroke-width="2"><circle cx="36" cy="40" r="10"/><circle cx="62" cy="38" r="10"/><circle cx="50" cy="62" r="10"/></g><g fill="#0b1f4b"><circle cx="36" cy="40" r="3.5"/><circle cx="62" cy="38" r="3.5"/><circle cx="50" cy="62" r="3.5"/></g>',
   couple: '<circle cx="50" cy="50" r="38" fill="#fff" opacity=".7"/><circle cx="38" cy="50" r="17" fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/><circle cx="62" cy="50" r="17" fill="#93c5fd" stroke="#2563eb" stroke-width="3"/>',
 };
-const toc = [["quick","Overview"],["ladder","Treatment steps"],["options","Treatment options"],["compare","IUI vs IVF vs ICSI"],["ivf-journey","IVF journey"],["suitable","Which may suit you"],["both","Men, women & couples"],["when","When to see a specialist"],["before","Before treatment"],["after-failed","After an unsuccessful cycle"],["cost","Cost"],["where","Where procedures happen"],["outcomes","Outcomes"],["doctor","Your doctor"],["locations","Locations"],["faq","FAQ"]];
 
-const glance = [
+const toc: Pair[] = [["quick","Overview"],["ladder","Treatment steps"],["options","Treatment options"],["compare","IUI vs IVF vs ICSI"],["ivf-journey","IVF journey"],["suitable","Which may suit you"],["both","Men, women & couples"],["when","When to see a specialist"],["before","Before treatment"],["after-failed","After an unsuccessful cycle"],["cost","Cost"],["where","Where procedures happen"],["outcomes","Outcomes"],["doctor","Your doctor"],["locations","Locations"],["faq","FAQ"]];
+
+const glance: Tri[] = [
   ["target","Cause first","Assessment comes before any treatment decision."],
   ["heart","Both partners","Male, female or combined factors are considered together."],
   ["check","Not always IVF","Medication, ovulation treatment or IUI may be enough for some."],
   ["coin","Costs explained","Stages, medicines and estimates discussed before you start."],
 ];
 
-const ladder = [
+const ladder: Tri[] = [
   ["Find the cause", "Assessment of both partners", "clip"],
   ["Treat the cause", "Hormonal or underlying conditions", "flask"],
   ["Ovulation medication", "When ovulation is irregular", "egg"],
@@ -53,7 +59,7 @@ const ladder = [
   ["IVF / ICSI", "When other options are unsuitable", "merge"],
 ];
 
-const options = [
+const options: Quad[] = [
   ["Ovulation Induction & PCOS", `${T}/pcos`, "ovulation", "Medication and monitoring to help regulate or trigger ovulation when it is irregular. Used only under medical supervision."],
   ["IUI Treatment", `${T}/iui`, "iui", "Prepared sperm is placed in the uterus around ovulation. Less complex than IVF and suited to selected cases."],
   ["IVF Treatment", `${T}/ivf`, "ivf", "Eggs are collected and fertilised in a laboratory, then an embryo may be transferred to the uterus."],
@@ -64,13 +70,13 @@ const options = [
   ["Male Infertility Treatment", `${T}/male-infertility`, "male", "Evaluation and management of sperm-related and hormonal causes, with assisted options when needed."],
 ];
 
-const compare = [
+const compare: Quad[] = [
   ["IUI", "iui", "Prepared sperm is placed inside the uterus around ovulation.", "Fertilisation happens inside the body."],
   ["IVF", "ivf", "Eggs are collected and fertilised with sperm in a laboratory.", "Embryos develop outside the body before transfer."],
   ["ICSI", "icsi", "A single sperm is injected directly into an egg.", "A fertilisation technique used as part of IVF."],
 ];
 
-const journey = [
+const journey: Tri[] = [
   ["Assessment", "Review of history, reports and suitability.", "clip"],
   ["Stimulation", "Medicines encourage several follicles to develop.", "flask"],
   ["Monitoring", "Ultrasound and sometimes blood tests track the response.", "clock"],
@@ -80,7 +86,7 @@ const journey = [
   ["Embryo transfer", "An embryo may be transferred. Others may be frozen.", "heart"],
 ];
 
-const suitable = [
+const suitable: Pair[] = [
   ["Irregular or absent ovulation", "Assessment of the cause, treatment of an underlying condition and ovulation medication when appropriate"],
   ["Selected PCOS-related ovulation problems", "Lifestyle and medical management, with ovulation induction where indicated"],
   ["Selected sperm-related concerns", "Male fertility evaluation, management of an identified cause and discussion of assisted reproduction"],
@@ -91,20 +97,20 @@ const suitable = [
   ["Planned treatment that may affect fertility", "Discussion of egg, sperm or embryo preservation first"],
 ];
 
-const both = [
+const both: Tri[] = [
   ["Male fertility", "male", `Semen analysis review, hormone tests and history. See <a href="${T}/male-infertility">male infertility treatment</a>, <a href="${S}/male-fertility-assessment">male fertility assessment</a> and <a href="/services/tests/semen-analysis">semen analysis</a>.`],
   ["Female fertility", "female", `Ovulation, PCOS, tubes, uterus and ovarian reserve. See <a href="${S}/female-fertility-assessment">female fertility assessment</a>, <a href="${T}/pcos">PCOS treatment</a> and <a href="/services/tests/female-fertility-hormone-test">hormone testing</a>.`],
   ["Couple evaluation", "couple", `Assessing both partners avoids overlooking a male contribution. Start with a <a href="${S}">fertility assessment</a>.`],
 ];
 
-const when = [
+const when: Tri[] = [
   ["12 months, woman under 35", "Evaluation is generally advised after 12 months of regular, unprotected intercourse without pregnancy.", "clock"],
   ["6 months, woman 35 or older", "Earlier evaluation is advised from 35, because fertility declines with age.", "target"],
   ["Earlier if there are concerns", "Irregular or absent periods, PCOS, endometriosis, tubal or uterine problems, pelvic surgery, abnormal semen analysis or repeated miscarriage.", "alert"],
   ["Before medical treatment", "If treatment may affect fertility, ask about egg, sperm or embryo freezing early.", "flask"],
 ];
 
-const before = [
+const before: Pair[] = [
   ["Initial consultation", "How long you have been trying, previous pregnancies, menstrual history, medicines and any earlier treatment."],
   ["Review of reports", "Bring semen analysis, hormone tests, ultrasound, HSG and previous cycle records."],
   ["Further assessment, if needed", "Extra tests are chosen for your situation, not ordered as a routine package."],
@@ -112,7 +118,7 @@ const before = [
   ["Practical details", "Stages, medicines, monitoring, procedures, partner-facility arrangements, estimates and risks."],
 ];
 
-const cost = [
+const cost: string[] = [
   "Consultation and assessment fees",
   "The recommended procedure and its stages",
   "Medication and monitoring costs",
@@ -122,7 +128,7 @@ const cost = [
   "What the estimate includes and what is charged separately",
 ];
 
-const outcomes = [
+const outcomes: string[] = [
   "The woman's age",
   "Ovarian reserve and response to medication",
   "Sperm concentration, movement and morphology",
@@ -132,13 +138,13 @@ const outcomes = [
   "General health and relevant medical conditions",
 ];
 
-const locations = [
+const locations: Quad[] = [
   ["DHA Lahore: Rasheed Hospital", "Main Boulevard, DHA Defence, Lahore", "Daily 3:00 PM – 6:00 PM (Closed Saturday & Sunday)", "/locations/dha-lahore"],
   ["Gulberg: TAMC", "M.M. Alam Road, Gulberg III, Lahore", "Wednesday 12:00 PM – 3:00 PM (other days by appointment)", "/locations/mm-alam-road-lahore"],
   ["Shalamar: Shahnaz Hospital", "Shalamar Link Road, Lahore", "Monday & Thursday 6:00 PM – 9:00 PM", "/locations/shalamar-lahore"],
 ];
 
-const faqs = [
+const faqs: Pair[] = [
   ["What is the best fertility treatment in Lahore?", "There is no single treatment that is best for everyone. The right option depends on the cause of infertility, age, sperm and ovulation factors, previous treatment and other medical findings. A fertility assessment helps determine which options may be suitable."],
   ["Is IVF the only treatment for infertility?", "No. Depending on the diagnosis, treatment may involve medication, ovulation induction, IUI, IVF, ICSI, fertility preservation or management of an underlying reproductive health problem. IVF is not automatically required for every couple."],
   ["Can male infertility be treated?", "Some male fertility problems can be managed directly, depending on their cause. Other situations may need further investigation or discussion of assisted options such as IUI, IVF or ICSI."],
@@ -154,13 +160,16 @@ const faqs = [
   ["Where can I consult Dr. Kamran Saleem?", "At Rasheed Hospital in DHA, TAMC on M.M. Alam Road in Gulberg, and Shahnaz Hospital on Shalamar Link Road. Days and timings vary, so contact the clinic before visiting."],
 ];
 
-const related = [
+const related: Pair[] = [
   ["Fertility Assessment in Lahore", "/resources/fertility-assessment-in-lahore"],
   ["IVF vs IUI: understanding the difference", "/resources/ivf-vs-iui"],
   ["IVF treatment cost in Pakistan", "/resources/ivf-treatment-cost-pakistan"],
   ["PCOS and fertility: can you get pregnant?", "/resources/pcos-and-fertility"],
   ["Fertility consultation: when to seek advice", "/resources/when-to-seek-fertility-consultation"],
 ];
+
+const icon = (k: string): string => icons[k] ?? "";
+const pic = (k: string): string => art[k] ?? "";
 
 const clinicId = base + "/#clinic";
 const schema = {
@@ -215,7 +224,7 @@ const schema = {
       <h2>Fertility treatment in Lahore at a glance</h2>
       <p>Difficulty conceiving can involve men, women or both. The next step may be treating an underlying problem, taking ovulation medication, or considering IUI, IVF or another assisted option. At Kamran Fertility Clinic, Dr. Kamran Saleem takes a doctor-led approach: find the cause, review the reports, then discuss options.</p>
       <div class="cards c4">
-        {glance.map(([i, h, p]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p>{p}</p></div>)}
+        {glance.map(([i, h, p]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icon(i)} /></span><h3>{h}</h3><p>{p}</p></div>)}
       </div>
       <p>New here? Start with a <a href={S}>fertility assessment</a>, or get an independent view through <a href="/services/support">support &amp; second opinions</a>.</p>
     </section>
@@ -224,7 +233,7 @@ const schema = {
       <h2>How treatment steps usually progress</h2>
       <p>Most couples do not start with IVF. Treatment generally moves from finding the cause towards more involved options only when needed. Your own plan may skip steps or combine them.</p>
       <ol class="ladder">
-        {ladder.map(([h, p, i], n) => <li><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><div><b>{h}</b><span>{p}</span></div></li>)}
+        {ladder.map(([h, p, i]) => <li><span class="ic"><svg viewBox="0 0 24 24" set:html={icon(i)} /></span><div><b>{h}</b><span>{p}</span></div></li>)}
       </ol>
     </section>
 
@@ -232,7 +241,7 @@ const schema = {
       <h2>Fertility treatment options in Lahore</h2>
       <p>No single treatment suits everyone. Each option below has its own page with the full detail.</p>
       <div class="cards c3">
-        {options.map(([n, h, a, d]) => <a class="card link opt" href={h}><span class="disc"><svg viewBox="0 0 100 100" set:html={art[a]} /></span><h3>{n}</h3><p>{d}</p><span class="more">Read more</span></a>)}
+        {options.map(([n, h, a, d]) => <a class="card link opt" href={h}><span class="disc"><svg viewBox="0 0 100 100" set:html={pic(a)} /></span><h3>{n}</h3><p>{d}</p><span class="more">Read more</span></a>)}
       </div>
     </section>
 
@@ -240,7 +249,7 @@ const schema = {
       <h2>IUI vs IVF vs ICSI: the difference</h2>
       <p>These treatments are related but not the same. The right choice depends on your diagnosis. Read the full guide: <a href="/resources/ivf-vs-iui">IVF vs IUI</a>.</p>
       <div class="cards c3">
-        {compare.map(([n, a, d, k]) => <div class="card cmp"><span class="disc"><svg viewBox="0 0 100 100" set:html={art[a]} /></span><h3>{n}</h3><p>{d}</p><p class="key">{k}</p></div>)}
+        {compare.map(([n, a, d, k]) => <div class="card cmp"><span class="disc"><svg viewBox="0 0 100 100" set:html={pic(a)} /></span><h3>{n}</h3><p>{d}</p><p class="key">{k}</p></div>)}
       </div>
       <p class="note">FET is a transfer of a frozen embryo, usually after IVF. PGT is an extra embryo test for selected patients, not a treatment for everyone.</p>
     </section>
@@ -249,7 +258,7 @@ const schema = {
       <h2>What an IVF cycle involves</h2>
       <p>Exact protocols and timing vary between patients, and the stages often take several weeks from stimulation to transfer. See the full <a href={`${T}/ivf`}>IVF treatment</a> and <a href={`${T}/icsi`}>ICSI</a> pages.</p>
       <ol class="steps">
-        {journey.map(([h, p, i], n) => <li class="step"><span class="n">{n + 1}</span><div><h3>{h}</h3><p>{p}</p></div></li>)}
+        {journey.map(([h, p], n) => <li class="step"><span class="n">{n + 1}</span><div><h3>{h}</h3><p>{p}</p></div></li>)}
       </ol>
     </section>
 
@@ -266,7 +275,7 @@ const schema = {
       <h2>Male, female and couple fertility treatment</h2>
       <p>Looking at both partners helps identify relevant factors and avoids missing a male contribution. Not every patient needs every test.</p>
       <div class="cards c3">
-        {both.map(([h, a, p]) => <div class="card"><span class="disc sm"><svg viewBox="0 0 100 100" set:html={art[a]} /></span><h3>{h}</h3><p set:html={p} /></div>)}
+        {both.map(([h, a, p]) => <div class="card"><span class="disc sm"><svg viewBox="0 0 100 100" set:html={pic(a)} /></span><h3>{h}</h3><p set:html={p} /></div>)}
       </div>
     </section>
 
@@ -274,7 +283,7 @@ const schema = {
       <h2>When should you see a fertility specialist?</h2>
       <p>You do not always have to wait a full year. A consultation does not mean you must start medication, IUI or IVF.</p>
       <div class="cards">
-        {when.map(([h, p, i]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p>{p}</p></div>)}
+        {when.map(([h, p, i]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icon(i)} /></span><h3>{h}</h3><p>{p}</p></div>)}
       </div>
       <p class="note">Source: <a href="https://prod.asrm.org/globalassets/_asrm/practice-guidance/practice-guidelines/pdf/definition-of-infertility.pdf">ASRM Practice Committee, Definition of infertility (2023)</a>. Read more: <a href="/resources/when-to-seek-fertility-consultation">when to seek a fertility consultation</a>.</p>
     </section>
@@ -297,7 +306,7 @@ const schema = {
       <h2>Fertility treatment cost in Lahore</h2>
       <p>Cost varies with the procedure, medication, investigations and laboratory services required. IUI and IVF involve different stages and resources, and an IVF cycle may add costs for ICSI, embryo freezing, genetic testing or storage. No single price fits every patient, so the most useful estimate comes after your findings are reviewed.</p>
       <h3>Ask for a clear explanation of:</h3>
-      <ul class="tick">{cost.map(x => <li>{x}</li>)}</ul>
+      <ul class="tick">{cost.map((x) => <li>{x}</li>)}</ul>
       <p>Read the <a href="/resources/ivf-treatment-cost-pakistan">IVF treatment cost guide</a>, or <a href={wa}>message us on WhatsApp</a> to ask about consultation and treatment estimates.</p>
     </section>
 
@@ -309,7 +318,7 @@ const schema = {
 
     <section id="outcomes">
       <h2>What influences fertility treatment outcomes?</h2>
-      <ul class="tick">{outcomes.map(x => <li>{x}</li>)}</ul>
+      <ul class="tick">{outcomes.map((x) => <li>{x}</li>)}</ul>
       <p>When you see success rates, ask what is being measured. A positive pregnancy test, a clinical pregnancy and a live birth are different outcomes, and rates may be reported per cycle started or per embryo transfer. No treatment can promise pregnancy or a live birth.</p>
     </section>
 
