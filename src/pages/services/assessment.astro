@@ -1,291 +1,564 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import PageHero from "../../components/PageHero.astro";
-import ServiceBlock from "../../components/ServiceBlock.astro";
-import CloseContact from "../../components/CloseContact.astro";
+// src/pages/services/assessment/index.astro   (URL: /services/assessment)
+// Uses the site's own menu/footer via Layout. Match the import path + props to your other pages.
+import Layout from "../../../layouts/Layout.astro";
+const base = "https://www.kamranfertility.com";
+const AS = "/services/assessment";
+const TS = "/services/tests";
+const TR = "/services/fertility-treatment";
+const url = `${base}${AS}`;
+const title = "Fertility Assessment & Consultation Lahore | Dr. Kamran";
+const description = "Fertility assessment and consultation in Lahore for men, women and couples. History review, targeted tests and clear next steps with Dr. Kamran Saleem.";
+const phone = "+92 314 8432789";
+const wa = "https://wa.me/923148432789?text=" + encodeURIComponent("Hello, I would like to book a fertility assessment and consultation with Dr. Kamran Saleem.");
+const reviewed = "2026-11-18";
+const reviewedLabel = "November 18, 2026";
 
-// Client-approved, SEO-written copy — reproduced verbatim. Do not reword,
-// shorten, or add keywords without sign-off from the client's SEO team.
-const breadcrumbs = [
-  { label: "Home", href: "/" },
-  { label: "Services" },
-  { label: "Assessment & Diagnosis" },
+// Fill these in when you want them shown on the page (leave empty to hide).
+const consultFee = "";   // e.g. "PKR 5,000"
+const pmdcNo = "";       // e.g. "12345-P"
+
+const a = (h, t) => `<a href="${h}">${t}</a>`;
+const L = {
+  fAssess: a(`${AS}/female-fertility-assessment`, "Female Fertility Assessment"),
+  mAssess: a(`${AS}/male-fertility-assessment`, "Male Fertility Assessment"),
+  hub: a(TS, "individual fertility tests"),
+  semen: a(`${TS}/semen-analysis`, "semen analysis"),
+  semenCap: a(`${TS}/semen-analysis`, "Semen Analysis"),
+  mHorm: a(`${TS}/male-fertility-hormone-test`, "male fertility hormone test"),
+  fHorm: a(`${TS}/female-fertility-hormone-test`, "female fertility hormone test"),
+  pcos: a(`${TR}/pcos`, "PCOS Treatment"),
+  iui: a(`${TR}/iui`, "IUI Treatment"),
+  ivf: a(`${TR}/ivf`, "IVF Treatment"),
+  icsi: a(`${TR}/icsi`, "ICSI Treatment"),
+  fet: a(`${TR}/fet`, "FET Procedures"),
+  pgt: a(`${TR}/pgt`, "PGT Testing"),
+  mTreat: a(`${TR}/male-infertility`, "Male Infertility Care"),
+  second: a("/services/support", "Fertility Support and Second Opinions"),
+  doc: a("/dr-kamran-saleem", "About Dr. Kamran Saleem"),
+};
+
+const icons = {
+  users: '<circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-3.5 3-5.5 7-5.5s7 2 7 5.5M16 14.5c3 0 6 1.5 6 4.5"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  chat: '<path d="M4 5h16v11H9l-5 4z"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+  shield: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+  flask: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3"/>',
+  scan: '<path d="M4 8V5a1 1 0 011-1h3M16 4h3a1 1 0 011 1v3M20 16v3a1 1 0 01-1 1h-3M8 20H5a1 1 0 01-1-1v-3M4 12h16"/>',
+  heart: '<path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/>',
+  clip: '<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h6"/>',
+  check: '<path d="M5 12l5 5 9-10"/>',
+  cells: '<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><circle cx="12" cy="16" r="3"/>',
+  bolt: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+  target: '<circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>',
+  alert: '<path d="M12 3l10 18H2zM12 10v5M12 18h.01"/>',
+  pin: '<path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  tag: '<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/>',
+};
+
+const toc = [["what","What it is"],["compare","Assessment vs tests"],["when","When to book"],["partners","Both partners"],["framework","Five stages"],["services","Services"],["concerns","Common concerns"],["pathways","Treatment pathways"],["bring","What to bring"],["fees","Fees & locations"],["faq","FAQ"],["why","Why Dr. Kamran"]];
+
+const facts = [["3","Lahore clinics"],["45-60 min","First consultation"],["Both","Partners evaluated"],["24 h","Typical lab reports"]];
+
+const compare = [
+  ["Primary Objective", "Comprehensive couple evaluation and identification of possible fertility factors", "Measuring individual biochemical or physiological parameters"],
+  ["Medical Oversight", "Consultation and clinical interpretation by Dr. Kamran Saleem", "Laboratory testing and pathology reporting"],
+  ["Diagnostic Scope", "Female, male and couple reproductive evaluation", "Individual investigations such as AMH or semen analysis"],
+  ["Test Selection", "Targeted investigations based on medical history and clinical findings", "Specific tests requested or recommended"],
+  ["Results", "Clinical interpretation and personalised next-step guidance", "Individual laboratory values requiring appropriate interpretation"],
+  ["Outcome", "A fertility assessment and possible treatment roadmap", "Information about a specific reproductive or hormonal parameter"],
 ];
 
-const heroBody = [
-  "Every fertility journey begins with understanding the cause before choosing a treatment. At Kamran Fertility Clinic, our experienced fertility specialist in Lahore provides a personalised Fertility Assessment for both men and women to identify the medical, hormonal, and lifestyle factors that may affect conception. Whether you have been trying to conceive naturally, experienced recurrent miscarriage, or simply want reassurance before starting your family, our evidence-based assessment helps you make informed decisions with confidence.",
-  "As a trusted fertility clinic in Lahore, we provide comprehensive female fertility test, male fertility test in Lahore, hormone test for fertility, ovulation test, pelvic ultrasound, and semen analysis services. Every investigation is recommended only when clinically appropriate, ensuring you receive accurate diagnosis and a personalised treatment plan that may include IVF, ICSI, IUI, PGD, or PGT when required. Our goal is to explain every result clearly and guide you towards the most appropriate next step.",
+const when = [
+  "You have been trying to conceive for 12 months without success.",
+  "The female partner is 35 or older and you have been trying for six months without pregnancy.",
+  "The female partner has irregular, infrequent or absent menstrual periods.",
+  "There is a history of PCOS, endometriosis, pelvic infection or reproductive surgery.",
+  "A previous semen analysis showed low sperm count, reduced motility or abnormal morphology.",
+  "Either partner has a known reproductive or hormonal condition.",
+  "You have experienced repeated pregnancy loss.",
+  "You have undergone unsuccessful fertility treatment, including IVF or IUI.",
+  "You want a specialist opinion before beginning fertility treatment.",
+  "You are unsure whether previous fertility investigations were sufficient.",
 ];
 
-// FAQ content — kept in one place so the visible accordion and the
-// FAQPage schema below always stay in sync.
+// Male / female summaries (condensed; full detail lives on the dedicated pages)
+const mf = [
+  ["Male Fertility Consultation in Lahore", "user",
+   "A male fertility consultation is an important part of evaluating a couple's reproductive health. Male factors contribute to a substantial proportion of fertility difficulties, and an assessment can help identify possible issues involving sperm production, sperm quality, sperm transport or reproductive hormones. Dr. Kamran Saleem sees men who are having difficulty conceiving with their partners, have received an abnormal semen analysis report or want a medical review of their reproductive health.",
+   ["How long the couple has been trying, and previous pregnancies", "Previous semen analysis results and other investigations", "Medical conditions, infections, previous surgery, testicular injury, undescended testes or mumps", "Medicines, supplements and relevant lifestyle factors", "Physical examination when clinically appropriate", "Recommendations for semen analysis, hormone testing or further investigations when needed"],
+   `Explore: ${L.mAssess} · ${L.semenCap} · ${L.mHorm}`],
+  ["Female Fertility Consultation in Lahore", "heart",
+   "A female fertility consultation focuses on understanding the factors that may affect ovulation, ovarian function, reproductive hormones, the uterus and fallopian tubes. Dr. Kamran Saleem sees women with delayed conception, irregular menstrual cycles, suspected PCOS, previous pregnancy loss or other reproductive health concerns. Previous blood tests, ultrasound reports and treatment records are reviewed where available.",
+   ["Menstrual history and cycle regularity", "Previous pregnancies, miscarriages and fertility treatments", "History of PCOS, irregular ovulation, pelvic infection or surgery", "Ovarian reserve and review of previous AMH and hormone results", "Assessment of uterine and pelvic health, and tubal evaluation when indicated", "Medicines, supplements and relevant lifestyle factors"],
+   `Explore: ${L.fAssess} · ${L.fHorm} · ${L.pcos}`],
+];
+const couple = [
+  "How long the couple has been trying to conceive.",
+  "Previous pregnancies and reproductive history.",
+  "Menstrual cycle and ovulation patterns.",
+  "Previous semen analysis and hormone reports.",
+  "Previous miscarriages or unsuccessful fertility treatments.",
+  "Relevant medical conditions and surgical history.",
+  "Investigations that may be needed for either partner.",
+  "Possible next steps based on the available findings.",
+];
+
+const stages = [
+  { t: "Couple Consultation and Medical History Review", i: "user",
+    intro: "Dr. Kamran Saleem conducts a detailed review of both partners' reproductive and medical history. Both partners are encouraged to attend together.",
+    lead: "The consultation may cover:",
+    list: ["Duration of trying to conceive.", "Previous pregnancies and miscarriages.", "Menstrual cycle patterns and ovulation history.", "Previous fertility treatments and their outcomes.", "Previous medical conditions and surgeries.", "Relevant medications and lifestyle factors.", "Existing blood tests, ultrasound reports and semen analysis results."],
+    outro: "This initial discussion helps identify which aspects of fertility require further assessment." },
+  { t: "Targeted Female Reproductive Evaluation", i: "heart",
+    intro: "Female evaluation focuses on understanding ovulation, ovarian function, hormonal factors and reproductive anatomy.",
+    paras: [["Ovarian Reserve Assessment:", "AMH testing and antral follicle count may help assess ovarian reserve. These findings provide information about egg quantity but do not independently determine whether natural conception is possible."],
+            ["Ovulatory and Endocrine Profiling:", "Depending on menstrual history and symptoms, investigations may include FSH, LH, estradiol, TSH and prolactin. Progesterone testing may be used to assess ovulation when appropriately timed."],
+            ["Structural and Uterine Assessment:", "Pelvic or transvaginal ultrasound may help evaluate the uterus, ovaries and endometrial lining. Further assessment of the fallopian tubes or uterine cavity may be recommended when clinically indicated."]],
+    more: `Related: ${L.fAssess} · ${L.fHorm}` },
+  { t: "Targeted Male Reproductive Evaluation", i: "flask",
+    intro: "Male fertility assessment goes beyond checking sperm count. It considers sperm production, sperm movement, sperm shape, reproductive history and possible hormonal or structural factors.",
+    paras: [["WHO 6th Edition Semen Analysis:", `A ${L.semen} evaluates parameters such as semen volume, sperm concentration, total sperm number, motility and morphology. Results should be interpreted alongside clinical history and other findings.`],
+            ["Repeat Semen Analysis:", "Sperm parameters can vary between samples. A repeat test may be recommended when the first result is abnormal or does not provide enough information."],
+            ["Physical Examination:", "Where appropriate, a clinical examination may help identify conditions such as varicocele, testicular abnormalities or other reproductive concerns."],
+            ["Endocrine Evaluation:", `FSH, LH and testosterone testing (the ${L.mHorm}) may be considered when sperm numbers are low, azoospermia is present or symptoms suggest a hormonal issue. Additional tests depend on clinical findings.`],
+            ["Advanced Sperm Diagnostics:", "Sperm DNA fragmentation testing, semen culture and genetic investigations may be considered in selected cases rather than as routine screening for every man."]],
+    more: `Related: ${L.mAssess} · ${L.semenCap}` },
+  { t: "Review and Interpretation of Results", i: "clip",
+    intro: "Laboratory values and imaging reports need to be understood in the context of the patient's medical history. During the results review, Dr. Kamran Saleem explains the available findings in clear language and discusses:",
+    list: ["Which findings are within expected ranges.", "Which results may require further investigation.", "Whether an abnormal result needs confirmation.", "Whether male and female factors may be contributing together.", "Whether additional tests or specialist referral may be appropriate.", "What the findings mean for the couple's next steps."],
+    outro: "A single abnormal result does not always establish a final diagnosis. Further evaluation may be needed depending on the individual circumstances." },
+  { t: "Personalised Fertility Management Plan", i: "target",
+    intro: "After reviewing the clinical findings, the doctor discusses the appropriate next steps with the couple.",
+    lead: "Depending on the assessment, these may include:",
+    list: ["Advice on natural conception and fertile timing.", "Management of ovulatory or hormonal concerns.", "Further evaluation of male reproductive factors.", "Treatment of relevant underlying conditions.", "Referral for additional investigations.", "Discussion of IUI, IVF or ICSI when appropriate.", "Review of previous fertility treatment and alternative options."],
+    outro: "The recommended approach depends on the diagnosis, age, reproductive history and individual circumstances of both partners." },
+];
+
+const services = [
+  ["Female Fertility Assessment", "heart", "A female fertility assessment evaluates reproductive health, including ovarian reserve, menstrual cycle regularity, ovulation, hormonal balance and pelvic anatomy. It may be suitable for women planning pregnancy, experiencing delayed conception, irregular cycles or known reproductive conditions.", `${AS}/female-fertility-assessment`, "Explore Female Fertility Assessment"],
+  ["Male Fertility Assessment", "user", "A male fertility assessment evaluates sperm production, sperm quality, reproductive history and relevant hormonal factors. It may include semen analysis interpretation, physical examination and additional investigations where clinically appropriate.", `${AS}/male-fertility-assessment`, "Explore Male Fertility Assessment"],
+  ["Hormonal Analysis and Endocrine Profiling", "bolt", "Hormonal factors can affect ovulation, menstrual cycles and sperm production. Depending on symptoms and medical history, assessment may include AMH, FSH, LH, estradiol, progesterone, TSH, prolactin or testosterone. The specific tests selected depend on the clinical question being investigated.", `${TS}/female-fertility-hormone-test`, "Female Hormone Test", `${TS}/male-fertility-hormone-test`, "Male Hormone Test"],
+  ["Ovulation and Follicular Monitoring", "scan", "Ovulation assessment helps determine whether an egg is being released and whether the menstrual cycle is suitable for natural conception or a planned fertility treatment. Depending on the clinical situation, assessment may involve menstrual history, appropriately timed blood tests and serial ultrasound monitoring of follicular development.", `${TR}/pcos`, "Ovulation and PCOS Management"],
+  ["WHO 6th Edition Semen Analysis", "flask", "Semen analysis is a key investigation in male fertility assessment. It evaluates semen volume, sperm concentration, total sperm number, motility and morphology. A report should be interpreted in the context of the patient's medical history. An abnormal result may require repeat testing or further assessment before a diagnosis is made.", `${TS}/semen-analysis`, "Explore Semen Analysis"],
+  ["Comprehensive Male Infertility Assessment", "cells", "Men with very low sperm counts, no sperm in the ejaculate or other significant reproductive concerns may need further investigation. Depending on initial findings, this may involve hormonal testing, physical examination, imaging, genetic evaluation or assessment for possible infection. Advanced investigations such as sperm DNA fragmentation testing are considered only in selected circumstances.", `${TR}/male-infertility`, "Explore Male Infertility Care"],
+];
+
+const concerns = [
+  ["PCOS and Irregular Ovulation", "Women with polycystic ovary syndrome may experience irregular menstrual cycles or problems with ovulation. A fertility consultation can help review cycle patterns, previous diagnoses and relevant investigations.", `Related: ${L.pcos}`],
+  ["Low Sperm Count and Abnormal Semen Results", "A low sperm count, reduced motility or abnormal morphology may require further evaluation. The doctor reviews the semen report alongside medical history and may recommend repeat testing or additional investigations.", `Related: ${L.mAssess} · ${L.semenCap}`],
+  ["Unexplained Infertility", "Sometimes initial investigations do not identify a clear cause of difficulty conceiving. In these situations, the doctor reviews the available information to identify whether further assessment is needed and discusses reasonable next steps.", `Related: ${L.fAssess} · ${L.mAssess}`],
+  ["Recurrent Pregnancy Loss", "A history of repeated pregnancy loss may require a separate evaluation of relevant medical, reproductive and hormonal factors. The appropriate investigations depend on the patient's history and previous findings.", `Related: ${L.second}`],
+  ["Previous Unsuccessful IVF or IUI", "Couples who have undergone unsuccessful fertility treatment may benefit from a review of their previous investigations, treatment records and clinical history before deciding what to do next.", `Related: ${L.second}`],
+];
+
+const pathways = [
+  ["Ovulation Induction and PCOS Management", "For women experiencing ovulatory problems, treatment may involve medication and monitoring when appropriate.", `${TR}/pcos`, "PCOS Treatment"],
+  ["Intrauterine Insemination (IUI)", "IUI may be considered in selected cases depending on sperm parameters, tubal status and other clinical factors.", `${TR}/iui`, "IUI Treatment"],
+  ["In Vitro Fertilization (IVF)", "IVF may be discussed for certain fertility conditions, including tubal factors and other indications.", `${TR}/ivf`, "IVF Treatment"],
+  ["Intracytoplasmic Sperm Injection (ICSI)", "ICSI may be considered in selected cases involving significant male factor infertility or previous fertilisation difficulties.", `${TR}/icsi`, "ICSI Treatment"],
+  ["Frozen Embryo Transfer (FET)", "FET may be discussed for couples who have cryopreserved embryos and are planning a subsequent transfer.", `${TR}/fet`, "FET Procedures"],
+  ["Preimplantation Genetic Testing (PGT)", "PGT may be discussed for specific genetic or chromosomal indications following appropriate counselling.", `${TR}/pgt`, "PGT Testing"],
+];
+
+const bring = [
+  "Previous blood test and hormone reports.",
+  "AMH and other ovarian reserve results.",
+  "Previous pelvic or transvaginal ultrasound reports.",
+  "HSG or other fallopian tube investigation reports.",
+  "Previous semen analysis results.",
+  "Records of previous IVF, ICSI or IUI cycles.",
+  "A list of current medicines and supplements.",
+  "Details of previous medical conditions and surgeries.",
+  "Menstrual cycle dates or records, where relevant.",
+];
+
+const locations = [
+  ["DHA Defence Branch", "Rasheed Hospital, Main Boulevard, DHA Defence, Lahore", "3:00 PM–6:00 PM; Saturday and Sunday closed", "/locations/dha-lahore"],
+  ["Gulberg III Branch", "TAMC Clinic, M.M. Alam Road, Gulberg III, Lahore", "Wednesday 12:00 PM–3:00 PM; other days by appointment", "/locations/mm-alam-road-lahore"],
+  ["Shalamar Branch", "Shahnaz Hospital, Shalamar Link Road, Lahore", "Monday and Thursday 6:00 PM–9:00 PM", "/locations/shalamar-lahore"],
+];
+
+const related = [
+  ["Female Fertility Assessment", `${AS}/female-fertility-assessment`, "Ovulation, ovarian reserve, hormones and pelvic anatomy."],
+  ["Male Fertility Assessment", `${AS}/male-fertility-assessment`, "Sperm health, history, examination and hormones."],
+  ["All Fertility Tests", TS, "Every individual diagnostic test, with timing and turnaround."],
+  ["Semen Analysis", `${TS}/semen-analysis`, "WHO 6th Edition count, motility and morphology."],
+  ["Male Fertility Hormone Test", `${TS}/male-fertility-hormone-test`, "Testosterone, FSH, LH, prolactin, estradiol and TSH."],
+  ["Female Fertility Hormone Test", `${TS}/female-fertility-hormone-test`, "AMH, FSH, LH, estradiol and thyroid testing."],
+  ["Fertility Treatment", TR, "PCOS, IUI, IVF, ICSI, FET and PGT pathways."],
+  ["Male Infertility Care", `${TR}/male-infertility`, "Low count, azoospermia and sperm retrieval."],
+  ["Support & Second Opinions", "/services/support", "An independent review of earlier reports and failed cycles."],
+  ["Success Stories", "/success-stories", "Patient stories from our Lahore clinics."],
+  ["Fertility Resources", "/resources", "Guides to results, timing and common questions."],
+  ["About Dr. Kamran Saleem", "/dr-kamran-saleem", "Qualifications, experience and clinical approach."],
+];
+
 const faqs = [
-  {
-    q: "How much does a fertility assessment cost in Lahore?",
-    a: "The consultation fee is shown upfront before you confirm your booking. Any recommended tests (hormone panel, ultrasound, semen analysis) are priced separately and only ordered when clinically appropriate — never as a routine package.",
-  },
-  {
-    q: "Do I need a referral to book a fertility assessment?",
-    a: "No referral is needed. You can message the clinic directly on WhatsApp to book a consultation with Dr. Kamran Saleem, whether or not you have previous test results.",
-  },
-  {
-    q: "How soon will I get my test results?",
-    a: "Most hormone and semen analysis results are ready within a few days. Your results are explained to you in plain language during a follow-up consultation, along with a written next-steps plan.",
-  },
-  {
-    q: "Is a fertility assessment only for women, or should men be tested too?",
-    a: "Both partners should ideally be assessed together, since male factors contribute to close to half of all infertility cases. A male fertility test (semen analysis and hormone testing) is a standard part of a complete evaluation.",
-  },
+  ["What happens during a fertility assessment in Lahore?", "A fertility assessment begins with a review of both partners' reproductive and medical histories. Dr. Kamran Saleem considers previous pregnancies, menstrual cycles, semen analysis reports, medical conditions and previous treatments. Further investigations are recommended according to the findings."],
+  ["Should both partners attend a fertility consultation?", "Yes, when possible. Fertility difficulties can involve male factors, female factors or both. Evaluating both partners helps the doctor understand the complete reproductive picture and decide which investigations may be appropriate."],
+  ["Where can I book a male fertility consultation in Lahore?", `You can contact Kamran Fertility Clinic to arrange a male fertility consultation with Dr. Kamran Saleem at ${a("/locations/dha-lahore", "Rasheed Hospital in DHA")}, ${a("/locations/mm-alam-road-lahore", "TAMC Clinic on M.M. Alam Road in Gulberg")} or ${a("/locations/shalamar-lahore", "Shahnaz Hospital on Shalamar Link Road")}. Appointment availability should be confirmed before visiting. See ${L.mAssess}.`],
+  ["Where can I book a female fertility consultation in Lahore?", `Female fertility consultations are available through Kamran Fertility Clinic at its Lahore practice locations. The consultation may include a review of menstrual history, previous pregnancy records, ultrasound findings and relevant hormonal investigations. See ${L.fAssess}.`],
+  ["When should a couple consult a fertility doctor?", "Generally, couples should consider an infertility assessment after 12 months of trying to conceive without success, or after six months when the female partner is 35 or older. Earlier evaluation may be appropriate if there are irregular periods, known reproductive conditions, previous reproductive surgery or other risk factors."],
+  ["Do I need to complete all fertility tests before my first appointment?", "No. You do not need to order every fertility test before seeing a doctor. Bring any existing reports, and the doctor can advise which additional investigations, if any, may be useful."],
+  ["What tests are included in a female fertility assessment?", `Depending on individual needs, a female assessment may involve review of menstrual cycles, ovulation, ovarian reserve, reproductive hormones, pelvic ultrasound and assessment of the fallopian tubes. Not all tests are required for every woman. See the ${L.fHorm}.`],
+  ["What tests are included in a male fertility assessment?", `Male fertility evaluation commonly begins with medical and reproductive history and ${L.semen}. Depending on the results, further assessment may involve physical examination, reproductive hormone testing (${L.mHorm}), imaging or selected genetic investigations.`],
+  ["Can I book a fertility consultation after an unsuccessful IVF or IUI cycle?", `Yes. Couples can seek a specialist review after unsuccessful fertility treatment. Previous treatment records, embryo or cycle information where available, semen analysis reports and relevant investigations can help the doctor understand what has already been evaluated. See ${L.second}.`],
+  ["How much does a fertility assessment cost in Lahore?", `The consultation fee and investigation costs may be separate. Contact Kamran Fertility Clinic on ${phone} to confirm the current consultation fee, appointment availability and any additional costs before booking.`],
+  ["Does a normal fertility assessment guarantee pregnancy?", "No. Fertility assessment helps identify possible contributing factors and guides further decisions, but no evaluation or treatment can guarantee pregnancy. Outcomes depend on many individual medical and reproductive factors."],
+  ["How much does a fertility test cost in Lahore?", `Test fees depend on which investigations your history calls for, and they are confirmed before you book. For example, male fertility hormone tests start from PKR 4,000 for a single test and PKR 8,000–12,000 for a full profile. See the ${L.mHorm}, ${L.semen} and ${L.fHorm} pages.`],
+  ["How do I know if I might be infertile?", "Many people have no symptoms. The usual sign is not conceiving after 12 months of regular, unprotected intercourse (six months if the female partner is 35 or older). Irregular or absent periods, known reproductive conditions or an abnormal semen report are reasons to be assessed sooner. Only an assessment can show whether a fertility problem exists."],
+  ["What is the difference between a fertility check-up and a fertility assessment?", `A check-up often means a few standalone ${L.hub}. A doctor-led assessment reviews the history of both partners first and then selects the tests that are relevant, so results are interpreted in context.`],
+  ["How long does a fertility assessment take?", "The first consultation takes 45 to 60 minutes. Tests such as ultrasound, blood draws and semen collection can be arranged at the clinic depending on the test and location, and most semen and hormone reports are ready within 24 hours. A results review then follows."],
+  ["Is a fertility assessment painful or invasive?", "Most of it is history taking, ultrasound, blood tests and a private semen sample. If a tube or uterine-cavity investigation is needed, the doctor explains it and answers your questions beforehand."],
 ];
+
+const strip = (s) => s.replace(/<[^>]+>/g, "");
+const clinicId = base + "/#clinic";
+const hrs = (days, o, c) => [{ "@type": "OpeningHoursSpecification", dayOfWeek: days, opens: o, closes: c }];
+const place = (name, street, days, o, c, link) => ({ "@type": "Place", name, url: base + link, address: { "@type": "PostalAddress", streetAddress: street, addressLocality: "Lahore", addressRegion: "Punjab", addressCountry: "PK" }, openingHoursSpecification: hrs(days, o, c) });
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "MedicalWebPage", "@id": url, url, name: title, description, inLanguage: "en-PK", lastReviewed: reviewed, dateModified: reviewed,
+      reviewedBy: { "@id": base + "/dr-kamran-saleem#physician" },
+      about: { "@type": "MedicalProcedure", name: "Fertility assessment", description: "Doctor-led evaluation of both partners to understand possible reasons for difficulty conceiving." },
+      breadcrumb: { "@id": url + "#breadcrumb" }, publisher: { "@id": clinicId } },
+    { "@type": "MedicalClinic", "@id": clinicId, name: "Kamran Fertility Clinic", url: base, telephone: "+923148432789", logo: base + "/assets/logo.webp", image: base + "/assets/logo.webp",
+      location: [
+        place("Rasheed Hospital (DHA Defence)", "Main Boulevard, DHA Defence", ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "15:00", "18:00", "/locations/dha-lahore"),
+        place("TAMC Clinic (M.M. Alam Road, Gulberg III)", "M.M. Alam Road, Gulberg III", ["Wednesday"], "12:00", "15:00", "/locations/mm-alam-road-lahore"),
+        place("Shahnaz Hospital (Shalamar Link Road)", "Shalamar Link Road", ["Monday", "Thursday"], "18:00", "21:00", "/locations/shalamar-lahore") ],
+      availableService: ["Couple fertility consultation", "Male fertility assessment", "Female fertility assessment", "Semen analysis", "Fertility hormone tests", "Ovulation and follicular monitoring", "Second opinions"].map(n => ({ "@type": "MedicalProcedure", name: n })) },
+    { "@type": "Physician", "@id": base + "/dr-kamran-saleem#physician", name: "Dr. Kamran Saleem", url: base + "/dr-kamran-saleem", description: "MBBS 1988; Diploma in Genito-Urinary Medicine & Venereology, University of Liverpool (1998); PMDC registered; 25+ years of clinical reproductive experience.", worksFor: { "@id": clinicId } },
+    { "@type": "BreadcrumbList", "@id": url + "#breadcrumb", itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: base + "/" },
+      { "@type": "ListItem", position: 2, name: "Services", item: base + "/services" },
+      { "@type": "ListItem", position: 3, name: "Fertility Assessment", item: url } ] },
+    { "@type": "FAQPage", mainEntity: faqs.map(([q, ans]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: strip(ans) } })) },
+  ],
+};
 ---
-
-<Layout
-  title="Fertility Assessment in Lahore | Tests & Diagnosis – Dr. Kamran Saleem"
-  description="Personalised fertility assessment in Lahore with Dr. Kamran Saleem — fertility tests, hormone testing, ultrasound & semen analysis, explained clearly."
->
-  <!-- Structured data: helps Google and AI answer engines understand this
-       as a medical service page with genuine FAQ content. Purely additive —
-       does not touch any visible copy. -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "MedicalWebPage",
-        "@id": "https://www.kamranfertility.com/services/assessment#webpage",
-        "url": "https://www.kamranfertility.com/services/assessment",
-        "name": "Fertility Assessment & Diagnosis by a Fertility Specialist in Lahore",
-        "description": "Personalised fertility assessment in Lahore with Dr. Kamran Saleem — fertility tests, hormone testing, ultrasound & semen analysis, explained clearly.",
-        "specialty": "Reproductive Medicine",
-        "isPartOf": { "@id": "https://www.kamranfertility.com/#website" },
-        "about": {
-          "@type": "MedicalClinic",
-          "name": "Kamran Fertility Clinic",
-          "url": "https://www.kamranfertility.com/",
-          "telephone": "+923148432789"
-        }
-      },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.kamranfertility.com/" },
-          { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.kamranfertility.com/#services" },
-          { "@type": "ListItem", "position": 3, "name": "Assessment & Diagnosis", "item": "https://www.kamranfertility.com/services/assessment" }
-        ]
-      },
-      {
-        "@type": "FAQPage",
-        "mainEntity": faqs.map((item) => ({
-          "@type": "Question",
-          "name": item.q,
-          "acceptedAnswer": { "@type": "Answer", "text": item.a }
-        }))
-      }
-    ]
-  })} />
-
-  <PageHero
-    eyebrow="Assessment & Diagnosis"
-    title="Fertility Assessment & Diagnosis by a Fertility Specialist in Lahore"
-    sub={heroBody}
-    breadcrumbs={breadcrumbs}
-    cta="Message us on WhatsApp"
-  />
-
-  <!-- Page intro (relative z-10 keeps it above the hero's ambient bleed) -->
-  <section class="bg-white py-16 md:py-20">
-    <div class="relative z-10 mx-auto max-w-3xl px-5 text-center sm:px-8">
-      <p class="mx-auto measure text-lg leading-relaxed text-body [margin-inline:auto]" data-reveal>
-        No two fertility journeys are the same. Some patients only require
-        reassurance through a few simple investigations, while others benefit
-        from a more comprehensive evaluation. Our Fertility Assessment focuses on
-        identifying the underlying cause of infertility without recommending
-        unnecessary tests, allowing you to understand your reproductive health
-        with confidence under the guidance of an experienced infertility
-        specialist in Lahore.
-      </p>
+<Layout title={title} description={description}>
+<div class="ivf">
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+<main>
+<section class="hero"><div class="w hgrid">
+  <div>
+    <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/services">Services</a> / Fertility Assessment</nav>
+    <p class="eye">Doctor-led · Both partners · Lahore</p>
+    <h1>Fertility Assessment &amp; Consultation in Lahore</h1>
+    <p class="lead">A clear evaluation for men, women and couples with Dr. Kamran Saleem</p>
+    <p class="sub">Understand why pregnancy has not happened yet. Dr. Kamran reviews both partners' history and existing reports, chooses only the tests that are relevant, and explains what the findings mean and what to do next.</p>
+    <p class="actions"><a class="btn" href={wa}>Book on WhatsApp</a> <a class="btn ghost" href="#framework">How the assessment works</a></p>
+    <p class="mini">Phone / WhatsApp: <a href="tel:+923148432789">{phone}</a> · Individual tests only? See <a href={TS}>fertility tests</a></p>
+  </div>
+  <div class="hside">
+    <div class="pinbox" aria-hidden="true">
+      <svg class="pinart" viewBox="0 0 200 200">
+        <defs><radialGradient id="ag" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#dbeafe"/><stop offset="1" stop-color="#93c5fd"/></radialGradient></defs>
+        <circle cx="100" cy="100" r="92" fill="url(#ag)" stroke="#ffffff" stroke-width="6"/>
+        <circle cx="82" cy="100" r="40" fill="#2563eb" fill-opacity=".28" stroke="#1d4ed8" stroke-width="3"/>
+        <circle cx="118" cy="100" r="40" fill="#4cc9f0" fill-opacity=".38" stroke="#0b1f4b" stroke-width="3"/>
+        <path d="M92 100l8 9 16-18" stroke="#0b1f4b" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
-  </section>
+    <ul class="facts">
+      <li><b>2</b> partners, one evaluation</li>
+      <li><b>45-60 min</b> first consultation</li>
+      <li><b>3</b> clinics: DHA, Gulberg, Shalamar</li>
+    </ul>
+  </div>
+</div></section>
 
-  <!-- Service blocks -->
-  <section class="bg-white pb-20 md:pb-28">
-    <div class="mx-auto max-w-6xl space-y-20 px-5 sm:px-8 md:space-y-28">
-      <ServiceBlock
-        id="fertility-assessment"
-        title="Fertility Assessment & Diagnosis"
-        intro="A comprehensive Fertility Assessment is the first step towards understanding why pregnancy has not occurred or identifying potential fertility concerns before treatment begins. Our specialists review your medical history, menstrual cycle, lifestyle, previous pregnancies, and any earlier fertility investigations before recommending appropriate diagnostic tests. Depending on your individual circumstances, your evaluation may include a female fertility test, male fertility test, hormone test for fertility, pelvic ultrasound, ovulation test, semen analysis, blood investigations, and screening for STIs/STDs where clinically indicated. A WHO-standard semen analysis test evaluates sperm count, motility, and morphology, helping us build a complete picture of reproductive health."
-        relevantIf={[
-          "You've been trying to conceive for 12 months, or 6 months if you're over 35.",
-          "You have irregular periods or a known gynaecological condition.",
-          "You have experienced miscarriage or previous pregnancy complications.",
-          "You or your partner have had an abnormal semen analysis.",
-          "You want to understand your fertility before planning pregnancy.",
-        ]}
-        whatToExpect={[
-          "Consultation with a fertility specialist in Lahore",
-          "Review of previous investigations and imaging",
-          "Personalised hormone test for fertility, ovulation test, ultrasound, or semen analysis where appropriate",
-          "A written explanation of your results and recommended next steps, including IVF, ICSI, or IUI only when clinically indicated",
-        ]}
-      >
-        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M6 4h-1a1 1 0 0 0 -1 1v3.5a5.5 5.5 0 0 0 11 0v-3.5a1 1 0 0 0 -1 -1h-1" />
-          <path d="M8 15a6 6 0 1 0 12 0v-3" />
-          <path d="M20 9m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
-        </svg>
-      </ServiceBlock>
+<div class="w"><div class="stats" aria-label="Fertility assessment at a glance">
+  <div class="statgrid">{facts.map(([n, l]) => <div class="stat"><b>{n}</b><span>{l}</span></div>)}</div>
+</div></div>
 
-      <ServiceBlock
-        id="mens-fertility"
-        title="Men's Fertility & Reproductive Health"
-        intro="Male fertility contributes to almost half of infertility cases, making early evaluation an essential part of every fertility journey. Our male infertility specialist in Lahore provides confidential assessment of sperm health, hormone levels, reproductive history, and overall Men's Health. A comprehensive male fertility test in Lahore includes a WHO-standard semen analysis, hormone testing, and lifestyle assessment to identify factors affecting sperm quality, count, and motility. When necessary, advanced fertility options such as IUI, ICSI, or IVF are discussed based on your diagnosis rather than offered routinely."
-        relevantIf={[
-          "You have concerns about sperm count or motility.",
-          "Previous semen analysis test results were abnormal.",
-          "You have experienced infection, injury, or testicular surgery.",
-          "You have noticed reduced libido or erectile dysfunction.",
-          "You would like confidential STIs/STDs screening as part of your fertility assessment.",
-        ]}
-        whatToExpect={[
-          "Confidential consultation with a male infertility specialist in Lahore",
-          "Male fertility test",
-          "WHO-standard semen analysis",
-          "Hormone testing where clinically indicated",
-          "Lifestyle recommendations and personalised treatment planning",
-        ]}
-        reversed
-      >
-        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-          <path d="M6 21v-2a4 4 0 0 1 4 -4h4" />
-          <path d="M15 19l2 2l4 -4" />
-        </svg>
-      </ServiceBlock>
+<div class="w layout">
+  <aside class="toc" aria-label="On this page"><p>On this page</p>
+    {toc.map(([id, l]) => <a href={`#${id}`}>{l}</a>)}
+    <a class="btn sm" href={wa}>Book now</a>
+  </aside>
+  <div class="content">
+    <p class="review"><b>Medically reviewed by:</b> Dr. Kamran Saleem (MBBS 1988, UK Diploma in Genito-Urinary Medicine &amp; Venereology, University of Liverpool, 1998; PMDC Registered{pmdcNo ? ` (No. ${pmdcNo})` : ""}; 25+ years clinical reproductive experience) · <b>Last medically reviewed:</b> <time datetime={reviewed}>{reviewedLabel}</time> · Guidance informed by <a href="https://www.asrm.org" target="_blank" rel="noopener">ASRM</a>, <a href="https://www.eshre.eu" target="_blank" rel="noopener">ESHRE</a> and the <a href="https://www.who.int" target="_blank" rel="noopener">WHO</a> 6th Edition Laboratory Manual.</p>
 
-      <ServiceBlock
-        id="cycle-hormonal"
-        title="Cycle, Hormonal & Ovulation Concerns"
-        intro="Hormonal imbalance and irregular ovulation are among the most common causes of female infertility. Our comprehensive female fertility test evaluates menstrual health, ovarian reserve, ovulation, and reproductive hormones to identify conditions such as PCOS or thyroid disorders. Your assessment may include a hormone test for fertility, PCOS fertility test, ovulation test, pelvic ultrasound, and blood tests including AMH, FSH, and LH where appropriate. If fertility treatment becomes necessary, options such as IUI, IVF, ICSI, PGD, or PGT are discussed according to your individual diagnosis and treatment goals."
-        relevantIf={[
-          "Your periods are irregular or absent.",
-          "You have symptoms of PCOS.",
-          "You suspect hormonal imbalance.",
-          "You're unsure whether you're ovulating.",
-          "You have experienced recurrent miscarriage.",
-        ]}
-        whatToExpect={[
-          "Review of menstrual and reproductive history",
-          "Hormone test for fertility",
-          "PCOS fertility test",
-          "Ovulation test",
-          "Pelvic ultrasound",
-          "Personalised treatment recommendations",
-        ]}
-      >
-        <svg slot="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M19.5 13.572l-7.5 7.428l-2.896 -2.868m-6.117 -8.104a5 5 0 0 1 9.013 -3.022a5 5 0 1 1 7.5 6.572" />
-          <path d="M3 13h2l2 3l2 -6l1 3h3" />
-        </svg>
-      </ServiceBlock>
-    </div>
-  </section>
+    <section id="what">
+      <p class="kick">Overview</p>
+      <h2>What Is a Doctor-Led Fertility Assessment?</h2>
+      <div class="snippet"><p>A doctor-led fertility assessment is a comprehensive medical evaluation of both partners to understand possible reasons for difficulty conceiving. It includes a review of reproductive and medical history, female ovulation and reproductive health, male reproductive health and semen analysis, followed by investigations selected according to individual clinical needs. Dr. Kamran Saleem provides fertility consultations in Lahore to help couples understand their findings and make informed decisions about their next steps.</p></div>
+      <p>At Kamran Fertility Clinic, fertility assessment is not limited to ordering blood tests or checking sperm count. It involves understanding the couple's complete reproductive history, identifying possible contributing factors and deciding which investigations may be useful before recommending a treatment approach.</p>
+    </section>
 
-  <!-- Reassurance band (ice, so the CloseContact wave blends) -->
-  <section class="bg-ice py-16 md:py-20">
-    <div class="mx-auto max-w-3xl px-5 text-center sm:px-8" data-reveal>
-      <p class="mx-auto measure font-heading text-xl font-bold leading-snug text-ink [margin-inline:auto] sm:text-2xl">
-        Investigations are recommended only when they're clinically appropriate
-        and likely to help — never as routine.
-      </p>
-    </div>
-  </section>
+    <section id="compare">
+      <p class="kick">Assessment or tests?</p>
+      <h2>Understanding Fertility Assessment and Individual Diagnostic Testing</h2>
+      <p>Understanding your fertility begins with distinguishing between a <b>Doctor-Led Fertility Assessment</b> (this page) and <b>Individual Laboratory Testing</b> (see <a href={TS}>fertility tests</a>).</p>
+      <p>Many couples order standalone laboratory tests without first discussing their medical history with a fertility doctor. Although individual tests can provide useful information, their results need to be interpreted in the context of age, symptoms, reproductive history and the health of both partners. A fertility assessment brings this information together. It helps the doctor decide which tests are relevant, whether further evaluation is required and what the findings may mean for the couple.</p>
+      <div class="tw"><table class="slim">
+        <thead><tr><th>Feature / Scope</th><th>Doctor-Led Assessment</th><th><a href={TS}>Individual Diagnostic Tests</a></th></tr></thead>
+        <tbody>{compare.map(r => <tr><th scope="row">{r[0]}</th><td>{r[1]}</td><td>{r[2]}</td></tr>)}</tbody>
+      </table></div>
+      <p>The main assessment page explains the complete clinical evaluation. The dedicated pages provide more detailed information about each partner: <a href={`${AS}/female-fertility-assessment`}>Female Fertility Assessment</a> and <a href={`${AS}/male-fertility-assessment`}>Male Fertility Assessment</a>.</p>
+    </section>
 
-  <!-- Related services — new, additive internal linking block -->
-  <section class="bg-white py-16 md:py-20">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8">
-      <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">
-        Where an assessment can lead
-      </h2>
-      <p class="mx-auto measure mt-3 text-center text-body [margin-inline:auto]">
-        Once your results are in, we'll walk you through what they mean and what,
-        if anything, makes sense next.
-      </p>
-      <div class="mt-10 grid gap-6 sm:grid-cols-2">
-        <a href="/services/fertility-treatment" class="block rounded-2xl border border-black/5 bg-ice p-6 transition hover:shadow-md">
-          <h3 class="font-heading text-lg font-bold text-ink">Fertility Treatment</h3>
-          <p class="mt-2 text-body">
-            If your assessment points to a specific cause, explore IUI, IVF,
-            ICSI, PGD and PGT options — recommended only when clinically indicated.
-          </p>
-        </a>
-        <a href="/services/support" class="block rounded-2xl border border-black/5 bg-ice p-6 transition hover:shadow-md">
-          <h3 class="font-heading text-lg font-bold text-ink">Support & Second Opinions</h3>
-          <p class="mt-2 text-body">
-            Already have test results or a previous treatment plan from
-            elsewhere? Get an independent specialist review before deciding
-            what's next.
-          </p>
-        </a>
-      </div>
-    </div>
-  </section>
+    <section id="when">
+      <p class="kick">Timing</p>
+      <h2>When Should You Book a Fertility Consultation?</h2>
+      <p>Couples do not always know when it is appropriate to consult a fertility doctor. Some have been trying to conceive for several months, while others already have irregular menstrual cycles, abnormal semen analysis reports or a history of reproductive health problems. A fertility consultation helps identify which concerns need further evaluation and whether any investigations or referrals are appropriate.</p>
+      <h3 class="sh">You may consider booking a fertility assessment if:</h3>
+      <ul class="tick two">{when.map(w => <li>{w}</li>)}</ul>
+      <p>Some people should seek an assessment earlier rather than waiting for the usual time periods. This can include people with known reproductive conditions, previous reproductive surgery, irregular or absent periods, or a history that may affect fertility. The 12-month and six-month timelines reflect the commonly used definition of infertility (see <a href="https://www.who.int" target="_blank" rel="noopener">WHO</a>, <a href="https://www.asrm.org" target="_blank" rel="noopener">ASRM</a> and <a href="https://www.eshre.eu" target="_blank" rel="noopener">ESHRE</a>). Female age is one of the most important factors, which is why waiting is not advised after 35.</p>
+      <p class="actions2"><a class="btn sm" href={wa}>Ask about an appointment</a></p>
+    </section>
 
-  <!-- FAQs — new, additive; mirrors the FAQPage schema above -->
-  <section class="bg-ice py-16 md:py-20">
-    <div class="mx-auto max-w-3xl px-5 sm:px-8">
-      <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">
-        Fertility assessment: frequently asked questions
-      </h2>
-      <div class="mt-10 space-y-4">
-        {faqs.map((item) => (
-          <details class="group rounded-xl bg-white p-5 shadow-sm">
-            <summary class="cursor-pointer list-none font-heading font-bold text-ink">
-              {item.q}
-            </summary>
-            <p class="mt-3 text-body leading-relaxed">{item.a}</p>
-          </details>
+    <section id="partners">
+      <p class="kick">Both partners</p>
+      <h2>Male and Female Fertility Assessment: Why Both Partners Matter</h2>
+      <p>Difficulty conceiving is not exclusively a female or male problem. Fertility depends on reproductive factors in both partners, and sometimes more than one factor contributes to a couple's difficulty becoming pregnant. For this reason, a complete fertility evaluation considers both partners rather than focusing on only one person's test results.</p>
+      <p>At Kamran Fertility Clinic, the assessment considers the female partner's ovulation, ovarian reserve, hormones and reproductive anatomy alongside the male partner's sperm health, reproductive history and relevant hormonal factors.</p>
+      <div class="cards c2">
+        {mf.map(([h, i, p, bullets, more]) => (
+          <div class="card svc"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p>{p}</p><ul class="tick">{bullets.map(b => <li>{b}</li>)}</ul><p class="more" set:html={more} /></div>
         ))}
       </div>
-    </div>
-  </section>
+      <h3 class="sh">Couple Fertility Consultation in Lahore</h3>
+      <p>A couple fertility consultation brings both partners into the same evaluation process. Instead of investigating only the female partner or asking the male partner to undergo testing separately at a later stage, the doctor reviews the couple's reproductive history together. This approach helps identify whether the difficulty may involve female factors, male factors, a combination of both or an unexplained cause.</p>
+      <p>During a couple fertility consultation, Dr. Kamran Saleem may review:</p>
+      <ul class="tick two">{couple.map(c => <li>{c}</li>)}</ul>
+      <p>Both partners are encouraged to attend together when possible. If one partner cannot attend, the initial consultation can still help establish the available history and identify what information may be needed.</p>
+      <div class="snippet"><p><b>The objective is to understand the couple's fertility concerns as a whole, rather than treating male and female evaluation as unrelated processes.</b></p></div>
+    </section>
 
-  <!-- Related reading — new, additive internal linking to the blog -->
-  <section class="bg-white py-16 md:py-20">
-    <div class="mx-auto max-w-6xl px-5 sm:px-8">
-      <h2 class="font-heading text-2xl font-bold text-ink sm:text-3xl text-center">
-        Related reading
-      </h2>
-      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <a href="/resources/fertility-assessment-in-lahore" class="block rounded-2xl border border-black/5 p-5 transition hover:shadow-md">
-          <p class="text-sm font-semibold text-primary">Fertility Treatment</p>
-          <h3 class="mt-1 font-heading font-bold text-ink">Where Can You Get a Fertility Assessment in Lahore?</h3>
-        </a>
-        <a href="/resources/male-fertility-test" class="block rounded-2xl border border-black/5 p-5 transition hover:shadow-md">
-          <p class="text-sm font-semibold text-primary">Diagnosis</p>
-          <h3 class="mt-1 font-heading font-bold text-ink">Male fertility test: what it involves and what the results mean</h3>
-        </a>
-        <a href="/resources/understanding-a-semen-analysis" class="block rounded-2xl border border-black/5 p-5 transition hover:shadow-md">
-          <p class="text-sm font-semibold text-primary">Diagnosis</p>
-          <h3 class="mt-1 font-heading font-bold text-ink">Understanding a semen analysis</h3>
-        </a>
-        <a href="/resources/hormone-test--for-fertility" class="block rounded-2xl border border-black/5 p-5 transition hover:shadow-md">
-          <p class="text-sm font-semibold text-primary">Fertility Treatment</p>
-          <h3 class="mt-1 font-heading font-bold text-ink">Hormone Test for Fertility: Which Tests Do Women Need?</h3>
-        </a>
-        <a href="/resources/pcos-and-fertility" class="block rounded-2xl border border-black/5 p-5 transition hover:shadow-md">
-          <p class="text-sm font-semibold text-primary">Women's health</p>
-          <h3 class="mt-1 font-heading font-bold text-ink">PCOS and Fertility: Can You Get Pregnant with PCOS?</h3>
-        </a>
-        <a href="/resources/when-to-seek-fertility-consultation" class="block rounded-2xl border border-black/5 p-5 transition hover:shadow-md">
-          <p class="text-sm font-semibold text-primary">Getting started</p>
-          <h3 class="mt-1 font-heading font-bold text-ink">Fertility Consultation: When Should You Seek Advice?</h3>
-        </a>
+    <section id="framework">
+      <p class="kick">The process</p>
+      <h2>The Five-Stage Fertility Assessment Framework</h2>
+      <p>At Kamran Fertility Clinic, diagnostic evaluations follow a structured clinical approach designed to understand the couple's reproductive health, avoid unnecessary investigations and support informed decisions.</p>
+      <ol class="tl">
+        {stages.map((s, n) => (
+          <li><span class="dot">{n + 1}</span><div>
+            <h4>Stage {n + 1}: {s.t}</h4>
+            {s.intro ? <p set:html={s.intro} /> : null}
+            {s.lead ? <p class="lead2">{s.lead}</p> : null}
+            {s.list ? <ul class="tick">{s.list.map(x => <li>{x}</li>)}</ul> : null}
+            {s.paras ? s.paras.map(([k, v]) => <p><b>{k}</b> <span set:html={v} /></p>) : null}
+            {s.outro ? <p>{s.outro}</p> : null}
+            {s.more ? <p class="more" set:html={s.more} /> : null}
+          </div></li>
+        ))}
+      </ol>
+    </section>
+
+    <section id="services">
+      <p class="kick">What we offer</p>
+      <h2>Dedicated Fertility Assessment and Diagnostic Services</h2>
+      <p>Kamran Fertility Clinic provides different assessment pathways for specific reproductive concerns. Each pathway focuses on the clinical questions relevant to that patient.</p>
+      <div class="cards">
+        {services.map(([h, i, p, l1, t1, l2, t2]) => (
+          <div class="card svc"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p>{p}</p><p class="more"><a href={l1}>{t1} →</a>{l2 ? <> <br /><a href={l2}>{t2} →</a></> : null}</p></div>
+        ))}
       </div>
-    </div>
-  </section>
+    </section>
 
-  <CloseContact
-    heading="Whatever stage you're at, you won't be rushed or judged."
-    body="Speak with an experienced fertility specialist in Lahore to understand your fertility with confidence. Our team will explain every investigation, answer your questions, and recommend a personalised treatment plan based on your individual needs."
-    cta="Book Consultation"
-  />
+    <section id="concerns">
+      <p class="kick">Common concerns</p>
+      <h2>Common Fertility Concerns Evaluated During Consultation</h2>
+      <p>Fertility problems can have different causes, and more than one factor may contribute to difficulty conceiving. The assessment process considers the patient's symptoms, medical history and previous investigations before deciding what needs further attention.</p>
+      <div class="cards">
+        {concerns.map(([h, p, more]) => <div class="card svc"><h3>{h}</h3><p>{p}</p><p class="more" set:html={more} /></div>)}
+      </div>
+      <h3 class="sh">Lifestyle and age: what the assessment also looks at</h3>
+      <p>Smoking, alcohol, body weight, heat exposure and certain medicines or supplements can affect sperm quality and ovulation. Dr. Kamran reviews these with you and advises on practical changes, including whether folic acid before conception is appropriate for the female partner. Female age is also discussed openly, because it affects both timing and the options available.</p>
+    </section>
+
+    <section id="pathways">
+      <p class="kick">After the assessment</p>
+      <h2>Connecting Fertility Assessment to Tailored Treatment Pathways</h2>
+      <p>Diagnostic evaluation at Kamran Fertility Clinic provides the information needed to discuss appropriate treatment options. Not every couple requires assisted reproductive treatment, and recommendations depend on the findings of the assessment. Depending on the clinical situation, possible pathways may include:</p>
+      <div class="cards">
+        {pathways.map(([h, p, l, t]) => <a class="card link" href={l}><h3>{h}</h3><p>{p}</p><p class="more2">Learn about {t} →</p></a>)}
+      </div>
+      <p>The purpose of fertility assessment is to understand the clinical situation before deciding whether treatment, further investigation or continued natural conception is appropriate. Browse all <a href={TR}>fertility treatments</a> or request a <a href="/services/support">second opinion</a>.</p>
+    </section>
+
+    <section id="bring">
+      <p class="kick">Prepare</p>
+      <h2>What to Bring to Your First Fertility Consultation</h2>
+      <p>Preparing for your fertility consultation can make it easier for the doctor to understand your history and avoid repeating investigations unnecessarily. If available, bring:</p>
+      <ul class="tick two">{bring.map(b => <li>{b}</li>)}</ul>
+      <p>Both partners should bring their previous fertility records if possible. If you do not have previous reports, you can still attend the consultation and discuss your concerns.</p>
+    </section>
+
+    <section id="fees">
+      <p class="kick">Logistics</p>
+      <h2>Consultation Logistics, Fee Transparency and Clinic Locations</h2>
+      <p>Fertility consultations with Dr. Kamran Saleem are available at three practice locations in Lahore. Patients can contact the clinic to discuss the available appointment schedule and select a convenient location.</p>
+      <div class="cards c3x">
+        {locations.map(([n, ad, h, l]) => <a class="card link" href={l}><span class="ic"><svg viewBox="0 0 24 24" set:html={icons.pin} /></span><h3>{n}</h3><p>{ad}</p><p class="hrs2">{h}</p><p class="more2">Clinic page →</p></a>)}
+      </div>
+      <div class="split">
+        <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons.tag} /></span><h3>Initial consultation fee</h3>
+          <p>{consultFee ? `The initial consultation fee is ${consultFee}. ` : ""}Please contact the clinic to confirm the current consultation fee and any separate investigation costs before booking.</p></div>
+        <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons.check} /></span><h3>Personalised investigations</h3>
+          <p>Tests are recommended according to clinical history, symptoms and examination findings. Not every patient requires the same diagnostic panel. Examples of individual tests: <a href={`${TS}/semen-analysis`}>semen analysis</a>, <a href={`${TS}/male-fertility-hormone-test`}>male hormone test</a>, <a href={`${TS}/female-fertility-hormone-test`}>female hormone test</a>.</p></div>
+      </div>
+      <p><b>Appointment booking:</b> contact the clinic by phone or WhatsApp at <a href="tel:+923148432789">{phone}</a> to ask about male fertility consultations, female fertility consultations or a couple fertility assessment. See <a href="/locations">all locations</a>.</p>
+    </section>
+
+    <section id="faq">
+      <p class="kick">Questions</p>
+      <h2>Frequently Asked Questions About Fertility Assessment and Consultation</h2>
+      {faqs.map(([q, ans]) => <details><summary>{q}</summary><p set:html={ans} /></details>)}
+      <div class="urdu" lang="ur" dir="rtl">
+        <h3>خلاصہ (اردو)</h3>
+        <p>لاہور میں فرٹیلیٹی اسیسمنٹ اور مشاورت: اگر شادی کو ایک سال ہو چکا ہو اور حمل نہ ٹھہر رہا ہو (یا خاتون کی عمر 35 سال یا اس سے زیادہ ہو تو چھ ماہ بعد)، تو میاں بیوی دونوں کا معائنہ کروانا چاہیے۔ ڈاکٹر کامران سلیم پہلی ملاقات میں دونوں کی میڈیکل ہسٹری اور پرانی رپورٹس کا جائزہ لیتے ہیں اور صرف ضروری ٹیسٹ تجویز کرتے ہیں۔ ملاقات کے لیے واٹس ایپ کریں: <span dir="ltr">+92 314 8432789</span></p>
+      </div>
+    </section>
+
+    <section id="why">
+      <p class="kick">Your doctor</p>
+      <h2>Why Choose Dr. Kamran Saleem for Fertility Consultation in Lahore?</h2>
+      <p>Choosing a fertility doctor is an important decision for couples experiencing difficulty conceiving. The assessment should provide an opportunity to discuss concerns openly, understand available medical information and make informed decisions without unnecessary pressure.</p>
+      <p>Dr. Kamran Saleem completed his MBBS in 1988 and obtained a Diploma in Genito-Urinary Medicine and Venereology from the University of Liverpool, UK, in 1998. His clinical experience in reproductive health and fertility care informs his approach to male and female fertility concerns.</p>
+      <h3 class="sh">At Kamran Fertility Clinic, the consultation approach focuses on:</h3>
+      <ul class="tick two">
+        <li>Listening carefully to both partners' medical and reproductive histories.</li>
+        <li>Reviewing existing reports before recommending additional investigations.</li>
+        <li>Explaining results and possible next steps in understandable language.</li>
+        <li>Considering male and female fertility factors together.</li>
+        <li>Discussing the benefits and limitations of available options.</li>
+        <li>Recommending investigations according to individual clinical needs.</li>
+        <li>Helping couples make informed decisions about their fertility care.</li>
+      </ul>
+      <p><a href="/dr-kamran-saleem">About Dr. Kamran Saleem →</a> · <a href="/success-stories">Patient success stories →</a></p>
+    </section>
+
+    <section id="related">
+      <p class="kick">Keep reading</p>
+      <h2>Related Fertility Services and Guides</h2>
+      <div class="cards">
+        {related.map(([n, h, d]) => <a class="card link" href={h}><h3>{n}</h3><p>{d}</p></a>)}
+      </div>
+      <p class="note"><b>Medical Disclaimer:</b> The information on this page is intended for general educational purposes and does not replace individual medical advice, diagnosis or treatment. Fertility investigations and treatment recommendations depend on each patient's medical history and clinical findings. Always consult a qualified healthcare professional regarding your individual circumstances.</p>
+    </section>
+  </div>
+</div>
+
+<section class="cta" id="book"><div class="w">
+  <h2>Schedule Your Fertility Assessment and Consultation in Lahore</h2>
+  <p>Understanding why pregnancy has not occurred can be an important first step towards making informed decisions about your reproductive health. Whether you need a male fertility consultation, female fertility assessment, couple fertility consultation or a review of previous fertility investigations, Dr. Kamran Saleem can discuss your medical history and explain the appropriate next steps.</p>
+  <p class="actions" style="justify-content:center"><a class="btn" href={wa}>Book via WhatsApp</a> <a class="btn ghost" href="tel:+923148432789">Call {phone}</a></p>
+  <div class="cards c3 locs">
+    {locations.map(([n, ad, h, l]) => <a class="card link" href={l}><h3>{n.replace(" Branch", "")}</h3><p>{ad}</p><p class="hrs2">{h}</p></a>)}
+  </div>
+  <p style="margin-top:22px"><a style="color:#fff" href={TS}>Fertility tests</a> · <a style="color:#fff" href={`${AS}/male-fertility-assessment`}>Male assessment</a> · <a style="color:#fff" href={`${AS}/female-fertility-assessment`}>Female assessment</a> · <a style="color:#fff" href={TR}>Fertility treatment</a> · <a style="color:#fff" href="/services/support">Second opinions</a></p>
+</div></section>
+</main>
+</div>
 </Layout>
+
+<style is:global>
+  .ivf{--c-primary:#2563eb;--c-dark:#0b1f4b;--c-accent:#4cc9f0;--c-tint:#eef5ff;--c-bg:#fff;--c-text:#1e2a4a;--c-muted:#5b6b8c;--c-line:#dbe6f6;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    margin:0;background:var(--c-bg);color:var(--c-text);font:16px/1.75 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .ivf *{box-sizing:border-box}
+  .ivf a{color:var(--c-primary)}
+  .ivf .w{max-width:1120px;margin:0 auto;padding:0 20px}
+  .ivf h1,.ivf h2,.ivf h3,.ivf h4{line-height:1.2;color:var(--c-dark);margin:0 0 .5em}
+  .ivf h1,.ivf h2{font-family:var(--serif);font-weight:700;letter-spacing:-.01em}
+  .ivf h2{font-size:clamp(26px,3.2vw,36px);margin-top:0}
+  .ivf .kick{margin:0 0 8px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--c-primary)}
+  .ivf .sh{font-size:20px;margin:30px 0 12px}
+  .ivf .btn{display:inline-block;background:linear-gradient(135deg,#3b82f6,#1d4ed8);box-shadow:0 8px 18px rgba(29,78,216,.28);color:#fff!important;padding:14px 26px;border-radius:999px;font-weight:600;text-decoration:none;transition:transform .15s}
+  .ivf .btn:hover{transform:translateY(-2px)}
+  .ivf .btn.sm{padding:9px 18px;font-size:14px}
+  .ivf .btn.ghost{background:transparent;box-shadow:none;border:1.5px solid rgba(255,255,255,.7)}
+  .ivf .hero{background:radial-gradient(900px 420px at 85% 0,rgba(76,201,240,.28),transparent 60%),linear-gradient(135deg,#071538,var(--c-primary));color:#fff;padding:56px 0 96px}
+  .ivf .hero h1{color:#fff;font-size:clamp(32px,5vw,50px);margin-bottom:.25em}
+  .ivf .hero a:not(.btn){color:#fff}
+  .ivf .hgrid{display:grid;grid-template-columns:1.35fr 1fr;gap:44px;align-items:center}
+  .ivf .crumb{font-size:13px;opacity:.85;margin-bottom:16px}
+  .ivf .eye{text-transform:uppercase;letter-spacing:.14em;font-size:12.5px;font-weight:700;color:var(--c-accent);margin:0 0 8px}
+  .ivf .lead{font-family:var(--serif);font-size:clamp(19px,2.2vw,24px);font-style:italic;opacity:.95;margin:0 0 14px}
+  .ivf .sub{opacity:.92;max-width:58ch}.ivf .mini{font-size:14px;opacity:.88}
+  .ivf .actions{margin:22px 0 14px;display:flex;gap:12px;flex-wrap:wrap}
+  .ivf .actions2{margin:16px 0 0}
+  .ivf .hside{display:grid;gap:16px}
+  .ivf .pinbox{width:min(250px,68%);margin:0 auto;filter:drop-shadow(0 18px 30px rgba(0,0,0,.3))}
+  .ivf svg.pinart{width:100%;height:auto;stroke:none;fill:none}
+  .ivf .facts{list-style:none;margin:0;padding:16px 22px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:18px;backdrop-filter:blur(6px)}
+  .ivf .facts li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.15);font-size:14.5px}
+  .ivf .facts li:last-child{border:0}.ivf .facts b{font-size:19px;margin-right:6px}
+  .ivf .stats{margin-top:-52px;position:relative;z-index:2;background:#fff;border:1px solid var(--c-line);border-radius:22px;box-shadow:0 20px 46px rgba(11,31,75,.14);padding:20px 24px}
+  .ivf .statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .ivf .stat{text-align:center;padding:6px 8px;border-left:1px solid var(--c-line)}
+  .ivf .stat:first-child{border:0}
+  .ivf .stat b{display:block;font-family:var(--serif);font-size:clamp(22px,2.4vw,30px);color:var(--c-primary);line-height:1.15}
+  .ivf .stat span{font-size:13px;color:var(--c-muted)}
+  .ivf .layout{display:grid;grid-template-columns:210px 1fr;gap:48px;padding-top:44px;padding-bottom:20px}
+  .ivf .toc{position:sticky;top:76px;align-self:start;display:flex;flex-direction:column;gap:2px;font-size:14px}
+  .ivf .toc p{margin:0 0 6px;font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:.1em;color:var(--c-muted)}
+  .ivf .toc a:not(.btn){text-decoration:none;color:var(--c-text);padding:5px 0 5px 12px;border-left:2px solid var(--c-line)}
+  .ivf .toc a:not(.btn):hover{border-color:var(--c-accent);color:var(--c-primary)}
+  .ivf .toc .btn{margin-top:14px;text-align:center}
+  .ivf .content section{padding:0 0 56px;scroll-margin-top:84px}
+  .ivf .review{background:var(--c-tint);border-radius:14px;padding:14px 18px;font-size:13.5px;color:var(--c-muted);margin:0 0 36px}
+  .ivf .snippet{background:linear-gradient(180deg,#f5f9ff,#eef5ff);border:1px solid var(--c-line);border-left:5px solid var(--c-accent);border-radius:16px;padding:20px 24px;margin:18px 0 22px}
+  .ivf .snippet p{margin:0}
+  .ivf .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:20px 0}
+  .ivf .content .cards{grid-template-columns:repeat(3,1fr)}
+  .ivf .content .cards.c2{grid-template-columns:repeat(2,1fr)}
+  .ivf .content .cards.c3x{grid-template-columns:repeat(3,1fr)}
+  .ivf .c3{grid-template-columns:repeat(3,1fr)}
+  .ivf .card{background:#fff;border:1px solid var(--c-line);border-radius:18px;padding:22px;transition:box-shadow .2s,transform .2s}
+  .ivf .card:hover{box-shadow:0 12px 28px rgba(11,31,75,.09)}
+  .ivf .card h3{font-size:17px;margin-bottom:6px}.ivf .card p{margin:0 0 8px;font-size:14.5px;color:var(--c-muted)}
+  .ivf .card.link{text-decoration:none;color:inherit}
+  .ivf .card.link:hover{border-color:var(--c-accent);transform:translateY(-3px)}
+  .ivf .hrs2{font-size:13px!important}
+  .ivf .card .more{margin-top:12px;font-size:13.5px}
+  .ivf .more2{margin-top:8px!important;font-size:13.5px!important;color:var(--c-primary)!important;font-weight:600}
+  .ivf .svc .tick li{font-size:14.5px;color:var(--c-muted)}
+  .ivf .ic{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--c-tint);margin-bottom:12px}
+  .ivf svg{width:26px;height:26px;fill:none;stroke:var(--c-primary);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .ivf .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+  .ivf .tw{overflow-x:auto;border:1px solid var(--c-line);border-radius:16px;margin:18px 0;box-shadow:0 8px 24px rgba(11,31,75,.05)}
+  .ivf table{border-collapse:collapse;width:100%;font-size:14.5px}
+  .ivf table.slim{min-width:640px}
+  .ivf th{background:var(--c-dark);color:#fff;text-align:left;padding:13px 16px;font-size:13px;letter-spacing:.04em}
+  .ivf th a{color:#fff}
+  .ivf td,.ivf tbody th{padding:12px 16px;border-top:1px solid var(--c-line);vertical-align:top}
+  .ivf tbody th{background:var(--c-tint);color:var(--c-dark);font-size:14.5px;letter-spacing:0}
+  .ivf tbody tr:nth-child(even) td{background:#f8fbff}
+  .ivf .tl{list-style:none;margin:16px 0 0;padding:0;position:relative}
+  .ivf .tl:before{content:"";position:absolute;left:19px;top:14px;bottom:14px;width:2px;background:var(--c-line)}
+  .ivf .tl>li{display:grid;grid-template-columns:40px 1fr;gap:16px;margin-bottom:26px;position:relative}
+  .ivf .tl .dot{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:#fff;font-weight:700;display:grid;place-items:center;box-shadow:0 0 0 5px #fff}
+  .ivf .tl h4{margin:6px 0 6px;font-size:19px}.ivf .tl p{margin:0 0 8px;color:var(--c-text);font-size:15px}
+  .ivf .tl .lead2{font-weight:600;color:var(--c-dark)}
+  .ivf .tl .more{font-size:14px}
+  .ivf .tick{list-style:none;padding:0;margin:10px 0}
+  .ivf .tick li{position:relative;padding:5px 0 5px 28px}
+  .ivf .tick li:before{content:"✓";position:absolute;left:0;color:var(--c-primary);font-weight:700}
+  .ivf .tick.two{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+  .ivf .note{font-size:14px;color:var(--c-muted)}
+  .ivf details{border:1px solid var(--c-line);border-radius:14px;padding:16px 20px;margin-top:10px;background:#fff}
+  .ivf details[open]{box-shadow:0 8px 22px rgba(11,31,75,.07)}
+  .ivf summary{cursor:pointer;font-weight:600;color:var(--c-dark)}
+  .ivf details p{margin:10px 0 0;color:var(--c-muted)}
+  .ivf .urdu{margin-top:22px;background:var(--c-tint);border:1px solid var(--c-line);border-radius:16px;padding:18px 22px;font-family:"Noto Nastaliq Urdu","Jameel Noori Nastaleeq","Urdu Typesetting","Segoe UI",Tahoma,serif;line-height:2.1}
+  .ivf .urdu h3{font-family:inherit;margin-bottom:6px}.ivf .urdu p{margin:0}
+  .ivf .cta{background:radial-gradient(800px 360px at 15% 0,rgba(76,201,240,.18),transparent 60%),var(--c-dark);color:#fff;padding:64px 0;text-align:center}
+  .ivf .cta h2{color:#fff}.ivf .cta>.w>p{max-width:64ch;margin-left:auto;margin-right:auto}
+  .ivf .cta .card{text-align:left;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
+  .ivf .cta .card h3{color:#fff}.ivf .cta .card p{color:#cdd9f5}.ivf .cta .locs{margin-top:34px}
+  @media(max-width:900px){
+    .ivf .hgrid,.ivf .layout,.ivf .cards,.ivf .content .cards,.ivf .content .cards.c2,.ivf .content .cards.c3x,.ivf .c3,.ivf .split,.ivf .tick.two{grid-template-columns:1fr}
+    .ivf .statgrid{grid-template-columns:repeat(2,1fr);gap:14px 8px}.ivf .stat:nth-child(3){border-left:0}
+    .ivf .toc{position:static;flex-direction:row;flex-wrap:wrap;gap:6px}.ivf .toc p{width:100%}
+    .ivf .toc a:not(.btn){border:1px solid var(--c-line);border-radius:999px;padding:4px 12px}
+    .ivf .hero{padding-bottom:84px}
+  }
+  .ivf .content h3{font-size:19px}.ivf .card h3{font-size:17px}.ivf .content .sh{font-size:20px}
+</style>
