@@ -1,126 +1,293 @@
 ---
+// src/pages/locations/shalamar-lahore.astro
+// Same Layout + design tokens as the Gulberg and female-fertility-assessment pages. Match the import path to your site.
 import Layout from "../../layouts/Layout.astro";
-import PageHero from "../../components/PageHero.astro";
-import CloseContact from "../../components/CloseContact.astro";
+const base = "https://www.kamranfertility.com";
+const S = "/services/assessment";
+const T = "/services/fertility-treatment";
+const url = `${base}/locations/shalamar-lahore`;
+const title = "Fertility Clinic Near Shalamar Lahore | Dr. Kamran Saleem";
+const description = "Evening fertility consultations at Shahnaz Hospital, Shalamar Link Road, Lahore. IVF second opinions, male & female infertility, PCOS. Mon & Thu 6–9 PM.";
+const wa = "https://wa.me/923148432789?text=" + encodeURIComponent("Hello, I would like to book a fertility consultation with Dr. Kamran Saleem at Shahnaz Hospital, Shalamar Link Road.");
+const mapsLink = "https://www.google.com/maps/search/?api=1&query=Shahnaz%20Hospital%2C%20Shalamar%20Link%20Road%2C%20Lahore";
+const mapsEmbed = "https://www.google.com/maps?q=Shahnaz+Hospital,+Shalamar+Link+Road,+Lahore&output=embed";
 
-// Verified details only — pulled from this repo's own Footer.astro (already
-// live/approved). CONFIRM with the clinic before publishing: public
-// directories list a "Shalamar Hospital" (a large, well-known 500-bed
-// hospital) AND a separately-run "Shehnaz Medical Center" on the same
-// Shalimar Link Road — this page's "Shahnaz Hospital" appears to be the
-// latter, not the big hospital of the same road name. The FAQ below flags
-// this distinction for patients; please confirm the exact building name/
-// spelling with the clinic so we're not sending patients to the wrong door.
-const breadcrumbs = [
-  { label: "Home", href: "/" },
-  { label: "Locations", href: "/locations" },
-  { label: "Shalamar Lahore" },
+const icons = {
+  pin: '<path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A15 15 0 013 6a2 2 0 012-2z"/>',
+  alert: '<path d="M12 3l10 18H2zM12 10v5M12 18h.01"/>',
+  clip: '<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h6"/>',
+  heart: '<path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/>',
+  egg: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>',
+  merge: '<circle cx="9" cy="12" r="5"/><path d="M14 12h7M18 9l3 3-3 3"/>',
+  target: '<circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>',
+  flask: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3"/>',
+};
+
+const toc = [["details","Clinic details"],["not-the-same","Shahnaz vs Shalamar Hospital"],["about","Your doctor"],["services","Consultations"],["second-opinion","IVF second opinion"],["first-visit","First visit"],["reach","How to reach us"],["treatment","Where treatment happens"],["faq","FAQ"],["locations","Other locations"]];
+
+const details = [
+  ["pin","Address","Shahnaz Hospital, Shalamar Link Road, Lahore 54000"],
+  ["clock","Consultation hours","Monday & Thursday, 6:00 PM – 9:00 PM. Other days closed at this clinic"],
+  ["phone","Phone & WhatsApp","+92 314 8432789"],
+  ["alert","Say this when booking a ride","\"Shahnaz Hospital\", not Shalamar Hospital"],
 ];
 
-const address = "Shahnaz Hospital, Shalamar Link Road, Lahore";
-const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
-const phoneDisplay = "+92 314 8432789";
-const phoneHref = "tel:+923148432789";
-const whatsappHref = "https://wa.me/923148432789";
+const services = [
+  ["Infertility assessment for both partners", `Medical and cycle history, scans and a targeted test list, which may include <a href="${S}/hormonal-analysis">hormonal analysis</a>, <a href="${S}/ovulation-test">ovulation testing</a> and <a href="${S}/semen-analysis">semen analysis</a> for the male partner. See all <a href="${S}">assessment services</a>.`, "clip"],
+  ["Male infertility specialist near Shalamar", `Dr. Kamran is an andrologist. Low count, poor motility or morphology and hormonal causes are reviewed in detail. See <a href="${T}/male-infertility">male infertility</a>.`, "merge"],
+  ["Female fertility and PCOS consultation", `Irregular cycles, PCOS, tubal concerns or endometriosis are reviewed together with your scans and hormone reports. Many women with PCOS conceive with <a href="${T}/pcos">ovulation induction</a>, without IVF.`, "egg"],
+  ["IVF, ICSI and IUI treatment planning", `A clear explanation of <a href="${T}/iui">IUI</a>, <a href="${T}/ivf">IVF</a> and <a href="${T}/icsi">ICSI</a>, and which suits your diagnosis, age and history.`, "target"],
+  ["Independent second opinions", `A fresh review of earlier tests or failed cycles. See <a href="/services/support">support & second opinions</a>.`, "flask"],
+  ["Follow-up visits", "Review results, adjust your plan and ask questions in the same evening window used for new patients.", "heart"],
+];
+
+const secondOpinion = [
+  "How stimulation, egg collection, fertilisation and embryo development went",
+  "Whether further testing of either partner is worth doing",
+  "Whether a change in approach is reasonable, or repeating is sensible",
+  "The realistic next options, including when to pause",
+];
+
+const steps = [
+  ["Message us on WhatsApp", "Send +92 314 8432789 a message to reserve a Monday or Thursday evening slot."],
+  ["Talk through your history", "A detailed discussion of your story as a couple."],
+  ["Review your records", "Previous reports, scans and treatments are checked."],
+  ["Examination and tests", "A clear list of tests, only if they are needed."],
+  ["A plain-language plan", "Your options and a sensible next step."],
+];
+
+const bring = [
+  "Ultrasound, HSG or laparoscopy reports",
+  "Hormone profile and thyroid results (AMH, FSH, LH, TSH, prolactin if available)",
+  "Recent semen analysis (original report)",
+  "Previous IUI or IVF cycle summaries and medication lists",
+  "Your partner, if possible",
+];
+
+const reach = [
+  ["From Shalimar Town and Shalamar Gardens", "Shalamar Link Road is your nearest main road. Follow it to Shahnaz Hospital."],
+  ["From Baghbanpura, Mughalpura and Harbanspura", "Head along Shalamar Link Road towards Shahnaz Hospital."],
+  ["From Garden Town and central Lahore", "Take Shalamar Link Road and check Google Maps for the live route in evening traffic."],
+];
 
 const faqs = [
-  {
-    q: "Is this the same as the big Shalamar Hospital on this road?",
-    a: "No — Shalimar Link Road is also home to the large Shalamar Hospital (part of the Shalamar Institute of Health Sciences), which is a separate, much larger facility. Dr. Kamran's consultations are held at Shahnaz Hospital specifically, so double-check the building name with your rideshare driver or on Maps before heading over.",
-  },
-  {
-    q: "Why is this location only open two evenings a week?",
-    a: "Dr. Kamran holds his fixed consultation slot here on Monday and Thursday evenings, 6:00pm–9:00pm — timing that works well for patients who can't get away from work during the day. Other days are closed at this specific clinic; message us on WhatsApp if you need a different day and we'll point you to TAMC or Rasheed Hospital instead.",
-  },
-  {
-    q: "Is the evening slot suitable for a first consultation?",
-    a: "Yes — new-patient consultations run in this same evening window, the same as any other appointment type here.",
-  },
+  ["Where is Dr. Kamran Saleem's fertility clinic near Shalamar, Lahore?", "Dr. Kamran Saleem sees fertility patients at Shahnaz Hospital, Shalamar Link Road, Lahore 54000. Use the Google Maps link on this page for live directions."],
+  ["Is this the same as the big Shalamar Hospital on this road?", "No. Shalamar Link Road is also home to the much larger Shalamar Hospital, which is a separate facility. Dr. Kamran's consultations are held at Shahnaz Hospital, so confirm the building name with your driver or on Maps before you set off."],
+  ["What are the clinic timings at Shalamar?", "The fixed consultation slot is Monday and Thursday, 6:00 pm to 9:00 pm. Other days are closed at this clinic. Message us on WhatsApp if you need another day and we will point you to TAMC (Gulberg) or Rasheed Hospital (DHA)."],
+  ["Is the evening slot suitable for a first consultation?", "Yes. New-patient consultations run in the same evening window as follow-up visits, which suits couples who cannot get away from work during the day."],
+  ["Do I need an appointment?", "We recommend booking ahead on WhatsApp. The clinic runs only two evenings a week, so a booked time avoids waiting and lets us note your concern before you arrive."],
+  ["Is there an IVF doctor near Shalamar Link Road?", "Yes. Dr. Kamran Saleem offers IVF consultations at Shahnaz Hospital: assessment, choosing between IUI, IVF and ICSI, and independent second opinions. Procedures such as egg collection and embryo transfer are explained and arranged separately, and you are told where they take place before you decide."],
+  ["Who should see a fertility specialist?", "Generally, couples who have not conceived after 12 months of regular unprotected intercourse, or after 6 months if the woman is 35 or older, are advised to seek assessment. See a specialist sooner with irregular or absent periods, known PCOS or endometriosis, previous pelvic surgery, repeated miscarriage, or a known semen-analysis abnormality."],
+  ["Can I get a second opinion after a failed IVF cycle?", "Yes. Bring the full cycle record: stimulation protocol, number of eggs retrieved, fertilisation and embryo grading, transfer details and any pregnancy test results. The aim is an independent review of what may have gone wrong and whether changes, further testing, or a different approach make sense."],
+  ["Do you treat male infertility here?", "Yes. Dr. Kamran Saleem is an andrologist, and male-factor assessment (semen analysis review, hormonal evaluation and examination) is part of the consultation."],
+  ["Can both partners attend together?", "Yes, and we encourage it. Infertility can involve either or both partners, and seeing you together gives the most complete picture."],
 ];
+
+const locations = [
+  ["Gulberg: TAMC", "M.M. Alam Road, Gulberg III, Lahore", "Wednesday 12:00 PM – 3:00 PM (other days by appointment)", "/locations/mm-alam-road-lahore"],
+  ["DHA Lahore: Rasheed Hospital", "Main Boulevard, DHA Defence, Lahore", "Daily 3:00 PM – 6:00 PM (Closed Saturday & Sunday)", "/locations/dha-lahore"],
+];
+
+const clinicId = url + "#clinic";
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "MedicalWebPage", "@id": url + "#webpage", url, name: title, description, inLanguage: "en-PK",
+      breadcrumb: { "@id": url + "#breadcrumb" }, about: { "@id": clinicId },
+      reviewedBy: { "@id": base + "/dr-kamran-saleem#physician" } },
+    { "@type": "BreadcrumbList", "@id": url + "#breadcrumb", itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: base + "/" },
+      { "@type": "ListItem", position: 2, name: "Locations", item: base + "/locations" },
+      { "@type": "ListItem", position: 3, name: "Shalamar, Lahore", item: url } ] },
+    { "@type": "MedicalClinic", "@id": clinicId, name: "Kamran Fertility Clinic, Shalamar (Shahnaz Hospital)", url, logo: base + "/assets/logo.webp",
+      telephone: "+923148432789", hasMap: mapsLink,
+      address: { "@type": "PostalAddress", streetAddress: "Shahnaz Hospital, Shalamar Link Road", addressLocality: "Lahore", addressRegion: "Punjab", postalCode: "54000", addressCountry: "PK" },
+      openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Thursday"], opens: "18:00", closes: "21:00" }],
+      makesOffer: ["Fertility consultation and assessment", "IVF second opinion consultation", "PCOS and ovulation problems consultation", "Male infertility consultation"].map(n => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: n } })),
+      employee: { "@id": base + "/dr-kamran-saleem#physician" } },
+    { "@type": "Physician", "@id": base + "/dr-kamran-saleem#physician", name: "Dr. Kamran Saleem", url: base + "/dr-kamran-saleem",
+      description: "Fertility specialist and andrologist in Lahore.", worksFor: { "@id": clinicId } },
+    { "@type": "FAQPage", mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) },
+  ],
+};
 ---
+<Layout title={title} description={description}>
+<div class="ivf">
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+<main>
+<section class="hero"><div class="w hgrid">
+  <div>
+    <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/locations">Locations</a> / Shalamar, Lahore</nav>
+    <p class="eye">Shahnaz Hospital · Shalamar Link Road</p>
+    <h1>Fertility Clinic & IVF Consultation Near Shalamar, Lahore</h1>
+    <p class="sub">Dr. Kamran Saleem, fertility specialist and andrologist, holds evening consultations at Shahnaz Hospital on Shalamar Link Road. It is the closest of our three Lahore clinics for couples from Shalimar Town, Baghbanpura and Garden Town. Both partners are investigated properly, and you get an honest plan, including an independent second opinion after an unsuccessful IVF or IUI cycle.</p>
+    <p><a class="btn" href={wa}>Book on WhatsApp</a> <a class="btn ghost" href={mapsLink}>Get directions</a></p>
+    <p class="mini">Monday &amp; Thursday 6:00 PM – 9:00 PM · +92 314 8432789</p>
+  </div>
+  <div class="hside">
+    <ul class="facts">
+      <li><b>Shahnaz Hospital</b> not Shalamar Hospital</li>
+      <li><b>Mon &amp; Thu</b> 6:00 PM – 9:00 PM</li>
+      <li><b>Evening slots</b> for working couples</li>
+      <li><b>Both partners</b> assessed together</li>
+    </ul>
+  </div>
+</div></section>
 
-<Layout
-  title="Fertility Clinic Near Shalamar, Lahore | Dr. Kamran Saleem"
-  description="Fertility consultations near Shalamar, Lahore at Shahnaz Hospital, Shalamar Link Road. Assessment, treatment planning and follow-up with Dr. Kamran Saleem."
->
-  <PageHero
-    eyebrow="Shalamar, Lahore"
-    title="Fertility Clinic Near Shalamar — Shahnaz Hospital"
-    sub={["Dr. Kamran Saleem holds evening fertility consultations at Shahnaz Hospital on Shalimar Link Road — a separate, smaller building from the large Shalamar Hospital on the same road. This clinic is the shortest trip of our three Lahore locations for patients coming from Shalimar Town, Baghbanpura, and Garden Town."]}
-    breadcrumbs={breadcrumbs}
-    cta="Message us on WhatsApp"
-  />
+<div class="w layout">
+  <aside class="toc" aria-label="On this page"><p>On this page</p>
+    {toc.map(([id, l]) => <a href={`#${id}`}>{l}</a>)}
+    <a class="btn sm" href={wa}>Book now</a>
+  </aside>
+  <div class="content">
+    <p class="review"><b>Medically authored &amp; reviewed by</b> Dr. Kamran Saleem (MBBS 1988; Diploma, University of Liverpool 1998; PMDC registered) · <a href="/dr-kamran-saleem">About the doctor</a></p>
 
-  <section class="bg-white py-16 md:py-20">
-    <div class="mx-auto grid max-w-5xl gap-10 px-5 sm:px-8 md:grid-cols-2">
-      <div data-reveal>
-        <h2 class="font-heading text-xl font-bold text-ink">Clinic details</h2>
-        <dl class="mt-4 space-y-3 text-sm">
-          <div>
-            <dt class="font-semibold text-ink">Address</dt>
-            <dd class="text-body">{address}</dd>
-          </div>
-          <div>
-            <dt class="font-semibold text-ink">Phone</dt>
-            <dd><a href={phoneHref} class="text-azure hover:underline">{phoneDisplay}</a></dd>
-          </div>
-          <div>
-            <dt class="font-semibold text-ink">WhatsApp</dt>
-            <dd><a href={whatsappHref} target="_blank" rel="noopener noreferrer" class="text-azure hover:underline">{phoneDisplay}</a></dd>
-          </div>
-          <div>
-            <dt class="font-semibold text-ink">Hours</dt>
-            <dd class="text-body">Monday &amp; Thursday: 6:00pm – 9:00pm<br />Other days: Closed</dd>
-          </div>
-        </dl>
-        <p class="mt-4 text-sm leading-relaxed text-body">
-          Shahnaz Hospital is a distinct building from the larger Shalamar Hospital
-          further down the same road — mention "Shahnaz Hospital" specifically when
-          booking a rideshare or asking for directions.
-        </p>
-        <a href={mapsHref} target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 font-semibold text-azure hover:underline">
-          Get directions on Google Maps →
-        </a>
+    <section id="details">
+      <h2>Shalamar clinic details</h2>
+      <p>The clinic runs two evenings a week, so please message us before you travel to reserve your time.</p>
+      <div class="cards c4">
+        {details.map(([i, h, p]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p>{p}</p></div>)}
       </div>
+      <p><a class="btn" href={wa}>Book on WhatsApp</a> <a class="btn alt" href={mapsLink}>Open in Google Maps</a></p>
+    </section>
 
-      <div data-reveal>
-        <h2 class="font-heading text-xl font-bold text-ink">What's available at this location</h2>
-        <p class="mt-4 leading-relaxed text-body">
-          The Monday and Thursday evening slots at Shahnaz Hospital cover new-patient
-          and follow-up
-          <a href="/services/assessment" class="text-azure underline hover:text-navy">fertility assessments</a>,
-          <a href="/services/fertility-treatment" class="text-azure underline hover:text-navy">treatment planning</a>
-          for IVF, ICSI, and IUI, and
-          <a href="/services/support" class="text-azure underline hover:text-navy">second-opinion consultations</a>.
-          Evening hours here make it a practical choice for working couples on the
-          eastern side of Lahore who can't get away during the day.
-        </p>
+    <section id="not-the-same">
+      <h2>Shahnaz Hospital is not Shalamar Hospital</h2>
+      <div class="callout"><b>Check the building name before you set off.</b> Shalamar Link Road is also home to the much larger Shalamar Hospital (part of the Shalamar Institute of Health Sciences). Dr. Kamran's consultations are held at <b>Shahnaz Hospital</b>, a separate, smaller building on the same road. Say "Shahnaz Hospital" when you book a rideshare or ask for directions.</div>
+    </section>
+
+    <section id="about">
+      <h2>A fertility specialist near Shalamar</h2>
+      <p>If you are searching for a fertility doctor or IVF consultant near Shalamar Link Road, this is where Dr. Kamran Saleem meets new and returning patients in the evening. It is a practical choice for working couples on the eastern side of Lahore who cannot get away during the day, and for families in Shalimar Town, Shalamar Gardens, Baghbanpura, Mughalpura, Harbanspura and Garden Town.</p>
+      <div class="callout">Dr. Kamran is a fertility specialist and andrologist, so the male partner is evaluated as carefully as the female partner. His approach is simple: investigate properly, explain clearly, and recommend the least complicated treatment with a realistic chance of working. That is not always IVF. <a href="/dr-kamran-saleem">Read his full profile</a>.</div>
+    </section>
+
+    <section id="services">
+      <h2>Fertility consultations at Shahnaz Hospital</h2>
+      <p>Every consultation starts with your story: how long you have been trying, what has been tested and what has already been tried.</p>
+      <div class="cards">
+        {services.map(([h, p, i]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p set:html={p} /></div>)}
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="bg-cloud py-16 md:py-20">
-    <div class="mx-auto max-w-3xl px-5 sm:px-8">
-      <h2 class="font-heading text-xl font-bold text-ink">Common questions about the Shalamar location</h2>
-      <div class="mt-6 space-y-6">
-        {faqs.map((item) => (
-          <div data-reveal>
-            <h3 class="font-semibold text-ink">{item.q}</h3>
-            <p class="mt-1 leading-relaxed text-body">{item.a}</p>
-          </div>
-        ))}
+    <section id="second-opinion">
+      <h2>IVF second opinion near Shalamar, Lahore</h2>
+      <p>An unsuccessful IVF cycle is emotionally and financially exhausting. Many couples want an independent view before repeating the same protocol. At the Shalamar consultation, Dr. Kamran reviews your records and helps you understand:</p>
+      <ul class="tick">{secondOpinion.map(x => <li>{x}</li>)}</ul>
+      <p class="note">Bring your complete cycle summary, scans, hormone levels, semen reports and embryology notes if you have them. <a href="/services/support">Learn more about second opinions</a>.</p>
+    </section>
+
+    <section id="first-visit">
+      <h2>What to expect at your first visit</h2>
+      <ol class="steps">
+        {steps.map(([h, p], i) => <li class="step"><span class="n">{i + 1}</span><div><h3>{h}</h3><p>{p}</p></div></li>)}
+      </ol>
+      <h3 style="margin-top:28px">What to bring</h3>
+      <ul class="tick">{bring.map(x => <li>{x}</li>)}</ul>
+    </section>
+
+    <section id="reach">
+      <h2>How to reach Shahnaz Hospital on Shalamar Link Road</h2>
+      <p>Search "Shahnaz Hospital, Shalamar Link Road" on Google Maps. Because the larger Shalamar Hospital is on the same road, check the building name before you set off.</p>
+      <div class="map"><iframe title="Map of Shahnaz Hospital, Shalamar Link Road, Lahore" src={mapsEmbed} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+      <div class="cards c3">
+        {reach.map(([h, p]) => <div class="card"><h3>{h}</h3><p>{p}</p></div>)}
       </div>
-      <p class="mt-6 text-sm leading-relaxed text-body">
-        Not sure which of our three clinics is closest to you?
-        <a href="/locations" class="text-azure underline hover:text-navy">See all Kamran Fertility Clinic locations</a>
-        or message us on WhatsApp and we'll suggest the nearest option.
-      </p>
-    </div>
-  </section>
+    </section>
 
-  <CloseContact
-    heading="Ready to book at our Shalamar location?"
-    body="Message us on WhatsApp to arrange a consultation with Dr. Kamran Saleem at Shahnaz Hospital, Shalamar Link Road."
-    cta="Book Consultation"
-  />
+    <section id="treatment">
+      <h2>Where treatment takes place</h2>
+      <div class="callout">The Shalamar location is for consultation, assessment, treatment planning and follow-up. Where a procedure such as egg collection or embryo transfer is needed, we explain clearly where it will take place before you commit to anything.</div>
+    </section>
+
+    <section id="faq">
+      <h2>Frequently asked questions: fertility clinic near Shalamar, Lahore</h2>
+      {faqs.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
+      <p class="note" style="margin-top:18px">The information on this page is for general education and is not a substitute for professional medical advice, diagnosis or treatment. Outcomes vary between individuals; no result is guaranteed.</p>
+    </section>
+  </div>
+</div>
+
+<section class="cta" id="locations"><div class="w">
+  <h2>Book your fertility consultation near Shalamar, Lahore</h2>
+  <p>Message us on WhatsApp to reserve a Monday or Thursday evening slot with Dr. Kamran Saleem at Shahnaz Hospital, Shalamar Link Road. We usually reply the same day.</p>
+  <a class="btn" href={wa}>Book on WhatsApp</a>
+  <p class="lead2">Not sure which clinic is closest? Dr. Kamran also consults at:</p>
+  <div class="cards c2 locs">
+    {locations.map(([n, a, h, l]) => <a class="card link" href={l}><h3>{n}</h3><p>{a}</p><p class="hrs">{h}</p></a>)}
+  </div>
+  <p style="margin-top:22px"><a style="color:#fff" href="/locations">All locations</a> · <a style="color:#fff" href={S}>Assessment services</a> · <a style="color:#fff" href={T}>Fertility treatment</a></p>
+</div></section>
+</main>
+</div>
 </Layout>
+
+<style is:global>
+  .ivf{--c-primary:#2563eb;--c-dark:#0b1f4b;--c-accent:#4cc9f0;--c-tint:#eef5ff;--c-bg:#fff;--c-text:#1e2a4a;--c-muted:#5b6b8c;--c-line:#dbe6f6;
+    margin:0;background:var(--c-bg);color:var(--c-text);font:16px/1.7 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .ivf *{box-sizing:border-box}
+  .ivf a{color:var(--c-primary)}
+  .ivf .w{max-width:1120px;margin:0 auto;padding:0 20px}
+  .ivf h1,.ivf h2,.ivf h3{line-height:1.2;color:var(--c-dark);margin:0 0 .5em}
+  .ivf h2{font-size:clamp(24px,3vw,32px);margin-top:0}
+  .ivf .content h3{font-size:19px}
+  .ivf .btn{display:inline-block;background:linear-gradient(135deg,#3b82f6,#1d4ed8);box-shadow:0 6px 14px rgba(29,78,216,.28);color:#fff;padding:13px 24px;border-radius:999px;font-weight:600;text-decoration:none;margin:0 6px 8px 0}
+  .ivf .btn.sm{padding:8px 16px;font-size:14px}
+  .ivf .btn.ghost{background:transparent;border:1.5px solid #fff;box-shadow:none}
+  .ivf .btn.alt{background:#fff;color:var(--c-primary);border:1.5px solid var(--c-primary);box-shadow:none}
+  .ivf .btn:focus-visible,.ivf a:focus-visible,.ivf summary:focus-visible{outline:3px solid var(--c-accent);outline-offset:2px}
+  .ivf .hero{background:linear-gradient(135deg,var(--c-dark),var(--c-primary));color:#fff;padding:48px 0 56px}
+  .ivf .hero h1{color:#fff;font-size:clamp(32px,5vw,48px)}
+  .ivf .hero a{color:#fff}
+  .ivf .hgrid{display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:center}
+  .ivf .crumb{font-size:13px;opacity:.85;margin-bottom:14px}
+  .ivf .eye{text-transform:uppercase;letter-spacing:.12em;font-size:12.5px;font-weight:700;color:var(--c-accent);margin:0 0 6px}
+  .ivf .sub{opacity:.92}.ivf .mini{font-size:13.5px;opacity:.85}
+  .ivf .facts{list-style:none;margin:0;padding:18px 22px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:16px}
+  .ivf .facts li{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.15);font-size:14.5px}
+  .ivf .facts li:last-child{border:0}.ivf .facts b{font-size:19px;margin-right:6px}
+  .ivf .layout{display:grid;grid-template-columns:210px 1fr;gap:44px;padding-top:36px;padding-bottom:20px}
+  .ivf .toc{position:sticky;top:76px;align-self:start;display:flex;flex-direction:column;gap:2px;font-size:14px}
+  .ivf .toc p{margin:0 0 6px;font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:.1em;color:var(--c-muted)}
+  .ivf .toc a:not(.btn){text-decoration:none;color:var(--c-text);padding:5px 0 5px 12px;border-left:2px solid var(--c-line)}
+  .ivf .toc a:not(.btn):hover{border-color:var(--c-accent);color:var(--c-primary)}
+  .ivf .toc .btn{margin-top:14px;text-align:center}
+  .ivf .content section{padding:0 0 48px;scroll-margin-top:84px}
+  .ivf .review{background:var(--c-tint);border-radius:12px;padding:14px 18px;font-size:13.5px;color:var(--c-muted);margin:0 0 32px}
+  .ivf .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:20px 0}
+  .ivf .c3{grid-template-columns:repeat(3,1fr)}.ivf .c4{grid-template-columns:repeat(2,1fr)}.ivf .c2{grid-template-columns:repeat(2,1fr)}
+  .ivf .card{background:#fff;border:1px solid var(--c-line);border-radius:16px;padding:20px}
+  .ivf .card h3{font-size:17px;margin-bottom:6px}.ivf .card p{margin:0;font-size:14.5px;color:var(--c-muted)}
+  .ivf .card.link{text-decoration:none;color:inherit;transition:.15s}
+  .ivf .card.link:hover{border-color:var(--c-accent);transform:translateY(-2px)}
+  .ivf .hrs{margin-top:6px!important;font-size:13px!important}
+  .ivf .ic{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--c-tint);margin-bottom:10px}
+  .ivf svg{width:26px;height:26px;fill:none;stroke:var(--c-primary);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .ivf .tick{list-style:none;padding:0;margin:12px 0}
+  .ivf .tick li{position:relative;padding:5px 0 5px 28px}
+  .ivf .tick li:before{content:"✓";position:absolute;left:0;color:var(--c-primary);font-weight:700}
+  .ivf .callout{background:var(--c-tint);border-left:4px solid var(--c-accent);border-radius:12px;padding:18px 20px;font-size:15px;margin:18px 0}
+  .ivf .note{font-size:14px;color:var(--c-muted)}
+  .ivf .steps{list-style:none;margin:20px 0 0;padding:0;position:relative}
+  .ivf .steps:before{content:"";position:absolute;left:17px;top:18px;bottom:18px;width:2px;background:var(--c-line)}
+  .ivf .step{display:grid;grid-template-columns:36px 1fr;gap:18px;align-items:start;margin-bottom:18px;position:relative}
+  .ivf .step .n{width:36px;height:36px;border-radius:50%;background:var(--c-primary);color:#fff;font-weight:700;display:grid;place-items:center;border:3px solid #fff;box-shadow:0 0 0 2px var(--c-line)}
+  .ivf .step h3{font-size:17px;margin:2px 0 2px}.ivf .step p{margin:0;color:var(--c-muted);font-size:14.5px}
+  .ivf .map{border:1px solid var(--c-line);border-radius:16px;overflow:hidden;margin:20px 0}
+  .ivf .map iframe{display:block;width:100%;height:340px;border:0}
+  .ivf details{border:1px solid var(--c-line);border-radius:12px;padding:14px 18px;margin-top:10px}
+  .ivf summary{cursor:pointer;font-weight:600;color:var(--c-dark)}
+  .ivf details p{margin:10px 0 0;color:var(--c-muted)}
+  .ivf .cta{background:var(--c-dark);color:#fff;padding:56px 0;text-align:center}
+  .ivf .cta h2{color:#fff}.ivf .cta .card{text-align:left;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
+  .ivf .cta .card h3{color:#fff}.ivf .cta .card p{color:#cdd9f5}.ivf .cta .locs{margin-top:16px;max-width:760px;margin-left:auto;margin-right:auto}
+  .ivf .lead2{margin:30px 0 0;color:#cdd9f5}
+  @media(max-width:900px){
+    .ivf .hgrid,.ivf .layout,.ivf .cards,.ivf .c2,.ivf .c3,.ivf .c4{grid-template-columns:1fr}
+    .ivf .toc{position:static;flex-direction:row;flex-wrap:wrap;gap:6px}.ivf .toc p{width:100%}
+    .ivf .toc a:not(.btn){border:1px solid var(--c-line);border-radius:999px;padding:4px 12px}
+    .ivf .map iframe{height:260px}
+  }
+</style>
