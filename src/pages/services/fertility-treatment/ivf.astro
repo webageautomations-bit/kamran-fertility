@@ -1,126 +1,181 @@
 ---
-// src/pages/services/fertility-treatment/ivf.astro
-// Uses the site's own menu/footer via Layout. Fix the import path + props to match TreatmentPage.astro.
-// Colors are the --c-* variables in <style>.
+// src/pages/services/fertility-treatment/index.astro  (adjust to your routing)
+// Same Layout + tokens as the location and assessment pages. Match the import path to your site.
 import Layout from "../../../layouts/Layout.astro";
-// Photos: set `image` (and `alt`) on any step, or `heroImage`, to a file in /public/assets/. Icons show until then.
 const base = "https://www.kamranfertility.com";
+const S = "/services/assessment";
 const T = "/services/fertility-treatment";
-const url = `${base}${T}/ivf`;
-const title = "IVF Treatment in Lahore: Process, Cost & Rates | Dr. Kamran";
-const description = "Consult UK-qualified specialist Dr. Kamran Saleem for doctor-led IVF in Lahore. Transparent costs, high success rates, & ethical care in DHA, Gulberg & Shalamar.";
-const wa = "https://wa.me/923148432789?text=" + encodeURIComponent("Hello, I would like to book an IVF consultation with Dr. Kamran Saleem.");
-const heroImage = ""; // e.g. "/assets/ivf-hero.webp"
+const url = `${base}${T}`;
+const title = "Fertility Treatment in Lahore | IVF, ICSI, IUI | Dr. Kamran";
+const description = "Fertility treatment in Lahore with Dr. Kamran Saleem: ovulation induction, IUI, IVF, ICSI, FET and freezing for men and women. Book a consultation.";
+const wa = "https://wa.me/923148432789?text=" + encodeURIComponent("Hello, I would like to book a fertility treatment consultation with Dr. Kamran Saleem.");
 
 const icons = {
-  flask: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3"/>',
-  inject: '<path d="M4 20l9-9M13 11l-2-2 5-5 4 4-5 5zM3 21l2-1"/>',
-  bolt: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
-  target: '<circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>',
-  cells: '<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><circle cx="12" cy="16" r="3"/>',
-  merge: '<circle cx="9" cy="12" r="5"/><path d="M14 12h7M18 9l3 3-3 3"/>',
-  heart: '<path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/>',
-  check: '<path d="M5 12l5 5 9-10"/>',
   clip: '<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h6"/>',
+  heart: '<path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/>',
+  target: '<circle cx="12" cy="12" r="4"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>',
+  check: '<path d="M5 12l5 5 9-10"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  pin: '<path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  flask: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3"/>',
+  merge: '<circle cx="9" cy="12" r="5"/><path d="M14 12h7M18 9l3 3-3 3"/>',
+  egg: '<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>',
+  alert: '<path d="M12 3l10 18H2zM12 10v5M12 18h.01"/>',
+  coin: '<circle cx="12" cy="12" r="9"/><path d="M14.5 9a3 3 0 00-5 1.5c0 3 5 1.5 5 4.5a3 3 0 01-5 1.5M12 6v2M12 16v2"/>',
 };
 
-const toc = [
-  ["what-is-ivf", "What is IVF"], ["who-needs-ivf", "Who needs IVF"], ["pre-ivf-tests", "Tests"],
-  ["ivf-process", "Step by step"], ["medication", "Injections"], ["success-rates", "Success rates"],
-  ["risks", "Risks"], ["ethics", "Ethics"], ["cost", "Cost"], ["compare", "IVF vs IUI vs ICSI"], ["faq", "FAQ"],
+const art = {
+  ovulation: '<circle cx="50" cy="50" r="38" fill="#fff" opacity=".7"/><g transform="rotate(-35 50 50)"><rect x="28" y="40" width="44" height="20" rx="10" fill="#fff" stroke="#2563eb" stroke-width="3"/><rect x="50" y="40" width="22" height="20" rx="10" fill="#60a5fa" stroke="#2563eb" stroke-width="3"/></g>',
+  iui: '<path d="M26 26h48c0 22-10 36-24 48C36 62 26 48 26 26z" fill="#fff" stroke="#2563eb" stroke-width="3"/><circle cx="50" cy="46" r="7" fill="#60a5fa" stroke="#2563eb" stroke-width="2"/><g fill="#0b1f4b"><circle cx="38" cy="36" r="2.5"/><circle cx="62" cy="38" r="2.5"/><circle cx="46" cy="62" r="2.5"/><circle cx="56" cy="30" r="2.5"/></g>',
+  ivf: '<ellipse cx="50" cy="58" rx="36" ry="14" fill="#fff" stroke="#2563eb" stroke-width="3"/><ellipse cx="50" cy="48" rx="36" ry="14" fill="#e0eeff" stroke="#2563eb" stroke-width="3"/><circle cx="50" cy="48" r="9" fill="#fff" stroke="#2563eb" stroke-width="2"/><circle cx="50" cy="48" r="3.5" fill="#0b1f4b"/><g fill="#0b1f4b"><circle cx="30" cy="46" r="2"/><circle cx="68" cy="52" r="2"/><circle cx="62" cy="42" r="2"/></g>',
+  icsi: '<circle cx="58" cy="54" r="24" fill="#fff" stroke="#2563eb" stroke-width="3"/><circle cx="58" cy="54" r="9" fill="#60a5fa"/><path d="M12 18L46 44" stroke="#0b1f4b" stroke-width="3.5" stroke-linecap="round"/><circle cx="12" cy="18" r="4" fill="#0b1f4b"/>',
+  fet: '<circle cx="50" cy="50" r="30" fill="#fff" stroke="#2563eb" stroke-width="3"/><g stroke="#2563eb" stroke-width="3" stroke-linecap="round"><path d="M50 26v48M29 38l42 24M29 62l42-24"/></g><circle cx="50" cy="50" r="7" fill="#60a5fa" stroke="#0b1f4b" stroke-width="2"/>',
+  pgt: '<circle cx="50" cy="50" r="38" fill="#fff" opacity=".7"/><path d="M36 20c28 16 -28 44 0 60" stroke="#2563eb" stroke-width="4" fill="none"/><path d="M64 20c-28 16 28 44 0 60" stroke="#0b1f4b" stroke-width="4" fill="none"/><g stroke="#60a5fa" stroke-width="3"><path d="M40 32h20M38 50h24M40 68h20"/></g>',
+  freeze: '<circle cx="50" cy="50" r="38" fill="#fff" opacity=".7"/><g stroke="#2563eb" stroke-width="3.5" stroke-linecap="round"><path d="M50 18v64M22 34l56 32M22 66l56-32"/><path d="M44 24l6 6 6-6M44 76l6-6 6 6"/></g>',
+  male: '<circle cx="50" cy="50" r="38" fill="#fff" opacity=".7"/><ellipse cx="44" cy="40" rx="12" ry="8" fill="#60a5fa" stroke="#2563eb" stroke-width="3" transform="rotate(-30 44 40)"/><path d="M52 46q18 12 8 26t-14 8" stroke="#2563eb" stroke-width="3.5" fill="none" stroke-linecap="round"/>',
+  female: '<circle cx="50" cy="50" r="38" fill="#fff" opacity=".7"/><g fill="#93c5fd" stroke="#2563eb" stroke-width="2"><circle cx="36" cy="40" r="10"/><circle cx="62" cy="38" r="10"/><circle cx="50" cy="62" r="10"/></g><g fill="#0b1f4b"><circle cx="36" cy="40" r="3.5"/><circle cx="62" cy="38" r="3.5"/><circle cx="50" cy="62" r="3.5"/></g>',
+  couple: '<circle cx="50" cy="50" r="38" fill="#fff" opacity=".7"/><circle cx="38" cy="50" r="17" fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/><circle cx="62" cy="50" r="17" fill="#93c5fd" stroke="#2563eb" stroke-width="3"/>',
+};
+const toc = [["quick","Overview"],["ladder","Treatment steps"],["options","Treatment options"],["compare","IUI vs IVF vs ICSI"],["ivf-journey","IVF journey"],["suitable","Which may suit you"],["both","Men, women & couples"],["when","When to see a specialist"],["before","Before treatment"],["after-failed","After an unsuccessful cycle"],["cost","Cost"],["where","Where procedures happen"],["outcomes","Outcomes"],["doctor","Your doctor"],["locations","Locations"],["faq","FAQ"]];
+
+const glance = [
+  ["target","Cause first","Assessment comes before any treatment decision."],
+  ["heart","Both partners","Male, female or combined factors are considered together."],
+  ["check","Not always IVF","Medication, ovulation treatment or IUI may be enough for some."],
+  ["coin","Costs explained","Stages, medicines and estimates discussed before you start."],
 ];
 
-const steps = [
-  { t: "Assessment & planning", time: "Before day 1", icon: "clip", image: "", alt: "Fertility consultation with Dr. Kamran Saleem", d: "Hormone tests, an ultrasound with antral follicle count and a semen analysis decide your protocol and starting dose." },
-  { t: "Ovarian stimulation", time: "8–14 days", icon: "inject", image: "", alt: "IVF stimulation injection pen", d: "Daily FSH injections, sometimes with LH, grow several follicles. Scans every few days adjust the dose, and a second medicine stops early ovulation." },
-  { t: "Trigger injection", time: "34–36 h before retrieval", icon: "bolt", image: "", alt: "IVF trigger injection", d: "When follicles reach the right size, one precisely timed injection matures the eggs." },
-  { t: "Egg retrieval", time: "15–20 minutes", icon: "target", image: "", alt: "Ultrasound-guided egg retrieval", d: "Under sedation, a fine needle guided by ultrasound collects the eggs. No cuts, and most women go home the same day." },
-  { t: "Fertilization: IVF or ICSI", time: "Same day", icon: "merge", image: "", alt: "Embryology laboratory fertilization", d: `Eggs and sperm are combined in the laboratory, or one sperm is injected into each mature egg when <a href="${T}/icsi">ICSI</a> is indicated.` },
-  { t: "Embryo culture & grading", time: "Day 3 to 5/6", icon: "cells", image: "", alt: "Blastocyst embryo in the laboratory", d: `Embryos grow to blastocyst stage and the strongest are graded. <a href="${T}/pgt">Genetic testing (PGT)</a> is used only in selected cases.` },
-  { t: "Embryo transfer", time: "Usually no anesthesia", icon: "heart", image: "", alt: "Ultrasound-guided embryo transfer", d: `A thin catheter places the embryo in the uterus. Surplus embryos can be frozen for <a href="${T}/fet">Frozen Embryo Transfer (FET)</a>.` },
-  { t: "Pregnancy test", time: "10–14 days later", icon: "check", image: "", alt: "Blood pregnancy test", d: "A blood test confirms the result. Testing at home too early can mislead." },
+const ladder = [
+  ["Find the cause", "Assessment of both partners", "clip"],
+  ["Treat the cause", "Hormonal or underlying conditions", "flask"],
+  ["Ovulation medication", "When ovulation is irregular", "egg"],
+  ["IUI", "Selected, milder cases", "target"],
+  ["IVF / ICSI", "When other options are unsuitable", "merge"],
 ];
 
-const overview = [
-  { l: "Tests & Diagnosis", h: "#step-1", art: '<rect x="37" y="14" width="26" height="7" rx="3" fill="#3b82f6" stroke="#0b1f4b" stroke-width="2"/><rect x="39" y="19" width="22" height="64" rx="11" fill="#e0eeff" stroke="#0b1f4b" stroke-width="3"/><rect x="42" y="44" width="16" height="36" rx="8" fill="#4cc9f0"/><circle cx="47" cy="56" r="2.5" fill="#ffffff"/><circle cx="54" cy="66" r="2" fill="#ffffff"/><circle cx="48" cy="74" r="2.5" fill="#ffffff"/>' },
-  { l: "Ovarian Stimulation", h: "#step-2", art: '<g transform="rotate(-40 52 46)"><rect x="30" y="39" width="38" height="14" rx="3" fill="#fff" stroke="#0b1f4b" stroke-width="2.5"/><rect x="44" y="39" width="14" height="14" fill="#3b82f6" stroke="#0b1f4b" stroke-width="2"/><rect x="68" y="43" width="14" height="6" fill="#fff" stroke="#0b1f4b" stroke-width="2.5"/><rect x="82" y="37" width="4" height="18" rx="2" fill="#0b1f4b"/><path d="M30 46H16" stroke="#0b1f4b" stroke-width="2"/></g><rect x="22" y="76" width="26" height="11" rx="5.5" fill="#fff" stroke="#0b1f4b" stroke-width="2.5"/><path d="M35 76v11" stroke="#0b1f4b" stroke-width="2"/><rect x="54" y="80" width="22" height="10" rx="5" fill="#0b1f4b"/>' },
-  { l: "Egg Retrieval", h: "#step-4", art: '<circle cx="50" cy="50" r="32" fill="#fff" opacity=".75"/><circle cx="50" cy="50" r="18" fill="#60a5fa" stroke="#2563eb" stroke-width="2"/><circle cx="50" cy="50" r="7" fill="#0b1f4b"/>' },
-  { l: "Sperm Collection", h: "#step-4", art: '<circle cx="50" cy="50" r="40" fill="#3b82f6"/><g fill="#fff"><ellipse cx="30" cy="34" rx="6" ry="4"/><ellipse cx="62" cy="48" rx="6" ry="4"/><ellipse cx="34" cy="66" rx="6" ry="4"/></g><g stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"><path d="M36 34q8-6 14 0t14 0"/><path d="M68 48q8-6 12 0"/><path d="M40 66q8-6 14 0t12 0"/></g>' },
-  { l: "Fertilization", h: "#step-5", art: '<circle cx="50" cy="50" r="38" fill="#fff" stroke="#2563eb" stroke-width="5"/><circle cx="44" cy="52" r="11" fill="#fff" stroke="#0b1f4b" stroke-width="2"/><circle cx="44" cy="52" r="3.5" fill="#0b1f4b"/><path d="M62 38l11-6M64 48l13-2M62 58l11 5" stroke="#0b1f4b" stroke-width="1.8" stroke-linecap="round"/>' },
-  { l: "Embryo Transfer", h: "#step-7", art: '<circle cx="50" cy="50" r="38" fill="#fff" opacity=".7"/><g fill="#93c5fd" stroke="#2563eb" stroke-width="2"><circle cx="36" cy="38" r="11"/><circle cx="60" cy="34" r="11"/><circle cx="68" cy="56" r="11"/><circle cx="46" cy="66" r="11"/><circle cx="31" cy="58" r="11"/><circle cx="50" cy="50" r="11"/></g><g fill="#0b1f4b"><circle cx="36" cy="38" r="4"/><circle cx="60" cy="34" r="4"/><circle cx="68" cy="56" r="4"/><circle cx="46" cy="66" r="4"/><circle cx="31" cy="58" r="4"/><circle cx="50" cy="50" r="4"/></g>' },
-];
-
-const who = [
-  ["Tubal factor", "Blocked, damaged or absent tubes, hydrosalpinx or severe adhesions.", "flask"],
-  ["Endometriosis", "Moderate to severe disease affecting egg quality, tubes or implantation.", "target"],
-  ["Reduced ovarian reserve", "Low AMH or antral follicle count, or age 35 and over, where time matters.", "clip"],
-  ["Male factor", `Low count or poor motility, with or without <a href="${T}/icsi">ICSI</a>. See <a href="${T}/male-infertility">male infertility treatment</a>.`, "cells"],
-  ["Unexplained infertility", `No conception despite treatment, or unsuccessful <a href="${T}/iui">IUI</a> cycles after careful review.`, "heart"],
-  ["Genetic conditions", "Where embryo testing before transfer is being considered.", "merge"],
-];
-
-const tests = [
-  ["AMH & antral follicle count", "Ovarian reserve", "Sets the stimulation dose"],
-  ["<a href='/services/assessment/hormonal-analysis'>Hormone panel</a>", "FSH, LH, estradiol, TSH, prolactin", "Excludes thyroid or pituitary causes"],
-  ["<a href='/services/assessment/semen-analysis'>Semen analysis</a>", "Count, motility, morphology, DNA fragmentation", "Standard IVF or ICSI"],
-  ["Pelvic ultrasound / hysteroscopy", "Uterine cavity, fibroids, polyps, adhesions", "Healthy lining for implantation"],
-  ["Blood group, rubella immunity", "General health clearance", "Protects mother and baby"],
-];
-
-const rates = [
-  ["Under 35", "35% – 40%", "65% – 72%", "Single blastocyst transfer to avoid twins"],
-  ["35 – 37", "25% – 30%", "52% – 60%", "Blastocyst culture, careful dosing"],
-  ["38 – 40", "15% – 20%", "35% – 42%", "Reserve optimization, PGT-A considered"],
-  ["41 – 42", "6% – 10%", "18% – 24%", "Low-dose stimulation"],
-  ["Over 42", "2% – 4%", "< 10%", "Realistic expectations"],
+const options = [
+  ["Ovulation Induction & PCOS", `${T}/pcos`, "ovulation", "Medication and monitoring to help regulate or trigger ovulation when it is irregular. Used only under medical supervision."],
+  ["IUI Treatment", `${T}/iui`, "iui", "Prepared sperm is placed in the uterus around ovulation. Less complex than IVF and suited to selected cases."],
+  ["IVF Treatment", `${T}/ivf`, "ivf", "Eggs are collected and fertilised in a laboratory, then an embryo may be transferred to the uterus."],
+  ["ICSI", `${T}/icsi`, "icsi", "A single sperm is injected into an egg as part of IVF, when male-factor or past fertilisation problems make it suitable."],
+  ["Frozen Embryo Transfer (FET)", `${T}/fet`, "fet", "A previously frozen embryo is thawed and transferred in a separately prepared cycle."],
+  ["Embryo Genetic Testing (PGT)", `${T}/pgt`, "pgt", "Embryos from IVF are tested for specific genetic or chromosomal findings, for selected indications only."],
+  ["Egg & Sperm Freezing", `${T}/fertility-preservation`, "freeze", "Eggs, sperm or embryos are stored for future use, for example before medical treatment that may affect fertility."],
+  ["Male Infertility Treatment", `${T}/male-infertility`, "male", "Evaluation and management of sperm-related and hormonal causes, with assisted options when needed."],
 ];
 
 const compare = [
-  ["Where fertilization happens", "In the body", "In the laboratory", "In the laboratory"],
-  ["How", "Prepared sperm placed in the uterus", "Eggs and sperm combined in a dish", "One sperm injected into one egg"],
-  ["Best suited to", "Open tubes, adequate sperm", "Tubal disease, age, failed IUI", "Significant sperm problems, earlier fertilization failure"],
-  ["Embryo selection & freezing", "No", "Yes", "Yes"],
+  ["IUI", "iui", "Prepared sperm is placed inside the uterus around ovulation.", "Fertilisation happens inside the body."],
+  ["IVF", "ivf", "Eggs are collected and fertilised with sperm in a laboratory.", "Embryos develop outside the body before transfer."],
+  ["ICSI", "icsi", "A single sperm is injected directly into an egg.", "A fertilisation technique used as part of IVF."],
 ];
 
-const faqs = [
-  ["What is IVF treatment?", "IVF (in vitro fertilization) is a treatment in which eggs are collected, fertilized with sperm in a laboratory, and the resulting embryo is transferred to the uterus. It is used when simpler treatment is unlikely to work or has not worked."],
-  ["Is IVF the same as test tube baby treatment?", "Yes. Test tube baby is the popular name for IVF. Fertilization happens in a laboratory dish, but the pregnancy develops in the mother's womb in the usual way."],
-  ["How long does one IVF cycle take?", "Stimulation takes 8 to 14 days, followed by retrieval, fertilization, embryo development and transfer. From the start of medication to the pregnancy test is typically four to six weeks, longer if embryos are frozen for a later transfer."],
-  ["Is IVF painful?", "Injections can sting or bruise. Egg retrieval is done under sedation, so you should not feel it, though cramping and bloating are common afterwards. Embryo transfer is usually painless."],
-  ["Will IVF work on the first attempt?", "It can, but nobody can promise it. Success depends mainly on age, ovarian reserve, embryo quality and the cause of infertility. Many people need more than one transfer."],
-  ["How much does IVF cost in Lahore?", "Cost depends on medication, whether ICSI, freezing or genetic testing are needed, and how many transfers are required. You receive an itemized estimate at your consultation, before treatment begins."],
-  ["Can I travel or work after embryo transfer?", "Light daily activity is fine and bed rest is unnecessary. Avoid heavy lifting, strenuous exercise and hot baths during the two-week wait."],
-  ["What happens to surplus embryos?", "Good-quality embryos can be frozen and stored for a later frozen embryo transfer, avoiding full stimulation again."],
-  ["When can I take a pregnancy test?", "A blood test about 10 to 14 days after transfer. Earlier home tests can give false results."],
-  ["Do I need ICSI with IVF?", "Not always. ICSI is used mainly for male-factor infertility, previous fertilization failure or surgically retrieved sperm. Routine ICSI has not been shown to improve live birth rates for other couples."],
+const journey = [
+  ["Assessment", "Review of history, reports and suitability.", "clip"],
+  ["Stimulation", "Medicines encourage several follicles to develop.", "flask"],
+  ["Monitoring", "Ultrasound and sometimes blood tests track the response.", "clock"],
+  ["Egg retrieval", "Mature eggs are collected in a planned procedure.", "egg"],
+  ["Fertilisation", "Eggs and sperm are combined in the laboratory, with ICSI when indicated.", "merge"],
+  ["Embryo development", "Embryos are observed as they develop.", "target"],
+  ["Embryo transfer", "An embryo may be transferred. Others may be frozen.", "heart"],
 ];
 
-const treatments = [
-  ["ICSI", "icsi", "One sperm injected into an egg when sperm factors make standard IVF unreliable."],
-  ["IUI", "iui", "Prepared sperm placed in the uterus at ovulation."],
-  ["Frozen Embryo Transfer", "fet", "Thawed embryos transferred in a cycle prepared for the lining."],
-  ["Embryo Genetic Testing (PGT)", "pgt", "Embryo testing for chromosomal or inherited conditions."],
-  ["Ovulation Induction & PCOS", "ovulation-induction", "Medication and monitoring to restore ovulation."],
-  ["Male Infertility Treatment", "male-infertility", "Testing and treatment for low count, varicocele and hormonal causes."],
+const suitable = [
+  ["Irregular or absent ovulation", "Assessment of the cause, treatment of an underlying condition and ovulation medication when appropriate"],
+  ["Selected PCOS-related ovulation problems", "Lifestyle and medical management, with ovulation induction where indicated"],
+  ["Selected sperm-related concerns", "Male fertility evaluation, management of an identified cause and discussion of assisted reproduction"],
+  ["Selected unexplained infertility", "Further evaluation and discussion of IUI or IVF, depending on individual factors"],
+  ["Significant male-factor infertility", "Assessment and discussion of IVF with ICSI when clinically appropriate"],
+  ["Earlier IVF with frozen embryos", "Review of suitability and planning for frozen embryo transfer"],
+  ["Known inherited genetic risk", "Genetic counselling and discussion of PGT where appropriate"],
+  ["Planned treatment that may affect fertility", "Discussion of egg, sperm or embryo preservation first"],
+];
+
+const both = [
+  ["Male fertility", "male", `Semen analysis review, hormone tests and history. See <a href="${T}/male-infertility">male infertility treatment</a>, <a href="${S}/male-fertility-assessment">male fertility assessment</a> and <a href="/services/tests/semen-analysis">semen analysis</a>.`],
+  ["Female fertility", "female", `Ovulation, PCOS, tubes, uterus and ovarian reserve. See <a href="${S}/female-fertility-assessment">female fertility assessment</a>, <a href="${T}/pcos">PCOS treatment</a> and <a href="/services/tests/female-fertility-hormone-test">hormone testing</a>.`],
+  ["Couple evaluation", "couple", `Assessing both partners avoids overlooking a male contribution. Start with a <a href="${S}">fertility assessment</a>.`],
+];
+
+const when = [
+  ["12 months, woman under 35", "Evaluation is generally advised after 12 months of regular, unprotected intercourse without pregnancy.", "clock"],
+  ["6 months, woman 35 or older", "Earlier evaluation is advised from 35, because fertility declines with age.", "target"],
+  ["Earlier if there are concerns", "Irregular or absent periods, PCOS, endometriosis, tubal or uterine problems, pelvic surgery, abnormal semen analysis or repeated miscarriage.", "alert"],
+  ["Before medical treatment", "If treatment may affect fertility, ask about egg, sperm or embryo freezing early.", "flask"],
+];
+
+const before = [
+  ["Initial consultation", "How long you have been trying, previous pregnancies, menstrual history, medicines and any earlier treatment."],
+  ["Review of reports", "Bring semen analysis, hormone tests, ultrasound, HSG and previous cycle records."],
+  ["Further assessment, if needed", "Extra tests are chosen for your situation, not ordered as a routine package."],
+  ["Discussion of options", "Why an option may suit you, its limits and the alternatives."],
+  ["Practical details", "Stages, medicines, monitoring, procedures, partner-facility arrangements, estimates and risks."],
+];
+
+const cost = [
+  "Consultation and assessment fees",
+  "The recommended procedure and its stages",
+  "Medication and monitoring costs",
+  "Laboratory and embryology charges, where applicable",
+  "Extras such as ICSI, embryo freezing, storage or genetic testing",
+  "Which services are provided directly and which are arranged through partner facilities",
+  "What the estimate includes and what is charged separately",
+];
+
+const outcomes = [
+  "The woman's age",
+  "Ovarian reserve and response to medication",
+  "Sperm concentration, movement and morphology",
+  "The cause and duration of infertility",
+  "The condition of the uterus and fallopian tubes",
+  "Earlier pregnancies and treatment history",
+  "General health and relevant medical conditions",
 ];
 
 const locations = [
-  ["Rasheed Hospital", "Main Boulevard, DHA Defence", "Daily 3:00pm–6:00pm (Sat & Sun closed)", "/locations/dha-lahore"],
-  ["TAMC", "M.M. Alam Road, Gulberg", "Wednesday 12:00pm–3:00pm, other days by appointment", "/locations/mm-alam-road-lahore"],
-  ["Shahnaz Hospital", "Shalamar Link Road", "Monday & Thursday 6:00pm–9:00pm", "/locations/shalamar-lahore"],
+  ["DHA Lahore: Rasheed Hospital", "Main Boulevard, DHA Defence, Lahore", "Daily 3:00 PM – 6:00 PM (Closed Saturday & Sunday)", "/locations/dha-lahore"],
+  ["Gulberg: TAMC", "M.M. Alam Road, Gulberg III, Lahore", "Wednesday 12:00 PM – 3:00 PM (other days by appointment)", "/locations/mm-alam-road-lahore"],
+  ["Shalamar: Shahnaz Hospital", "Shalamar Link Road, Lahore", "Monday & Thursday 6:00 PM – 9:00 PM", "/locations/shalamar-lahore"],
 ];
 
+const faqs = [
+  ["What is the best fertility treatment in Lahore?", "There is no single treatment that is best for everyone. The right option depends on the cause of infertility, age, sperm and ovulation factors, previous treatment and other medical findings. A fertility assessment helps determine which options may be suitable."],
+  ["Is IVF the only treatment for infertility?", "No. Depending on the diagnosis, treatment may involve medication, ovulation induction, IUI, IVF, ICSI, fertility preservation or management of an underlying reproductive health problem. IVF is not automatically required for every couple."],
+  ["Can male infertility be treated?", "Some male fertility problems can be managed directly, depending on their cause. Other situations may need further investigation or discussion of assisted options such as IUI, IVF or ICSI."],
+  ["What is female infertility treatment?", "It is medical care for conditions that may affect ovulation, the reproductive organs or the ability to conceive. Depending on the diagnosis, options may include medication, ovulation induction, IUI or IVF."],
+  ["Do both partners need a fertility assessment?", "Often, yes. Difficulty conceiving can involve male factors, female factors or both. The doctor decides which investigations are relevant to your history and initial findings."],
+  ["What is the difference between IUI and IVF?", "IUI places prepared sperm inside the uterus around ovulation, so fertilisation happens inside the body. IVF involves collecting eggs and fertilising them with sperm in a laboratory before an embryo is transferred."],
+  ["Is ICSI different from IVF?", "ICSI is a fertilisation technique used as part of IVF. A single sperm is injected directly into an egg. It may be considered when specific sperm-related or earlier fertilisation problems are present."],
+  ["How much does fertility treatment cost in Lahore?", "The cost depends on the recommended procedure, medication, investigations, laboratory services and any extras. IUI and IVF have different costs. Ask for an estimate that explains what is included before you begin."],
+  ["How long does fertility treatment take?", "It depends on the treatment. Medication-based approaches are planned around the menstrual cycle, while IVF involves several stages from stimulation to embryo transfer. Your doctor can explain the expected timeline for your plan."],
+  ["Can I start fertility treatment without tests?", "Treatment should not be chosen without understanding the relevant fertility factors. Your doctor may review existing reports or recommend semen analysis, hormone tests or ultrasound, depending on your circumstances."],
+  ["Can I get a second opinion after unsuccessful IVF?", "Yes. Bring your investigation, medication, fertilisation and embryo transfer records. Reviewing the earlier cycle may help clarify what options are appropriate next."],
+  ["Does fertility treatment guarantee pregnancy?", "No. Treatment can improve the options available to some patients, but it cannot guarantee pregnancy or live birth. Outcomes depend on individual medical factors and the treatment used."],
+  ["Where can I consult Dr. Kamran Saleem?", "At Rasheed Hospital in DHA, TAMC on M.M. Alam Road in Gulberg, and Shahnaz Hospital on Shalamar Link Road. Days and timings vary, so contact the clinic before visiting."],
+];
+
+const related = [
+  ["Fertility Assessment in Lahore", "/resources/fertility-assessment-in-lahore"],
+  ["IVF vs IUI: understanding the difference", "/resources/ivf-vs-iui"],
+  ["IVF treatment cost in Pakistan", "/resources/ivf-treatment-cost-pakistan"],
+  ["PCOS and fertility: can you get pregnant?", "/resources/pcos-and-fertility"],
+  ["Fertility consultation: when to seek advice", "/resources/when-to-seek-fertility-consultation"],
+];
+
+const clinicId = base + "/#clinic";
 const schema = {
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "MedicalWebPage", "@id": url, url, name: title, description, inLanguage: "en-PK",
-      about: { "@type": "MedicalProcedure", name: "In Vitro Fertilization (IVF)" },
-      lastReviewed: "2026-11",
-      reviewedBy: { "@type": "Physician", name: "Dr. Kamran Saleem" } },
-    { "@type": "BreadcrumbList", itemListElement: [
+    { "@type": "MedicalWebPage", "@id": url + "#webpage", url, name: title, description, inLanguage: "en-PK",
+      breadcrumb: { "@id": url + "#breadcrumb" }, about: { "@id": clinicId },
+      reviewedBy: { "@id": base + "/dr-kamran-saleem#physician" } },
+    { "@type": "BreadcrumbList", "@id": url + "#breadcrumb", itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: base + "/" },
-      { "@type": "ListItem", position: 2, name: "Fertility Treatment", item: base + T },
-      { "@type": "ListItem", position: 3, name: "IVF Treatment", item: url } ] },
+      { "@type": "ListItem", position: 2, name: "Services", item: base + "/services" },
+      { "@type": "ListItem", position: 3, name: "Fertility Treatment", item: url } ] },
+    { "@type": "MedicalClinic", "@id": clinicId, name: "Kamran Fertility Clinic", url: base, logo: base + "/assets/logo.webp", telephone: "+923148432789",
+      location: locations.map(([n, a]) => ({ "@type": "Place", name: n, address: { "@type": "PostalAddress", streetAddress: a, addressLocality: "Lahore", addressRegion: "Punjab", addressCountry: "PK" } })) },
+    { "@type": "Physician", "@id": base + "/dr-kamran-saleem#physician", name: "Dr. Kamran Saleem", url: base + "/dr-kamran-saleem", worksFor: { "@id": clinicId } },
     { "@type": "FAQPage", mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) },
   ],
 };
@@ -128,24 +183,22 @@ const schema = {
 <Layout title={title} description={description}>
 <div class="ivf">
 <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-
 <main>
 <section class="hero"><div class="w hgrid">
   <div>
-    <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/services/fertility-treatment">Fertility Treatment</a> / IVF Treatment</nav>
+    <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/services">Services</a> / Fertility Treatment</nav>
     <p class="eye">Doctor-led · Evidence-based · Lahore</p>
-    <h1>IVF Treatment in Lahore</h1>
-    <p class="sub">In vitro fertilization (IVF), often called test tube baby treatment, combines eggs and sperm in a laboratory and transfers the resulting embryo to the uterus. Dr. Kamran Saleem plans each cycle around your results and explains every stage, risk and cost first. IVF is recommended when your findings point to it, not as a default.</p>
-    <p><a class="btn" href={wa}>Book an IVF consultation</a> <a class="btn ghost" href="#ivf-process">See the process</a></p>
-    <p class="mini">Not sure yet? Start with <a href="/services/assessment">Fertility Assessment &amp; Diagnosis</a>.</p>
+    <h1>Fertility Treatment in Lahore</h1>
+    <p class="sub">Personalised care for men and women with Dr. Kamran Saleem. Understand the cause, review your reports and discuss treatment options that fit your medical circumstances. Not every couple needs IVF.</p>
+    <p><a class="btn" href={wa}>Book a consultation</a> <a class="btn ghost" href="#options">See treatment options</a></p>
+    <p class="mini">Phone / WhatsApp +92 314 8432789 · 3 Lahore locations</p>
   </div>
   <div class="hside">
-    {heroImage ? <img src={heroImage} alt="IVF treatment with Dr. Kamran Saleem, Lahore" width="560" height="420" fetchpriority="high" /> : null}
     <ul class="facts">
-      <li><b>25+</b> years in reproductive health</li>
-      <li><b>45–60</b> min unhurried consultations</li>
-      <li><b>3</b> Lahore locations</li>
-      <li><b>100%</b> married couple's own eggs and sperm</li>
+      <li><b>Cause first</b> assessment before treatment</li>
+      <li><b>8</b> treatment pathways explained</li>
+      <li><b>Both partners</b> considered together</li>
+      <li><b>No guarantees</b> honest, clear options</li>
     </ul>
   </div>
 </div></section>
@@ -155,161 +208,142 @@ const schema = {
     {toc.map(([id, l]) => <a href={`#${id}`}>{l}</a>)}
     <a class="btn sm" href={wa}>Book now</a>
   </aside>
-
   <div class="content">
-    <p class="review"><b>Medically reviewed:</b> Dr. Kamran Saleem (MBBS 1988; Diploma, University of Liverpool 1998; PMDC registered) · Last review November 2026 · <a href="/dr-kamran-saleem">About the doctor</a></p>
+    <p class="review"><b>Medically authored &amp; reviewed by</b> Dr. Kamran Saleem (MBBS 1988; Diploma, University of Liverpool 1998; PMDC registered) · <a href="/dr-kamran-saleem">About the doctor</a></p>
 
-    <section id="what-is-ivf">
-      <h2>What Is IVF (In Vitro Fertilization)?</h2>
-      <p>Medication encourages the ovaries to develop several mature eggs. These are collected, fertilized with sperm in an embryology laboratory and grown for three to six days to the blastocyst stage. The best embryo is then transferred to the uterus, or frozen for later. The pregnancy develops in the womb as usual.</p>
-      <p>IVF is one of several assisted treatments. Depending on your results, <a href={`${T}/iui`}>IUI</a> may suit you first, or <a href={`${T}/icsi`}>ICSI</a> may be added to IVF.</p>
-    </section>
-
-    <section id="who-needs-ivf">
-      <h2>Who May Need IVF?</h2>
-      <p>IVF is considered when the cause of infertility, or time already spent trying, makes simpler treatment unlikely to work.</p>
-      <div class="cards">
-        {who.map(([h, p, i]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p set:html={p} /></div>)}
+    <section id="quick">
+      <h2>Fertility treatment in Lahore at a glance</h2>
+      <p>Difficulty conceiving can involve men, women or both. The next step may be treating an underlying problem, taking ovulation medication, or considering IUI, IVF or another assisted option. At Kamran Fertility Clinic, Dr. Kamran Saleem takes a doctor-led approach: find the cause, review the reports, then discuss options.</p>
+      <div class="cards c4">
+        {glance.map(([i, h, p]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p>{p}</p></div>)}
       </div>
-      <p class="note">Equally important is who does not need IVF yet. Many couples first correct a hormone problem or try <a href={`${T}/ovulation-induction`}>ovulation induction</a>. Your plan follows your findings, not a package.</p>
+      <p>New here? Start with a <a href={S}>fertility assessment</a>, or get an independent view through <a href="/services/support">support &amp; second opinions</a>.</p>
     </section>
 
-    <section id="pre-ivf-tests">
-      <h2>Before You Start: Tests and Preparation</h2>
-      <div class="tw"><table>
-        <thead><tr><th>Test</th><th>What it shows</th><th>Why it matters</th></tr></thead>
-        <tbody>{tests.map(r => <tr><td set:html={r[0]} /><td>{r[1]}</td><td>{r[2]}</td></tr>)}</tbody>
-      </table></div>
-    </section>
-
-    <section id="ivf-process">
-      <h2>The IVF Process, Step by Step</h2>
-      <p>A typical cycle takes about four to six weeks from the start of medication to the pregnancy test.</p>
-      <div class="ovwrap">
-        <p class="ovtitle">IVF Process at a Glance</p>
-        <div class="ovrow">
-          {overview.map((o, i) => (
-            <>
-              <a class="ov" href={o.h}>
-                <span class="ovl">{o.l}</span>
-                <span class="disc"><svg viewBox="0 0 100 100" set:html={o.art} /></span>
-                <span class="ovn">{i + 1}</span>
-              </a>
-              {i < overview.length - 1 ? <span class="chev" aria-hidden="true"><svg viewBox="0 0 36 22"><path d="M3 3l7 8-7 8M14 3l7 8-7 8M25 3l7 8-7 8" /></svg></span> : null}
-            </>
-          ))}
-        </div>
-        <p class="ovhint">Select a stage to jump to its full explanation below.</p>
-      </div>
-      <ol class="steps">
-        {steps.map((s, i) => (
-          <li class="step" id={`step-${i + 1}`}>
-            <div class="media">
-              {s.image ? <img src={s.image} alt={s.alt} width="320" height="240" loading="lazy" /> : <span class="ph"><svg viewBox="0 0 24 24" set:html={icons[s.icon]} /></span>}
-            </div>
-            <div class="body"><span class="num">Step {i + 1} · {s.time}</span><h3>{s.t}</h3><p set:html={s.d} /></div>
-          </li>
-        ))}
+    <section id="ladder">
+      <h2>How treatment steps usually progress</h2>
+      <p>Most couples do not start with IVF. Treatment generally moves from finding the cause towards more involved options only when needed. Your own plan may skip steps or combine them.</p>
+      <ol class="ladder">
+        {ladder.map(([h, p, i]) => <li><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><div><b>{h}</b><span>{p}</span></div></li>)}
       </ol>
     </section>
 
-    <section id="medication">
-      <h2>IVF Injections and Medication</h2>
-      <div class="cols">
-        <ul class="tick">
-          <li>Gonadotropins (FSH, sometimes LH) to grow follicles</li>
-          <li>GnRH antagonist or agonist to stop early ovulation</li>
-          <li>Trigger injection to mature the eggs</li>
-          <li>Progesterone to support the lining after transfer</li>
-          <li>Estrogen tablets or patches in frozen transfer cycles</li>
-        </ul>
-        <div class="callout"><b>What to expect.</b> Most injections are small shots under the skin with pre-filled pens, and you are shown how. Bloating, mood changes and bruising are common. Severe abdominal pain, rapid weight gain, repeated vomiting or breathlessness are not, so report them urgently.</div>
+    <section id="options">
+      <h2>Fertility treatment options in Lahore</h2>
+      <p>No single treatment suits everyone. Each option below has its own page with the full detail.</p>
+      <div class="cards c3">
+        {options.map(([n, h, a, d]) => <a class="card link opt" href={h}><span class="disc"><svg viewBox="0 0 100 100" set:html={art[a]} /></span><h3>{n}</h3><p>{d}</p><span class="more">Read more</span></a>)}
       </div>
-    </section>
-
-    <section id="success-rates">
-      <h2>IVF Success Rates in Pakistan: Realistic Metrics</h2>
-      <p>We report live births per cycle, not early positive tests. Figures are for the woman's own eggs.</p>
-      <div class="tw"><table>
-        <thead><tr><th>Age</th><th>Live birth (single cycle)</th><th>Cumulative, 3 cycles</th><th>Focus</th></tr></thead>
-        <tbody>{rates.map(r => <tr>{r.map(c => <td>{c}</td>)}</tr>)}</tbody>
-      </table></div>
-      <p class="note">Outcomes vary and no result is guaranteed. Beyond age, the main factors are ovarian reserve, embryo quality, sperm quality, the uterus and the diagnosis. You receive an honest individual estimate, including when the likely benefit is low.</p>
-    </section>
-
-    <section id="risks">
-      <h2>Risks and Possible Complications</h2>
-      <div class="cards">
-        <div class="card"><h3>OHSS</h3><p>An exaggerated response to stimulation. Severe cases are uncommon and prevented by monitoring or a freeze-all approach.</p></div>
-        <div class="card"><h3>Multiple pregnancy</h3><p>Twins carry higher risks. Transferring a single good-quality embryo greatly reduces this.</p></div>
-        <div class="card"><h3>Other risks</h3><p>Rare bleeding or infection at retrieval, sedation risks, ectopic pregnancy, miscarriage and emotional strain.</p></div>
-      </div>
-      <p class="note">Seek urgent medical attention for severe pain, heavy bleeding, fever or breathlessness. We do not provide emergency care.</p>
-    </section>
-
-    <section id="ethics">
-      <h2>Ethical and Legal Compliance in Pakistan</h2>
-      <p>All treatment follows Pakistani law and Federal Shariat Court rulings on assisted reproduction.</p>
-      <ul class="tick">
-        <li>Only the legal husband's sperm and the legally wedded wife's eggs are used</li>
-        <li>Donor eggs, donor sperm, donor embryos and surrogacy are not offered</li>
-        <li>Double-witness verification at every laboratory stage</li>
-      </ul>
-    </section>
-
-    <section id="cost">
-      <h2>IVF Cost in Lahore: Transparent Fees</h2>
-      <p>A single fixed price would mislead, because cycles differ. An itemized estimate is explained before you commit. See our guide to <a href="/resources/ivf-treatment-cost-in-pakistan">IVF treatment cost in Pakistan</a>.</p>
-      <div class="cols">
-        <div class="card"><h3>Included in the package</h3><ul class="tick"><li>Scans during stimulation</li><li>Consultations with Dr. Kamran</li><li>Egg retrieval with theater and nursing care</li><li>Embryology and blastocyst culture</li><li>Ultrasound-guided embryo transfer</li></ul></div>
-        <div class="card"><h3>Disclosed upfront</h3><ul class="tick"><li>Stimulation medication (varies by dose)</li><li>ICSI, if indicated</li><li>Embryo freezing and annual storage</li><li>Sperm retrieval or PGT biopsy</li></ul></div>
-      </div>
-      <p class="note">Add-ons such as time-lapse imaging or assisted hatching have limited evidence for most patients, so we suggest them only with a clear clinical reason.</p>
     </section>
 
     <section id="compare">
-      <h2>IVF, IUI or ICSI: How They Differ</h2>
-      <div class="tw"><table>
-        <thead><tr><th></th><th><a href={`${T}/iui`}>IUI</a></th><th>IVF</th><th><a href={`${T}/icsi`}>ICSI</a></th></tr></thead>
-        <tbody>{compare.map(r => <tr><th scope="row">{r[0]}</th><td>{r[1]}</td><td>{r[2]}</td><td>{r[3]}</td></tr>)}</tbody>
-      </table></div>
-      <p class="note">More: <a href="/resources/ivf-vs-iui">IVF vs IUI</a>. Had IVF elsewhere? Get an independent view through <a href="/services/support">Support &amp; Second Opinions</a>.</p>
+      <h2>IUI vs IVF vs ICSI: the difference</h2>
+      <p>These treatments are related but not the same. The right choice depends on your diagnosis. Read the full guide: <a href="/resources/ivf-vs-iui">IVF vs IUI</a>.</p>
+      <div class="cards c3">
+        {compare.map(([n, a, d, k]) => <div class="card cmp"><span class="disc"><svg viewBox="0 0 100 100" set:html={art[a]} /></span><h3>{n}</h3><p>{d}</p><p class="key">{k}</p></div>)}
+      </div>
+      <p class="note">FET is a transfer of a frozen embryo, usually after IVF. PGT is an extra embryo test for selected patients, not a treatment for everyone.</p>
     </section>
 
-    <section id="why">
-      <h2>Why Choose Dr. Kamran Saleem</h2>
-      <div class="cards">
-        <div class="card"><h3>25+ years' experience</h3><p>Reproductive health and fertility care. <a href="/dr-kamran-saleem">Meet the doctor</a>.</p></div>
-        <div class="card"><h3>Unhurried consultations</h3><p>45 to 60 minutes to review history, reports and concerns.</p></div>
-        <div class="card"><h3>Doctor-led care</h3><p>Scans, protocol changes and transfer planning led by Dr. Kamran for continuity.</p></div>
+    <section id="ivf-journey">
+      <h2>What an IVF cycle involves</h2>
+      <p>Exact protocols and timing vary between patients, and the stages often take several weeks from stimulation to transfer. See the full <a href={`${T}/ivf`}>IVF treatment</a> and <a href={`${T}/icsi`}>ICSI</a> pages.</p>
+      <ol class="steps">
+        {journey.map(([h, p], n) => <li class="step"><span class="n">{n + 1}</span><div><h3>{h}</h3><p>{p}</p></div></li>)}
+      </ol>
+    </section>
+
+    <section id="suitable">
+      <h2>Which treatment may suit which concern?</h2>
+      <p>These are examples of how options may be considered, not individual recommendations. A table cannot replace an assessment of your history, age and results.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Fertility concern</th><th>Options that may be discussed</th></tr></thead>
+        <tbody>{suitable.map(([a, b]) => <tr><th scope="row">{a}</th><td>{b}</td></tr>)}</tbody>
+      </table></div>
+    </section>
+
+    <section id="both">
+      <h2>Male, female and couple fertility treatment</h2>
+      <p>Looking at both partners helps identify relevant factors and avoids missing a male contribution. Not every patient needs every test.</p>
+      <div class="cards c3">
+        {both.map(([h, a, p]) => <div class="card"><span class="disc sm"><svg viewBox="0 0 100 100" set:html={art[a]} /></span><h3>{h}</h3><p set:html={p} /></div>)}
       </div>
     </section>
 
+    <section id="when">
+      <h2>When should you see a fertility specialist?</h2>
+      <p>You do not always have to wait a full year. A consultation does not mean you must start medication, IUI or IVF.</p>
+      <div class="cards">
+        {when.map(([h, p, i]) => <div class="card"><span class="ic"><svg viewBox="0 0 24 24" set:html={icons[i]} /></span><h3>{h}</h3><p>{p}</p></div>)}
+      </div>
+      <p class="note">Source: <a href="https://prod.asrm.org/globalassets/_asrm/practice-guidance/practice-guidelines/pdf/definition-of-infertility.pdf">ASRM Practice Committee, Definition of infertility (2023)</a>. Read more: <a href="/resources/when-to-seek-fertility-consultation">when to seek a fertility consultation</a>.</p>
+    </section>
+
+    <section id="before">
+      <h2>What happens before fertility treatment?</h2>
+      <ol class="steps">
+        {before.map(([h, p], n) => <li class="step"><span class="n">{n + 1}</span><div><h3>{h}</h3><p>{p}</p></div></li>)}
+      </ol>
+      <p>The aim is an informed decision, not pressure to start treatment.</p>
+    </section>
+
+    <section id="after-failed">
+      <h2>After an unsuccessful IVF or IUI cycle</h2>
+      <p>One unsuccessful cycle does not automatically mean further treatment cannot work. A detailed review of the earlier cycle helps decide what comes next. Bring the diagnosis and tests, stimulation protocol, egg retrieval and fertilisation results, embryo development and transfer details, and semen reports.</p>
+      <div class="callout">Options after a review may include more investigation, a change in plan, another approach, or a discussion of whether repeating treatment makes sense. Request an independent <a href="/services/support">fertility second opinion</a>.</div>
+    </section>
+
+    <section id="cost">
+      <h2>Fertility treatment cost in Lahore</h2>
+      <p>Cost varies with the procedure, medication, investigations and laboratory services required. IUI and IVF involve different stages and resources, and an IVF cycle may add costs for ICSI, embryo freezing, genetic testing or storage. No single price fits every patient, so the most useful estimate comes after your findings are reviewed.</p>
+      <h3>Ask for a clear explanation of:</h3>
+      <ul class="tick">{cost.map(x => <li>{x}</li>)}</ul>
+      <p>Read the <a href="/resources/ivf-treatment-cost-pakistan">IVF treatment cost guide</a>, or <a href={wa}>message us on WhatsApp</a> to ask about consultation and treatment estimates.</p>
+    </section>
+
+    <section id="where">
+      <h2>Where are fertility procedures performed?</h2>
+      <p>Consultations, tests, monitoring and laboratory procedures do not always take place at one facility. Dr. Kamran Saleem provides consultations and treatment planning in Lahore, and some investigations, laboratory work or assisted reproduction stages may be coordinated with partner facilities.</p>
+      <div class="callout">Before a cycle starts, you should be told where each stage takes place, who is responsible for each procedure, how appointments and monitoring are arranged, who explains your results, and which fees are included.</div>
+    </section>
+
+    <section id="outcomes">
+      <h2>What influences fertility treatment outcomes?</h2>
+      <ul class="tick">{outcomes.map(x => <li>{x}</li>)}</ul>
+      <p>When you see success rates, ask what is being measured. A positive pregnancy test, a clinical pregnancy and a live birth are different outcomes, and rates may be reported per cycle started or per embryo transfer. No treatment can promise pregnancy or a live birth.</p>
+    </section>
+
+    <section id="doctor">
+      <h2>Why consult Dr. Kamran Saleem?</h2>
+      <p>Dr. Kamran Saleem sees men and women with fertility and reproductive health concerns. He begins by understanding your situation and reviewing your records, then explains why a test or treatment may or may not be appropriate.</p>
+      <ul class="tick">
+        <li>MBBS, 1988</li>
+        <li>Diploma in Genito-Urinary Medicine and Venereology, University of Liverpool, UK, 1998</li>
+        <li>25 years of experience in reproductive health and fertility</li>
+      </ul>
+      <p><a href="/dr-kamran-saleem">Read the full profile</a> · <a href={`${T}/male-infertility`}>Male infertility</a> · <a href={`${S}/female-fertility-assessment`}>Female fertility</a></p>
+    </section>
+
     <section id="faq">
-      <h2>Frequently Asked Questions</h2>
+      <h2>Frequently asked questions about fertility treatment in Lahore</h2>
       {faqs.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
+      <h3 style="margin-top:28px">Related reading</h3>
+      <ul class="tick">{related.map(([l, h]) => <li><a href={h}>{l}</a></li>)}</ul>
+      <p class="note" style="margin-top:18px">The information on this page is for general education and is not a substitute for individual medical advice, diagnosis or treatment. Outcomes vary between individuals; no result is guaranteed.</p>
     </section>
   </div>
 </div>
 
-<section class="band"><div class="w">
-  <h2>Other fertility treatments</h2>
-  <div class="cards c3">
-    {treatments.map(([n, s, d]) => <a class="card link" href={`${T}/${s}`}><h3>{n}</h3><p>{d}</p></a>)}
-  </div>
-  <p><a href={T}>See all fertility treatments →</a> · <a href="/resources/ivf-treatment-in-lahore">IVF in Lahore: cost, tests &amp; choosing a clinic</a></p>
-</div></section>
-
-<section class="cta"><div class="w">
-  <h2>Ready to Talk About IVF?</h2>
-  <p>Bring previous reports, semen analysis or treatment summaries so your plan starts from the facts. We usually reply the same day.</p>
-  <a class="btn" href={wa}>Book an IVF Consultation</a>
+<section class="cta" id="locations"><div class="w">
+  <h2>Start with a clear fertility treatment plan</h2>
+  <p>Bring previous test results, semen analysis reports, scans or earlier treatment records. Message us on WhatsApp to arrange a consultation with Dr. Kamran Saleem at the clinic nearest you.</p>
+  <a class="btn" href={wa}>Book on WhatsApp</a>
   <div class="cards c3 locs">
     {locations.map(([n, a, h, l]) => <a class="card link" href={l}><h3>{n}</h3><p>{a}</p><p class="hrs">{h}</p></a>)}
   </div>
+  <p style="margin-top:22px"><a style="color:#fff" href="/locations">All locations</a> · <a style="color:#fff" href={S}>Fertility assessment</a> · <a style="color:#fff" href="/services/support">Second opinions</a> · +92 314 8432789</p>
 </div></section>
 </main>
-
 </div>
 </Layout>
 
@@ -321,9 +355,11 @@ const schema = {
   .ivf .w{max-width:1120px;margin:0 auto;padding:0 20px}
   .ivf h1,.ivf h2,.ivf h3{line-height:1.2;color:var(--c-dark);margin:0 0 .5em}
   .ivf h2{font-size:clamp(24px,3vw,32px);margin-top:0}
-  .ivf .btn{display:inline-block;background:linear-gradient(135deg,#3b82f6,#1d4ed8);box-shadow:0 6px 14px rgba(29,78,216,.28);color:#fff;padding:13px 24px;border-radius:999px;font-weight:600;text-decoration:none}
+  .ivf .content h3{font-size:19px}
+  .ivf .btn{display:inline-block;background:linear-gradient(135deg,#3b82f6,#1d4ed8);box-shadow:0 6px 14px rgba(29,78,216,.28);color:#fff;padding:13px 24px;border-radius:999px;font-weight:600;text-decoration:none;margin:0 6px 8px 0}
   .ivf .btn.sm{padding:8px 16px;font-size:14px}
-  .ivf .btn.ghost{background:transparent;border:1.5px solid #fff;color:#fff}
+  .ivf .btn.ghost{background:transparent;border:1.5px solid #fff;box-shadow:none}
+  .ivf .btn:focus-visible,.ivf a:focus-visible,.ivf summary:focus-visible{outline:3px solid var(--c-accent);outline-offset:2px}
   .ivf .hero{background:linear-gradient(135deg,var(--c-dark),var(--c-primary));color:#fff;padding:48px 0 56px}
   .ivf .hero h1{color:#fff;font-size:clamp(32px,5vw,48px)}
   .ivf .hero a{color:#fff}
@@ -331,79 +367,64 @@ const schema = {
   .ivf .crumb{font-size:13px;opacity:.85;margin-bottom:14px}
   .ivf .eye{text-transform:uppercase;letter-spacing:.12em;font-size:12.5px;font-weight:700;color:var(--c-accent);margin:0 0 6px}
   .ivf .sub{opacity:.92}.ivf .mini{font-size:13.5px;opacity:.85}
-  .ivf .hside img{width:100%;height:auto;border-radius:18px;margin-bottom:14px}
   .ivf .facts{list-style:none;margin:0;padding:18px 22px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:16px}
-  .ivf .facts li{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.15);font-size:14.5px}
-  .ivf .facts li:last-child{border:0}.ivf .facts b{font-size:20px;margin-right:6px}
+  .ivf .facts li{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.15);font-size:14.5px}
+  .ivf .facts li:last-child{border:0}.ivf .facts b{font-size:19px;margin-right:6px}
   .ivf .layout{display:grid;grid-template-columns:210px 1fr;gap:44px;padding-top:36px;padding-bottom:20px}
   .ivf .toc{position:sticky;top:76px;align-self:start;display:flex;flex-direction:column;gap:2px;font-size:14px}
   .ivf .toc p{margin:0 0 6px;font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:.1em;color:var(--c-muted)}
-  .ivf .toc a:not(.btn){text-decoration:none;color:var(--c-text);padding:5px 0 5px 12px;border-left:2px solid var(--c-line)}
+  .ivf .toc a:not(.btn){text-decoration:none;color:var(--c-text);padding:4px 0 4px 12px;border-left:2px solid var(--c-line)}
   .ivf .toc a:not(.btn):hover{border-color:var(--c-accent);color:var(--c-primary)}
   .ivf .toc .btn{margin-top:14px;text-align:center}
-  .ivf .content section{padding:0 0 44px;scroll-margin-top:84px}
+  .ivf .content section{padding:0 0 48px;scroll-margin-top:84px}
   .ivf .review{background:var(--c-tint);border-radius:12px;padding:14px 18px;font-size:13.5px;color:var(--c-muted);margin:0 0 32px}
   .ivf .cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:20px 0}
-  .ivf .content .cards{grid-template-columns:repeat(3,1fr)}
-  .ivf .c3{grid-template-columns:repeat(3,1fr)}
+  .ivf .c3{grid-template-columns:repeat(3,1fr)}.ivf .c4{grid-template-columns:repeat(2,1fr)}
   .ivf .card{background:#fff;border:1px solid var(--c-line);border-radius:16px;padding:20px}
   .ivf .card h3{font-size:17px;margin-bottom:6px}.ivf .card p{margin:0;font-size:14.5px;color:var(--c-muted)}
-  .ivf .card.link{text-decoration:none;color:inherit;transition:.15s}
+  .ivf .card.link{text-decoration:none;color:inherit;transition:.15s;display:block}
   .ivf .card.link:hover{border-color:var(--c-accent);transform:translateY(-2px)}
+  .ivf .more{display:inline-block;margin-top:10px;font-size:14px;font-weight:600;color:var(--c-primary)}
+  .ivf .key{margin-top:8px!important;font-weight:600;color:var(--c-dark)!important}
   .ivf .hrs{margin-top:6px!important;font-size:13px!important}
-  .ivf .ic,.ivf .ph{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--c-tint);margin-bottom:10px}
+  .ivf .ic{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;background:var(--c-tint);margin-bottom:10px}
   .ivf svg{width:26px;height:26px;fill:none;stroke:var(--c-primary);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-  .ivf .tw{overflow-x:auto;border:1px solid var(--c-line);border-radius:14px;margin:18px 0}
-  .ivf table{border-collapse:collapse;width:100%;min-width:560px;font-size:14.5px}
-  .ivf th{background:var(--c-primary);color:#fff;text-align:left;padding:12px 14px}
-  .ivf th a{color:#fff}
-  .ivf td,.ivf tbody th{padding:11px 14px;border-top:1px solid var(--c-line)}
-  .ivf tbody th{background:var(--c-tint);color:var(--c-dark)}
-  .ivf tbody tr:nth-child(even) td{background:#f5f9ff}
-  .ivf .steps{list-style:none;margin:24px 0 0;padding:0;position:relative}
-  .ivf .steps:before{content:"";position:absolute;left:109px;top:20px;bottom:20px;width:2px;background:var(--c-line)}
-  .ivf .step{display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:center;margin-bottom:22px;position:relative}
-  .ivf .step .media{height:150px;border-radius:16px;overflow:hidden;background:var(--c-tint);display:grid;place-items:center}
-  .ivf .step .media img{width:100%;height:100%;object-fit:cover}
-  .ivf .step .ph{width:76px;height:76px;margin:0;background:#fff}.ivf .step .ph svg{width:38px;height:38px}
-  .ivf .num{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c-primary)}
-  .ivf .step h3{margin:2px 0 6px}.ivf .step p{margin:0;color:var(--c-muted)}
-  .ivf .cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
+  .ivf .disc{width:96px;height:96px;border-radius:50%;background:#dbeafe;border:4px solid #fff;box-shadow:0 0 0 2px #dbeafe,0 8px 18px rgba(37,99,235,.16);display:grid;place-items:center;overflow:hidden;margin-bottom:14px}
+  .ivf .disc.sm{width:76px;height:76px}
+  .ivf .disc svg{width:100%;height:100%;stroke:none;fill:none;stroke-width:1}
   .ivf .tick{list-style:none;padding:0;margin:12px 0}
   .ivf .tick li{position:relative;padding:5px 0 5px 28px}
   .ivf .tick li:before{content:"✓";position:absolute;left:0;color:var(--c-primary);font-weight:700}
-  .ivf .callout{background:var(--c-tint);border-left:4px solid var(--c-accent);border-radius:12px;padding:18px 20px;font-size:15px}
+  .ivf .callout{background:var(--c-tint);border-left:4px solid var(--c-accent);border-radius:12px;padding:18px 20px;font-size:15px;margin:18px 0}
   .ivf .note{font-size:14px;color:var(--c-muted)}
+  .ivf .ladder{list-style:none;margin:22px 0;padding:0;display:flex;gap:10px;counter-reset:l}
+  .ivf .ladder li{flex:1;background:var(--c-tint);border:1px solid var(--c-line);border-radius:14px;padding:16px 12px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;position:relative}
+  .ivf .ladder li:not(:last-child):after{content:"\203A";position:absolute;right:-12px;top:42%;font-size:24px;color:var(--c-primary);z-index:1}
+  .ivf .ladder li .ic{background:#fff;margin-bottom:4px}
+  .ivf .ladder div{display:flex;flex-direction:column;gap:2px}.ivf .ladder b{color:var(--c-dark);font-size:14.5px;line-height:1.25}.ivf .ladder div span{font-size:12.5px;color:var(--c-muted);line-height:1.4}
+  .ivf .steps{list-style:none;margin:20px 0 0;padding:0;position:relative}
+  .ivf .steps:before{content:"";position:absolute;left:17px;top:18px;bottom:18px;width:2px;background:var(--c-line)}
+  .ivf .step{display:grid;grid-template-columns:36px 1fr;gap:18px;align-items:start;margin-bottom:18px;position:relative}
+  .ivf .step .n{width:36px;height:36px;border-radius:50%;background:var(--c-primary);color:#fff;font-weight:700;display:grid;place-items:center;border:3px solid #fff;box-shadow:0 0 0 2px var(--c-line)}
+  .ivf .step h3{font-size:17px;margin:2px 0 2px}.ivf .step p{margin:0;color:var(--c-muted);font-size:14.5px}
+  .ivf .tw{overflow-x:auto;border:1px solid var(--c-line);border-radius:14px;margin:18px 0}
+  .ivf table{border-collapse:collapse;width:100%;min-width:520px;font-size:14.5px}
+  .ivf th{background:var(--c-primary);color:#fff;text-align:left;padding:12px 14px}
+  .ivf td,.ivf tbody th{padding:11px 14px;border-top:1px solid var(--c-line);text-align:left}
+  .ivf tbody th{background:var(--c-tint);color:var(--c-dark);width:34%}
+  .ivf tbody tr:nth-child(even) td{background:#f5f9ff}
   .ivf details{border:1px solid var(--c-line);border-radius:12px;padding:14px 18px;margin-top:10px}
   .ivf summary{cursor:pointer;font-weight:600;color:var(--c-dark)}
   .ivf details p{margin:10px 0 0;color:var(--c-muted)}
-  .ivf .band{background:var(--c-tint);padding:48px 0}
   .ivf .cta{background:var(--c-dark);color:#fff;padding:56px 0;text-align:center}
   .ivf .cta h2{color:#fff}.ivf .cta .card{text-align:left;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
-  .ivf .cta .card h3{color:#fff}.ivf .cta .card p{color:#cdd9f5}.ivf .cta .locs{margin-top:34px}
-  .ivf .ovwrap{--peach:#dbeafe;--coral:#2563eb;background:#f5f9ff;border:1px solid #dbe6f6;border-radius:22px;padding:28px 18px 20px;margin:24px 0 34px;text-align:center}
-  .ivf .ovtitle{margin:0 0 22px;font-size:clamp(20px,3vw,28px);font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--c-primary)}
-  .ivf .ovrow{display:flex;align-items:flex-start;justify-content:center;gap:4px}
-  .ivf .ov{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:12px;text-decoration:none;color:var(--c-dark);position:relative}
-  .ivf .ovl{font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.3;min-height:30px;display:flex;align-items:center}
-  .ivf .disc{width:118px;height:118px;max-width:100%;border-radius:50%;background:var(--peach);border:5px solid #fff;box-shadow:0 0 0 2px var(--peach),0 8px 18px rgba(37,99,235,.18);display:grid;place-items:center;overflow:hidden;transition:transform .2s,box-shadow .2s}
-  .ivf .disc svg{width:100%;height:100%;stroke:none;fill:none;stroke-width:1}
-  .ivf .ov:hover .disc,.ivf .ov:focus-visible .disc{transform:translateY(-4px) scale(1.04);box-shadow:0 0 0 2px var(--coral),0 12px 22px rgba(37,99,235,.3)}
-  .ivf .ovn{width:26px;height:26px;border-radius:50%;background:var(--coral);color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center;margin-top:-22px;margin-left:80px;border:2px solid #fff}
-  .ivf .chev{flex:0 0 auto;align-self:flex-start;margin-top:72px}
-  .ivf .chev svg{width:34px;height:22px;stroke:var(--coral);stroke-width:3.2;fill:none}
-  .ivf .legal{font-size:13px;color:var(--c-muted);padding-bottom:28px}
-  .ivf .ovhint{margin:16px 0 0;font-size:13px;color:var(--c-muted)}
+  .ivf .cta .card h3{color:#fff}.ivf .cta .card p{color:#cdd9f5}.ivf .cta .locs{margin-top:30px}
   @media(max-width:900px){
-    .ivf .hgrid,.ivf .layout,.ivf .cols,.ivf .cards,.ivf .content .cards,.ivf .c3{grid-template-columns:1fr}
+    .ivf .hgrid,.ivf .layout,.ivf .cards,.ivf .c3,.ivf .c4{grid-template-columns:1fr}
     .ivf .toc{position:static;flex-direction:row;flex-wrap:wrap;gap:6px}.ivf .toc p{width:100%}
     .ivf .toc a:not(.btn){border:1px solid var(--c-line);border-radius:999px;padding:4px 12px}
-    .ivf .step{grid-template-columns:1fr;gap:12px}.ivf .steps:before{display:none}
-    .ivf .step .media{height:130px}
-    .ivf .ovrow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px 8px}
-    .ivf .chev{display:none}.ivf .disc{width:96px;height:96px}.ivf .ovn{margin-left:66px}
-  }
-  @media(max-width:520px){
-    .ivf .ovrow{grid-template-columns:repeat(2,1fr)}
+    .ivf .ladder{flex-direction:column}.ivf .ladder li{flex-direction:row;text-align:left;gap:12px}
+    .ivf .ladder li:not(:last-child):after{content:"";display:none}
+    .ivf .ladder li .ic{flex:0 0 46px;margin:0}
   }
 </style>
