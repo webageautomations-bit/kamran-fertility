@@ -1,7 +1,7 @@
 ---
-// src/pages/services/assessment/index.astro   (URL: /services/assessment)
+// src/pages/services/assessment.astro   (URL: /services/assessment)
 // Uses the site's own menu/footer via Layout. Match the import path + props to your other pages.
-import Layout from "../../../layouts/Layout.astro";
+import Layout from "../../layouts/Layout.astro";
 const base = "https://www.kamranfertility.com";
 const AS = "/services/assessment";
 const TS = "/services/tests";
@@ -59,7 +59,7 @@ const icons = {
 
 const toc = [["what","What it is"],["compare","Assessment vs tests"],["when","When to book"],["partners","Both partners"],["framework","Five stages"],["services","Services"],["concerns","Common concerns"],["pathways","Treatment pathways"],["bring","What to bring"],["fees","Fees & locations"],["faq","FAQ"],["why","Why Dr. Kamran"]];
 
-const facts = [["3","Lahore clinics"],["45-60 min","First consultation"],["Both","Partners evaluated"],["24 h","Typical lab reports"]];
+const facts = [["3","Lahore clinics"],["45–60 min","First consultation"],["Both","Partners evaluated"],["24 h","Typical lab reports"]];
 
 const compare = [
   ["Primary Objective", "Comprehensive couple evaluation and identification of possible fertility factors", "Measuring individual biochemical or physiological parameters"],
@@ -84,7 +84,7 @@ const when = [
 ];
 
 // Male / female summaries (condensed; full detail lives on the dedicated pages)
-const mf = [
+const mf: [string, string, string, string[], string][] = [
   ["Male Fertility Consultation in Lahore", "user",
    "A male fertility consultation is an important part of evaluating a couple's reproductive health. Male factors contribute to a substantial proportion of fertility difficulties, and an assessment can help identify possible issues involving sperm production, sperm quality, sperm transport or reproductive hormones. Dr. Kamran Saleem sees men who are having difficulty conceiving with their partners, have received an abnormal semen analysis report or want a medical review of their reproductive health.",
    ["How long the couple has been trying, and previous pregnancies", "Previous semen analysis results and other investigations", "Medical conditions, infections, previous surgery, testicular injury, undescended testes or mumps", "Medicines, supplements and relevant lifestyle factors", "Physical examination when clinically appropriate", "Recommendations for semen analysis, hormone testing or further investigations when needed"],
@@ -137,12 +137,12 @@ const stages = [
 ];
 
 const services = [
-  ["Female Fertility Assessment", "heart", "A female fertility assessment evaluates reproductive health, including ovarian reserve, menstrual cycle regularity, ovulation, hormonal balance and pelvic anatomy. It may be suitable for women planning pregnancy, experiencing delayed conception, irregular cycles or known reproductive conditions.", `${AS}/female-fertility-assessment`, "Explore Female Fertility Assessment"],
-  ["Male Fertility Assessment", "user", "A male fertility assessment evaluates sperm production, sperm quality, reproductive history and relevant hormonal factors. It may include semen analysis interpretation, physical examination and additional investigations where clinically appropriate.", `${AS}/male-fertility-assessment`, "Explore Male Fertility Assessment"],
+  ["Female Fertility Assessment", "heart", "A female fertility assessment evaluates reproductive health, including ovarian reserve, menstrual cycle regularity, ovulation, hormonal balance and pelvic anatomy. It may be suitable for women planning pregnancy, experiencing delayed conception, irregular cycles or known reproductive conditions.", `${AS}/female-fertility-assessment`, "Explore Female Fertility Assessment", "", ""],
+  ["Male Fertility Assessment", "user", "A male fertility assessment evaluates sperm production, sperm quality, reproductive history and relevant hormonal factors. It may include semen analysis interpretation, physical examination and additional investigations where clinically appropriate.", `${AS}/male-fertility-assessment`, "Explore Male Fertility Assessment", "", ""],
   ["Hormonal Analysis and Endocrine Profiling", "bolt", "Hormonal factors can affect ovulation, menstrual cycles and sperm production. Depending on symptoms and medical history, assessment may include AMH, FSH, LH, estradiol, progesterone, TSH, prolactin or testosterone. The specific tests selected depend on the clinical question being investigated.", `${TS}/female-fertility-hormone-test`, "Female Hormone Test", `${TS}/male-fertility-hormone-test`, "Male Hormone Test"],
-  ["Ovulation and Follicular Monitoring", "scan", "Ovulation assessment helps determine whether an egg is being released and whether the menstrual cycle is suitable for natural conception or a planned fertility treatment. Depending on the clinical situation, assessment may involve menstrual history, appropriately timed blood tests and serial ultrasound monitoring of follicular development.", `${TR}/pcos`, "Ovulation and PCOS Management"],
-  ["WHO 6th Edition Semen Analysis", "flask", "Semen analysis is a key investigation in male fertility assessment. It evaluates semen volume, sperm concentration, total sperm number, motility and morphology. A report should be interpreted in the context of the patient's medical history. An abnormal result may require repeat testing or further assessment before a diagnosis is made.", `${TS}/semen-analysis`, "Explore Semen Analysis"],
-  ["Comprehensive Male Infertility Assessment", "cells", "Men with very low sperm counts, no sperm in the ejaculate or other significant reproductive concerns may need further investigation. Depending on initial findings, this may involve hormonal testing, physical examination, imaging, genetic evaluation or assessment for possible infection. Advanced investigations such as sperm DNA fragmentation testing are considered only in selected circumstances.", `${TR}/male-infertility`, "Explore Male Infertility Care"],
+  ["Ovulation and Follicular Monitoring", "scan", "Ovulation assessment helps determine whether an egg is being released and whether the menstrual cycle is suitable for natural conception or a planned fertility treatment. Depending on the clinical situation, assessment may involve menstrual history, appropriately timed blood tests and serial ultrasound monitoring of follicular development.", `${TR}/pcos`, "Ovulation and PCOS Management", "", ""],
+  ["WHO 6th Edition Semen Analysis", "flask", "Semen analysis is a key investigation in male fertility assessment. It evaluates semen volume, sperm concentration, total sperm number, motility and morphology. A report should be interpreted in the context of the patient's medical history. An abnormal result may require repeat testing or further assessment before a diagnosis is made.", `${TS}/semen-analysis`, "Explore Semen Analysis", "", ""],
+  ["Comprehensive Male Infertility Assessment", "cells", "Men with very low sperm counts, no sperm in the ejaculate or other significant reproductive concerns may need further investigation. Depending on initial findings, this may involve hormonal testing, physical examination, imaging, genetic evaluation or assessment for possible infection. Advanced investigations such as sperm DNA fragmentation testing are considered only in selected circumstances.", `${TR}/male-infertility`, "Explore Male Infertility Care", "", ""],
 ];
 
 const concerns = [
@@ -266,7 +266,7 @@ const schema = {
     </div>
     <ul class="facts">
       <li><b>2</b> partners, one evaluation</li>
-      <li><b>45-60 min</b> first consultation</li>
+      <li><b>45–60 min</b> first consultation</li>
       <li><b>3</b> clinics: DHA, Gulberg, Shalamar</li>
     </ul>
   </div>
