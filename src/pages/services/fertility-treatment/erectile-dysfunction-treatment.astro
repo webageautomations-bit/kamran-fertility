@@ -1,0 +1,365 @@
+---
+// src/pages/services/fertility-treatment/erectile-dysfunction-treatment.astro   (URL: /services/fertility-treatment/erectile-dysfunction-treatment)
+import Layout from "../../layouts/Layout.astro";
+const base = "https://www.kamranfertility.com";
+const AS = "/services/assessment", TS = "/services/tests", TR = "/services/fertility-treatment";
+const url = `${base}/services/fertility-treatment/erectile-dysfunction-treatment`;
+const title = "Erectile Dysfunction Treatment in Lahore | Dr. Kamran Saleem";
+const description = "Erectile dysfunction treatment in Lahore with Dr. Kamran Saleem. Private consultation to find the cause and discuss options in DHA, Gulberg or Shalamar.";
+const phone = "+92 314 8432789";
+const wa = "https://wa.me/923148432789?text=" + encodeURIComponent("Hello, I would like to book a consultation for erectile dysfunction with Dr. Kamran Saleem.");
+const doctorImg = "/assets/dr-kamran.webp";
+const reviewed = "2026-11-20";
+const reviewedLabel = "November 20, 2026";
+const pmdcNo = ""; // add the PMDC registration number to show it on the page
+
+const I = {
+  drop: '<path d="M12 3s6 6.5 6 11a6 6 0 01-12 0c0-4.5 6-11 6-11z"/>',
+  bolt: '<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+  shield: '<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',
+  flask: '<path d="M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  chat: '<path d="M4 5h16v11H9l-5 4z"/>',
+  clip: '<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h6"/>',
+  heart: '<path d="M12 21s-7-4.5-7-10a4 4 0 017-2.6A4 4 0 0119 11c0 5.5-7 10-7 10z"/>',
+  pin: '<path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  alert: '<path d="M12 3l10 18H2zM12 10v5M12 18h.01"/>',
+  award: '<circle cx="12" cy="9" r="5"/><path d="M8.5 13.5L7 21l5-3 5 3-1.5-7.5"/>',
+  lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/>',
+  pill: '<rect x="3" y="8" width="18" height="8" rx="4"/><path d="M12 8v8"/>',
+  pulse: '<path d="M3 12h4l2-6 4 12 2-6h6"/>',
+  brain: '<path d="M9 4a3 3 0 00-3 3 3 3 0 00-2 3 3 3 0 002 3 3 3 0 003 3h1V4zM15 4a3 3 0 013 3 3 3 0 012 3 3 3 0 01-2 3 3 3 0 01-3 3h-1V4z"/>',
+  flame: '<path d="M12 3c1 4 5 5 5 10a5 5 0 01-10 0c0-2 1-3 2-4 0 2 1 2 1 2 0-3 1-5 2-8z"/>',
+  cells: '<circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><circle cx="12" cy="16" r="3"/>',
+  scan: '<path d="M4 8V5a1 1 0 011-1h3M16 4h3a1 1 0 011 1v3M20 16v3a1 1 0 01-1 1h-3M8 20H5a1 1 0 01-1-1v-3M4 12h16"/>',
+};
+const ic = (n) => `<svg viewBox="0 0 24 24" aria-hidden="true">${I[n]}</svg>`;
+
+const stats = [["25 yrs","Reproductive health experience"],["3","Lahore clinics"],["45-60 min","Usual first consultation"],["Private","One-to-one consultation"]];
+
+const when = [
+  ["clock","It keeps happening","Trouble getting or keeping an erection on many occasions, not just once or twice."],
+  ["pulse","It came on suddenly","A sudden change can point to a medical cause that needs checking."],
+  ["drop","You have diabetes","Diabetes can affect the blood vessels and nerves needed for erections."],
+  ["heart","High BP, cholesterol or heart problems","ED can be linked to circulation. A check is worthwhile."],
+  ["pill","You take regular medicines","Some medicines for BP, mood or prostate can affect erections."],
+  ["flask","You are trying for a baby","ED and sperm health are different problems. Both may need checking."],
+];
+
+const causes = [
+  ["pulse","Blood flow problems","Narrowed or stiff blood vessels reduce blood flow to the penis."],
+  ["drop","Diabetes","High blood sugar over time can damage blood vessels and nerves."],
+  ["bolt","Hormone problems","Low testosterone, thyroid or prolactin problems affect some men."],
+  ["pill","Medicines","Some blood pressure, antidepressant and other medicines can contribute."],
+  ["brain","Stress, anxiety, low mood","Very common, especially in younger men. Worry about performance can feed the problem."],
+  ["flame","Smoking and lifestyle","Smoking, little exercise, weight gain and heavy alcohol use can all play a part."],
+  ["scan","Nerve or pelvic injury","Back or pelvic surgery, injury or nerve disease can interfere with erections."],
+  ["shield","Other health conditions","Kidney, liver and sleep problems can contribute. More than one cause is common."],
+];
+
+const steps = [
+  ["chat","Talk","When it started, how often it happens, and whether you wake with erections."],
+  ["clip","Review","Your health history, medicines, past reports and lifestyle."],
+  ["flask","Check","A blood pressure check, an examination if needed, and only the tests that will help."],
+  ["award","Plan","The likely causes and your options, explained clearly. You choose the pace."],
+];
+
+const tests = [
+  ["Morning testosterone","Most men with ED. Blood is taken in the morning when levels are highest.","Routine"],
+  ["Blood sugar or HbA1c","To check for diabetes","Routine"],
+  ["Cholesterol (lipid profile)","Heart and blood vessel risk","Routine"],
+  ["Blood pressure","Heart and blood vessel risk","Routine"],
+  ["Thyroid (TSH)","When symptoms or history suggest it","Selected"],
+  ["Free testosterone, SHBG, LH, FSH, prolactin","When testosterone is low or the picture is unclear","Selected"],
+  ["Penile Doppler ultrasound","When the cause is unclear or surgery is being considered","Selected"],
+];
+
+const treat = [
+  ["heart","Treat the cause and lifestyle","Better blood sugar and blood pressure control, stopping smoking, exercise, sleep, and reviewing medicines that may contribute.",`${AS}/male-fertility-assessment`,"Male health assessment"],
+  ["pill","Medicines (PDE5 inhibitors)","Sildenafil and tadalafil are common choices. Your doctor checks they are safe for you first.",null,null],
+  ["bolt","Hormone treatment","Only if low testosterone is confirmed on blood tests and you have symptoms. It can lower sperm count.",`${TS}/male-fertility-hormone-test`,"Male hormone test"],
+  ["scan","Vacuum erection device","A non-drug option. A pump helps draw blood into the penis, held with a ring.",null,null],
+  ["flask","Injections or urethral therapy","Other medicine-based options for men who cannot use or do not respond to tablets.",null,null],
+  ["user","Counselling and implants","Support for stress and anxiety. For some men, a penile implant can be discussed with a urologist.",null,null],
+];
+
+const locs = [
+  ["DHA – Rasheed Hospital","Main Boulevard, DHA Defence, Lahore","Daily 3:00–6:00 PM · Sat & Sun closed","/locations/dha-lahore"],
+  ["Gulberg III – TAMC Clinic","M.M. Alam Road, Lahore","Wednesday 12:00–3:00 PM · Other days by appointment","/locations/mm-alam-road-lahore"],
+  ["Shalamar – Shahnaz Hospital","Shalamar Link Road, Lahore","Monday & Thursday 6:00–9:00 PM","/locations/shalamar-lahore"],
+];
+
+const faqs = [
+  ["What is erectile dysfunction?","Erectile dysfunction (ED) is ongoing difficulty getting or keeping an erection firm enough for satisfactory sex. It is common, can happen at any adult age, and is often treatable. In Urdu it is often called mardana kamzori (مردانہ کمزوری). Doctors also use the older word impotence."],
+  ["What causes erectile dysfunction?","ED can come from blood flow problems, diabetes, hormone problems, some medicines, nerve problems, stress, anxiety, smoking and other health conditions. Often more than one cause is involved. A medical check helps find which ones apply to you."],
+  ["Can erectile dysfunction be cured?","Many men can improve with the right treatment, but results depend on the cause and your overall health. Some causes, such as stress, medicines or poor blood sugar control, can be addressed. A doctor can tell you what to realistically expect after an assessment."],
+  ["Can ED be treated without medicine?","Sometimes. Lifestyle changes, better control of diabetes and blood pressure, counselling for anxiety, and vacuum devices can help some men. Which approach suits you depends on the cause. Your doctor can explain all the options, including medicines."],
+  ["Are ED tablets safe?","They are safe for many men when prescribed after a check, but not for everyone. They can cause a dangerous drop in blood pressure if taken with nitrate medicines used for chest pain. Do not buy or take ED pills without medical advice. Counterfeit products are common."],
+  ["Is ED a sign of heart disease or diabetes?","It can be. ED sometimes appears before other signs of blood vessel disease or diabetes. This is why your doctor may check your blood pressure, blood sugar and cholesterol. Having ED does not mean you have heart disease, but it is a good reason to get checked."],
+  ["Does ED mean I have low testosterone?","No. Low testosterone is only one possible cause. A morning blood test can check it. Testosterone treatment is considered only when a low level is confirmed and you have symptoms."],
+  ["Can young men get erectile dysfunction?","Yes. In younger men stress, anxiety, low mood, relationship worries, smoking and lifestyle are common causes. Medical causes are still possible, so it is worth getting checked if it keeps happening."],
+  ["Does masturbation cause erectile dysfunction?","Masturbation by itself is not known to cause lasting ED. Stress, guilt, anxiety about performance and heavy porn use can make erection difficulties worse in some men. If this worries you, a private conversation with a doctor can help."],
+  ["Can ED affect fertility?","ED can make intercourse and conception harder, but it does not always mean sperm production is affected. Erection and sperm health are different problems. If you are trying for a baby, a semen analysis and male fertility assessment can check the sperm side."],
+  ["Are PRP, stem-cell or shockwave treatments proven for ED?","Evidence for these is limited and they are not established standard treatments. Be careful with any clinic that promises results from them. Ask your doctor to explain what is proven and what is not."],
+  ["How much does ED treatment cost in Lahore?","The cost depends on the tests and treatment you need. Consultation fees at Kamran Fertility Clinic are shown before you confirm a booking, and the doctor explains the cost of any test or treatment before you decide. Message the clinic on WhatsApp to ask."],
+  ["How do I book a consultation?",`Message Kamran Fertility Clinic on WhatsApp at ${phone}. Choose DHA, Gulberg III or Shalamar and we will confirm your appointment.`],
+];
+
+const hrs = (d, o, c) => [{ "@type": "OpeningHoursSpecification", dayOfWeek: d, opens: o, closes: c }];
+const clinicId = base + "/#clinic";
+const place = (name, street, d, o, c, l) => ({ "@type": "Place", name, url: base + l, address: { "@type": "PostalAddress", streetAddress: street, addressLocality: "Lahore", addressRegion: "Punjab", addressCountry: "PK" }, openingHoursSpecification: hrs(d, o, c) });
+const schema = { "@context": "https://schema.org", "@graph": [
+  { "@type": "MedicalWebPage", "@id": url, url, name: title, description, inLanguage: "en-PK", lastReviewed: reviewed, reviewedBy: { "@id": base + "/dr-kamran-saleem#physician" }, publisher: { "@id": clinicId }, breadcrumb: { "@id": url + "#breadcrumb" }, about: { "@type": "MedicalCondition", name: "Erectile dysfunction" } },
+  { "@type": "MedicalClinic", "@id": clinicId, name: "Kamran Fertility Clinic", url: base, telephone: "+923148432789", logo: base + "/assets/logo.webp", image: base + doctorImg,
+    location: [
+      place("Rasheed Hospital (DHA Defence)", "Main Boulevard, DHA Defence", ["Monday","Tuesday","Wednesday","Thursday","Friday"], "15:00", "18:00", "/locations/dha-lahore"),
+      place("TAMC Clinic (M.M. Alam Road, Gulberg III)", "M.M. Alam Road, Gulberg III", ["Wednesday"], "12:00", "15:00", "/locations/mm-alam-road-lahore"),
+      place("Shahnaz Hospital (Shalamar Link Road)", "Shalamar Link Road", ["Monday","Thursday"], "18:00", "21:00", "/locations/shalamar-lahore") ] },
+  { "@type": "Physician", "@id": base + "/dr-kamran-saleem#physician", name: "Dr. Kamran Saleem", url: base + "/dr-kamran-saleem", image: base + doctorImg, description: "MBBS 1988; Diploma in Genito-Urinary Medicine & Venereology, University of Liverpool (1998); 25 years' experience in reproductive health.", worksFor: { "@id": clinicId } },
+  { "@type": "BreadcrumbList", "@id": url + "#breadcrumb", itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: base + "/" },
+    { "@type": "ListItem", position: 2, name: "Services", item: base + "/services" },
+    { "@type": "ListItem", position: 3, name: "Erectile Dysfunction Treatment", item: url } ] },
+  { "@type": "FAQPage", mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) },
+] };
+---
+<Layout title={title} description={description}>
+<div class="ivf">
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+<main>
+
+<section class="hero"><div class="w hgrid">
+  <div>
+    <nav class="crumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/services">Services</a> / Erectile Dysfunction Treatment</nav>
+    <p class="eye">Male sexual health · Private · Lahore</p>
+    <h1>Erectile Dysfunction Treatment in Lahore</h1>
+    <p class="lead">Find the cause. Talk through your options. No judgement.</p>
+    <p class="sub">Erection problems affect many men and are often treatable. Dr. Kamran Saleem reviews your symptoms, health and medicines, explains the likely causes, and discusses treatment that suits you. Consultations in DHA, Gulberg III and Shalamar.</p>
+    <p class="actions"><a class="btn" href={wa}>Book a Consultation</a> <a class="btn ghost" href="#visit">What happens in a visit</a></p>
+    <ul class="badges">
+      <li><span class="bi" set:html={ic("lock")} /> Private consultation</li>
+      <li><span class="bi" set:html={ic("award")} /> MBBS · Dip GUM &amp; Ven (UK)</li>
+      <li><span class="bi" set:html={ic("pin")} /> DHA · Gulberg · Shalamar</li>
+    </ul>
+  </div>
+  <div class="photo">
+    <div class="arch"><img src={doctorImg} alt="Dr. Kamran Saleem, erectile dysfunction consultation in Lahore" width="480" height="560" loading="eager" /></div>
+    <div class="float f1"><b>25 years</b><span>in reproductive health</span></div>
+    <div class="float f2"><b>Dr. Kamran Saleem</b><span>Private consultations in Lahore</span></div>
+    <svg class="orb o1" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46"/></svg>
+    <svg class="orb o2" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46"/></svg>
+  </div>
+</div></section>
+
+<div class="w"><div class="stats"><div class="statgrid">{stats.map(([n, l]) => <div class="stat"><b>{n}</b><span>{l}</span></div>)}</div></div></div>
+
+<div class="w band">
+  <p class="kick">The short answer</p>
+  <h2>What Is Erectile Dysfunction (Mardana Kamzori)?</h2>
+  <div class="snippet"><p>Erectile dysfunction (ED) is ongoing difficulty getting or keeping an erection firm enough for satisfactory sex. It is also called impotence, and in Urdu <b>mardana kamzori</b> (مردانہ کمزوری). It can have physical causes, emotional causes, or both. In most men a doctor can find contributing factors, and there are several treatment options.</p></div>
+  <p>ED is not a sign of weakness, and it is not something to put up with in silence. It can also be an early signal of diabetes, high blood pressure or heart problems, so a proper check is worth doing.</p>
+  <p class="more">Looking for a doctor focused on male health? See <a href={`${TR}/andrologist-in-lahore`}>andrologist in Lahore</a>, or start with a <a href={`${AS}/male-fertility-assessment`}>male health assessment</a>.</p>
+</div>
+
+<section class="alt"><div class="w">
+  <p class="kick">Timing</p><h2>When Should You See a Doctor for Erection Problems?</h2>
+  <div class="cards">{when.map(([i, h, p]) => <div class="card"><span class="ic" set:html={ic(i)} /><h3>{h}</h3><p>{p}</p></div>)}</div>
+  <p class="more">Many men wait months or years because of embarrassment. An early visit usually makes treatment easier.</p>
+</div></section>
+
+<section><div class="w">
+  <p class="kick">Causes</p><h2>What Causes Erectile Dysfunction?</h2>
+  <p class="intro">An erection needs healthy blood flow, working nerves, the right hormones and a calm mind. A problem in any one of these can cause ED.</p>
+  <div class="cards c4">{causes.map(([i, h, p]) => <div class="card"><span class="ic" set:html={ic(i)} /><h3>{h}</h3><p>{p}</p></div>)}</div>
+  <div class="note2"><span class="ic" set:html={ic("heart")} /><div><h3>Can ED be a sign of another health problem?</h3><p>Sometimes. ED can appear before other signs of diabetes, high blood pressure, high cholesterol or heart disease. That is why your doctor may check your blood pressure and recommend blood tests. Finding and treating these early protects your health as well as your sex life.</p></div></div>
+</div></section>
+
+<section class="alt" id="visit"><div class="w">
+  <p class="kick">Your first visit</p><h2>What Happens at an Erectile Dysfunction Consultation</h2>
+  <ol class="steps">{steps.map(([i, h, p], n) => <li><span class="num">{n + 1}</span><span class="ic" set:html={ic(i)} /><h3>{h}</h3><p>{p}</p></li>)}</ol>
+  <p class="more">Your visit is private and takes as long as it needs, usually 45–60 minutes. You do not need to bring reports, but they help if you have them.</p>
+</div></section>
+
+<section><div class="w">
+  <p class="kick">Diagnosis</p><h2>Tests You May Need</h2>
+  <p class="intro">Not every man needs every test. The doctor chooses based on your history and examination.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Test</th><th>Why it is done</th><th>Usually</th></tr></thead>
+    <tbody>{tests.map(([a, b, c]) => <tr><th scope="row">{a}</th><td>{b}</td><td><span class={c === "Routine" ? "tag" : "tag alt2"}>{c}</span></td></tr>)}</tbody>
+  </table></div>
+  <p class="more">More on <a href={`${TS}/male-fertility-hormone-test`}>male hormone testing</a> and <a href={TS}>all fertility and male health tests</a>.</p>
+</div></section>
+
+<section class="alt"><div class="w">
+  <p class="kick">Options</p><h2>Erectile Dysfunction Treatment Options</h2>
+  <p class="intro">There is no single best treatment. You and your doctor choose what fits your health, your cause and your preferences.</p>
+  <div class="cards">{treat.map(([i, h, p, l, t]) => l ? <a class="card link" href={l}><span class="ic" set:html={ic(i)} /><h3>{h}</h3><p>{p}</p><span class="go">{t} →</span></a> : <div class="card"><span class="ic" set:html={ic(i)} /><h3>{h}</h3><p>{p}</p></div>)}</div>
+  <div class="warn"><span class="ic" set:html={ic("alert")} /><p><b>Safety first:</b> ED tablets are not safe for everyone. They can cause a dangerous drop in blood pressure if you take nitrate medicines for chest pain. Never buy or use ED pills, powders or &ldquo;power&rdquo; products without a doctor&rsquo;s advice. Counterfeit products are common.</p></div>
+  <div class="warn red"><span class="ic" set:html={ic("alert")} /><p><b>Get urgent medical help</b> if an erection lasts more than 4 hours, if you have chest pain or breathlessness during sex, or if you lose vision or hearing suddenly after taking an ED medicine.</p></div>
+  <p class="actions"><a class="btn" href={wa}>Discuss Your Options</a></p>
+</div></section>
+
+<section><div class="w narrowc">
+  <p class="kick">Erection and fertility</p><h2>Erectile Dysfunction and Trying for a Baby</h2>
+  <p>ED and low sperm count are different problems. A man can have ED with normal sperm, or normal erections with low sperm. If you are trying to conceive, both may need checking.</p>
+  <ul class="tick">
+    <li>Testosterone treatment can lower sperm production. Tell the doctor if you want children.</li>
+    <li>A <a href={`${TS}/semen-analysis`}>semen analysis</a> checks sperm count, movement and shape.</li>
+    <li>A <a href={`${AS}/male-fertility-assessment`}>male fertility assessment</a> looks at the whole picture.</li>
+    <li>If sperm problems are found, see <a href={`${TR}/male-infertility`}>male infertility care</a>.</li>
+  </ul>
+</div></section>
+
+<section class="alt"><div class="w dgrid">
+  <div class="dphoto"><img src={doctorImg} alt="Dr. Kamran Saleem" width="420" height="500" loading="lazy" /></div>
+  <div>
+    <p class="kick">Meet the doctor</p><h2>Dr. Kamran Saleem</h2>
+    <p>Dr. Kamran believes good care starts with listening. Every consultation is clear, respectful and based on medical evidence, with no pressure to start any treatment.</p>
+    <ul class="tick">
+      <li>MBBS (1988)</li>
+      <li>Postgraduate Diploma in Genito-Urinary Medicine &amp; Venereology, University of Liverpool, UK (1998)</li>
+      <li>25 years' experience in reproductive health{pmdcNo ? ` · PMDC No. ${pmdcNo}` : ""}</li>
+    </ul>
+    <p class="actions"><a class="btn" href={wa}>Book a Consultation</a> <a class="btn line" href="/dr-kamran-saleem">About Dr. Kamran</a></p>
+    <p class="more"><a href="/success-stories">Read patient stories →</a></p>
+  </div>
+</div></section>
+
+<section><div class="w">
+  <p class="kick">Find us</p><h2>Erectile Dysfunction Consultation Locations in Lahore</h2>
+  <div class="cards c3">{locs.map(([n, a, h, l]) => <a class="card link" href={l}><span class="ic" set:html={ic("pin")} /><h3>{n}</h3><p>{a}</p><p class="hrs">{h}</p><span class="go">Clinic page →</span></a>)}</div>
+  <p class="more">Timings can change. Please confirm on WhatsApp before you visit. <a href="/locations">View all locations →</a></p>
+  <p class="more"><b>Cost:</b> consultation fees are shown before you confirm a booking. The doctor explains the cost of any test or treatment before you decide.</p>
+</div></section>
+
+<section class="alt"><div class="w narrowc">
+  <p class="kick">Questions</p><h2>Frequently Asked Questions About Erectile Dysfunction</h2>
+  {faqs.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
+  <div class="urdu" lang="ur" dir="rtl">
+    <h3>خلاصہ (اردو)</h3>
+    <p>مردانہ کمزوری (ایریکٹائل ڈسفنکشن) ایک عام مسئلہ ہے اور اکثر قابلِ علاج ہوتا ہے۔ اس کی وجوہات میں خون کی روانی، ذیابیطس، ہارمونز، ادویات، ذہنی دباؤ اور طرزِ زندگی شامل ہو سکتے ہیں۔ بغیر ڈاکٹر کے مشورے کے کوئی گولی یا دوا استعمال نہ کریں۔ ڈاکٹر کامران سلیم لاہور میں ڈی ایچ اے، گلبرگ اور شالامار میں نجی مشاورت فراہم کرتے ہیں۔ وقت لینے کے لیے واٹس ایپ کریں: <span dir="ltr">+92 314 8432789</span></p>
+  </div>
+</div></section>
+
+<section class="cta"><div class="w">
+  <h2>Book Your Erectile Dysfunction Consultation in Lahore</h2>
+  <p>You do not have to deal with this alone or in silence. Talk to a doctor privately, find out what is behind it, and decide your next step. We usually reply the same day.</p>
+  <p class="actions c"><a class="btn" href={wa}>Book via WhatsApp</a> <a class="btn ghost" href="tel:+923148432789">Call {phone}</a></p>
+  <p class="links"><a href={`${TR}/andrologist-in-lahore`}>Andrologist in Lahore</a> · <a href={`${AS}/male-fertility-assessment`}>Male assessment</a> · <a href={`${TS}/male-fertility-hormone-test`}>Hormone test</a> · <a href={`${TS}/semen-analysis`}>Semen analysis</a> · <a href={`${TR}/male-infertility`}>Male infertility care</a> · <a href="/services/support">Second opinions</a></p>
+  <p class="disc"><b>Medically reviewed by Dr. Kamran Saleem · Last reviewed {reviewedLabel}.</b> Information is based on guidance from the American Urological Association (ED guideline, 2018) and European Association of Urology. This page gives general information only and is not a substitute for a personal medical assessment, diagnosis or treatment. We do not provide emergency care. If you have an erection lasting over 4 hours, chest pain or sudden vision or hearing loss, seek urgent medical attention.</p>
+</div></section>
+
+</main>
+</div>
+</Layout>
+
+<style is:global>
+  .ivf{--c-primary:#2563eb;--c-dark:#0b1f4b;--c-accent:#4cc9f0;--c-tint:#eef5ff;--c-bg:#fff;--c-text:#1e2a4a;--c-muted:#5b6b8c;--c-line:#dbe6f6;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    margin:0;background:var(--c-bg);color:var(--c-text);font:16px/1.75 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  .ivf *{box-sizing:border-box}
+  .ivf a{color:var(--c-primary)}
+  .ivf .w{max-width:1120px;margin:0 auto;padding:0 20px}
+  .ivf section{padding:68px 0}.ivf .alt{background:linear-gradient(180deg,#f6faff,#eef5ff)}
+  .ivf h1,.ivf h2,.ivf h3{line-height:1.2;color:var(--c-dark);margin:0 0 .5em}
+  .ivf h1,.ivf h2{font-family:var(--serif);font-weight:700;letter-spacing:-.01em}
+  .ivf h2{font-size:clamp(26px,3.2vw,36px)}.ivf h3{font-size:18px}
+  .ivf .kick{margin:0 0 8px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--c-primary)}
+  .ivf .intro{max-width:60ch;color:var(--c-muted)}
+  .ivf .more{margin-top:20px;color:var(--c-muted);font-size:15px}
+  .ivf .sh{margin:40px 0 14px}
+  .ivf .btn{display:inline-block;background:linear-gradient(135deg,#3b82f6,#1d4ed8);box-shadow:0 8px 18px rgba(29,78,216,.28);color:#fff!important;padding:14px 26px;border-radius:999px;font-weight:600;text-decoration:none;transition:transform .15s}
+  .ivf .btn:hover{transform:translateY(-2px)}
+  .ivf .btn.ghost{background:transparent;box-shadow:none;border:1.5px solid rgba(255,255,255,.7)}
+  .ivf .btn.line{background:#fff;color:var(--c-primary)!important;border:1.5px solid var(--c-primary);box-shadow:none}
+  .ivf .actions{margin:22px 0 14px;display:flex;gap:12px;flex-wrap:wrap}.ivf .actions.c{justify-content:center}
+  .ivf .ic{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:var(--c-tint);margin-bottom:14px}
+  .ivf svg{width:26px;height:26px;fill:none;stroke:var(--c-primary);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  /* hero */
+  .ivf .hero{position:relative;overflow:hidden;background:radial-gradient(900px 420px at 85% 0,rgba(76,201,240,.28),transparent 60%),linear-gradient(135deg,#071538,var(--c-primary));color:#fff;padding:52px 0 110px}
+  .ivf .hero h1{color:#fff;font-size:clamp(32px,4.8vw,48px);margin-bottom:.3em}
+  .ivf .hero a:not(.btn){color:#fff}
+  .ivf .hgrid{display:grid;grid-template-columns:1.25fr 1fr;gap:48px;align-items:center}
+  .ivf .crumb{font-size:13px;opacity:.85;margin-bottom:16px}
+  .ivf .eye{text-transform:uppercase;letter-spacing:.14em;font-size:12.5px;font-weight:700;color:var(--c-accent);margin:0 0 8px}
+  .ivf .lead{font-family:var(--serif);font-size:clamp(19px,2.2vw,23px);font-style:italic;opacity:.95;margin:0 0 12px}
+  .ivf .sub{opacity:.92;max-width:56ch}
+  .ivf .badges{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0;padding:0}
+  .ivf .badges li{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:7px 14px 7px 8px;font-size:13.5px;backdrop-filter:blur(6px)}
+  .ivf .bi{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.16)}
+  .ivf .bi svg{width:15px;height:15px;stroke:#fff}
+  .ivf .photo{position:relative;max-width:400px;margin:0 auto;width:100%}
+  .ivf .arch{border-radius:200px 200px 28px 28px;overflow:hidden;background:linear-gradient(180deg,#dbeafe,#93c5fd);border:6px solid rgba(255,255,255,.9);box-shadow:0 30px 60px rgba(0,0,0,.35);aspect-ratio:6/7}
+  .ivf .arch img,.ivf .dphoto img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+  .ivf .float{position:absolute;background:#fff;color:var(--c-dark);border-radius:16px;padding:10px 16px;box-shadow:0 14px 30px rgba(11,31,75,.25);display:flex;flex-direction:column;line-height:1.3}
+  .ivf .float b{font-size:15px}.ivf .float span{font-size:12.5px;color:var(--c-muted)}
+  .ivf .f1{top:12%;left:-8%}.ivf .f2{bottom:6%;right:-6%}
+  .ivf .orb{position:absolute;stroke:none;fill:rgba(76,201,240,.22);z-index:-1}
+  .ivf .o1{width:150px;height:150px;top:-30px;right:-40px}.ivf .o2{width:90px;height:90px;bottom:30px;left:-34px;fill:rgba(255,255,255,.14)}
+  /* stats */
+  .ivf .stats{margin-top:-56px;position:relative;z-index:2;background:#fff;border:1px solid var(--c-line);border-radius:22px;box-shadow:0 20px 46px rgba(11,31,75,.14);padding:20px 24px}
+  .ivf .statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .ivf .stat{text-align:center;padding:6px 8px;border-left:1px solid var(--c-line)}.ivf .stat:first-child{border:0}
+  .ivf .stat b{display:block;font-family:var(--serif);font-size:clamp(22px,2.4vw,30px);color:var(--c-primary);line-height:1.15}
+  .ivf .stat span{font-size:13px;color:var(--c-muted)}
+  .ivf .band{padding-top:64px;padding-bottom:64px;max-width:860px}
+  .ivf .snippet{background:linear-gradient(180deg,#f5f9ff,#eef5ff);border:1px solid var(--c-line);border-left:5px solid var(--c-accent);border-radius:16px;padding:20px 24px;margin:18px 0 22px}
+  .ivf .snippet p{margin:0}
+  /* cards */
+  .ivf .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:26px 0 0}
+  .ivf .card{background:#fff;border:1px solid var(--c-line);border-radius:20px;padding:24px;transition:box-shadow .2s,transform .2s,border-color .2s;display:block}
+  .ivf .card:hover{box-shadow:0 14px 30px rgba(11,31,75,.1)}
+  .ivf .card p{margin:0 0 8px;font-size:14.5px;color:var(--c-muted);line-height:1.65}
+  .ivf .card.link{text-decoration:none;color:inherit}.ivf .card.link:hover{border-color:var(--c-accent);transform:translateY(-3px)}
+  .ivf .go{font-size:13.5px;font-weight:600;color:var(--c-primary)}.ivf .hrs{font-size:13px!important;color:var(--c-dark)!important;font-weight:500}
+  .ivf .warn{display:flex;gap:16px;align-items:center;background:#fff7ed;border:1px solid #fed7aa;border-radius:18px;padding:16px 20px;margin-top:26px}
+  .ivf .warn .ic{margin:0;background:#ffedd5;flex:none}.ivf .warn svg{stroke:#c2410c}.ivf .warn p{margin:0;font-size:15px;color:#7c2d12}
+  /* steps */
+  .ivf .steps{list-style:none;margin:30px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:s}
+  .ivf .steps li{position:relative;background:#fff;border:1px solid var(--c-line);border-radius:20px;padding:26px 20px 22px}
+  .ivf .steps p{margin:0;font-size:14.5px;color:var(--c-muted);line-height:1.65}
+  .ivf .num{position:absolute;top:-14px;right:16px;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:#fff;font-weight:700;display:grid;place-items:center;font-size:14px;box-shadow:0 0 0 4px #eef5ff}
+  /* tables */
+  .ivf .tw{overflow-x:auto;border:1px solid var(--c-line);border-radius:16px;margin:22px 0 0;box-shadow:0 8px 24px rgba(11,31,75,.05);background:#fff}
+  .ivf .tw.narrow{max-width:560px}
+  .ivf table{border-collapse:collapse;width:100%;font-size:14.5px}
+  .ivf thead th{background:var(--c-dark);color:#fff;text-align:left;padding:13px 16px;font-size:13px;letter-spacing:.04em}
+  .ivf td,.ivf tbody th{padding:13px 16px;border-top:1px solid var(--c-line);text-align:left;vertical-align:top}
+  .ivf tbody th{background:var(--c-tint);color:var(--c-dark);font-weight:600;width:34%}
+  .ivf .note{font-size:14px;color:var(--c-muted);max-width:70ch;margin-top:14px}
+  /* doctor */
+  .ivf .dgrid{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+  .ivf .dphoto{border-radius:28px;overflow:hidden;box-shadow:0 24px 50px rgba(11,31,75,.2);aspect-ratio:6/7;background:linear-gradient(180deg,#dbeafe,#93c5fd);max-width:420px;border:6px solid #fff;outline:1px solid var(--c-line)}
+  .ivf .tick{list-style:none;padding:0;margin:14px 0}
+  .ivf .tick li{position:relative;padding:6px 0 6px 30px}
+  .ivf .tick li:before{content:"✓";position:absolute;left:0;top:6px;width:20px;height:20px;border-radius:50%;background:var(--c-tint);color:var(--c-primary);font-weight:700;font-size:12px;display:grid;place-items:center}
+  /* faq */
+  .ivf .narrowc{max-width:820px}
+  .ivf details{border:1px solid var(--c-line);border-radius:14px;padding:16px 20px;margin-top:10px;background:#fff}
+  .ivf details[open]{box-shadow:0 8px 22px rgba(11,31,75,.07);border-color:var(--c-accent)}
+  .ivf summary{cursor:pointer;font-weight:600;color:var(--c-dark)}
+  .ivf details p{margin:10px 0 0;color:var(--c-muted)}
+  /* cta */
+  .ivf .cta{background:radial-gradient(800px 360px at 15% 0,rgba(76,201,240,.18),transparent 60%),var(--c-dark);color:#fff;text-align:center}
+  .ivf .cta h2{color:#fff}.ivf .cta .w>p{max-width:62ch;margin-left:auto;margin-right:auto}
+  .ivf .cta .links a{color:#fff}.ivf .cta .links{margin-top:22px;font-size:14.5px}
+  .ivf .cta .disc{font-size:12.5px;opacity:.7;margin-top:30px;line-height:1.6}
+  @media(max-width:900px){
+    .ivf .hgrid,.ivf .dgrid,.ivf .cards,.ivf .steps{grid-template-columns:1fr}
+    .ivf .statgrid{grid-template-columns:repeat(2,1fr);gap:14px 8px}.ivf .stat:nth-child(3){border-left:0}
+    .ivf .f1{left:0}.ivf .f2{right:0}.ivf .hero{padding-bottom:90px}.ivf section{padding:52px 0}
+    .ivf .photo{max-width:320px}.ivf .dphoto{margin:0 auto}
+  }
+  /* extra for ED page */
+  .ivf .cards.c4{grid-template-columns:repeat(4,1fr)}
+  .ivf .note2{display:flex;gap:18px;align-items:flex-start;background:linear-gradient(180deg,#f5f9ff,#eef5ff);border:1px solid var(--c-line);border-left:5px solid var(--c-accent);border-radius:18px;padding:22px 24px;margin-top:26px}
+  .ivf .note2 .ic{flex:none;margin:0;background:#fff}.ivf .note2 h3{margin-bottom:4px}.ivf .note2 p{margin:0;color:var(--c-muted);font-size:15px}
+  .ivf .warn.red{background:#fef2f2;border-color:#fecaca}.ivf .warn.red .ic{background:#fee2e2}.ivf .warn.red svg{stroke:#b91c1c}.ivf .warn.red p{color:#7f1d1d}
+  .ivf .tag{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--c-tint);color:var(--c-primary)}
+  .ivf .tag.alt2{background:#f1f5f9;color:var(--c-muted)}
+  .ivf .urdu{margin-top:22px;background:#fff;border:1px solid var(--c-line);border-radius:16px;padding:18px 22px;font-family:"Noto Nastaliq Urdu","Jameel Noori Nastaleeq","Urdu Typesetting","Segoe UI",Tahoma,serif;line-height:2.1}
+  .ivf .urdu h3{font-family:inherit;margin-bottom:6px}.ivf .urdu p{margin:0}
+  .ivf .tw table th:nth-child(3),.ivf .tw table td:nth-child(3){width:1%;white-space:nowrap}
+  @media(max-width:1000px){.ivf .cards.c4{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:900px){.ivf .cards.c4,.ivf .note2{grid-template-columns:1fr}.ivf .note2{flex-direction:column}}
+</style>
